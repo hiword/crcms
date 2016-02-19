@@ -1,0 +1,40 @@
+@extends('layout.layout')
+@section('style')
+<link rel="stylesheet" href="{{static_asset('static/manage/css/css.css')}}" />
+<link rel="stylesheet" href="{{static_asset('static/artdialog/6.0.2/css/ui-dialog.css')}}" />
+@endsection
+@section('body')
+<div class="main">
+	<div class="main-left">
+		<h2 class="logo">CRCMS</h2>
+		<div class="sidebar">
+			<ul class="nav nav-pills nav-stacked">
+				<li id="accordion1" class="active">
+					<a href="#collapse-ul-1" data-parent="#accordion1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">文档</a>
+					<ul  id="collapse-ul-1" class="collapse in">
+						<li><a href="{{url('manage/document/index')}}">文档列表</a></li>
+						<li><a href="{{url('manage/category/index')}}">文档分类</a></li>
+					</ul>
+				</li>
+				<li id="accordion2" class="active">
+					<a href="#collapse-ul-2" data-parent="#accordion2" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">日志</a>
+					<ul  id="collapse-ul-2" class="collapse in">
+						<li><a href="{{url('manage/log/login-log')}}">登录日志</a></li>
+						<li><a href="{{url('manage/log/action-log')}}">行为日志</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="main-right">
+		<div class="container-fluid">
+			@include('layout.alert')
+			<div class="list-header">
+				@yield('list-header')
+			</div>
+			@yield('main')
+		</div>
+	</div>
+</div>
+<div class="clearfix visible-xs-block"></div>
+@endsection
