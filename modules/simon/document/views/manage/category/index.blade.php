@@ -46,7 +46,7 @@
 					{{$model['delimiter']}}
 				</div>
 				<div class="pull-left" style="width: auto;">
-					<p class="mb0">{{$model['name']}}</p>
+					<p class="mb0">{{$model['name']}}&nbsp;&lt;{{isset($model['mark']) ? $model['mark'] : null}}&gt;</p>
 					<p class="mb0">
 						<a href="{{url('manage/category/edit/'.$model['id'])}}" class="fs12">编辑</a>
 						<a href="###" class="ml5 fs12 destroy-value" ajax-tip="是否确定要删除？" value="{{$model['id']}}" ajax-url="{{url('manage/category/destroy')}}">删除</a>
@@ -61,13 +61,4 @@
 
 @section('table-btn')
 <option value="destroy" ajax-url="{{url('manage/category/destroy')}}">删除</option>
-@endsection
-
-@section('script')
-@parent
-<script>
-	$(function(){
-		
-	});
-</script>
 @endsection

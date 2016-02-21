@@ -5,6 +5,7 @@ use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Support\MessageBag;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 class Response  {
 	
 	/**
@@ -173,10 +174,11 @@ class Response  {
 	   {
 	   		$errors = $response['response']['status'] == 1000 ? [] : $response['response'];
 	   		$redirect = empty($url) ? redirect()->back() : redirect($url);
-	   		$throwResponse =  $redirect->with('msg',$response['response']['msg'])->withInput($request->all())->withErrors($errors);
+	   		$throwResponse =  $redirect->with('msg',$response['response']['msg'])->withInput($request->input())->withErrors($errors);
+	   		//dd($throwResponse);
 	   		//abort($response['status'],$response['response']['msg']);
 	   }
-	   
+// 	   dd(new HttpResponseException($throwResponse));
 	   throw new HttpResponseException($throwResponse);
 	}
 }

@@ -35,7 +35,7 @@ class CategoryController extends Controller
 	
 	public function postStore() 
 	{
-		$fields = ['pid','name','status'];
+		$fields = ['pid','name','mark','status'];
 		
 		$this->validate($fields);
 		

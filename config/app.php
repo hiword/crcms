@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('HOST_URL','http://localhost'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -161,8 +161,31 @@ return [
     	//document
     	Simon\Document\Providers\DocumentServiceProvider::class,
     		
-    	//model
-    	Simon\Model\Providers\ModelServiceProvider::class,
+     
+        //log
+        Simon\Log\Providers\LogServiceProvider::class,
+        Simon\Log\Providers\EventServiceProvider::class,
+        
+        //mail
+        Simon\Mail\Providers\MailServiceProvider::class,
+        Simon\Mail\Providers\EventServiceProvider::class,
+        
+        //tags
+        Simon\Tag\Providers\TagServiceProvider::class,
+        Simon\Tag\Providers\EventServiceProvider::class,
+        
+        //topic
+        
+        //file
+        Simon\File\Providers\FileServiceProvider::class,
+        
+        
+        //file
+        Simon\System\Providers\SystemServiceProvider::class,
+        
+        
+        	//model
+        	Simon\Model\Providers\ModelServiceProvider::class,
     ],
 
     /*

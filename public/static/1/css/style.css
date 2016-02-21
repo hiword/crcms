@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+.trick-card {
+    height: 270px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.content-box, .trick-card-inner {
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}

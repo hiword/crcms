@@ -17,6 +17,7 @@ class Category extends Model
 	protected static $fields = [
 			'pid'=>'Simon\Document\Fields\Category\Pid',
 			'name'=>'Simon\Document\Fields\Category\Name',
+			'mark'=>'Simon\Document\Fields\Category\Mark',
 			'status'=>'Simon\Document\Fields\Category\Status',
 	];
 	

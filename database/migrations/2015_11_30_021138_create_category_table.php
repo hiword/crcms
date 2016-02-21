@@ -18,6 +18,7 @@ class CreateCategoryTable extends Migration
     		$table->mediumInteger('id',true,true);
     		$table->mediumInteger('pid',false,true);
     		$table->char('name',100);
+    		$table->char('mark',50);
     		$table->tinyInteger('status',false,true)->default(0);
     	
     		$table->tinyInteger('created_type',false,true)->default(0);

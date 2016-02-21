@@ -14,7 +14,7 @@ class DocumentController extends Controller
 	public function __construct(Category $Category,Document $Document)
 	{
 		
-		$this->middleware('Simon\System\Http\Middleware\Authenticate');
+// 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		
 		parent::__construct();
 		
@@ -30,12 +30,12 @@ class DocumentController extends Controller
 	public function getIndex(Paginate $Paginate) 
 	{
 		$page = $Paginate->setUrlParams($this->data)->page($this->model->orderBy('created_at','desc'));
-		return $this->response("{$this->view}index",$page);
+		return $this->response("index",$page);
 	}
 	
 	public function getCreate()
 	{
-		return $this->response("{$this->view}create");
+		return $this->response('create');
 	}
 	
 	public function postStore(DocumentData $DocumentData,CategoryDocument $CategoryDocument) 

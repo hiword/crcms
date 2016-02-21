@@ -23,6 +23,12 @@
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		
+		<div class="form-group">
+                <label class=" Validform_label label-name">链接</label>
+			<input class="form-control" type="text" name="document[torrent]" placeholder="">
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		
 		<div class="form-group btn-action">
       		<button class="btn btn-default mr10" type="button">重置</button>
       		<button class="btn btn-success " type="submit">提交</button>
