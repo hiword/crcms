@@ -2,6 +2,7 @@
 namespace Simon\Tag\Models;
 use App\Models\Model;
 use Simon\Tag\Models\TagOutside;
+use Simon\Tag\Fields\Tags\Status;
 class Tag extends Model
 {
 // 	/**
@@ -15,33 +16,7 @@ class Tag extends Model
 	
 // 	CONST TYPE_ASK = 3;
 	
-	/**
-	 * 已验证状态
-	 * @var numeric
-	 * @author simon
-	 */
-	CONST STATUS_VERIFIED = 1;
-	
-	/**
-	 * 未验证状态
-	 * @var numeric
-	 * @author simon
-	 */
-	CONST STATUS_NOT_VERIFIED = 2;
-	
-	/**
-	 * 未通过状态
-	 * @var numeric
-	 * @author simon
-	 */
-	CONST STATUS_NOT_BY = 3;
-	
-	/**
-	 * 禁止
-	 * @var numeric
-	 * @author simon
-	 */
-	CONST STATUS_BAN = 4;
+
 	
 	/**
 	 * 字段
@@ -51,6 +26,7 @@ class Tag extends Model
 	protected static $fields = [
 			'name'=>'Simon\Tag\Fields\Tags\Name',
 			'thumbnail'=>'Simon\Tag\Fields\Tags\Thumbnail',
+			'status'=>'Simon\Tag\Fields\Tags\Status',
 	];
 	
 	/**
@@ -65,7 +41,14 @@ class Tag extends Model
 		
 		//前台添加则status为未验证
 		//(user_session() && user_session()->session_type == 2) && $this->data['status'] = static::STATUS_NOT_VERIFIED;
-		user_session('session_type') == 2 && $this->data['status'] = static::STATUS_NOT_VERIFIED;
+		if (user_session('session_type') == 1)
+		{
+			$this->data['status'] = Status::STATUS_VERIFIED;
+		}
+		else
+		{
+			$this->data['status'] = Status::STATUS_NOT_VERIFIED;
+		}
 	}
 	
 	/**

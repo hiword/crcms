@@ -1,10 +1,69 @@
 @CHARSET "UTF-8";
-.trick-card {
-    height: 270px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+body {
+	color:#666666;
 }
-.content-box, .trick-card-inner {
-    background-color: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+
+.navbar-custom {
+	background:#FFFFFF;
 }
+.navbar-custom .navbar-nav a {
+	font-size:16px;
+	font-weight:bold;
+}
+.navbar-custom  .navbar-nav .active a {
+	background:none!important;
+	color:red!important;
+}
+
+
+.icon-play {
+    border: 1px solid #3eb7ce;
+    border-radius: 50%;
+    color: #3eb7ce;
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    margin-right: 3px;
+    padding-left: 3px;
+    text-align: center;
+    width: 35px;
+}
+.icon-play i {
+	color: #3eb7ce;
+}
+.box-list {
+	cursor:pointer;
+}
+.content-box,.info-box {
+	border:1px solid #CCCCCC;
+}
+.content-box {
+	padding:10px;;
+	padding-bottom:0px;
+	border-bottom:0px;border-top:0px;
+}
+.content-box a {
+	color:#333333;font-weight:600;font-size:20px;
+	text-decoration: none;
+}
+.info-box {
+	padding:10px;;
+	border-top:0px;
+}
+.info-box span {
+	color: #3eb7ce;
+	float:right;
+}
+.info-box a {
+	color: #145ccd;
+	text-decoration: none;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;
+	color:#666666;
+}
+.info-box .tags {
+	font-size:14px;
+	vertical-align:middle;
+	padding-top:10px;
+}
+
+
