@@ -23,6 +23,8 @@ class UploadController extends Controller {
 		return $this->response("{$this->view}upload");
 	}
 	
+	
+	
 	public function postS()
 	{
 		$FileUpload = new \Simon\File\Uploads\FileUpload(public_path('uploads'));
@@ -174,6 +176,8 @@ $result = json_encode($up->getFileInfo());
 		$id = empty($this->param['id']) ? '1' : intval($this->param['id']);
 		return view('uploads.upload',['config'=>$upload->getConfig(),'session_id'=>session()->getId()]);
 	}
+	
+// 	public function 
 	
 	public function getUploadSingle(Upload $upload)
 	{
