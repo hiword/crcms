@@ -14,7 +14,7 @@ class DocumentController extends Controller
 	public function __construct(Category $Category,Document $Document)
 	{
 		
-// 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		
 		parent::__construct();
 		

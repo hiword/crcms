@@ -11,6 +11,7 @@ class TagController extends Controller
 	
 	public function __construct(Tag $Tag) 
 	{
+	    $this->middleware('Simon\System\Http\Middleware\Authenticate');
 		parent::__construct();
 		$this->model = $Tag;
 		$this->view = "tag::manage.tag.";
