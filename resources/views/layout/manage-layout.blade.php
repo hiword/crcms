@@ -16,6 +16,13 @@
 						<li><a href="{{url('manage/category/index')}}">文档分类</a></li>
 					</ul>
 				</li>
+				<li id="accordion3" class="active">
+					<a href="#collapse-ul-3" data-parent="#accordion3" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">标签</a>
+					<ul  id="collapse-ul-3" class="collapse in">
+						<li><a href="{{url('manage/tags/index')}}">标签列表</a></li>
+						<li><a href="{{url('manage/tags-relation/index')}}">标签关联</a></li>
+					</ul>
+				</li>
 				<li id="accordion2" class="active">
 					<a href="#collapse-ul-2" data-parent="#accordion2" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">日志</a>
 					<ul  id="collapse-ul-2" class="collapse in">

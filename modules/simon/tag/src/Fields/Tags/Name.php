@@ -66,6 +66,10 @@ class Name extends Field
 		{
 			$rule[] = 'unique:tags,name';
 		}
+		elseif ($request->is('manage/tags/update*'))
+		{
+			$rule[] = 'unique:tags,name,'.intval($request->input('id'));
+		}
 		return $rule;
 	}
 

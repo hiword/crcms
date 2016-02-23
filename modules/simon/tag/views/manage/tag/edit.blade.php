@@ -6,18 +6,20 @@
 </h3>
 @endsection
 @section('main')
-<form action="{{url('manage/tags/store')}}" method="post" class="valid-form">
+<form action="{{url('manage/tags/update/'.$model->id)}}" method="post" class="valid-form">
 <input type="hidden" name="_token" value="{{csrf_token()}}" />
+<input type="hidden" name="id" value="{{$model->id}}" />
+<input type="hidden" name="_method" value="put" />
 <div class="row">
 	<div class="col-md-9">
 	    <div class="form-group">
 			<label class=" Validform_label label-name">标签名称</label>
-			<input class="form-control" type="text" name="name" datatype="*1-120" placeholder="">
+			<input class="form-control" type="text" name="name" value="{{$model->name}}" datatype="*1-120" placeholder="">
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
 			<label class=" Validform_label label-name">标签描述</label>
-			<textarea class="form-control" name="content" datatype="*" ignore="ignore" ></textarea>
+			<textarea class="form-control" name="content" datatype="*" ignore="ignore" >{{$model->hasOneTagContent->content or null}}</textarea>
 			<p class="help-block Validform_checktip"></p>
 		</div>
 	    <div class="form-group">
@@ -25,7 +27,7 @@
 			<div>
 				@foreach($status as $key=>$value)
 				<label class="radio-inline">
-					<input type="radio" name="status" value="{{$key}}" {{$key==1 ? 'checked' : null}}>
+					<input type="radio" name="status" value="{{$key}}" {{$key==$model->status ? 'checked' : null}}>
 					{{$value}}
 				</label>
 				@endforeach

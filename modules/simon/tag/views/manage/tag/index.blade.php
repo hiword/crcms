@@ -26,8 +26,8 @@
 			<td>
 				<div>{{$model->name}}</div>
 				<div>
-					<a href="{{url('manage/category/edit/1')}}" class="fs12">编辑</a>
-					<a href="###" class="ml5 fs12 destroy-value" ajax-tip="是否确定要删除？" value="{{$model['id']}}" ajax-url="{{url('manage/category/destroy')}}">删除</a>
+					<a href="{{url('manage/tags/edit/'.$model->id)}}" class="fs12">编辑</a>
+					<a href="###" class="ml5 fs12 destroy-value" ajax-tip="是否确定要删除？" value="{{$model->id}}" ajax-url="{{url('manage/tags/destroy')}}">删除</a>
 					<a href="###" class="ml5 fs12">查看</a>
 				</div>
 			</td>
@@ -38,5 +38,5 @@
 @endsection
 
 @section('table-btn')
-<option value="destroy" ajax-url="{{url('manage/category/destroy')}}">删除</option>
+<option value="destroy" ajax-url="{{url('manage/tags/destroy')}}">删除</option>
 @endsection

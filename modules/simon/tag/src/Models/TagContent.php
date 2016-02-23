@@ -4,6 +4,8 @@ use App\Models\Model;
 class TagContent extends Model
 {
 	
+	protected $primaryKey = 'tid';
+	
 	/**
 	 * 字段
 	 * @var array

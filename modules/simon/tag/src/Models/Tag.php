@@ -5,18 +5,6 @@ use Simon\Tag\Models\TagOutside;
 use Simon\Tag\Fields\Tags\Status;
 class Tag extends Model
 {
-// 	/**
-// 	 * 文章模块类别
-// 	 * @var numeric
-// 	 * @author simon
-// 	 */
-// 	CONST TYPE_ARTICLE = 1;
-	
-// 	CONST TYPE_USER = 2;
-	
-// 	CONST TYPE_ASK = 3;
-	
-
 	
 	/**
 	 * 字段
@@ -40,15 +28,7 @@ class Tag extends Model
 		parent::dataStoreHandle();
 		
 		//前台添加则status为未验证
-		//(user_session() && user_session()->session_type == 2) && $this->data['status'] = static::STATUS_NOT_VERIFIED;
-		if (user_session('session_type') == 1)
-		{
-			$this->data['status'] = Status::STATUS_VERIFIED;
-		}
-		else
-		{
-			$this->data['status'] = Status::STATUS_NOT_VERIFIED;
-		}
+		user_session('session_type') == 2 && $this->data['status'] = static::STATUS_NOT_VERIFIED;
 	}
 	
 	/**
