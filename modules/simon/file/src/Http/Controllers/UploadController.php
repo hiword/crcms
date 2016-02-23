@@ -166,16 +166,21 @@ $result = json_encode($up->getFileInfo());
 		return $this->response(['success'],$upload->getConfig());
 	}
 	
+	public function getUpload()
+	{
+	    return $this->response("upload");
+	}
+	
 	/**
 	 * 
 	 * @param Upload $upload
 	 * @return \Illuminate\View\View
 	 */
-	public function getUpload(Upload $upload)
-	{
-		$id = empty($this->param['id']) ? '1' : intval($this->param['id']);
-		return view('uploads.upload',['config'=>$upload->getConfig(),'session_id'=>session()->getId()]);
-	}
+// 	public function getUpload(Upload $upload)
+// 	{
+// 		$id = empty($this->param['id']) ? '1' : intval($this->param['id']);
+// 		return view('uploads.upload',['config'=>$upload->getConfig(),'session_id'=>session()->getId()]);
+// 	}
 	
 // 	public function 
 	
