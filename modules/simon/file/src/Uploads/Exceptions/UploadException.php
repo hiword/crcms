@@ -2,6 +2,27 @@
 namespace Simon\File\Uploads\Exceptions;
 class UploadException extends \RuntimeException
 {
+	/**
+	 * 非正常上传文件
+	 * @var integer
+	 * @author simon
+	 */
+	const IS_NOT_UPLOAD_FILE = 99;
+	
+	/**
+	 * 无法写入临时目录
+	 * @var integer
+	 * @author simon
+	 */
+	const WRITER_ERR_NO_TMP_DIR = 100;
+	
+	/**
+	 * 读取文件流失败
+	 * @var integer
+	 * @author simon
+	 */
+	const READ_FILE_STREAM_ERR = 101;
+	
 	
 	public function __construct($filename,$error) 
 	{
@@ -29,6 +50,11 @@ class UploadException extends \RuntimeException
 				break;
 			case UPLOAD_ERR_NO_TMP_DIR:
 				$error = '找不到临时文件夹';
+				break;
+			case static::IS_NOT_UPLOAD_FILE:
+				$error = '非正常上传文件！';
+			case static::READ_FILE_STREAM_ERR:
+				$error = '读取文件流失败！';
 				break;
 		}
 		return $error;

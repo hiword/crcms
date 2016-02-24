@@ -1060,6 +1060,9 @@ class FileUpload
 	protected function checkUpload(array $upload)
 	{
 		$this->file = new File($upload['tmp_name']);
+		
+		//验证是否是正常上传文件
+		$this->checkUploadedFile($upload);
 	
 		//验证PHP自身upload检测
 		$this->checkUploadSelf($upload);
@@ -1156,17 +1159,27 @@ class FileUpload
 	}
 	
 	/**
+	 * 验证是否是正常上传文件
+	 * @param array $upload
+	 * @throws UploadException
+	 * @author simon
+	 */
+	protected function checkUploadedFile(array $upload)
+	{
+		if (!is_uploaded_file($upload['tmp_name']))
+		{
+			throw new UploadException($upload['name'], UploadException::IS_NOT_UPLOAD_FILE);
+		}
+		return true;
+	}
+	
+	/**
 	 * 处理文件上传
 	 * @param array $upload
 	 * @author simon
 	 */
 	protected function handleUpload(array $upload)
 	{
-		if (!is_uploaded_file($upload['tmp_name']))
-		{
-			return false;
-		}
-
 		//获取文件名称
 		$filename = $this->getFileName($upload['name']);
 

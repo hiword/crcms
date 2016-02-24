@@ -168,7 +168,8 @@ $result = json_encode($up->getFileInfo());
 	
 	public function getUpload()
 	{
-	    return $this->response("upload");
+		$config = ['allowexttype'=>['jpg','jpeg','zip','rar','png','gif'],'allowfilesize'=>size_byte('2MB')];
+	    return $this->response("upload",['config'=>$config,'session_id'=>session()->getId()]);
 	}
 	
 	/**
