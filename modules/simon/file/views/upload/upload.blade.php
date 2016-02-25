@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>文件上传</title>
-	<link rel="stylesheet" href="{{static_asset('/vendor/bootstrap/css/bootstrap.min.css')}}" />
+	<link rel="stylesheet" href="{{static_asset('vendor/bootstrap/css/bootstrap.min.css')}}" />
+	<link rel="stylesheet" href="{{static_asset('static/uploads/css/upload.css')}}" />
 	<style type="text/css">
            div.upload {
 	           padding:50px;
@@ -13,7 +14,7 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center" id="local-container">
         <div class="upload">
             <button type="button" class="btn btn-primary btn-lg" id="select-file">选择文件</button>
     		<button type="button" class="btn btn-success btn-lg ml10" id="upload-file">点击上传</button>
@@ -44,7 +45,7 @@
 		url:'{{url("upload/upload")}}',
 		flash_swf_url : '{{"vendor/plupload/2.1.8/Moxie.swf"}}',
 		silverlight_xap_url : '{{"vendor/plupload/2.1.8/Moxie.xap"}}',
-	  unique_names:true,
+	  	unique_names:true,
 		chunk_size: '{{$config["allowfilesize"]}}',
 		multipart_params:MULTIPART_PARAMS,
 		filters : {

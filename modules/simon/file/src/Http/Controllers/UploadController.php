@@ -172,6 +172,25 @@ $result = json_encode($up->getFileInfo());
 	    return $this->response("upload",['config'=>$config,'session_id'=>session()->getId()]);
 	}
 	
+	public function postUpload()
+	{
+		$FileUpload = new \Simon\File\Uploads\PlUpload(public_path('uploads'));
+		try
+		{
+			$files = $FileUpload->upload()->getFiles();
+		}
+		catch (Exception $e)
+		{
+			$this->throwError($e->getMessage());
+		}
+		dd($files);
+		return json_encode([
+				'success'=>true,
+				'msg'=>'ok',
+				'file_path'=>$files[0]['full_root'],
+		]);
+	}
+	
 	/**
 	 * 
 	 * @param Upload $upload
@@ -197,7 +216,7 @@ $result = json_encode($up->getFileInfo());
 	 * @param Upload $upload
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function postUpload(Upload $upload) 
+	public function postUpload2(Upload $upload) 
 	{
 		$status = $upload->uploaded();
 		

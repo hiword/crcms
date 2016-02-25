@@ -18,7 +18,7 @@ class PlUpload extends FileUpload
 	 */
 	protected $chunks = 0;
 	
-	protected function getFileName()
+	protected function getFileName($name = null)
 	{
 		return $_POST['name'];
 	}
@@ -94,6 +94,16 @@ class PlUpload extends FileUpload
 		//获取文件名
 		$filename = $this->getFileName();
 		
+// 		if ($this->chunks === 0)
+// 		{
+// 			// 	//获取层级目录
+// 			$dir = $this->getHashDir($filename);
+			
+// 			// 	//设置完整路径
+// 			$filepath = $this->getFilePath($dir,$filename);
+// 		}
+		
+		
 		//块上传大小
 		$this->getChunking();
 		
@@ -106,6 +116,15 @@ class PlUpload extends FileUpload
 		//获取文件路径
 		$file = $this->getFilePath($this->getHashDir($filename), $filename.'.part');
 		
+// 		$this->file->isDir()
+		$this->mkDir(dirname($file));
+// 		if ($this->chunks === 0)
+// 		{
+// 			//自动创建目录
+// 			echo dirname($file);exit();
+			
+// 		}
+		
 		//读取文件
 		if (!(boolean) $fpOut = fopen($file, $this->chunks ? "ab" : "wb"))
 		{
@@ -114,12 +133,13 @@ class PlUpload extends FileUpload
 			throw new UploadException($this->getFileName(), UploadException::WRITER_ERR_NO_TMP_DIR);
 		}
 		
-		
+		var_dump($buff = fread($fpIn, 4096));
 		//循环按照指定字节读取文件
-		while ((bool)$buff = fread($fpIn, 4096))
+		while ((boolean)$buff = fread($fpIn, 4096))
 		{
 			$status = fwrite($fpOut, $buff);
 		}
+		
 	
 		fclose($fpOut);
 		
@@ -130,37 +150,12 @@ class PlUpload extends FileUpload
 		{
 			if (!$this->chunks || $this->chunk == $this->chunks - 1) {
 				$newname = substr($file,0,-5);
-				if (rename($file, $newname)) {
-					$this->__newFileName = basename($newname);
-					//设置上传完成标识
-					$this->__status = true;
-				}
+				rename($file, $newname);
 			}
 		}
 		
 		//清理临时文件，[非必须]
 // 		$this->_clearTempFile();
-
-		//读取并写入数据流
-		if ((bool) $fpIn = fopen("php://input", "rb"))
-		{
-			
-			
-			
-			
-			
-			fclose($fpIn);
-			if ($status) {
-				//重命名文件
-				$this->_renameFile($filename);
-			}
-			return $status;
-		}
-		else
-		{
-			
-			throw new UploadException($this->getFileName(), UploadException::READ_FILE_STREAM_ERR);
-		}
 		if (!$in = @fopen("php://input", "rb")) {
 			die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
 		}
