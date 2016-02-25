@@ -23,6 +23,13 @@ class UploadException extends \RuntimeException
 	 */
 	const READ_FILE_STREAM_ERR = 101;
 	
+	/**
+	 * 文件移动失败
+	 * @var integer
+	 * @author simon
+	 */
+	const MOVE_TMP_FILE_ERR = 102;
+	
 	
 	public function __construct($filename,$error) 
 	{
@@ -55,6 +62,8 @@ class UploadException extends \RuntimeException
 				$error = '非正常上传文件！';
 			case static::READ_FILE_STREAM_ERR:
 				$error = '读取文件流失败！';
+			case static::MOVE_TMP_FILE_ERR:
+			    $error = '移动文件夹失败！';
 				break;
 		}
 		return $error;

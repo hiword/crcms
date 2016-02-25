@@ -1030,6 +1030,8 @@ class FileUpload
 	{
 		foreach ($this->setFiles() as $values)
 		{
+		    $this->setFile($values['tmp_name']);
+		    
 			//验证上传
 			$this->checkUpload($values);
 			
@@ -1050,6 +1052,15 @@ class FileUpload
 	}
 	
 	/**
+	 * 设置当前文件
+	 * @param string $name
+	 */
+	protected function setFile($name)
+	{
+	    $this->file = new File($name);
+	}
+	
+	/**
 	 * 验证文件上传
 	 * @param array $upload
 	 * @throws UploadException
@@ -1059,7 +1070,7 @@ class FileUpload
 	 */
 	protected function checkUpload(array $upload)
 	{
-		$this->file = new File($upload['tmp_name']);
+// 		$this->file = new File($upload['tmp_name']);
 		
 		//验证是否是正常上传文件
 		$this->checkUploadedFile($upload);
@@ -1173,6 +1184,15 @@ class FileUpload
 		return true;
 	}
 	
+	protected function moveUploadFile($source,$dest)
+	{
+	    if (!move_uploaded_file($source, $dest))
+	    {
+	        throw new UploadException(basename($dest), UploadException::MOVE_TMP_FILE_ERR);
+	    }
+	    return true;
+	}
+	
 	/**
 	 * 处理文件上传
 	 * @param array $upload
@@ -1192,8 +1212,9 @@ class FileUpload
 		//自动创建目录
 		$this->mkDir(dirname($filepath));
 			
-		if (move_uploaded_file($upload['tmp_name'], $filepath))
-		{
+		$this->moveUploadFile($upload['tmp_name'], $filepath);
+// 		if (move_uploaded_file($upload['tmp_name'], $filepath))
+// 		{
 			$file = [];
 			$file['hash'] = sha1($filepath);
 			$file['new_name'] = $filename;
@@ -1214,9 +1235,31 @@ class FileUpload
 			$this->files[] = $file;
 			
 			return true;
-		}
+// 		}
 	
-		return false;
+// 		return false;
+	}
+	
+	protected function getUploadInfo(array $upload)
+	{
+	    $file = [];
+	    $file['new_name'] = $this->getFileName($upload['name']);
+	    $file['hash'] = sha1($filepath);
+	    $file['old_name'] = $upload['name'];
+	    $file['save_path'] = $this->path;
+	    $full_path = $file['full_path'] = $filepath;
+	    $file['full_root'] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $full_path);
+	    $file['extension'] = $this->file->getExtension($full_path);
+	    $file['mime_type'] = $this->file->getFileMime($full_path);
+	    $file['filesize'] = $this->file->getSize($full_path);
+	    //完成上传时间
+	    $file['complete_time'] = time();
+	    //完成上传的微秒时间，用于大并发
+	    list($usec, $sec) = explode(" ", microtime());
+	    $file['complete_microtime'] = (float)$usec + (float)$sec;
+	    /* //合并上传信息
+	     //$file = array_merge($upload,$file); */
+	    $this->files[] = $file;
 	}
 	
 	/**
