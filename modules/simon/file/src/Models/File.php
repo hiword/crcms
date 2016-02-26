@@ -26,7 +26,8 @@ class File extends Model {
 		$this->data['port'] = $request->getPort();
 		$this->data['scheme'] = $request->getScheme();
 		$this->data['mark'] = (string)$request->input('mark');
-		$this->data['domain'] = rtrim(str_replace(['index.php','index.html'], '', url('/')),'/');
+		$this->data['domain'] = env('APP_URL');
+		$this->data['full_domain'] = $request->fullUrl();
 		logger($this->data);
 	}
 	

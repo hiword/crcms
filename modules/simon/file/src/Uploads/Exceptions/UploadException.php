@@ -60,8 +60,10 @@ class UploadException extends \RuntimeException
 				break;
 			case static::IS_NOT_UPLOAD_FILE:
 				$error = '非正常上传文件！';
+				break;
 			case static::READ_FILE_STREAM_ERR:
 				$error = '读取文件流失败！';
+				break;
 			case static::MOVE_TMP_FILE_ERR:
 			    $error = '移动文件夹失败！';
 				break;

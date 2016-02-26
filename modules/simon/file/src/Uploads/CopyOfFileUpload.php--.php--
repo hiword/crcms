@@ -34,12 +34,23 @@ class FileUpload
 	 */
 	protected $path = './uploads';
 	
+	protected $uploading = [];
+	
 	/**
-	 * 上传中的数据数组
-	 * @var array
+	 * 新的文件名
+	 * @var string
 	 * @author simon
 	 */
-	protected $uploading = [];
+// 	protected $newName = null;
+	
+	/**
+	 * 文件完整路径
+	 * @var string
+	 * @author simon
+	 */
+// 	protected $fullPath = null;
+	
+// 	protected $coverFile = false;
 	
 	/**
 	 * 允许的文件扩展名
@@ -1022,17 +1033,19 @@ class FileUpload
 		foreach ($this->setFiles() as $values)
 		{
 			
-			$this->setUploading($values);
+// 			$this->setUploading($values);
 			
 			//保存当前文件
-		    $this->setFile();
+		    $this->setFile($values);
 		    
 			//验证上传
-			$this->checkUpload();
+			$this->checkUpload($values);
 			
 			//开始上传
-			$this->handleUpload();
+			$this->handleUpload($values);
 		}
+		
+		return $this;
 	}
 	
 	/**
@@ -1044,11 +1057,6 @@ class FileUpload
 		return $this->files;
 	}
 	
-	/**
-	 * 存储当前上传的临时信息数组
-	 * @param array $upload
-	 * @author simon
-	 */
 	protected function setUploading(array $upload)
 	{
 		$this->uploading = $upload;
@@ -1056,27 +1064,32 @@ class FileUpload
 	
 	/**
 	 * 验证文件上传
+	 * @param array $upload
 	 * @throws UploadException
 	 * @throws SizeException
 	 * @throws TypeErrorException
 	 * @author simon
 	 */
-	protected function checkUpload()
+	protected function checkUpload(array $upload)
 	{
+// 		$this->file = new File($upload['tmp_name']);
+		
 		//验证是否是正常上传文件
-		$this->checkUploadedFile();
+		$this->checkUploadedFile($upload);
 	
 		//验证PHP自身upload检测
-		$this->checkUploadSelf();
+		$this->checkUploadSelf($upload);
 	
 		//验证文件大小
-		$this->checkFileSize();
+		$this->checkFileSize($upload);
 	
 		//验证扩展名
-		$this->checkFileExtension();
+		$this->checkFileExtension($upload);
 	
 		//验证mime
-		$this->checkFileMime();
+		$this->checkFileMime($upload);
+	
+		return true;
 	}
 	
 	/**
@@ -1084,32 +1097,33 @@ class FileUpload
 	 * @throws TypeErrorException
 	 * @author simon
 	 */
-	protected function checkFileMime()
+	protected function checkFileMime(array $upload)
 	{
 		if (!$this->checkMime)
 		{
 			return true;
 		}
 		
-		$extension = $this->file->getExtension($this->uploading['name']);
+		$extension = $this->file->getExtension($upload['name']);
 		//jpg文件mime特例
 		$extension === 'jpg' && $extension = 'jpeg';
-		echo $this->file->getFileMime(),'<br />';
+		
 		$mimeExtension = isset($this->mimes[$this->file->getFileMime()]) ? $this->mimes[$this->file->getFileMime()] : null;
-		if ($mimeExtension !== strtolower($extension))
+		if ($mimeExtension !== $extension)
 		{
-			throw new TypeErrorException($this->uploading['name'],'mime');
+			throw new TypeErrorException($upload['name'],'mime');
 		}
 		return true;
 	}
 	
 	/**
 	 * 验证文件扩展名
+	 * @param array $upload
 	 * @throws TypeErrorException
 	 * @return boolean
 	 * @author simon
 	 */
-	protected function checkFileExtension()
+	protected function checkFileExtension(array $upload)
 	{
 		if (!$this->checkExtension)
 		{
@@ -1117,24 +1131,26 @@ class FileUpload
 		}
 		
 		//验证扩展名
-		$extension = $this->file->getExtension($this->uploading['name']);
-		if (!in_array(strtolower($extension), $this->extensions,true))
+		$extension = $this->file->getExtension($upload['name']);
+		
+		if (!in_array($extension, $this->extensions,true))
 		{
-			throw new TypeErrorException($this->uploading['name'],'extension');
+			throw new TypeErrorException($upload['name'],'extension');
 		}
 		return true;
 	}
 	
 	/**
 	 * 验证upload自身上传错误
+	 * @param array $upload
 	 * @throws UploadException
 	 * @author simon
 	 */
-	protected function checkUploadSelf()
+	protected function checkUploadSelf(array $upload)
 	{
-		if ($this->uploading['error'] !== UPLOAD_ERR_OK)
+		if ($upload['error'] !== UPLOAD_ERR_OK)
 		{
-			throw new UploadException($this->uploading['name'],$this->uploading['error']);
+			throw new UploadException($upload['name'],$upload['error']);
 		}
 		return true;
 	}
@@ -1145,12 +1161,12 @@ class FileUpload
 	 * @throws SizeException
 	 * @author simon
 	 */
-	protected function checkFileSize()
+	protected function checkFileSize(array $upload)
 	{
 		//验证文件大小
 		if ($this->filesize < $this->file->getSize())
 		{
-			throw new SizeException($this->uploading['name']);
+			throw new SizeException($upload['name']);
 		}
 		return true;
 	}
@@ -1161,25 +1177,20 @@ class FileUpload
 	 * @throws UploadException
 	 * @author simon
 	 */
-	protected function checkUploadedFile()
+	protected function checkUploadedFile(array $upload)
 	{
-		if (!is_uploaded_file($this->uploading['tmp_name']))
+		if (!is_uploaded_file($upload['tmp_name']))
 		{
-			throw new UploadException($this->uploading['name'], UploadException::IS_NOT_UPLOAD_FILE);
+			throw new UploadException($upload['name'], UploadException::IS_NOT_UPLOAD_FILE);
 		}
 		return true;
 	}
 	
-	/**
-	 * 移动文件
-	 * @throws UploadException
-	 * @author simon
-	 */
-	protected function moveUploadFile()
+	protected function moveUploadFile($source,$dest)
 	{
-	    if (!move_uploaded_file($this->uploading['tmp_name'], $this->file->getNewPath()))
+	    if (!move_uploaded_file($source, $dest))
 	    {
-	        throw new UploadException($this->uploading['name'], UploadException::MOVE_TMP_FILE_ERR);
+	        throw new UploadException(basename($dest), UploadException::MOVE_TMP_FILE_ERR);
 	    }
 	    return true;
 	}
@@ -1198,21 +1209,27 @@ class FileUpload
 		}
 		
 		$this->path = str_replace('\\', '/', realpath($this->path));
+		
+// 		$path && $this->path = $path;
+		//创建目录 realpath使用，否则会报错
+// 		!is_dir($this->path) && $this->file->mkDir($this->path);
+		//linux风格 Love Linux  更加适用网站
+		
 	}
 
 	/**
 	 * 设置当前文件
 	 * @param string $name
 	 */
-	protected function setFile()
+	protected function setFile(array $upload)
 	{
-		$this->file = new File($this->uploading['tmp_name']);
+		$this->file = new File($upload['tmp_name']);
 		
 		//设置新的文件名
-		$this->file->setNewName($this->getNewName());
+		$this->file->setNewName($upload['name']);
 		
 		//设置新的路径
-		$this->file->setNewPath($this->path.'/'.$this->file->getHashDir($this->uploading['name']).$this->file->getNewName());
+		$this->file->setNewPath($this->path.'/'.$this->file->getHashDir($upload['name']).$this->file->getNewName());
 	}
 	
 	/**
@@ -1220,21 +1237,53 @@ class FileUpload
 	 * @param array $upload
 	 * @author simon
 	 */
-	protected function handleUpload()
+	protected function handleUpload(array $upload)
 	{
+		//获取文件名称
+// 		$filename = $this->getFileName($upload['name']);
+
+		//获取层级目录
+// 		$dir = $this->getHashDir($filename);
+			
+		//设置完整路径
+// 		$filepath = $this->getFilePath($dir,$filename);
+		
 		//自动创建目录
 		$this->file->mkDir(dirname($this->file->getNewPath()));
 			
-		$this->moveUploadFile();
+		$this->moveUploadFile($upload['tmp_name'], $filepath);
 		
-		$this->files[] = $this->getUploadInfo();
+		$this->files[] = $this->getUploadInfo($upload);
+		
+		return true;
+// 		if (move_uploaded_file($upload['tmp_name'], $filepath))
+// 		{
+			$file = [];
+			$file['hash'] = sha1($filepath);
+			$file['new_name'] = $filename;
+			$file['old_name'] = $upload['name'];
+			$file['save_path'] = $this->path;
+			$full_path = $file['full_path'] = $filepath;
+			$file['full_root'] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $full_path);
+			$file['extension'] = $this->file->getExtension($full_path);
+			$file['mime_type'] = $this->file->getFileMime($full_path);
+			$file['filesize'] = $this->file->getSize($full_path);
+			//完成上传时间
+			$file['complete_time'] = time();
+			//完成上传的微秒时间，用于大并发
+			list($usec, $sec) = explode(" ", microtime());
+			$file['complete_microtime'] = (float)$usec + (float)$sec;
+			/* //合并上传信息
+			//$file = array_merge($upload,$file); */
+			$this->files[] = $file;
+			
+			return true;
+// 		}
+	
+// 		return false;
 	}
 	
-	/**
-	 * 获取上传信息
-	 * @author simon
-	 */
-	protected function getUploadInfo()
+	protected function getUploadInfo(array $upload)
 	{
 		
 		$filepath = $this->file->getNewPath();
@@ -1242,10 +1291,10 @@ class FileUpload
 	    $file = [];
 	    $file['new_name'] = $this->file->getNewName();
 	    $file['hash'] = sha1($filepath);
-	    $file['old_name'] = $this->uploading['name'];
+	    $file['old_name'] = $upload['name'];
 	    $file['save_path'] = $this->path;
 	    $file['full_path'] = $filepath;
-	    $file['full_root'] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $filepath);
+	    $file['full_root'] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $full_path);
 	    $file['extension'] = $this->file->getExtension($filepath);
 	    $file['mime_type'] = $this->file->getFileMime($filepath);
 	    $file['filesize'] = $this->file->getSize($filepath);
@@ -1311,30 +1360,19 @@ class FileUpload
 	 * @return string 
 	 * @author simon
 	 */
-	protected function getNewName()
+	protected function setNewName($name)
 	{
-		$name = $this->uploading['name'];
-		
 		if ($this->rename)
 		{
-			$name = sha1(uniqid('simon_')).mt_rand(1,999).'.'.$this->file->getExtension($name);
+			$this->newName = sha1(uniqid('simon_')).mt_rand(1,999).'.'.$this->file->getExtension($name);
+		}
+		else 
+		{
+			$this->newName = $name;
 		}
 		
-		return $name;
+		return $this->newName;
 	}
-// 	protected function getNewName($name)
-// 	{
-// 		if ($this->rename)
-// 		{
-// 			$this->newName = sha1(uniqid('simon_')).mt_rand(1,999).'.'.$this->file->getExtension($name);
-// 		}
-// 		else 
-// 		{
-// 			$this->newName = $name;
-// 		}
-		
-// 		return $this->newName;
-// 	}
 	
 // 	/**
 // 	 * 文件名相同时是否覆盖

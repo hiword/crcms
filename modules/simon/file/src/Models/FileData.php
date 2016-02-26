@@ -12,7 +12,6 @@ class FileData extends Model {
 	protected function dataStoreHandle()
 	{
 		parent::dataStoreHandle();
-		
 		$request = app('request');
 		$this->data['server_ip'] = ip_long(gethostbyname('localhost'));
 	}

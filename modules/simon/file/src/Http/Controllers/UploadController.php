@@ -30,10 +30,11 @@ class UploadController extends Controller {
 		$FileUpload = new \Simon\File\Uploads\FileUpload(public_path('uploads'));
 		try 
 		{
-			$files = $FileUpload->upload()->getFiles();
+			$files = $FileUpload->setExtensions(['jpg','jpeg','rar','zip'])->upload()->getFiles();
 		}
 		catch (Exception $e) 
 		{
+			echo $e->getMessage();exit();
 			$this->throwError($e->getMessage());
 		}
 		return json_encode([
@@ -172,17 +173,25 @@ $result = json_encode($up->getFileInfo());
 	    return $this->response("upload",['config'=>$config,'session_id'=>session()->getId()]);
 	}
 	
-	public function postUpload()
+	public function postUpload(File $File,FileData $FileData)
 	{
-		$FileUpload = new \Simon\File\Uploads\PlUpload(public_path('uploads'));
 		try
 		{
-			$files = $FileUpload->upload()->getFiles();
+			$FileUpload = new \Simon\File\Uploads\PlUpload(public_path('uploads'));
+			$FileUpload->setExtensions(['jpg','jpeg','zip','rar'])->upload();
+			$files = $FileUpload->getFiles();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->throwError($e->getMessage());
 		}
+		
+		if (!empty($files))
+		{
+			$file = $File->storeData($files[0]);
+			$FileData->storeData(array_merge($files[0],['fid'=>$file->id]));
+		}
+		
 		dd($files);
 		return json_encode([
 				'success'=>true,
