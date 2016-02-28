@@ -8,9 +8,10 @@ class CategoryController extends Controller
 	
 	public function __construct(Category $Category)
 	{
+	    parent::__construct();
+	    
 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		
-		parent::__construct();
 		$this->model = $Category;
 		$this->view = 'document::manage.category.';
 		

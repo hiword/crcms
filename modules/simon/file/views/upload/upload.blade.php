@@ -34,7 +34,8 @@
 	
 	var MULTIPART_PARAMS = {
 		SESSION_ID:SESSION_ID,
-		_token:CSRF_TOKEN
+		_token:CSRF_TOKEN,
+		'_json':1,
 			//rand:math
 	};
 		
@@ -74,7 +75,7 @@
 					html += '<p class="thumb">'+extension[extension.length-1]+'</p>';
 					html += '<a class="glyphicon glyphicon-minus-sign list-del remove-queue" href="###"></a>';
 					html += '<div class="info">';
-					html += '<p class="mt5">' + file.name + ' </p><p>' + plupload.formatSize(file.size) + '<em class="progress ml5 set-red"></em> </p>';
+					html += '<p class="mt5">' + file.name + ' </p><p>' + plupload.formatSize(file.size) + '&nbsp;<em class="progress ml5 set-red" style="color:red;"></em> </p>';
 					html += '</div></div>';
 					//$('#filelist').append('<div id="' + file.id + '" class="mt10">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b><a href="###" class="glyphicon glyphicon-remove remove-queue"></a></div>');
 					$('#filelist').append(html);

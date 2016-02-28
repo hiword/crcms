@@ -173,7 +173,7 @@ $result = json_encode($up->getFileInfo());
 	    return $this->response("upload",['config'=>$config,'session_id'=>session()->getId()]);
 	}
 	
-	public function postUpload(File $File,FileData $FileData)
+	public function postUpload(FileData $FileData)
 	{
 		try
 		{
@@ -188,16 +188,11 @@ $result = json_encode($up->getFileInfo());
 		
 		if (!empty($files))
 		{
-			$file = $File->storeData($files[0]);
+			$file = $this->model->storeData($files[0]);
 			$FileData->storeData(array_merge($files[0],['fid'=>$file->id]));
 		}
 		
-		dd($files);
-		return json_encode([
-				'success'=>true,
-				'msg'=>'ok',
-				'file_path'=>$files[0]['full_root'],
-		]);
+		return $this->response(['success'],array_only($files[0], ['new_name','full_root','old_name','hash','filesize']));
 	}
 	
 	/**
