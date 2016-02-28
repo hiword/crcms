@@ -9,6 +9,12 @@
 		<h2 class="logo">CRCMS</h2>
 		<div class="sidebar">
 			<ul class="nav nav-pills nav-stacked">
+			     <li id="accordion0" class="active">
+					<a href="#collapse-ul-0" data-parent="#accordion0" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">系统</a>
+					<ul  id="collapse-ul-0" class="collapse in">
+						<li><a href="{{url('manage/admin/index')}}">管理员列表</a></li>
+					</ul>
+				</li>
 				<li id="accordion1" class="active">
 					<a href="#collapse-ul-1" data-parent="#accordion1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">文档</a>
 					<ul  id="collapse-ul-1" class="collapse in">
