@@ -19,12 +19,12 @@ class LogController extends Controller
 	public function getActionLog(Paginate $Paginate,ActionLog $ActionLog) 
 	{
 		$page = $Paginate->page($ActionLog->orderBy('id','desc'));
-		return $this->response("{$this->view}action_log",$page);
+		return $this->response("action_log",$page);
 	}
 	
 	public function getLoginLog(Paginate $Paginate,LoginLog $LoginLog) 
 	{
 		$page = $Paginate->page($LoginLog->orderBy('id','desc'));
-		return $this->response("{$this->view}login_log",$page);
+		return $this->response("login_log",$page);
 	}
 }
