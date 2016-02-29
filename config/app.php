@@ -178,6 +178,7 @@ return [
         
         //file
         Simon\File\Providers\FileServiceProvider::class,
+    		Simon\File\Providers\EventServiceProvider::class,
         
         
         //file
