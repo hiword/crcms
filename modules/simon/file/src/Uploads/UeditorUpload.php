@@ -3,19 +3,19 @@ namespace Simon\File\Uploads;
 class UeditorUpload extends FileUpload
 {
 	
-	public function getFileInfo()
-	{
-		$file = $this->files[0];
+// 	public function getFiles()
+// 	{
+// 		$file = $this->files[0];
 // 		logger($file);
-		return [
-				'state'=>'SUCCESS',
-				'url'=>$file['full_root'],
-				'title'=>$file['new_name'],
-				'original'=>$file['old_name'],
-				'type'=>'.'.$file['extension'],
-				'size'=>$file['filesize'],
-		];
-	}
+// 		return [
+// 				'state'=>'SUCCESS',
+// 				'url'=>$file['full_root'],
+// 				'title'=>$file['new_name'],
+// 				'original'=>$file['old_name'],
+// 				'type'=>'.'.$file['extension'],
+// 				'size'=>$file['filesize'],
+// 		];
+// 	}
 	
 	/**
 	 * 得到上传文件所对应的各个参数,数组结构
