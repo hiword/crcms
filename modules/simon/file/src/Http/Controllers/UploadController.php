@@ -54,14 +54,31 @@ class UploadController extends Controller {
 		//文件上传
 		$FileUpload = new \Simon\File\Uploads\UeditorUpload(public_path('uploads'));
 		$FileUpload->upload();
-		$file = $FileUpload->getFiles()[0];
-		
+		$files = $FileUpload->getFiles();
+		$file = $files[0];
 		//数据写入
-		$this->model = $this->model->storeData($file);
-		$FileData->storeData(array_merge($file,['fid'=>$this->model->id]));
+		try 
+		{
+			$this->model = $this->model->storeData($file);
+			$FileData->storeData(array_merge($file,['fid'=>$this->model->id]));
+		} 
+		catch (\Exception $e) 
+		{
+// 			logger('================');
+// 			logger($e->getMessage());
+		}
+		
 		
 		/* 输出结果 */
-		$result = json_encode($FileUpload->getFileInfo());
+		$result = json_encode([
+				'state'=>'SUCCESS',
+				'url'=>$file['full_root'],
+				'title'=>$file['new_name'],
+				'original'=>$file['old_name'],
+				'type'=>'.'.$file['extension'],
+				'size'=>$file['filesize'],
+		]);
+		
 		if (isset($_GET["callback"]))
 		{
 			if (preg_match("/^[\w_]+$/", $_GET["callback"]))
@@ -170,7 +187,7 @@ $result = json_encode($up->getFileInfo());
 	public function getUpload()
 	{
 		$config = ['allowexttype'=>['jpg','jpeg','zip','rar','png','gif'],'allowfilesize'=>size_byte('2MB')];
-	    return $this->response("upload",['config'=>$config,'session_id'=>session()->getId()]);
+	    return $this->response("upload",['message'=>$this->request->input('message'),'config'=>$config,'session_id'=>session()->getId()]);
 	}
 	
 	public function postUpload(FileData $FileData)
@@ -183,16 +200,18 @@ $result = json_encode($up->getFileInfo());
 		}
 		catch (\Exception $e)
 		{
-			$this->throwError($e->getMessage());
+			$this->throwError(['error',$e->getMessage()]);
 		}
 		
 		if (!empty($files))
 		{
 			$file = $this->model->storeData($files[0]);
 			$FileData->storeData(array_merge($files[0],['fid'=>$file->id]));
+			
+			return $this->response(['success'],array_only($files[0], ['new_name','full_root','old_name','hash','filesize','extension']));
 		}
 		
-		return $this->response(['success'],array_only($files[0], ['new_name','full_root','old_name','hash','filesize']));
+		return $this->response(['success']);
 	}
 	
 	/**

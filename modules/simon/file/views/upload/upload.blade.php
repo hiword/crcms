@@ -16,9 +16,10 @@
 <body>
     <div class="container-fluid text-center" id="local-container">
         <div class="upload">
-            <button type="button" class="btn btn-primary btn-lg" id="select-file">选择文件</button>
+            <button type="button" class="btn btn-primary btn-lg" id="select-file" style="margin-right: 10px;">选择文件</button>
     		<button type="button" class="btn btn-success btn-lg ml10" id="upload-file">点击上传</button>
             <p class="info">最大允许上传：2M</p>
+            <p class="" style="margin-top: 10px">{{$message or null}}</p>
         </div>
 		<div id="console"></div>
     	<div id="filelist" class="row filelist mt10"></div>
@@ -98,6 +99,8 @@
 					var $div = $('#'+file.id);
 					//修改队列上传图标-->完成
 					$div.find('.glyphicon').removeClass('.glyphicon-minus-sign').addClass('glyphicon glyphicon-ok-sign');
+					$div.append('<input type="hidden" name="uploads[][src]" value="'+response.data.full_root+'" />');
+					$div.append('<input type="hidden" name="uploads[][hash]" value="'+response.data.hash+'" />');
 				}
 	    },
 	

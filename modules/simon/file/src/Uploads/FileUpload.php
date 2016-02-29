@@ -1094,7 +1094,7 @@ class FileUpload
 		$extension = $this->file->getExtension($this->uploading['name']);
 		//jpg文件mime特例
 		$extension === 'jpg' && $extension = 'jpeg';
-		echo $this->file->getFileMime(),'<br />';
+
 		$mimeExtension = isset($this->mimes[$this->file->getFileMime()]) ? $this->mimes[$this->file->getFileMime()] : null;
 		if ($mimeExtension !== strtolower($extension))
 		{

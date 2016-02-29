@@ -605,6 +605,26 @@
 	}
 })(window,jQuery);
 
+function uploaded(options)
+{
+
+	options = options || {};
+	
+	var dialogOptions = {
+		id: 'file-upload-dialog',
+	    title:'文件上传',
+	    width:600,
+		okValue:'确定'
+	};
+	
+	dialogOptions = $.extend(dialogOptions,options);
+	
+	$.get('http://'+window.location.host+'/index.php/upload/upload',function(data){
+		dialogOptions.content = data;
+		dialog(dialogOptions).show();
+	});
+}
+
 //var TAGS_SEARCH = (function($){
 //	return {
 //		

@@ -28,7 +28,7 @@ class File extends Model {
 		$this->data['mark'] = (string)$request->input('mark');
 		$this->data['domain'] = env('APP_URL');
 		$this->data['full_domain'] = $request->fullUrl();
-		logger($this->data);
+// 		logger($this->data);
 	}
 	
 }
