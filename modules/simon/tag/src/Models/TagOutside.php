@@ -13,7 +13,7 @@ class TagOutside extends Model
 	protected $fillable = ['tag_id','outside_id','outside_type'];
 	
 	/**
-	 * 中间表多态关联
+	 * 多态中间表多对多关联
 	 * @author simon
 	 */
 	public function morphToTagOutside() 
