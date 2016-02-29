@@ -8,6 +8,7 @@ class Document extends Model
 	
 	protected static $fields = [
 			'title'=>'Simon\Document\Fields\Document\Title',
+			'thumbnail'=>'Simon\Document\Fields\Document\Thumbnail',
 			'status'=>'Simon\Document\Fields\Document\Status',
 			'category_id'=>'Simon\Document\Fields\Document\CategoryId',
 	];
@@ -31,6 +32,15 @@ class Document extends Model
 	public function morphToManyTag()
 	{
 		return $this->morphToMany('Simon\Tag\Models\Tag', 'outside','tag_outsides','outside_id','tag_id');
+	}
+	
+	/**
+	 * 多态，images,多对多
+	 * @author simon
+	 */
+	public function morphManyImages()
+	{
+		return $this->morphMany('Simon\File\Models\Image','images','outside_type','outside_id');
 	}
 	
 }

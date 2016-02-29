@@ -31,6 +31,27 @@
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		
+		<div class="form-group">
+			<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">图集列表</h3>
+			  	</div>
+		  		<div class="panel-body">
+	    			<div class="row images-queue">
+	    				@foreach($images as $image)
+	    				<div class="col-md-3">
+							<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="{{$image->path}}" alt="" /></a>
+						</div>
+						<input type="hidden" name="images[][path]" value="{{$image->path}}" />
+						@endforeach
+	    			</div>
+	  			</div>
+	  			<div class="panel-footer">
+	  				<button class="btn btn-default upload-images" type="button">上传图集</button>
+	  			</div>
+			</div>
+		</div>
+		
 		<div class="form-group btn-action">
       		<button class="btn btn-default mr10" type="button">重置</button>
       		<button class="btn btn-success " type="submit">提交</button>
@@ -50,6 +71,14 @@
 			</select>
 			<p class="help-block Validform_checktip"></p>
 		</div>
+		
+		<div class="form-group">
+			<label class=" Validform_label label-name">缩略图</label>
+			<input type="hidden" name="document[thumbnail]" value="{{$model->thumbnail}}" />
+			<a href="###" class="thumbnail upload-dialog"><img src="{{$model->thumbnail ? $model->thumbnail : 'http://placehold.it/300x180'}}" alt="" /></a>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		
 		<div class="form-group">
 			<label class=" Validform_label label-name">标签</label>
 			@include('tag::select_tags',['tags'=>$model->morphToManyTag])
@@ -101,6 +130,37 @@
 <script src="{{static_asset('static/ueditor/ueditor.all.min.js')}}"></script>
 <script type="text/javascript">
 	var ue = UE.getEditor('container');
+
+	//single img upload
+	$('.upload-dialog').on('click',function(){
+		var $this = $(this);
+		uploaded({
+			ok:function(){
+				var value = $('[name^="uploads[][src]"]').first().val();
+				$this.find('img').attr('src',value);
+				$('[name="document[thumbnail]"]').val(value);
+				return true;
+			}
+		});
+		return false;
+	});
+
+	$('.upload-images').on('click',function(){
+		var $this = $(this);
+		uploaded({
+			ok:function(){
+				$('[name^="uploads[][src]"]').each(function(){
+					var str = '<div class="col-md-3">';
+						str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
+							str += 		'</div>';
+							str += '<input type="hidden" name="images[][path]" value="'+$(this).val()+'" />';
+					$('.images-queue').append(str);
+				});
+				return true;
+			}
+		});
+		return false;
+	});
 </script>
 @include('tag::select_tags_js')
 @endsection

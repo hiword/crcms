@@ -24,9 +24,24 @@
 		</div>
 		
 		<div class="form-group">
-                <label class=" Validform_label label-name">链接</label>
+            <label class=" Validform_label label-name">链接</label>
 			<input class="form-control" type="text" name="document[torrent]" placeholder="">
 			<p class="help-block Validform_checktip"></p>
+		</div>
+		
+		<div class="form-group">
+			<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">图集列表</h3>
+			  	</div>
+		  		<div class="panel-body">
+	    			<div class="row images-queue">
+	    			</div>
+	  			</div>
+	  			<div class="panel-footer">
+	  				<button class="btn btn-default upload-images" type="button">上传图集</button>
+	  			</div>
+			</div>
 		</div>
 		
 		<div class="form-group btn-action">
@@ -45,6 +60,12 @@
 					</option>
 					@endforeach
 			</select>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		<div class="form-group">
+			<label class=" Validform_label label-name">缩略图</label>
+			<input type="hidden" name="document[thumbnail]" />
+			<a href="###" class="thumbnail upload-dialog"><img src="http://placehold.it/300x180" alt="" /></a>
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
@@ -96,8 +117,38 @@
 @parent
 <script src="{{static_asset('static/ueditor/ueditor.config.js')}}"></script>
 <script src="{{static_asset('static/ueditor/ueditor.all.min.js')}}"></script>
-<script type="text/javascript">
+<script>
 	var ue = UE.getEditor('container');
+	//single img upload
+	$('.upload-dialog').on('click',function(){
+		var $this = $(this);
+		uploaded({
+			ok:function(){
+				var value = $('[name^="uploads[][src]"]').first().val();
+				$this.find('img').attr('src',value);
+				$('[name="document[thumbnail]"]').val(value);
+				return true;
+			}
+		});
+		return false;
+	});
+
+	$('.upload-images').on('click',function(){
+		var $this = $(this);
+		uploaded({
+			ok:function(){
+				$('[name^="uploads[][src]"]').each(function(){
+					var str = '<div class="col-md-3">';
+						str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
+							str += 		'</div>';
+							str += '<input type="hidden" name="images[][path]" value="'+$(this).val()+'" />';
+					$('.images-queue').append(str);
+				});
+				return true;
+			}
+		});
+		return false;
+	});
 </script>
 @include('tag::select_tags_js')
 @endsection
