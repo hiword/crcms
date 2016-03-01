@@ -64,19 +64,60 @@
 <script src="../vendor/angularjs/1.4.8/angular.min.js"></script>
 <script>
 	var app = angular.module('app',[]);
-	app.controller('listController',['$scope','$http',function($scope,$http){
+	//factory 使用于功能简单，类似于单例的一样，service适用于逻辑处理比较复杂的方法
+	app.factory('documentListFactory',['$http','$q',function($http,$q){
+		//申明一个延迟
+		var deferred = $q.defer();
 		$http.get('http://3.cs/index.php?_json=1&_content=1').success(function(response){
+			deferred.resolve(response);
+		}).error(function(response){
+			deferred.reject(response);
+		});
+		// 返回承诺，这里并不是最终数据，而是访问最终数据的API 
+		return deferred.promise;   
+	}]);
+	
+	app.factory('documentTagsFactory',['$http','$q',function($http,$q){
+		//申明一个延迟
+		return {
+			query(ids)
+			{
+				var deferred = $q.defer();
+				$http.post('http://3.cs/index.php/tags/assoc-tags',{
+					'id':ids,
+					'model':'Document'
+				}).success(function(response){
+					deferred.resolve(response);
+				}).error(function(response){
+					deferred.reject(response);
+				});
+				return deferred.promise;
+			}
+		}
+	}]);
+	
+	app.controller('listController',['$scope','$http','documentListFactory',function($scope,$http,documentListFactory){
+		//var promise = documentListFactory;
+		//then方法// 调用承诺API获取数据
+		var documentList = {};
+		documentListFactory.then(function(data){
+			documentList = data.data.models;
+			console.log(documentList);
+		});
+		
+		
+		/* $http.get('http://3.cs/index.php?_json=1&_content=1').success(function(response){
 			$scope.lists = response.data.models;
 			$scope.page = response.data.page;
 		});
 		console.log($scope);
-		console.log($http);
+		console.log($http); */
 	}]);
 	
 	$(function(){
-		$.get('http://3.cs/index.php?_json=1&_content=1',function(data){
+		/* $.get('http://3.cs/index.php?_json=1&_content=1',function(data){
 			console.log(data);
-		})
+		}) */
 	})
 </script>
 </body>
