@@ -20,4 +20,14 @@ class TagOutside extends Model
 	{
 		return $this->morphTo(null,'outside_type','outside_id');
 	}
+	
+	/**
+	 * 获取当前outside的tags
+	 * @param array $outside_id
+	 * @param string $outside_model
+	 */
+	public function tagsOutside(array $outside_id,$outside_model)
+	{
+	    return $this->whereIn($outside_id)->where($outside_model)->get();
+	}
 }
