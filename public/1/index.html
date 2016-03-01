@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,16 +31,16 @@
 	</div>
 </div>
 <div class="main-right pull-right">
-	<div class="articles">
-		<article>
-			<a class="title" href="http://haikun.me/2171.html">那些美到极致的语言</a>
+	<div class="articles" ng-controller="listController">
+		<article ng-repeat="list in lists">
+			<a class="title" href="###">{{list.title}}</a>
 			<div class="content"> 
 				1.梁实秋说：你走，我不送你。你来，无论多大风多大雨，我要去接你。 2.海明威说：优于别人，并不高贵，真正的高贵应该是优于过去的自己。 3.三毛说：如果有来生，要做一棵树，站成永恒，没有悲伤的姿势：一半在尘土里安详，一半在空中飞扬；一半散落阴凉，一半沐浴阳光。非常沉默非常骄傲，从不依靠从不寻找。 4.顾漫...
 			</div>
 			<div class="article-info mt10 mb10">
 				<span>
 					<i class="glyphicon glyphicon-calendar"></i>
-					2016/01/30
+					({{ list.created_at * 1000 | date:'yyyy-MM-dd' }})
 				</span>
 				<span>
 					<i class="glyphicon glyphicon-tag"></i>
@@ -52,91 +52,32 @@
 				</span>
 			</div>
 		</article>
-		<article>
-			<a class="title" href="http://haikun.me/2171.html">那些美到极致的语言</a>
-			<div class="content"> 
-				1.梁实秋说：你走，我不送你。你来，无论多大风多大雨，我要去接你。 2.海明威说：优于别人，并不高贵，真正的高贵应该是优于过去的自己。 3.三毛说：如果有来生，要做一棵树，站成永恒，没有悲伤的姿势：一半在尘土里安详，一半在空中飞扬；一半散落阴凉，一半沐浴阳光。非常沉默非常骄傲，从不依靠从不寻找。 4.顾漫...
-			</div>
-			<div class="article-info mt10 mb10">
-				<span>
-					<i class="glyphicon glyphicon-calendar"></i>
-					2016/01/30
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-tag"></i>
-					<a rel="category tag" href="http://haikun.me/category/%e6%96%87%e7%ab%a0">文章</a>
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-comment"></i>
-					<span class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
-				</span>
-			</div>
-		</article>
-		<article>
-			<a class="title" href="http://haikun.me/2171.html">那些美到极致的语言</a>
-			<div class="content"> 
-				1.梁实秋说：你走，我不送你。你来，无论多大风多大雨，我要去接你。 2.海明威说：优于别人，并不高贵，真正的高贵应该是优于过去的自己。 3.三毛说：如果有来生，要做一棵树，站成永恒，没有悲伤的姿势：一半在尘土里安详，一半在空中飞扬；一半散落阴凉，一半沐浴阳光。非常沉默非常骄傲，从不依靠从不寻找。 4.顾漫...
-			</div>
-			<div class="article-info mt10 mb10">
-				<span>
-					<i class="glyphicon glyphicon-calendar"></i>
-					2016/01/30
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-tag"></i>
-					<a rel="category tag" href="http://haikun.me/category/%e6%96%87%e7%ab%a0">文章</a>
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-comment"></i>
-					<span class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
-				</span>
-			</div>
-		</article>
-		<article>
-			<a class="title" href="http://haikun.me/2171.html">那些美到极致的语言</a>
-			<div class="content"> 
-				1.梁实秋说：你走，我不送你。你来，无论多大风多大雨，我要去接你。 2.海明威说：优于别人，并不高贵，真正的高贵应该是优于过去的自己。 3.三毛说：如果有来生，要做一棵树，站成永恒，没有悲伤的姿势：一半在尘土里安详，一半在空中飞扬；一半散落阴凉，一半沐浴阳光。非常沉默非常骄傲，从不依靠从不寻找。 4.顾漫...
-			</div>
-			<div class="article-info mt10 mb10">
-				<span>
-					<i class="glyphicon glyphicon-calendar"></i>
-					2016/01/30
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-tag"></i>
-					<a rel="category tag" href="http://haikun.me/category/%e6%96%87%e7%ab%a0">文章</a>
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-comment"></i>
-					<span class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
-				</span>
-			</div>
-		</article>
-		<article>
-			<a class="title" href="http://haikun.me/2171.html">那些美到极致的语言</a>
-			<div class="content"> 
-				1.梁实秋说：你走，我不送你。你来，无论多大风多大雨，我要去接你。 2.海明威说：优于别人，并不高贵，真正的高贵应该是优于过去的自己。 3.三毛说：如果有来生，要做一棵树，站成永恒，没有悲伤的姿势：一半在尘土里安详，一半在空中飞扬；一半散落阴凉，一半沐浴阳光。非常沉默非常骄傲，从不依靠从不寻找。 4.顾漫...
-			</div>
-			<div class="article-info mt10 mb10">
-				<span>
-					<i class="glyphicon glyphicon-calendar"></i>
-					2016/01/30
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-tag"></i>
-					<a rel="category tag" href="http://haikun.me/category/%e6%96%87%e7%ab%a0">文章</a>
-				</span>
-				<span>
-					<i class="glyphicon glyphicon-comment"></i>
-					<span class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
-				</span>
-			</div>
-		</article>
+		<div class="page">
+			{{$page}}
+		</div>
 	</div>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../vendor/angularjs/1.4.8/angular.min.js"></script>
+<script>
+	var app = angular.module('app',[]);
+	app.controller('listController',['$scope','$http',function($scope,$http){
+		$http.get('http://3.cs/index.php?_json=1&_content=1').success(function(response){
+			$scope.lists = response.data.models;
+			$scope.page = response.data.page;
+		});
+		console.log($scope);
+		console.log($http);
+	}]);
+	
+	$(function(){
+		$.get('http://3.cs/index.php?_json=1&_content=1',function(data){
+			console.log(data);
+		})
+	})
+</script>
 </body>
 </html>
