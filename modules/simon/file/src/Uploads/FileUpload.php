@@ -858,6 +858,23 @@ class FileUpload
 		$this->setPath($path);
 	}
 	
+	/**
+	 * 全局配置，可使用setXX方法覆盖config方法
+	 * @param array $config
+	 * @author simon
+	 */
+	public function config(array $config)
+	{
+		$allowPrototype = ['filesize','extensions','checkExtension','checkMime','rename','hashDirLayer'];
+		
+		foreach ($config as $key=>$value)
+		{
+			in_array($key, $allowPrototype,true) && $this->$key = $value;
+		}
+		
+		return $this;
+	}
+	
 	
 	/**
 	 * 设置hash目录的层级数
@@ -975,7 +992,7 @@ class FileUpload
 	 */
 	public function setMimes(array $mimes)
 	{
-		$this->mimes = $mimes;
+		$this->mimes = array_merge($this->mimes,$mimes);
 		return $this;
 	}
 	
@@ -998,7 +1015,7 @@ class FileUpload
 	 */
 	public function setFilesize($size)
 	{
-		$this->filesize = $size;
+		$this->filesize = is_numeric($size) ? $size : $this->filesize;
 		return $this;
 	}
 	

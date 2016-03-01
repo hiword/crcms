@@ -7,18 +7,18 @@
 	<link rel="stylesheet" href="{{static_asset('static/uploads/css/upload.css')}}" />
 	<style type="text/css">
            div.upload {
-	           padding:50px;
+	           padding:50px 0px 40px;
                 border:3px dashed #CCCCCC;
            }
            .info {margin-top:20px;}
     </style>
 </head>
 <body>
-    <div class="container-fluid text-center" id="local-container">
+    <div class="text-center" id="local-container">
         <div class="upload">
-            <button type="button" class="btn btn-primary btn-lg" id="select-file" style="margin-right: 10px;">选择文件</button>
+            <button type="button" class="btn btn-primary btn-lg" id="select-file" style="margin-right: 15px;">选择文件</button>
     		<button type="button" class="btn btn-success btn-lg ml10" id="upload-file">点击上传</button>
-            <p class="info">最大允许上传：2M</p>
+            <p class="info">文件类型：{{'*.'.implode(',*.',$config['extensions'])}}，最大上传：{{byte_size($config['filesize'])}}</p>
             <p class="" style="margin-top: 10px">{{$message or null}}</p>
         </div>
 		<div id="console"></div>
@@ -48,14 +48,14 @@
 		flash_swf_url : '{{"vendor/plupload/2.1.8/Moxie.swf"}}',
 		silverlight_xap_url : '{{"vendor/plupload/2.1.8/Moxie.xap"}}',
 	  	unique_names:true,
-		chunk_size: '{{$config["allowfilesize"]}}',
+		chunk_size: '{{$config["filesize"]}}',
 		multipart_params:MULTIPART_PARAMS,
 		filters : {
 			//根据不同类型设置
-			max_file_size : '100mb',
+			max_file_size : '{{$config["filesize"]}}',
 	    //根据不同类型设置
 			mime_types: [
-				{title : "allow files", extensions : "{{implode(',',$config['allowexttype'])}}"},
+				{title : "allow files", extensions : "{{implode(',',$config['extensions'])}}"},
 			],
 			//允许上传的数目，根据不同类型设置
 		},

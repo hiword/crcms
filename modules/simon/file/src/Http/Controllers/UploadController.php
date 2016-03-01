@@ -186,16 +186,26 @@ $result = json_encode($up->getFileInfo());
 	
 	public function getUpload()
 	{
-		$config = ['allowexttype'=>['jpg','jpeg','zip','rar','png','gif'],'allowfilesize'=>size_byte('2MB')];
-	    return $this->response("upload",['message'=>$this->request->input('message'),'config'=>$config,'session_id'=>session()->getId()]);
+	    return $this->response("upload",['message'=>$this->request->input('message'),'config'=>upload_config(),'session_id'=>session()->getId()]);
 	}
 	
+	/**
+	 * 文件上传主方法，支持session临时条件改变
+	 * sessioin(
+	 * 		[
+	 * 			'site_upload'=>['upload_type'=>'image_upload','upload_config'=>[...]]
+	 * 		]
+	 * )
+	 * 
+	 * @param FileData $FileData
+	 * @author simon
+	 */
 	public function postUpload(FileData $FileData)
 	{
 		try
 		{
 			$FileUpload = new \Simon\File\Uploads\PlUpload(public_path('uploads'));
-			$FileUpload->setExtensions(['jpg','jpeg','zip','rar'])->upload();
+			$FileUpload->config(upload_config())->upload();
 			$files = $FileUpload->getFiles();
 		}
 		catch (\Exception $e)
