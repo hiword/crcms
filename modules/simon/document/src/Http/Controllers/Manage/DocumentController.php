@@ -36,6 +36,7 @@ class DocumentController extends Controller
 	
 	public function getCreate()
 	{
+		upload_config('image_upload');
 		return $this->response('create');
 	}
 	
