@@ -43,8 +43,8 @@ class DocumentController extends Controller
 			}
 		}
 		
-		$page = $Paginate->setUrlParams($this->data)->page($this->model);
-		return $this->response("{$this->view}index",$page);
+		$page = $Paginate->setUrlParams($this->data)->setPageSize(1)->page($this->model);
+		return $this->response("index",$page);
 	}
 	
 	/**
