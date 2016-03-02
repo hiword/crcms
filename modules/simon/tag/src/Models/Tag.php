@@ -54,21 +54,17 @@ class Tag extends Model
 
 	/**
 	 * 一对多tags
-	 * @param numeric||array $outside_id
+	 * @param array $outside_id
 	 * @param string $outside_model
 	 * @author simon
 	 */
-	public function hasManyTags(array $models)
+	public function hasManyTags(array $outside_id,$outside_model)
 	{
-	    //可能可以使用$this->morphedByManyDocument()->where()->get()
-	    $tags = [];
-	    foreach ($models as $model)
-	    {
-	        
-	    }
-	    !is_array($outside_id) && $outside_id = [$outside_id];
-		$tags = TagOutside::whereIn('outside_id',$outside_id)->where('outside_model',$outside_model)->lists('tag_id');
-		return $this->whereIn('id',$tags)->orderBy(static::CREATED_AT,'desc')->get();
+		return $this->join('tag_outsides','tags.id','=','tag_outsides.tag_id')
+							->whereIn('outside_id',$outside_id)
+							->where('outside_type',$outside_model)
+							->orderBy('tags.'.static::CREATED_AT,'desc')
+							->select('tags.id','tags.name','tag_outsides.outside_id')->get();
 	}
 	
 	
