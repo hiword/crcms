@@ -32,7 +32,6 @@
 </div>
 <div class="main-right pull-right">
 	<div class="articles" ng-controller="listController">
-	{{tags = ddddd}}
 		<article ng-repeat="list in lists">
 			<a class="title" href="###">{{list.title}}</a>
 			<div class="content"> 
@@ -43,13 +42,13 @@
 					<i class="glyphicon glyphicon-calendar"></i>
 					({{ list.created_at * 1000 | date:'yyyy-MM-dd' }})
 				</span>
-				<span>
-					<i class="glyphicon glyphicon-tag"></i>
-					<a rel="category tag" href="http://haikun.me/category/%e6%96%87%e7%ab%a0">文章</a>
+				<span ng-repeat="tag in tags">
+					<i ng-show="tag.outside_id==list.id"  class="glyphicon glyphicon-tag"></i>
+					<a  ng-show="tag.outside_id==list.id"   rel="category tag" href="###">{{tag.name}}</a>
 				</span>
 				<span>
-					<i class="glyphicon glyphicon-comment"></i>
-					<span class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
+					<i   class="glyphicon glyphicon-comment"></i>
+					<span  class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
 				</span>
 			</div>
 		</article>
@@ -108,50 +107,86 @@
 		    return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
 		  }];
 	}]);
+	
 	//factory 使用于功能简单，类似于单例的一样，service适用于逻辑处理比较复杂的方法
 	app.factory('documentListFactory',['$http','$q',function($http,$q){
-		//申明一个延迟
-		var deferred = $q.defer();
-		$http.get('http://3.cs/index.php?_json=1&_content=1').success(function(response){
-			deferred.resolve(response);
-		}).error(function(response){
-			deferred.reject(response);
-		});
-		// 返回承诺，这里并不是最终数据，而是访问最终数据的API 
-		return deferred.promise;   
+		var documentListFactory = {
+			documentIds:[],
+			documents:function(){
+				//申明一个延迟
+				var deferred = $q.defer();
+				
+				//http数据获取
+				$http.get('http://3.cs/index.php?_json=1')
+				.success(function(response){
+					
+					//获取所有的document id
+					angular.forEach(response.data.models,function(values){
+						documentListFactory.documentIds.push(values.id);
+					})
+					
+					//解析documents
+					deferred.resolve(response.data);
+				})
+				.error(function(response){
+					deferred.reject(response);
+				});
+				
+				return deferred.promise;
+			}
+		}
+		return documentListFactory;
 	}]);
 	
 	app.factory('documentTagsFactory',['$http','$q','documentListFactory',function($http,$q,documentListFactory){
 		//申明一个延迟
 		return {
-			query(ids)
+			tags:function(ids)
 			{
-				var a = [];
-				
-				documentListFactory.then(function(response){
-					console.log(response);
-					angular.forEach(response.data.models,function(values){
-						a.push(values.id);
-					});
-				});
-				console.log(a);
-				
 				var deferred = $q.defer();
+				
 				$http.post('http://3.cs/index.php/tags/assoc-tags',{
-					'id':a,
+					'id':documentListFactory.documentIds,
 					'model':'Simon\\Document\\Models\\Document'
-				}).success(function(response){
-					deferred.resolve(response);
-				}).error(function(response){
+				})
+				.success(function(response){
+					
+					/* var objects = {};
+					var object = {};
+					
+					angular.forEach(response.data.tags,function(values){
+						
+						object[values.id] = values;
+						
+						objects[values.outside_id] = object;
+					}) */
+					
+					deferred.resolve(response.data.tags);
+				})
+				.error(function(response){
 					deferred.reject(response);
 				});
+				
 				return deferred.promise;
 			}
 		}
 	}]);
 	
 	app.controller('listController',['$scope','$http','$q','documentListFactory','documentTagsFactory',function($scope,$http,$q,documentListFactory,documentTagsFactory){
+		/* documentListFactory.a().then(function(response]){
+			$scope.lists = response
+		}) */
 		
+		documentListFactory.documents().then(function(response){
+			
+			$scope.lists = response.models;
+			
+			documentTagsFactory.tags(documentListFactory.documentIds).then(function(response){
+				console.log(response);
+				$scope.tags = response;
+			})
+		});
+
 		/* documentListFactory.then(function(response){
 			if(response.status == 1000)
 			{
@@ -169,9 +204,6 @@
 		/* documentListFactory.then(function(data){
 			
 		}) */
-		documentTagsFactory.query().then(function(data){
-			
-		});
 	}]);
 	
 	
