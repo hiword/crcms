@@ -5,16 +5,21 @@ use Simon\Document\Models\Document;
 use App\Services\Paginate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Simon\Document\Models\Category;
 class DocumentController extends Controller
 {
 	
-	public function __construct(Document $Document)
+	public function __construct(Document $Document,Category $Category)
 	{
 		parent::__construct();
 		$this->model = $Document;
+// 		$this->view = 'document::document.';
 		$this->view = 'document::document.';
 		
-
+		
+		view()->share([
+			'categories'=>$Category->where('status',1)->orderBy('created_at','desc')->get(),
+		]);
 		// 		Mail::send('emails.test', [], function($message)
 		//         {
 		//         	$message->to('28737164@qq.com', 'abc')->subject('subject');
@@ -29,10 +34,14 @@ class DocumentController extends Controller
 	 * @param page 分页标识
 	 * @author simon
 	 */
-	public function getIndex(Paginate $Paginate) 
+	public function getIndex(Paginate $Paginate,Category $Category,$cid = 0) 
 	{
-		
-		$this->model = $this->model->orderBy(Document::CREATED_AT,'desc');//->where('status',1);
+		if (!empty($cid) && is_numeric($cid))
+		{
+			$this->model = $Category->findOrFail($cid)->belongsToManyDocument();
+		}
+
+		$this->model = $this->model->where('status',1)->orderBy(Document::CREATED_AT,'desc');//->where('status',1);
 		
 		//附加内容
 		if ($this->request->input('_content'))
@@ -43,7 +52,7 @@ class DocumentController extends Controller
 			}
 		}
 		
-		$page = $Paginate->setUrlParams($this->data)->setPageSize(2)->page($this->model);
+		$page = $Paginate->setUrlParams($this->data)->setPageSize(15)->page($this->model);
 		return $this->response("index",$page);
 	}
 	
@@ -54,11 +63,11 @@ class DocumentController extends Controller
 	 */
 	public function getShow($id)
 	{
-		$this->model = $this->model->find($id);
+		$this->model = $this->model->findOrFail($id);
 		
 		//content
 		$this->model->hasOneDocumentData;
 		
-		return $this->response("{$this->view}show",['model'=>$this->model]);
+		return $this->response("show",['model'=>$this->model]);
 	}
 }

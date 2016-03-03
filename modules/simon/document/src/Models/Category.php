@@ -21,4 +21,14 @@ class Category extends Model
 			'status'=>'Simon\Document\Fields\Category\Status',
 	];
 	
+	/**
+	 * 对多对  所有category
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @author simon
+	 */
+	public function belongsToManyDocument()
+	{
+		return $this->belongsToMany('Simon\Document\Models\Document','category_documents','category_id','document_id');
+	}
+	
 }
