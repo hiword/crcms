@@ -143,6 +143,11 @@ body {
 	color:#666666;
 }
 
+.right-box .download-link {
+	color:red;
+	margin-top:10px;
+}
+
 footer {
 	border-top:1px solid #CCCCCC;
 	padding:20px;

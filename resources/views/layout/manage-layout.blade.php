@@ -6,7 +6,7 @@
 @section('body')
 <div class="main">
 	<div class="main-left">
-		<h2 class="logo">CRCMS</h2>
+		<h2 class="logo">Wordpress</h2>
 		<div class="sidebar">
 			<ul class="nav nav-pills nav-stacked">
 			     <li id="accordion0" class="active">
