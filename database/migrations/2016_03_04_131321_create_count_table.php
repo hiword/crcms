@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagsTable extends Migration
+class CreateCountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,29 +13,28 @@ class CreateTagsTable extends Migration
     public function up()
     {
         //
-    	//
-    	Schema::create('tags', function(Blueprint $table)
-    	{
-    		$table->mediumInteger('id',true,true);
+    	Schema::create('counts', function (Blueprint $table) {
+    		 
+    		$table->increments('id');
+    		 
+    		$table->char('outside_type',60);
+    		$table->unsignedInteger('outside_id')->default(0);
     		
-    		$table->char('name',50)->unique();
-    		$table->char('thumbnail',150);
-//     		$table->tinyInteger('type_id',false,true)->default(0);
-    		$table->tinyInteger('status',false,true)->default(0);
-//     		$table->mediumInteger('category_id',false,true)->default(0);//标签类别
-    		
+    		$table->bigInteger('client_ip',false,true)->default(0);
+    		 
     		$table->tinyInteger('created_type',false,true)->default(0);
     		$table->tinyInteger('updated_type',false,true)->default(0);
     		$table->tinyInteger('deleted_type',false,true)->default(0);
-    		 
-    		$table->mediumInteger('created_uid',false,true)->default(0);
-    		$table->mediumInteger('updated_uid',false,true)->default(0);
-    		$table->mediumInteger('deleted_uid',false,true)->default(0);
     		 
     		$table->unsignedInteger('created_at')->default(0);
     		$table->unsignedInteger('updated_at')->default(0);
     		$table->unsignedInteger('deleted_at')->default(0);
     		 
+    		$table->mediumInteger('created_uid',false,true)->default(0);
+    		$table->mediumInteger('updated_uid',false,true)->default(0);
+    		$table->mediumInteger('deleted_uid',false,true)->default(0);
+    	
+    		//$table->index(['outside_id','outside_type']);
     	});
     }
 
@@ -47,6 +46,6 @@ class CreateTagsTable extends Migration
     public function down()
     {
         //
-    	Schema::drop('tags');
+    	Schema::drop('counts');
     }
 }
