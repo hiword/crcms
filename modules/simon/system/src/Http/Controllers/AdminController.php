@@ -41,6 +41,9 @@ class AdminController extends Controller
         
         $this->storeData($fields);
         
+        //logs
+        $this->logs(['remark'=>'add administrator']);
+        
         return $this->response(['success'],'manage/admin');
     }
     
@@ -63,12 +66,18 @@ class AdminController extends Controller
         
         $this->updateData($id,$fields);
         
+        //logs
+        $this->logs(['remark'=>'update administrator']);
+        
         return $this->response(['success'],'manage/admin');
     }
     
     public function deleteDestroy()
     {
         $this->destroyData($this->data['id']);
+        
+        //logs
+        $this->logs(['remark'=>'destroy administrator']);
         
         return $this->response(['success']);
     }

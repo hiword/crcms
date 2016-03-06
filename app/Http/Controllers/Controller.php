@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
+use Simon\Log\Events\Logs;
 use App\Services\Service;
 use App\Fields\Field;
 
@@ -67,6 +68,13 @@ abstract class Controller extends BaseController
 	 * @author simon
 	 */
 	protected $displayFields = [];
+	
+	/**
+	 * 
+	 * @var array $fields
+	 * @author simon
+	 */
+	protected $fields = [];
 
 
 	/**
@@ -98,7 +106,29 @@ abstract class Controller extends BaseController
 	protected function userInitialization(){}
 
 	protected function manageInitialization(){}
-
+	
+	/**
+	 * 
+	 * @param array $options
+	 * @param string $actionLog
+	 * @author simon
+	 */
+	protected function logs(array $options,$actionLog = true)
+	{
+		if ($actionLog)
+		{
+			$log = ['Simon\Log\Models\ActionLog'=>system_logs($options)];
+		}
+		else
+		{
+			$log = $options;
+		}
+		//Logs
+		event(new Logs($log));
+		
+		return $this;
+	}
+	
 	/**
 	 * 直接返回响应快捷方式
 	 * 参数传递只是为了设置响应体，即$this->setResponseData

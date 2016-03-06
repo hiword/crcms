@@ -1,10 +1,10 @@
 <?php
 namespace Simon\Document\Models;
 use App\Models\Model;
-use App\Models\SoftDeleting\SoftDeletes;
 class DocumentData extends Model
 {
-	use SoftDeletes;
+	
+	public $timestamps = false;
 	
 	protected $primaryKey = 'did';
 	
@@ -15,6 +15,22 @@ class DocumentData extends Model
 			'seo_keywords'=>'Simon\Document\Fields\DocumentData\SeoKeywords',
 			'seo_description'=>'Simon\Document\Fields\DocumentData\SeoDescription',
 	];
+	
+	protected function dataStoreHandle()
+	{
+		
+	}
+	
+	protected function dataUpdateHandle()
+	{
+		
+	}
+	
+	
+	protected function dataDestroyHandle()
+	{
+		
+	}
 	
 	public function interceptContent() 
 	{

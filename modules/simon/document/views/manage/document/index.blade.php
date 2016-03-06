@@ -55,3 +55,7 @@
 	</tr>
 	@endforeach
 @endsection
+
+@section('table-btn')
+<option value="destroy" ajax-url="{{url('manage/document/destroy')}}">删除</option>
+@endsection

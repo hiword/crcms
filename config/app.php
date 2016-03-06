@@ -184,9 +184,11 @@ return [
         //file
         Simon\System\Providers\SystemServiceProvider::class,
         
+    	//count
+    	Simon\Count\Providers\CountServiceProvider::class,
         
         	//model
-        	Simon\Model\Providers\ModelServiceProvider::class,
+        	//Simon\Model\Providers\ModelServiceProvider::class,
     ],
 
     /*

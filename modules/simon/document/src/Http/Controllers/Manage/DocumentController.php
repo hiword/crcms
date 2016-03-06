@@ -64,6 +64,8 @@ class DocumentController extends Controller
 			event(new ImageOutside($this->data['images'],$this->model->id,'Simon\Document\Models\Document'));
 		}
 		
+		//logs
+		$this->logs(['remark'=>'add document']);
 		
 		return $this->response(['success'],'manage/document/index');
 	}
@@ -109,6 +111,18 @@ class DocumentController extends Controller
 			event(new ImageOutside($this->data['images'],$id,'Simon\Document\Models\Document'));
 		}
 		
+		//logs
+		$this->logs(['remark'=>'update document']);
+		
 		return $this->response(['success'],'manage/document/index');
+	}
+	
+	public function deleteDestroy()
+	{
+		$this->destroyData($this->data['id']);
+		 
+		$this->logs(['remark'=>'destroy document']);
+		 
+		return $this->response(['success']);
 	}
 }

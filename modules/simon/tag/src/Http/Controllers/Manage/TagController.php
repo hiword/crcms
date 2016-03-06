@@ -41,6 +41,9 @@ class TagController extends Controller
 		$this->model = $this->storeData($fields);
 		$this->storeData(['tid','content'],$TagContent,array_merge($this->data,['tid'=>$this->model->id]));
 		
+		//logs
+		$this->logs(['remark'=>'add tags']);
+		
 		return $this->response(['success'],'manage/tags/index');
 	}
 	
@@ -60,6 +63,8 @@ class TagController extends Controller
 		$this->model = $this->updateData($id,$fields);
 		$this->updateData($id,['content'],$TagContent);
 		
+		$this->logs(['remark'=>'update tags']);
+		
 		return $this->response(['success'],'manage/tags/index');
 	}
 	
@@ -67,7 +72,7 @@ class TagController extends Controller
 	{
 		$this->destroyData($this->data['id']);
 		
-		$this->destroyData($this->data['id'],$TagContent);
+		$this->logs(['remark'=>'delete tags']);
 		 
 		return $this->response(['success']);
 	}

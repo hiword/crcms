@@ -19,6 +19,9 @@ class LogController extends Controller
 	public function getActionLog(Paginate $Paginate,ActionLog $ActionLog) 
 	{
 		$page = $Paginate->page($ActionLog->orderBy('id','desc'));
+		
+		$action = $ActionLog->first();
+		
 		return $this->response("action_log",$page);
 	}
 	

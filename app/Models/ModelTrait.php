@@ -23,6 +23,25 @@ trait ModelTrait {
 // 	 * @var string
 // 	 */
 // 	const DATA_DESTROY = 'destroy';
+
+
+	/**
+	 * 自动存储
+	 * @var boolean $autoStore
+	 */
+// 	protected $autoStore = true;
+	
+	/**
+	 * 自动修改
+	 * @var boolean $autoUpdate
+	 */
+// 	protected $autoUpdate = true;
+	
+	/**
+	 * 自动删除
+	 * @var boolean $autoDestroy
+	 */
+// 	protected $autoDestroy = true;
 	
 	/**
 	 * 模型数据
@@ -30,6 +49,13 @@ trait ModelTrait {
 	 * @author simon
 	 */
 	protected $data = array();
+	
+	/**
+	 * 
+	 * @var array
+	 * @author simon
+	 */
+// 	protected $fieldFillable = [];
 	
 	/**
 	 * 字段数据
@@ -131,6 +157,26 @@ trait ModelTrait {
 	}
 	
 	/**
+	 * 
+	 * 
+	 * @author simon
+	 */
+// 	protected static function autoStore()
+// 	{
+// 		return true;
+// 	}
+	
+// 	protected static function autoUpdate()
+// 	{
+// 		return true;
+// 	}
+	
+// 	protected static function autoDestroy()
+// 	{
+// 		return true;
+// 	}
+	
+	/**
 	 * 保存数据
 	 * @param numeric $id
 	 * @param array $data
@@ -161,7 +207,7 @@ trait ModelTrait {
 	
 	
 	/**
-	 * 数据修改处理
+	 * 数据删除处理
 	 */
 	protected function dataDestroyHandle()
 	{
@@ -187,6 +233,34 @@ trait ModelTrait {
 		
 		return $this->destroy($data);
 	}
+	
+	/**
+	 * 
+	 * @param array $fields
+	 * @author simon
+	 */
+// 	public function setFieldFillable(array $fields)
+// 	{
+// 		$this->fieldFillable = $fields;
+// 		return $this;
+// 	}
+	
+	/**
+	 * 
+	 * @param array $data
+	 * @author simon
+	 */
+// 	protected function filterFields(array $data)
+// 	{
+// 		foreach ($this->data as $key=>$value)
+// 		{
+// 			if (!in_array($key, $this->fieldFillable,true))
+// 			{
+// 				unset($this->data[$key]);
+// 			}
+// 		}
+// 		return $this->data;
+// 	}
 	
 	/**
 	 * 获取指定字段

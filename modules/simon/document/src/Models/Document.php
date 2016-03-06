@@ -5,15 +5,14 @@ use App\Models\SoftDeleting\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 class Document extends Model
 {
+	use SoftDeletes;
 	
 	protected static $fields = [
-			'title'=>'Simon\Document\Fields\Document\Title',
-			'thumbnail'=>'Simon\Document\Fields\Document\Thumbnail',
-			'status'=>'Simon\Document\Fields\Document\Status',
-			'category_id'=>'Simon\Document\Fields\Document\CategoryId',
+		'title'=>'Simon\Document\Fields\Document\Title',
+		'thumbnail'=>'Simon\Document\Fields\Document\Thumbnail',
+		'status'=>'Simon\Document\Fields\Document\Status',
+		'category_id'=>'Simon\Document\Fields\Document\CategoryId',
 	];
-	
-	use SoftDeletes;
 	
 	public function hasOneDocumentData() 
 	{

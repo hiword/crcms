@@ -396,7 +396,7 @@ use Simon\Document\Models\Category;
 	function request_agent()
 	{
 		$Request = app('request');
-		$Agent = new \Jenssegers\Agent\Agent();
+		//$Agent = new \Jenssegers\Agent\Agent();
 		
 		$data = [];
 		$data['url'] = $Request->fullUrl();
@@ -405,13 +405,13 @@ use Simon\Document\Models\Category;
 // 		$data['port'] = $Request->port();
 		// 		$data['user_agent'] = '';
 		$data['client_ip'] = ip_long($Request->ip());
-		$data['device'] = (string)$Agent->device();
-		$data['browser'] = (string)$Agent->browser();
-		$data['browser_version'] = (string)$Agent->version($data['browser']);
-		$data['os'] = (string)$Agent->platform();
-		$data['os_version'] = (string)$Agent->version($data['os']);
-		$data['is_robot'] = $Agent->isRobot() ? 1 : 0;
-		$data['robot_name'] = (string)$Agent->robot();
+		$data['device'] = '';//(string)$Agent->device();
+		$data['browser'] = '';//(string)$Agent->browser();
+		$data['browser_version'] = '';//(string)$Agent->version($data['browser']);
+		$data['os'] = '';//(string)$Agent->platform();
+		$data['os_version'] = '';//(string)$Agent->version($data['os']);
+		$data['is_robot'] = 1;//$Agent->isRobot() ? 1 : 0;
+		$data['robot_name'] = '';//(string)$Agent->robot();
 		return $data;
 	}
 	

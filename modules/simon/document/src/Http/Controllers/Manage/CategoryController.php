@@ -42,6 +42,8 @@ class CategoryController extends Controller
 		
 		$this->storeData($fields);
 		
+		$this->logs(['remark'=>'add category']);
+		
 		return $this->response(['success'],'manage/category/index');
 	}
 	
@@ -59,12 +61,16 @@ class CategoryController extends Controller
 		
 		$this->updateData($id,$fields);
 		
+		$this->logs(['remark'=>'update category']);
+		
 		return $this->response(['success'],'manage/category/index');
 	}
 	
 	public function deleteDestroy()
 	{
 	    $this->destroyData($this->data['id']);
+	    
+	    $this->logs(['remark'=>'destroy category']);
 	    
 	    return $this->response(['success']);
 	}
