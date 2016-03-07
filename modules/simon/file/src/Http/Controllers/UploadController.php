@@ -204,7 +204,7 @@ $result = json_encode($up->getFileInfo());
 	{
 		try
 		{
-			$FileUpload = new \Simon\File\Uploads\PlUpload(public_path('uploads'));
+			$FileUpload = new \Simon\File\Uploads\PlUpload(storage_path('uploads'));
 			$FileUpload->config(upload_config())->upload();
 			$files = $FileUpload->getFiles();
 		}

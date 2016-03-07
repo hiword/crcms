@@ -29,7 +29,7 @@ class DocumentController extends Controller
 	
 	public function getTest()
 	{ 
-		return '<img src="'.url('image',['template'=>'test','filename'=>rawurlencode('0/1/1.jpg')]).'" alt="" />';
+		return '<img src="'.url('image',['template'=>'test','filename'=>rawurlencode('5/4/o_1acc4jd2c1gk1la21plpg181kfd7.jpg')]).'" alt="" />';
 	}
 	
 	/**

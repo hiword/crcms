@@ -32,6 +32,8 @@ abstract class Service
 	 */
 	protected $response = null;
 	
+	protected $model = null;
+	
 	/**
 	 * 初始化设置
 	 * @param array $data
