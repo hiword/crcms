@@ -35,9 +35,9 @@ class TagServiceProvider extends ServiceProvider
     	
     	//移动目录
     	$this->publishes([
-    			$path.'config' => config_path(),
-    			$path.'views' => base_path('resources/views/vendor/'.$namespace),
-    			$path.'database'=>database_path(),
+//     			$path.'config' => config_path(),
+//     			$path.'views' => base_path('resources/views/vendor/'.$namespace),
+//     			$path.'database'=>database_path(),
     	]);
 	}
 	
