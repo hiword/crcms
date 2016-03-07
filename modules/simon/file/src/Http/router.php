@@ -1,5 +1,5 @@
 <?php
 $router->controllers([
 		'upload'=>'UploadController',
-// 		'manage/file'=>
 ]);
+Route::get('image/{template}/{filename}','ImageController@getImage');
