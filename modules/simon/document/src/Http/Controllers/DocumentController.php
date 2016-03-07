@@ -27,6 +27,11 @@ class DocumentController extends Controller
 		// 		exit();
 	}
 	
+	public function getTest()
+	{ 
+		return '<img src="'.url('image',['template'=>'test','filename'=>rawurlencode('0/1/1.jpg')]).'" alt="" />';
+	}
+	
 	/**
 	 * 列表页
 	 * @param Paginate $Paginate
