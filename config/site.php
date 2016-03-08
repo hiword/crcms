@@ -1,7 +1,7 @@
 <?php
 return [
 		
-		'theme'=>'skin1',
+// 		'theme'=>'skin1',
 		
 		'image_upload'=>[
 			'filesize'=>2097152,
