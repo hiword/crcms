@@ -3,21 +3,21 @@ namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use Simon\Document\Fields\Document\Status;
 use Simon\Document\Models\Category;
-use Simon\Tag\Events\TagOutside;
 use Simon\Document\Models\Document;
 use Simon\Document\Models\DocumentData;
 use App\Services\Paginate;
 use Simon\Document\Models\CategoryDocument;
-use Simon\File\Events\ImageOutside;
 class DocumentController extends Controller
 {
 	
 	public function __construct(Category $Category,Document $Document)
 	{
-		
 		parent::__construct();
 		
-		$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
 		
 		view()->share([
 			'tree'=>category_tree(),
@@ -36,7 +36,10 @@ class DocumentController extends Controller
 	
 	public function getCreate()
 	{
-		upload_config('image_upload');
+		if (module_exists('file'))
+		{
+			upload_config('image_upload');
+		}
 		return $this->response('create');
 	}
 	
@@ -53,15 +56,15 @@ class DocumentController extends Controller
 		$CategoryDocument->storeData($this->data['category_id'],$this->model->id);
 		
 		//tags
-		if (!empty($this->data['tags']))
+		if (module_exists('tag') && !empty($this->data['tags']))
 		{
-			event(new TagOutside($this->data['tags'],$this->model->id,'Simon\Document\Models\Document'));
+			event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$this->model->id,'Simon\Document\Models\Document'));
 		}
 		
 		//images
-		if (!empty($this->data['images']))
+		if (module_exists('file') && !empty($this->data['images']))
 		{
-			event(new ImageOutside($this->data['images'],$this->model->id,'Simon\Document\Models\Document'));
+			event(new \Simon\File\Events\ImageOutside($this->data['images'],$this->model->id,'Simon\Document\Models\Document'));
 		}
 		
 		//logs
@@ -70,13 +73,18 @@ class DocumentController extends Controller
 		return $this->response(['success'],'manage/document/index');
 	}
 	
-	public function getEdit($id)
+	public function getEdit($id,$hash)
 	{
+		
+		$this->validateHash($id,$hash);
+		
 		$this->model = $this->model->findOrFail($id);
+		
+		$this->hash($id);
 		
 		$this->model->categorys = $this->model->belongsToManyCategory()->lists('id')->toArray();
 		
-		//
+		//images
 		$images = $this->model->morphManyImages;
 		
 		return $this->response("edit",['model'=>$this->model,'images'=>$images]);
@@ -84,6 +92,8 @@ class DocumentController extends Controller
 	
 	public function putUpdate($id,DocumentData $DocumentData,CategoryDocument $CategoryDocument) 
 	{
+		$this->validateHash($id);
+		
 		$this->validate(['title','status','category_id','thumbnail'],$this->model,array_merge($this->data['document'],['category_id'=>$this->data['category_id']]));
 		$this->validate(['content','seo_title','seo_keywords','seo_description'],$this->model,$this->data['document_data']);
 		
@@ -99,16 +109,19 @@ class DocumentController extends Controller
 		$CategoryDocument->storeData($this->data['category_id'],$id);
 		
 		//tags
-		\Simon\Tag\Models\TagOutside::where('outside_id',$id)->where('outside_type','Simon\Document\Models\Document')->delete();
-		if (!empty($this->data['tags']))
+		if (module_exists('tag'))
 		{
-			event(new TagOutside($this->data['tags'],$id,'Simon\Document\Models\Document'));
+			\Simon\Tag\Models\TagOutside::where('outside_id',$id)->where('outside_type','Simon\Document\Models\Document')->delete();
+			if (!empty($this->data['tags']))
+			{
+				event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$id,'Simon\Document\Models\Document'));
+			}	
 		}
 		
 		//images
-		if (!empty($this->data['images']))
+		if (module_exists('file') && !empty($this->data['images']))
 		{
-			event(new ImageOutside($this->data['images'],$id,'Simon\Document\Models\Document'));
+			event(new \Simon\File\Events\ImageOutside($this->data['images'],$id,'Simon\Document\Models\Document'));
 		}
 		
 		//logs
@@ -119,7 +132,16 @@ class DocumentController extends Controller
 	
 	public function deleteDestroy()
 	{
-		$this->destroyData($this->data['id']);
+		$ids = [];
+		foreach ($this->data['hash'] as $key=>$hash)
+		{
+			if (check_hash($this->data['id'][$key], $hash))
+			{
+				$ids[] = $this->data['id'][$key];
+			}
+		}
+		
+		$this->destroyData($ids);
 		 
 		$this->logs(['remark'=>'destroy document']);
 		 
