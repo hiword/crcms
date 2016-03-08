@@ -34,17 +34,23 @@ abstract class Service
 	
 	protected $model = null;
 	
+	protected $request = null;
+	
 	/**
 	 * 初始化设置
 	 * @param array $data
 	 * @author simon
 	 */
-	public function __construct(array $data = [])
+	public function __construct()
 	{
 // 		$this->messages = new MessageBag();
-		$this->data = $data;
+// 		$this->data = $data;
 		
-		$this->response = new Response();
+		$this->request = app('request');
+			
+		$this->data = xss_clean($this->request->all());
+		
+		$this->response = app('App\Services\Response');
 	}
 	
 	/**

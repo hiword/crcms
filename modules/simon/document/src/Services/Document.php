@@ -1,12 +1,15 @@
 <?php
-namespace Simon\Services;
+namespace Simon\Document\Services;
 use App\Services\Service;
 use App\Services\Paginate;
+use Simon\Document\Models\Category;
+use Simon\Document\Models\Document as DocumentModel;
 class Document extends Service
 {
-	public function __construct()
+	public function __construct(DocumentModel $Document)
 	{
-		$this->model = null;
+		parent::__construct();
+		$this->model = $Document;
 	}
 	
 	public function documentList()
@@ -14,28 +17,18 @@ class Document extends Service
 		
 	}
 	
-	public function documentPage($cid = 0)
+	public function documentPage($cid = 0,Paginate $Paginate,Category $Category)
 	{
-		$Paginate = new Paginate();
-		
 		if (!empty($cid) && is_numeric($cid))
 		{
 			$this->model = $Category->findOrFail($cid)->belongsToManyDocument();
 		}
 		
-		$this->model = $this->model->where('status',1)->orderBy(Document::CREATED_AT,'desc');//->where('status',1);
+		$this->model = $this->model->where('status',1)->orderBy(DocumentModel::CREATED_AT,'desc');//->where('status',1);
 		
-		//附加内容
-		if ($this->request->input('_content'))
-		{
-			foreach ($this->model as $model)
-			{
-				$model->hasOneDocumentData;
-			}
-		}
+		$page = $Paginate->setUrlParams($this->data)->setPageSize(2)->page($this->model);
 		
-		$page = $Paginate->setUrlParams($this->data)->setPageSize(15)->page($this->model);
-		return $this->response("index",$page);
+		return $page;
 	}
 	
 	

@@ -6,15 +6,22 @@ use App\Services\Paginate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Simon\Document\Models\Category;
+use Simon\Document\Services\Document as DocumentService;
+use Simon\Document\Models\DocumentData;
+use Illuminate\Support\Facades\DB;
 class DocumentController extends Controller
 {
 	
-	public function __construct(Document $Document,Category $Category)
+	public function __construct(Document $Document,Category $Category,DocumentService $DocumentService)
 	{
 		parent::__construct();
 		$this->model = $Document;
+		
+		$this->service = $DocumentService;
+		
 // 		$this->view = 'document::document.';
 		$this->view = 'document::document.';
+		
 		
 		
 		view()->share([
@@ -59,6 +66,7 @@ class DocumentController extends Controller
 		
 		$page = $Paginate->setUrlParams($this->data)->setPageSize(15)->page($this->model);
 		return $this->response("index",$page);
+		//$this->service->documentPage($cid,$Paginate,$Category)
 	}
 	
 	/**
@@ -74,5 +82,13 @@ class DocumentController extends Controller
 		$this->model->hasOneDocumentData;
 		
 		return $this->response("show",['model'=>$this->model]);
+	}
+	
+	public function postDocumentData(DocumentData $DocumentData)
+	{
+		$documentTable = $this->model->getTable();
+		$DocumentDataTable = $DocumentData->getTable();
+		$data = $this->model->join($DocumentDataTable,$documentTable.'.id','=',$DocumentDataTable.'.did')->select($DocumentDataTable.'.*')->whereIn($documentTable.'.id',(array)$this->data['id'])->where($documentTable.'.status','=',1)->get();
+		return $this->response(['success'],['data'=>$data]);
 	}
 }

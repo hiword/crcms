@@ -4,7 +4,7 @@ namespace App\Services;
 class Paginate 
 {
 
-	protected $pageSize = 10;
+	protected $pageSize = 2;
 
 	protected $pagePath = '';
 
@@ -55,7 +55,7 @@ class Paginate
 			$items = $callable($items);
 		}
 
-		return ['total'=>$paginate->total(),'models'=>$items,'page'=>$paginate->setPath($this->pagePath)->appends($this->pageUrlParams)->render()];
+		return ['total'=>$paginate->total(),'models'=>$items,'page'=>(string)$paginate->setPath($this->pagePath)->appends($this->pageUrlParams)->render()];
 	}
 
 }
