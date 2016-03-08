@@ -59,7 +59,7 @@ class TagController extends Controller
 	
 	public function postAssocTags()
 	{
-		$tags = $this->model->hasManyTags($this->data['id'],$this->data['model']);
+		$tags = $this->model->hasManyTags($this->data['id'],'Simon\\'.$this->data['model']);
 		return $this->response(['success'],['tags'=>$tags]);
 	}
 }
