@@ -54,7 +54,7 @@ $(function(){
 	//单删除
 	$.CR.ajax('.destroy-value',function($object){
 		return {
-			data:{_method:'DELETE',id:[$object.attr('value')]}
+			data:{_method:'DELETE',id:[$object.attr('value')],hash:[$object.attr('hash')]}
 		}
 	});
 
@@ -71,7 +71,7 @@ $(function(){
 				url:$(this).closest('form').find('select option:selected').attr('ajax-url'),
 				type:'POST',
 				dataType:'json',
-				data:{_method:'DELETE',id:$.CR.ids()},
+				data:{_method:'DELETE',id:$.CR.ids(),hash:$.CR.ids('hash')},
 				beforeSend:$.noop,
 				error:$.noop,
 				success:function(data, textStatus, jqXHR){
