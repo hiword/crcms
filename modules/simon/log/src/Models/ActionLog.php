@@ -12,6 +12,10 @@ class ActionLog extends Model
 	//这里其实还是应该用field属性来判断条件和控制
 	protected $fillable = ['url','method','scheme','port','client_ip','device','browser','browser_version','os','os_version','is_robot','robot_name','remark','created_uid','created_type'];
 	
+	protected function dataStoreHandle()
+	{
+	}
+	
 	/**
 	 * 
 	 * 
