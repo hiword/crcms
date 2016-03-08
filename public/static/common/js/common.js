@@ -217,11 +217,12 @@
 				});
 			});
 		}
-		,ids:function(name){
+		,ids:function(attr,name){
+			attr = attr || 'value';
 			name = name || "input[name='id[]']:checked";
 			var ids = [];
 			$(name).each(function(){
-				ids.push($(this).val());
+				ids.push(attr === 'value' ? $(this).val() : $(this).attr(attr));
 			});
 			return ids;
 		}
