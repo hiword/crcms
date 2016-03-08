@@ -8,21 +8,6 @@ class TagContent extends Model
 	
 	protected $primaryKey = 'tid';
 	
-	protected function dataStoreHandle()
-	{
-		
-	}
-	
-	protected function dataUpdateHandle()
-	{
-		
-	}
-	
-	protected function dataDestroyHandle()
-	{
-		
-	}
-	
 	/**
 	 * 字段
 	 * @var array
@@ -32,6 +17,21 @@ class TagContent extends Model
 			'tid'=>'Simon\Tag\Fields\TagContents\Tid',
 			'content'=>'Simon\Tag\Fields\TagContents\Content',
 	];
+	
+	protected function dataStoreHandle()
+	{
+	
+	}
+	
+	protected function dataUpdateHandle()
+	{
+	
+	}
+	
+	protected function dataDestroyHandle()
+	{
+	
+	}
 	
 	
 }
