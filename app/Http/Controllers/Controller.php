@@ -115,16 +115,10 @@ abstract class Controller extends BaseController
 	 */
 	protected function logs(array $options,$actionLog = true)
 	{
-		if ($actionLog)
+		if (module_exists('log'))
 		{
-			$log = ['Simon\Log\Models\ActionLog'=>system_logs($options)];
+			logs($options,$actionLog);
 		}
-		else
-		{
-			$log = $options;
-		}
-		//Logs
-		event(new Logs($log));
 		
 		return $this;
 	}
@@ -178,8 +172,10 @@ abstract class Controller extends BaseController
 		}
 		 
 		//create hash
-		$this->model->{$this->hashKey} = create_hash($key);
-		 
+		$hash = $this->model->{$this->hashKey} = create_hash($key);
+		
+		view()->share('_hash',$hash);
+		
 		return $this;
 	}
 

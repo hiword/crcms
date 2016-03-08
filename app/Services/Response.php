@@ -150,16 +150,16 @@ class Response  {
 	 */
 	protected function view($path,$data = [],$viewPrefix = '')
 	{
-// 		$theme = config('site.theme') ? trim(config('site.theme'),'.').'.' : '';
+		$theme = config('site.theme') ? trim(config('site.theme'),'.').'.' : '';
 		$request = app('request');
 		
-		//这里这样强制写可能不太好，先这样
-		$theme = $request->is('manage*') ? '' : config('site.theme');
+// 		//这里这样强制写可能不太好，先这样
+// 		$theme = $request->is('manage*') ? '' : config('site.theme');
 		
-		$view = explode('::', $viewPrefix);
-		$view = "{$view[0]}::{$theme}.{$view[1]}{$path}";
+// 		$view = explode('::', $viewPrefix);
+// 		$view = "{$view[0]}::{$theme}.{$view[1]}{$path}";
 		
-		return view($view,array_merge((array)$request->all(),$data));
+		return view($viewPrefix.$theme.$path,array_merge((array)$request->all(),$data));
 	}
 	
 	/**
