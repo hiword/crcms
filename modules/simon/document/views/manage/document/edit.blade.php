@@ -10,6 +10,7 @@
 <input type="hidden" name="_token" value="{{csrf_token()}}" />
 <input type="hidden" name="_method" value="put" />
 <input type="hidden" name="id" value="{{$model->id}}" />
+<input type="hidden" name="_hash" value="{{$_hash}}" />
 <div class="row pb20">
 	<div class="col-md-9">
 		

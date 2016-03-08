@@ -41,12 +41,14 @@
 @section('table-list')
 	@foreach($models as $model)
 	<tr>
-		<td><input type="checkbox" name="id[]" value="{{$model->id}}" /></td>
+		<td>
+			<input type="checkbox" name="id[]" value="{{$model->id}}" hash="{{create_hash($model->id)}}"/>
+		</td>
 		<td>
 			<div>{{$model->title}}</div>
 			<div>
-				<a href="{{url('manage/document/edit/'.$model->id)}}" class="fs12">编辑</a>
-				<a href="###" class="ml5 fs12">删除</a>
+				<a href="{{url('manage/document/edit/'.$model->id.'/'.create_hash($model->id))}}" class="fs12">编辑</a>
+				<a href="###" class="ml5 fs12 destroy-value" value="{{$model->id}}" hash="{{create_hash($model->id)}}" ajax-url="{{url('manage/document/destroy')}}">删除</a>
 				<a href="###" class="ml5 fs12">查看</a>
 			</div>
 		</td>
