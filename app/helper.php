@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Fields\Field;
 use Carbon\Carbon;
 use Simon\Document\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 	/**
 	 * 静态资源
@@ -389,49 +390,6 @@ use Simon\Document\Models\Category;
 // 	}
 	
 	/**
-	 * Request And Agent
-	 * @return multitype:string number NULL 
-	 * @author simon
-	 */
-	function request_agent()
-	{
-		$Request = app('request');
-		//$Agent = new \Jenssegers\Agent\Agent();
-		
-		$data = [];
-		$data['url'] = $Request->fullUrl();
-		$data['method'] = $Request->method();
-		$data['scheme'] = $Request->getScheme();
-// 		$data['port'] = $Request->port();
-		// 		$data['user_agent'] = '';
-		$data['client_ip'] = ip_long($Request->ip());
-		$data['device'] = '';//(string)$Agent->device();
-		$data['browser'] = '';//(string)$Agent->browser();
-		$data['browser_version'] = '';//(string)$Agent->version($data['browser']);
-		$data['os'] = '';//(string)$Agent->platform();
-		$data['os_version'] = '';//(string)$Agent->version($data['os']);
-		$data['is_robot'] = 1;//$Agent->isRobot() ? 1 : 0;
-		$data['robot_name'] = '';//(string)$Agent->robot();
-		return $data;
-	}
-	
-	/**
-	 * 日志
-	 * @param array $log
-	 * @return multitype:
-	 * @author simon
-	 */
-	function system_logs(array $log = [])
-	{
-		$request = request_agent();
-		//session会话标识
-		$request['created_uid'] = intval(user_session('id'));
-		$request['created_type'] = intval(user_session('session_type'));
-		
-		return array_merge($request,$log);
-	}
-	
-	/**
 	 * 人性化时间差
 	 * @param int $timestamp
 	 * @return string
@@ -509,42 +467,23 @@ use Simon\Document\Models\Category;
 	}
 	
 	/**
-	 * 文件上传配置
-	 * @param string || null $type
-	 * @param array || null $config
-	 * @return unknown|mixed|\Illuminate\Foundation\Application|boolean
-	 * @author simon
+	 * 判断当前模型是否存在
+	 * @param string $module
+	 * @return boolean
+	 * @author root
 	 */
-	function upload_config($type = null,$config = [])
+	function module_exists($module)
 	{
-		//type配置
-		if (empty($type))
-		{
-			$type = session('upload_type');
-		}
-		else
-		{
-			session()->put('upload_type',$type);
-		}
+		$module = ucwords($module);
 		
-		if (empty($type))
-		{
-			throw new \Exception('未找到type索引！');
-		}
+		//静态变量缓存，这里就先这样，后期还可以再优化，例如做成memcache Cache缓存
+		static $modules;
 		
-		//config配置
-		if (empty($config) && is_array($config))
+		if (empty($modules))
 		{
-			return session($type,config("site.{$type}"));
+			$content = Storage::disk('root')->get('composer.json');
+			$content = json_decode($content,true);
+			$modules = array_get($content, 'autoload.psr-4');
 		}
-		elseif ($config === null)
-		{
-			session()->forget($type);
-			return true;
-		}
-		else
-		{
-			session()->put($type,$config);
-			return true;
-		}
+		return in_array("Simon\\{$module}\\", array_keys($modules),true);
 	}
