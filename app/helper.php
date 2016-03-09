@@ -487,3 +487,22 @@ use Illuminate\Support\Facades\Storage;
 		}
 		return in_array("Simon\\{$module}\\", array_keys($modules),true);
 	}
+	
+	/**
+	 * 获取安全的hash值
+	 * @param array $data
+	 * @param array $hashs
+	 * @return array
+	 * @author simon
+	 */
+	function hash_safe_data(array $data,array $hashs)
+	{
+		foreach ($hashs as $key=>$hash)
+		{
+			if (!check_hash($data[$key], $hash))
+			{
+				unset($data[$key]);
+			}
+		}
+		return $data;
+	}
