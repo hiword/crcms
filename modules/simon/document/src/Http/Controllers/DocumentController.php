@@ -64,7 +64,13 @@ class DocumentController extends Controller
 			}
 		}
 		
-		$page = $Paginate->setUrlParams($this->data)->setPageSize(15)->page($this->model);
+		$page = $Paginate->setUrlParams($this->data)->setPageSize(15)->page($this->model,function ($items){
+			foreach ($items as $item)
+			{
+				$item->hash = create_hash($item->id);
+			}
+			return $items;
+		});
 		return $this->response("index",$page);
 		//$this->service->documentPage($cid,$Paginate,$Category)
 	}
