@@ -60,6 +60,22 @@ use Illuminate\Support\Facades\Storage;
 		return $key == Crypt::decrypt($hash);
 	}
 	
+	/**
+	 * 
+	 * @param array $data
+	 * @param string $key
+	 * @param string $hash
+	 * @return array
+	 * @author simon
+	 */
+	function hash_append(array $data,$key = 'id',$hash = 'hash')
+	{
+		foreach ($data as &$values)
+		{
+			is_object($values) ? $values->$hash = create_hash($key) : $values[$hash] = create_hash($key);
+		}
+		return $data;
+	}
 	
 	/**
 	 * 日期格式
