@@ -55,7 +55,7 @@ class Paginate
 			$items = $callable($items);
 		}
 
-		return ['total'=>$paginate->total(),'models'=>$items,'page'=>(string)$paginate->setPath($this->pagePath)->appends($this->pageUrlParams)->render()];
+		return ['total'=>$paginate->total(),'models'=>$items,'page_json'=>$paginate,'page'=>$paginate->setPath($this->pagePath)->appends($this->pageUrlParams)->render()];
 	}
 
 }
