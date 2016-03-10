@@ -23,7 +23,7 @@ abstract class Service
 	 * @var array
 	 * @author simon
 	 */
-	protected $data = [];
+// 	protected $data = [];
 	
 	/**
 	 * 
@@ -35,6 +35,8 @@ abstract class Service
 	protected $model = null;
 	
 	protected $request = null;
+	
+// 	protected static $data = [];
 	
 	/**
 	 * 初始化设置
@@ -48,10 +50,20 @@ abstract class Service
 		
 		$this->request = app('request');
 			
-		$this->data = xss_clean($this->request->all());
+// 		$this->data = xss_clean($this->request->all());
 		
 		$this->response = app('App\Services\Response');
 	}
+	
+// 	public function setData(array $data)
+// 	{
+// 		static::$data = $data;
+// 	}
+	
+// 	protected function data()
+// 	{
+// 		return static::$data;
+// 	}
 	
 	/**
 	 * 设置状态
