@@ -5,41 +5,60 @@ use App\Services\Paginate;
 use Simon\Document\Models\Category;
 use Simon\Document\Models\Document as DocumentModel;
 use Simon\Document\Models\DocumentData;
+use Simon\Document\Fields\Document\Status;
 class Document extends Service
 {
-	public function __construct(DocumentModel $Document)
+	
+	protected $modelAppend = null;
+	
+	protected $category = null;
+	
+	public function __construct(DocumentModel $Document,DocumentData $DocumentData,Category $Category)
 	{
 		parent::__construct();
+		
 		$this->model = $Document;
+		$this->modelAppend = $DocumentData;
+		$this->category = $Category;
 	}
 	
-	public function page($cid = 0,Paginate $Paginate,Category $Category)
+	public function page(Paginate $Paginate,$cid = 0,array $data = [])
 	{
+// 		$Paginate = app('App\Services\Paginate');
+		
 		if (!empty($cid) && is_numeric($cid))
 		{
-			$this->model = $Category->findOrFail($cid)->belongsToManyDocument();
+			$this->model = $this->category->findOrFail($cid)->belongsToManyDocument();
 		}
 		
-		$this->model = $this->model->where('status',1)->orderBy(DocumentModel::CREATED_AT,'desc');//->where('status',1);
+		$this->model = $this->model->where('status',Status::STATUS_OPEN)->orderBy(DocumentModel::CREATED_AT,'desc');//->where('status',1);
 		
-		$page = $Paginate->setUrlParams($this->data)->setPageSize(2)->page($this->model,function($items){
-			foreach ($items as $item)
-			{
-				$item->hash = create_hash($item->id);
-			}
-			return $items;
-		});
-		
+		$page = $Paginate->setUrlParams($data)->setPageSize(2)->page($this->model,function ($items){return hash_append($items);});
 		return $page;
 	}
 	
-	public function contents()
+	public function single($id)
 	{
-		$DocumentData = app('Simon\Document\Models\DocumentData');
+		$this->model = $this->model->where('id',$id)->where('status',Status::STATUS_OPEN)->first();
+		$this->model->hasOneDocumentData = $this->model->hasOneDocumentData;
+		return $this->model;
+	}
+	
+	public function descriptions(array $ids,array $hashs)
+	{
+		$ids = hash_safe_data($ids,$hashs);
 		
-		$ids = hash_safe_data($this->data['id'],$this->data['hash']);
+		$models = $this->modelAppend->whereIn('did',$ids)->get();
 		
-		return $DocumentData->whereIn('id',$ids)->get();
+		if($models)
+		{
+			foreach ($models as $model)
+			{
+				$model->content = mb_substr(strip_tags($model->content),0,255,'UTF-8');
+			}
+		}
+		
+		return $models;
 	}
 	
 }

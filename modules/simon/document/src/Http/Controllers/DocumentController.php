@@ -25,7 +25,7 @@ class DocumentController extends Controller
 		
 		
 		view()->share([
-			'categories'=>$Category->where('status',1)->orderBy('created_at','desc')->get(),
+// 			'categories'=>$Category->where('status',1)->orderBy('created_at','desc')->get(),
 		]);
 		// 		Mail::send('emails.test', [], function($message)
 		//         {
@@ -73,6 +73,19 @@ class DocumentController extends Controller
 		});
 		return $this->response("index",$page);
 		//$this->service->documentPage($cid,$Paginate,$Category)
+	}
+	
+	public function getTest2($id)
+	{
+		$this->model = $this->model->findOrFail($id);
+		
+		//content
+		$this->model->hasOneDocumentData;
+		$this->model->hasOneDocumentData;
+		$this->model->hasOneDocumentData;
+		$this->model->hasOneDocumentData;
+		$this->model->hasOneDocumentData;
+		return $this->response('test2',['model'=>$this->model]);
 	}
 	
 	/**

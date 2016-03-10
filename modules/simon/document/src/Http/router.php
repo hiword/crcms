@@ -5,6 +5,7 @@ $router->get('test','DocumentController@getTest');
 $router->controllers([
 	'manage/category'=>'Manage\CategoryController',
 	'manage/document'=>'Manage\DocumentController',
+	'document/api'=>'ApiController',
 	'document'=>'DocumentController',
 ]);
 
