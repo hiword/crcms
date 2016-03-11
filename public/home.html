@@ -1,0 +1,32 @@
+<div class="articles" ng-controller="documentListController">
+	<article ng-repeat="list in lists">
+		<a class="title" ui-sref="detail({id:list.id,hash:list.hash})">{{list.title}}{{name}}</a>
+		<div class="content" ng-bind-html="datas[list.id].content"> 
+		</div>
+		<div class="article-info mt10 mb10">
+			<span>
+				<i class="glyphicon glyphicon-calendar"></i>
+				{{ list.created_at * 1000 | date:'yyyy-MM-dd' }}
+			</span>
+			<span class="ml5">
+				<i  class="glyphicon glyphicon-comment"></i>
+				<span  class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
+			</span>
+			<span class="ml5">
+				<i class="glyphicon glyphicon-eye-open"></i>
+				30
+			</span>
+			<span class="ml5"  ng-repeat="tag in tags">
+				<i ng-show="tag.outside_id==list.id && $index==0"  class="glyphicon glyphicon-tag"></i>
+				<a  ng-show="tag.outside_id==list.id"   rel="category tag" href="###">{{tag.name}},</a>
+			</span>
+		</div>
+	</article>
+	<div class="text-center mt30">
+		<button class="btn btn-lg btn-info" ng-click="nextPage(next_page)" ng-show="show_page">点击查看更多>></button>
+		<button class="btn btn-lg btn-info" ng-show="!show_page">全部加载完成</button>
+	</div>
+</div>
+<!-- 
+<div class="page" ng-bind-html="page"></div>
+ -->
