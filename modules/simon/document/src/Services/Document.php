@@ -40,7 +40,7 @@ class Document extends Service
 	public function single($id)
 	{
 		$this->model = $this->model->where('id',$id)->where('status',Status::STATUS_OPEN)->first();
-		$this->model->hasOneDocumentData = $this->model->hasOneDocumentData;
+		$this->model->hasOneDocumentData->content = str_replace('_ueditor_page_break_tag_', '', $this->model->hasOneDocumentData->content);
 		return $this->model;
 	}
 	
@@ -54,7 +54,9 @@ class Document extends Service
 		{
 			foreach ($models as $model)
 			{
-				$model->content = mb_substr(strip_tags($model->content),0,255,'UTF-8');
+				//$model->content = mb_substr(str_replace(['&nbsp;'], '', strip_tags($model->content)),0,255,'UTF-8');
+				$model->full_content = $model->content;
+				$model->content = $model->interceptContent();
 			}
 		}
 		
