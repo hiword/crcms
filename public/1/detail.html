@@ -1,10 +1,26 @@
-<div ng-controller="documentDetailController">
-<h2>
-	{{model.title}}
-</h2>
+<div class="detail-box" ng-controller="documentDetailController">
 
-<hr />
-<div class="content" ng-bind-html="content">
-</div>
+	<h1 class="article-title">{{model.title}}</h1>
+	
+	<div class="article-info mt20 mb20">
+		<span>
+			<i class="glyphicon glyphicon-calendar"></i>
+			{{ model.created_at * 1000 | date:'yyyy-MM-dd HH:mm' }}
+		</span>
+		<span class="ml5">
+			<i  class="glyphicon glyphicon-comment"></i>
+			<span  class="ds-thread-count" data-replace="1" data-thread-key="2171">2</span>
+		</span>
+		<span class="ml5">
+			<i class="glyphicon glyphicon-eye-open"></i>
+			30
+		</span>
+		<span class="ml5"  ng-repeat="tag in tags">
+			<i ng-show="$index==0"  class="glyphicon glyphicon-tag"></i>
+			<a  rel="category tag" href="###">{{tag.name}},</a>
+		</span>
+	</div>
+	
+	<div class="article-content mt30" ng-bind-html="content"></div>
 
 </div>

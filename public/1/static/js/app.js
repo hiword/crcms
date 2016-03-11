@@ -1,3 +1,8 @@
+function url(url)
+{
+	return 'http://3.cs/index.php/'+url;
+}
+
 /**
  * 
  */
@@ -23,17 +28,18 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
 	//默认路由
 	$urlRouterProvider.otherwise('/');
 	
-	$stateProvider.state('home',{
+	$stateProvider
+	.state('home',{
 		url:'/',
 		templateUrl:'home.html',
 		controller:'documentListController',
 	})
-	
 	.state('detail',{
 		url:'/detail/{id}/{hash}',
 		templateUrl:'detail.html',
 		controller:'documentDetailController',
 	})
+	
 }]);
 
 /*=======================controllers============================*/
@@ -49,37 +55,63 @@ app.controller('documentListController',['$scope','$http','$q','$sce','documentP
 				
 				//下一个分页数
 				$scope.next_page = parseInt(response.page_json.current_page)+1;
+				
+				//最大分页数
+				$scope.max_page = parseInt(response.page_json.last_page);
 
+				//content
+				documentDataFactory.query(documentPageFactory.ids,documentPageFactory.hashs).then(function(response){
+					$scope.datas = response;
+				});
+				
 				//tags
 				documentTagsFactory.query(documentPageFactory.ids).then(function(response){
 					$scope.tags = response;
-				})
-			
-				
-				documentDataFactory.query(documentPageFactory.ids,documentPageFactory.hashs).then(function(response){
-					$scope.datas = response;
 				});
 		});
 	}
 	
 	$scope.nextPage = function(page)
 	{
-		pageList(page);
+		if(page < $scope.max_page)
+		{
+			$scope.show_page = true;
+			pageList(page);
+		}
+		else if(page = $scope.max_page)
+		{
+			$scope.show_page = false;
+			pageList(page);
+		}
+		else
+		{
+			$scope.show_page = false;
+		}
 	}
 	
+	//分页列表初始化
 	pageList(1);
+	$scope.show_page = true;
+}]);
+
+app.controller('navController',['$scope',function($scope){
 	
 }]);
 
 //
-app.controller('documentDetailController',['$scope','$http','$sce','$stateParams','documentDetail',function($scope,$http,$sce,$stateParams,documentDetail){
+app.controller('documentDetailController',['$scope','$http','$sce','$stateParams','documentDetailFactory','documentTagsFactory',function($scope,$http,$sce,$stateParams,documentDetailFactory,documentTagsFactory){
 	
-	documentDetail.query($stateParams.id,$stateParams.hash).then(function(response){
+	documentDetailFactory.query($stateParams.id,$stateParams.hash).then(function(response){
 		
 		$scope.model = response;
 		
 		//不过滤html标签  	ng-bind-html="content"
 		$scope.content = $sce.trustAsHtml(response.has_one_document_data.content);
+		
+		//tags
+		documentTagsFactory.query([$stateParams.id]).then(function(response){
+			$scope.tags = response;
+		});
 	});
 	
 }]);
@@ -100,7 +132,7 @@ app.factory('documentPageFactory',['$http','$q',function($http,$q){
 			
 			//http数据获取
 			$http.get(url('document/api/page'),{
-				'page':page
+				params:{'page':page}
 			})
 			.success(function(response){
 				//获取所有的ids
@@ -123,7 +155,7 @@ app.factory('documentPageFactory',['$http','$q',function($http,$q){
 }]);
 	
 //文档内容
-app.factory('documentDataFactory',['$http','$q',function($http,$q){
+app.factory('documentDataFactory',['$http','$q','$sce',function($http,$q,$sce){
 	var documentDataFactory = {
 		stripTagsData:[],
 		query:function(ids,hashs){
@@ -143,6 +175,9 @@ app.factory('documentDataFactory',['$http','$q',function($http,$q){
 				{
 					var newModels = {};
 					angular.forEach(models,function(model){
+						
+						model.content = $sce.trustAsHtml(model.content);
+						
 						newModels[model.did] = model;
 					})	
 					deferred.resolve(newModels);
@@ -172,7 +207,7 @@ app.factory('documentTagsFactory',['$http','$q','documentPageFactory',function($
 			var deferred = $q.defer();
 			
 			$http.post('http://3.cs/index.php/tags/assoc-tags',{
-				'id':documentPageFactory.documentIds,
+				'id':ids,
 				'model':'Document\\Models\\Document'
 			})
 			.success(function(response){
