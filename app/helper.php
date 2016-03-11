@@ -50,7 +50,6 @@ use Illuminate\Support\Facades\Storage;
 	 */
 	function check_hash($key,$hash,$length = 3)
 	{
-	
 		if ($length !== 0)
 		{
 			$stringLength = strlen($hash);
@@ -72,9 +71,30 @@ use Illuminate\Support\Facades\Storage;
 	{
 		foreach ($data as &$values)
 		{
-			is_object($values) ? $values->$hash = create_hash($key) : $values[$hash] = create_hash($key);
+			is_object($values) ? $values->$hash = create_hash($values->$key) : $values[$hash] = create_hash($values[$key]);
 		}
 		return $data;
+	}
+	
+	/**
+	 * 
+	 * @param string $path
+	 * @param string $template
+	 * @return string
+	 * @author simon
+	 */
+	function img_url($path,$template = null)
+	{
+		$path = rawurlencode($path);
+		
+		if (empty($template))
+		{
+			return route('img_src',['filename'=>$path]);
+		}
+		else
+		{
+			return route('template_img_src',['template'=>$template,'filename'=>$path]);
+		}
 	}
 	
 	/**
