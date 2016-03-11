@@ -72,7 +72,7 @@ class UploadController extends Controller {
 		/* 输出结果 */
 		$result = json_encode([
 				'state'=>'SUCCESS',
-				'url'=>$file['full_root'],
+				'url'=>img_url($file['full_root']),
 				'title'=>$file['new_name'],
 				'original'=>$file['old_name'],
 				'type'=>'.'.$file['extension'],
@@ -217,8 +217,8 @@ $result = json_encode($up->getFileInfo());
 		{
 			$file = $this->model->storeData($files[0]);
 			$FileData->storeData(array_merge($files[0],['fid'=>$file->id]));
-			
-			return $this->response(['success'],array_only($files[0], ['new_name','full_root','old_name','hash','filesize','extension']));
+			//array_only($files[0], ['new_name','full_root','old_name','hash','filesize','extension'])
+			return $this->response(['success'],$files[0]);
 		}
 		
 		return $this->response(['success']);

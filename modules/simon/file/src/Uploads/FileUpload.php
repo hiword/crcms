@@ -1262,7 +1262,7 @@ class FileUpload
 	    $file['old_name'] = $this->uploading['name'];
 	    $file['save_path'] = $this->path;
 	    $file['full_path'] = $filepath;
-	    $file['full_root'] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $filepath);
+	    $file['full_root'] = str_replace($this->path, '', $filepath);
 	    $file['extension'] = $this->file->getExtension($filepath);
 	    $file['mime_type'] = $this->file->getFileMime($filepath);
 	    $file['filesize'] = $this->file->getSize($filepath);
