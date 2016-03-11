@@ -36,7 +36,11 @@ class DocumentController extends Controller
 	
 	public function getTest()
 	{ 
-		return '<img src="'.url('image',['template'=>'test','filename'=>rawurlencode('5/4/o_1acc4jd2c1gk1la21plpg181kfd7.jpg')]).'" alt="" />';
+		echo  '<img src="'.url('image',['template'=>'test','filename'=>rawurlencode('5/4/o_1acc4jd2c1gk1la21plpg181kfd7.jpg')]).'" alt="" />';
+		echo '<hr />';
+		echo '<hr />';
+		echo '<hr />';
+		echo '<img src="'.img_url('5/4/o_1acc4jd2c1gk1la21plpg181kfd7.jpg','test').'" alt="" />';
 	}
 	
 	/**
