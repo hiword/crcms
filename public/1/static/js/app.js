@@ -206,7 +206,7 @@ app.factory('documentTagsFactory',['$http','$q','documentPageFactory',function($
 		{
 			var deferred = $q.defer();
 			
-			$http.post('http://3.cs/index.php/tags/assoc-tags',{
+			$http.post(url('tags/assoc-tags'),{
 				'id':ids,
 				'model':'Document\\Models\\Document'
 			})

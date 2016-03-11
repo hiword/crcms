@@ -1,8 +1,6 @@
 <div class="articles" ng-controller="documentListController">
 	<article ng-repeat="list in lists">
 		<a class="title" ui-sref="detail({id:list.id,hash:list.hash})">{{list.title}}{{name}}</a>
-		<div class="content" ng-bind-html="datas[list.id].content"> 
-		</div>
 		<div class="article-info mt10 mb10">
 			<span>
 				<i class="glyphicon glyphicon-calendar"></i>
@@ -21,6 +19,7 @@
 				<a  ng-show="tag.outside_id==list.id"   rel="category tag" href="###">{{tag.name}},</a>
 			</span>
 		</div>
+		<div class="content" ng-bind-html="datas[list.id].content"></div>
 	</article>
 	<div class="text-center mt30">
 		<button class="btn btn-lg btn-info" ng-click="nextPage(next_page)" ng-show="show_page">点击查看更多>></button>
