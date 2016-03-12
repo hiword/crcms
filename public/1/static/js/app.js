@@ -1,6 +1,6 @@
 function url(url)
 {
-	return 'http://3.cs/index.php/'+url;
+	return 'http://crcms.cs/'+url;
 }
 
 /**
@@ -99,7 +99,9 @@ app.controller('navController',['$scope',function($scope){
 }]);
 
 //
-app.controller('documentDetailController',['$scope','$http','$sce','$stateParams','documentDetailFactory','documentTagsFactory',function($scope,$http,$sce,$stateParams,documentDetailFactory,documentTagsFactory){
+app.controller('documentDetailController',['$scope','$http','$sce','$stateParams','documentDetailFactory','documentTagsFactory','countFactory',function($scope,$http,$sce,$stateParams,documentDetailFactory,documentTagsFactory,countFactory){
+	
+	countFactory.query($stateParams.id,'Document\\Models\\Document');
 	
 	documentDetailFactory.query($stateParams.id,$stateParams.hash).then(function(response){
 		
@@ -112,13 +114,57 @@ app.controller('documentDetailController',['$scope','$http','$sce','$stateParams
 		documentTagsFactory.query([$stateParams.id]).then(function(response){
 			$scope.tags = response;
 		});
+		
+		//click
+		countFactory.view($stateParams.id,'Document\\Models\\Document').then(function(response){
+			$scope.click = response[$stateParams.id];
+		})
 	});
+	
+	
 	
 }]);
 
 
 /*===================================factory===========================*/
 //factory 使用于功能简单，类似于单例的一样，service适用于逻辑处理比较复杂的方法
+
+
+app.factory('countFactory',['$http','$q',function($http,$q){
+	var countFactory = {
+			query:function(id,type){
+				var deferred = $q.defer();
+				$http.post(url('count/count'),{
+					'outside_type':type,
+					'outside_id':id,
+				})
+				.success(function(response){
+					deferred.resolve(response);
+				})
+				.error(function(response){
+					deferred.reject(response);
+				})
+				
+				return deferred.promise;
+			},
+			view:function(id,type){
+				var deferred = $q.defer();
+				$http.post(url('count/view'),{
+					'outside_type':type,
+					'outside_id':id,
+				})
+				.success(function(response){
+					deferred.resolve(response.data.counts);
+				})
+				.error(function(response){
+					deferred.reject(response);
+				})
+				
+				return deferred.promise;
+			}
+	};
+	return countFactory;
+}]);
 
 //文档分页列表
 app.factory('documentPageFactory',['$http','$q',function($http,$q){
