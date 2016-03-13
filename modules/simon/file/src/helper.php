@@ -27,7 +27,7 @@
 		//config配置
 		if (empty($config) && is_array($config))
 		{
-			return session($type,config("site.{$type}"));
+			return session($type,config("file.{$type}"));
 		}
 		elseif ($config === null)
 		{
