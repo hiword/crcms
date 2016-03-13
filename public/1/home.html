@@ -1,4 +1,4 @@
-<div class="articles" ng-controller="documentListController">
+<div class="articles">
 	<article ng-repeat="list in lists">
 		<a class="title" ui-sref="detail({id:list.id,hash:list.hash})">{{list.title}}{{name}}</a>
 		<div class="content" ng-bind-html="datas[list.id].content"> 

@@ -118,7 +118,7 @@ app.controller('documentDetailController',['$scope','$http','$sce','$stateParams
 		//click
 		countFactory.view($stateParams.id,'Document\\Models\\Document').then(function(response){
 			$scope.click = response[$stateParams.id];
-		})
+		});
 	});
 	
 	
