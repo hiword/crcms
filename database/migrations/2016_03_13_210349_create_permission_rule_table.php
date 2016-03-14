@@ -21,6 +21,7 @@ class CreatePermissionRuleTable extends Migration
     		$table->char('name',50);
     		$table->char('outside_type',60);
     		 
+    		$table->tinyInteger('type',false,true)->default(0);
     		$table->tinyInteger('status',false,true)->default(0);
     		 
     		$table->tinyInteger('created_type',false,true)->default(0);
