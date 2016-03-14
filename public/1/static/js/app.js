@@ -1,6 +1,6 @@
 function url(url)
 {
-	return 'http://crcms.cs/'+url;
+	return 'http://3.cs/index.php/'+url;
 }
 
 /**
@@ -44,7 +44,7 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
 
 /*=======================controllers============================*/
 
-app.controller('documentListController',['$scope','$http','$q','$sce','documentPageFactory','documentTagsFactory','documentDataFactory',function($scope,$http,$q,$sce,documentPageFactory,documentTagsFactory,documentDataFactory){
+app.controller('documentListController',['$scope','$http','$q','$sce','documentPageFactory','documentTagsFactory','documentDataFactory','countFactory',function($scope,$http,$q,$sce,documentPageFactory,documentTagsFactory,documentDataFactory,countFactory){
 	
 	var pageList = function(page)
 	{
@@ -68,6 +68,11 @@ app.controller('documentListController',['$scope','$http','$q','$sce','documentP
 				documentTagsFactory.query(documentPageFactory.ids).then(function(response){
 					$scope.tags = response;
 				});
+				
+				//clicks
+				countFactory.view(documentPageFactory.ids,'Document\\Models\\Document').then(function(response){
+					$scope.clicks = response;
+				})
 		});
 	}
 	
@@ -101,7 +106,7 @@ app.controller('navController',['$scope',function($scope){
 //
 app.controller('documentDetailController',['$scope','$http','$sce','$stateParams','documentDetailFactory','documentTagsFactory','countFactory',function($scope,$http,$sce,$stateParams,documentDetailFactory,documentTagsFactory,countFactory){
 	
-	countFactory.query($stateParams.id,'Document\\Models\\Document');
+	countFactory.query($stateParams.id,$stateParams.hash,'Document\\Models\\Document');
 	
 	documentDetailFactory.query($stateParams.id,$stateParams.hash).then(function(response){
 		
@@ -132,11 +137,12 @@ app.controller('documentDetailController',['$scope','$http','$sce','$stateParams
 
 app.factory('countFactory',['$http','$q',function($http,$q){
 	var countFactory = {
-			query:function(id,type){
+			query:function(id,hash,type){
 				var deferred = $q.defer();
 				$http.post(url('count/count'),{
 					'outside_type':type,
 					'outside_id':id,
+					'hash':hash
 				})
 				.success(function(response){
 					deferred.resolve(response);

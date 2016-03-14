@@ -3,6 +3,8 @@ namespace Simon\Count\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Simon\Count\Models\Count;
 use Simon\Count\Models\CountDetail;
+use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\Cache;
 class CountController extends Controller
 {
 	
@@ -13,22 +15,30 @@ class CountController extends Controller
 		$this->model = $Count;
 	}
 	
-	public function postCount(CountDetail $CountDetail)
+	public function postCount(CountDetail $CountDetail,Agent $Agent)
 	{
-		$fields = ['outside_type','outside_id','client_ip'];
+		$outsideIds = hash_safe_data((array)$this->data['outside_id'],  (array)$this->data['hash']);
 		
-// 		$this->data['outside_type'] = 'abc3210';
-// 		$this->data['outside_id'] = 10;
-// 		$this->data['agent'] = 'agent';
+		$fields = ['outside_type','outside_id','client_ip'];
 		
 		//默认添加client_ip
 		$this->data['client_ip'] = $this->request->ip();
 		
-		$this->validate($fields);
-// 		$this->validate(['agent'],$CountDetail);
-
-		$this->model = $this->storeData($fields);
-// 		$this->storeData(['cid','agent'],$CountDetail,array_merge($this->data,['cid'=>$this->model->id]));
+		foreach ($outsideIds as $outsideId)
+		{
+			
+			$data = array_merge($this->data,['outside_id'=>$outsideId]);
+			
+			$this->validate($fields,$this->model,$data);
+			
+			$model = $this->storeData($fields,$this->model,$data);
+			
+			//附加数据表
+			$this->storeData(['cid','agent'],$CountDetail,['cid'=>$model->id,'agent'=>$Agent->getUserAgent()]);
+			
+			//增加缓存
+			Cache::increment(sha1($outsideId.$data['outside_type']));
+		}
 		
 		return $this->response(['success']);
 	}
@@ -38,7 +48,16 @@ class CountController extends Controller
 		$counts = [];
 		foreach ((array)$this->data['outside_id'] as $id)
 		{
-			$counts[$id] = $this->model->where('outside_id',$id)->where('outside_type','Simon\\'.$this->data['outside_type'])->count();
+			$key = sha1($id.$this->data['outside_type']);
+			if (Cache::has($key))
+			{
+				$counts[$id] = Cache::get($key);
+			}
+			else
+			{
+				$counts[$id] = $this->model->where('outside_id',$id)->where('outside_type','Simon\\'.$this->data['outside_type'])->count();
+				Cache::put($key,$counts[$id],24*60);
+			}
 		}
 		return $this->response(['success'],['counts'=>$counts]);
 	}
