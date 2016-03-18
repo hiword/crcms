@@ -9,6 +9,7 @@ use Simon\Document\Models\Category;
 use Simon\Document\Services\Document as DocumentService;
 use Simon\Document\Models\DocumentData;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\ValidateException;
 class DocumentController extends Controller
 {
 	
@@ -34,8 +35,15 @@ class DocumentController extends Controller
 		// 		exit();
 	}
 	
+	public function getB()
+	{
+		return $this->response('b');
+	}
+	
 	public function getTest()
 	{ 
+		throw new ValidateException('abc');
+		
 		echo  '<img src="'.url('image',['template'=>'test','filename'=>rawurlencode('5/4/o_1acc4jd2c1gk1la21plpg181kfd7.jpg')]).'" alt="" />';
 		echo '<hr />';
 		echo '<hr />';

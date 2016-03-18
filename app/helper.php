@@ -8,6 +8,8 @@ use App\Fields\Field;
 use Carbon\Carbon;
 use Simon\Document\Models\Category;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 	/**
 	 * 静态资源
@@ -542,3 +544,4 @@ use Illuminate\Support\Facades\Storage;
 		}
 		return $data;
 	}
+	
