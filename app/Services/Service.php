@@ -35,6 +35,8 @@ abstract class Service
 	*/
 	protected static $fields = [];
 	
+	protected $model = null;
+	
 	/**
 	 * 设置模型数据
 	 * @param array $data
