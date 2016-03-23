@@ -44,7 +44,7 @@ abstract class Service
 	 */
 	protected function setData(array $data)
 	{
-		$data && $this->data = $data;
+		$this->data = $data;
 		return $this;
 	}
 	
@@ -52,14 +52,14 @@ abstract class Service
 	 * 设置处理模型
 	 * @param string $action
 	 */
-	protected function setDataHandleMethod($action = null)
+	protected function setHandleMethod($action = null)
 	{
 		//公共方法
 		method_exists($this, 'dataHandle') && $this->dataHandle();
 	
 		if ($action)
 		{
-			$action = 'data'.ucwords($action).'Handle';
+			$action = ucwords($action).'Handle';
 			method_exists($this, $action) && $this->$action();
 		}
 	
@@ -69,7 +69,7 @@ abstract class Service
 	/**
 	 * 数据添加处理
 	 */
-	protected function dataStoreHandle()
+	protected function storeHandle()
 	{
 		$this->data['created_uid'] = intval(user_session('id'));
 		$this->data['created_type'] = intval(user_session('session_type'));
@@ -80,7 +80,7 @@ abstract class Service
 	 * @param array $data
 	 * @return Ambigous <boolean, NULL>
 	 */
-	public function storeData(array $data = array())
+	public function store(array $data =[])
 	{
 	
 		//设置默认值
@@ -96,7 +96,7 @@ abstract class Service
 	/**
 	 * 数据修改处理
 	 */
-	protected function dataUpdateHandle()
+	protected function updateHandle()
 	{
 		$this->data['updated_uid'] = intval(user_session('id'));
 		$this->data['updated_type'] = intval(user_session('session_type'));
@@ -108,7 +108,7 @@ abstract class Service
 	 * @param array $data
 	 * @return Ambigous <boolean, NULL>
 	 */
-	public function updateData($id,array $data = array())
+	public function update($id,array $data = [])
 	{
 		//设置默认值
 		$this->setData($data);
@@ -135,7 +135,7 @@ abstract class Service
 	/**
 	 * 数据删除处理
 	 */
-	protected function dataDestroyHandle()
+	protected function destroyHandle()
 	{
 		$this->data['deleted_uid'] = intval(user_session('id'));
 		$this->data['deleted_type'] = intval(user_session('session_type'));
@@ -146,7 +146,7 @@ abstract class Service
 	 * @param array|string|object $data
 	 * @return \Illuminate\Routing\Route
 	 */
-	public function destroyData(array $data)
+	public function destroy(array $data)
 	{
 		//设置默认值
 		$this->setData(['_primaryKey'=>$data]);
@@ -305,11 +305,11 @@ abstract class Service
 // 		$this->messages = new MessageBag();
 // 		$this->data = $data;
 		
-		$this->request = app('request');
+// 		$this->request = app('request');
 			
 // 		$this->data = xss_clean($this->request->all());
 		
-		$this->response = app('App\Services\Response');
+// 		$this->response = app('App\Services\Response');
 	}
 	
 	

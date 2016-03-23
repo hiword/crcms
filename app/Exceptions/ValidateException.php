@@ -3,8 +3,8 @@ namespace App\Exceptions;
 class ValidateException extends AppException
 {
 	
-	protected $appCode  = 1001;
+	const  APP_CODE  = 1001;
 	
-	protected $httpCode = 422;
+	const  HTTP_CODE = 422;
 	
 }

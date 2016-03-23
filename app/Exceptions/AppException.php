@@ -4,31 +4,31 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class AppException extends HttpException
 {
 	
-	protected $appCode = 1003;
+	const  APP_CODE = 1003;
 	
-	protected $httpCode = 403;
+	const  HTTP_CODE = 403;
 	
+	/**
+	 * 
+	 * @var \Illuminate\Http\Response $response
+	 */
 	protected $response = null;
 	
 	public function __construct($message,$response = null)
 	{
 		$this->response = $response;
 		
-		parent::__construct($this->httpCode,$message);
+		parent::__construct(static::HTTP_CODE,$message);
 	}
 	
-	public function getAppCode()
-	{
-		return $this->appCode;
-	}
-	
-	public function getHttpCode()
-	{
-		return $this->httpCode;
-	}
-	
+	/**
+	 * 
+	 * @return \Illuminate\Http\Response
+	 * @author simon
+	 */
 	public function getResponse()
 	{
 		return $this->response;
 	}
+	
 }

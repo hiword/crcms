@@ -77,6 +77,22 @@ abstract class Controller extends BaseController
 	protected $fields = [];
 
 
+	
+	
+	
+	public function view($view = null, $data = [], $mergeData = [])
+	{
+		return view($this->view.$view);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 系统初始化方法
 	 * @param Request $request

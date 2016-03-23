@@ -23,7 +23,9 @@ class CategoryController extends Controller
 	
 	public function getIndex()
 	{
-		return $this->response('index');
+		
+		return $this->view('index');
+// 		return $this->response('index');
 	}
 	
 	/**
@@ -31,7 +33,7 @@ class CategoryController extends Controller
 	 */
 	public function getCreate()
 	{
-		return $this->response('create');
+		return $this->view('create');
 	}
 	
 	public function postStore() 
@@ -42,7 +44,7 @@ class CategoryController extends Controller
 		
 		$this->storeData($fields);
 		
-		$this->logs(['remark'=>'add category']);
+// 		$this->logs(['remark'=>'add category']);
 		
 		return $this->response(['success'],'manage/category/index');
 	}
