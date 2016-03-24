@@ -289,7 +289,7 @@ abstract class Service
 	 */
 // 	protected $response = null;
 	
-	protected $model = null;
+// 	protected $model = null;
 	
 // 	protected $request = null;
 	

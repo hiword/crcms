@@ -2,11 +2,11 @@
 namespace Simon\Document\Services;
 use App\Services\Service;
 use Simon\Document\Services\Interfaces\CategoryInterface;
-use Simon\Document\Models\Category;
+use Simon\Document\Models\Category as CategoryModel;
 class Category extends Service implements CategoryInterface
 {
 	
-	public function __construct(Category $Category)
+	public function __construct(CategoryModel $Category)
 	{
 		parent::__construct();
 		

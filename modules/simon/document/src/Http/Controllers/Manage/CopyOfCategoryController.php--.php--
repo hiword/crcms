@@ -1,20 +1,18 @@
 <?php
 namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
-use Simon\Document\Models\Category as CategoryModel;
+use Simon\Document\Models\Category;
 use Simon\Document\Fields\Category\Status;
-use Simon\Document\Services\Interfaces\CategoryInterface;
-use Simon\Document\Forms\Category as CategoryForm;
 class CategoryController extends Controller
 {
 	
-	public function __construct(CategoryInterface $Category,CategoryModel $CategoryModel)
+	public function __construct(Category $Category)
 	{
 	    parent::__construct();
 	    
 // 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
-		$this->model = $CategoryModel;
-		$this->service = $Category;
+		
+		$this->model = $Category;
 		$this->view = 'document::manage.category.';
 		
 		view()->share([
@@ -38,10 +36,8 @@ class CategoryController extends Controller
 		return $this->view('create');
 	}
 	
-	public function postStore(CategoryForm $CategoryForm,$b) 
+	public function postStore() 
 	{
-		$CategoryForm->validate();
-		exit();
 		$fields = ['pid','name','mark','status'];
 		
 		$this->validate($fields);

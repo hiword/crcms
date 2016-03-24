@@ -39,6 +39,8 @@ class DocumentServiceProvider extends ServiceProvider
 //     			$path.'views' => base_path('resources/views/vendor/'.$namespace),
 //     			$path.'database'=>database_path(),
     	]);
+    	
+    	$this->app->bind('Simon\Document\Services\Interfaces\CategoryInterface','Simon\Document\Services\Category');
 	}
 	
     /**
