@@ -1,12 +1,15 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "crcms",
+    "description": "Comprehensive open source CMS",
+    "keywords": ["crcms", "laravel" , "cms"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+		"intervention/image" : "^2.3",
+		"intervention/imagecache" : "^2.3",
+		"jenssegers/agent" : "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
