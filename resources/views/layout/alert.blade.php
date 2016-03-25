@@ -1,1 +1,0 @@
-<div class="alert {{isset($errors) && count($errors) > 0 ? 'alert-danger' : 'alert-success'}} {{empty(session('msg')) ? 'none' : null}}" role="alert">{{session('msg')}}</div>
