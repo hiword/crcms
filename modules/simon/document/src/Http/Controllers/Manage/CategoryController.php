@@ -3,6 +3,7 @@ namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use Simon\Document\Models\Category;
 use Simon\Document\Fields\Category\Status;
+use App\Forms\Form;
 class CategoryController extends Controller
 {
 	
@@ -36,8 +37,10 @@ class CategoryController extends Controller
 		return $this->view('create');
 	}
 	
-	public function postStore() 
+	public function postStore(Form $Form) 
 	{
+		
+		$Form->validator($Rule);
 		$fields = ['pid','name','mark','status'];
 		
 		$this->validate($fields);
