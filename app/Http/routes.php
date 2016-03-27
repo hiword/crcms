@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\AppException;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,5 +13,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//     return redirect('/b')->withErrors(['a'=>'a','b'=>'b'],'s')->withErrors(['c'=>'c','b'=>'d'],'k');
+	throw new AppException('abc');
+});
+Route::get('/b',function(){
+	return view('welcome');
 });
