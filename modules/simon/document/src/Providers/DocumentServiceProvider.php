@@ -2,7 +2,8 @@
 namespace Simon\Document\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
-class DocumentServiceProvider extends ServiceProvider
+use App\Providers\PackageServiceProvider;
+class DocumentServiceProvider extends PackageServiceProvider
 {
 	
 	/**
@@ -10,38 +11,23 @@ class DocumentServiceProvider extends ServiceProvider
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	protected $defer = true;
 	
 	/**
 	 * 
-	 * 
+	 * @var string
 	 * @author simon
 	 */
-	public function boot()
-	{
-		//加载路由
-    	$this->setupRoutes($this->app->router);
-    	
-    	//定义当前路径
-    	$path = realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-    	
-    	$namespace = 'document';
-    	
-    	//加载视图
-    	$this->loadViewsFrom($path.'views',$namespace);
-    	
-    	//加载语言包
-    	$this->loadTranslationsFrom($path.'lang', $namespace);
-    	
-    	//移动目录
-    	$this->publishes([
-//     			$path.'config' => config_path(),
-//     			$path.'views' => base_path('resources/views/vendor/'.$namespace),
-//     			$path.'database'=>database_path(),
-    	]);
-	}
+	protected $namespaceName = 'document';
 	
-    /**
+	/**
+	 * 
+	 * @var string
+	 * @author simon
+	 */
+	protected $packagePath = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
+
+	/**
      * 
      * (non-PHPdoc)
      * @see \Illuminate\Support\ServiceProvider::register()
@@ -49,20 +35,17 @@ class DocumentServiceProvider extends ServiceProvider
      */
     public function register()
     {
+    	parent::register();
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Interfaces\CategoryInterface',
+    			'Simon\Document\Services\Category'
+    	);
+    }
+    
+    public function provides()
+    {
+    	return ['Simon\Document\Services\Interfaces\CategoryInterface'];
     }
 	
-    /**
-     * Define the routes for the application.
-     *
-     * @param \Illuminate\Routing\Router $router
-     * @return void
-     */
-    protected function setupRoutes(Router $router)
-    {
-    	$router->group(['namespace' => 'Simon\Document\Http\Controllers'], function($router)
-    	{
-    		$file = dirname(__DIR__).DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'router.php';
-    		file_exists($file) && require $file; 
-    	});
-    }
 }

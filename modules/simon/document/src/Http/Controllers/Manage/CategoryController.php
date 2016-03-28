@@ -1,24 +1,24 @@
 <?php
 namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
-use Simon\Document\Models\Category;
 use Simon\Document\Fields\Category\Status;
 use App\Forms\Form;
+use Simon\Document\Services\Interfaces\CategoryInterface;
 class CategoryController extends Controller
 {
 	
-	public function __construct(Category $Category)
+	public function __construct(CategoryInterface $Category)
 	{
 	    parent::__construct();
 	    
 // 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		
-		$this->model = $Category;
+		$this->service = $Category;
 		$this->view = 'document::manage.category.';
 		
 		view()->share([
-			'tree'=>category_tree(),
-			'status'=>Status::STATUS,
+			'tree'=>$this->service->tree(),
+			'status'=>$this->service->status(),
 		]);
 	}
 	

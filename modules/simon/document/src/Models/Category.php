@@ -7,19 +7,40 @@ class Category extends Model
 	
 	use SoftDeletes;
 	
-	protected $table = 'categorys';
-	
 	/**
-	 * 
-	 * @var array
+	 * 状态
+	 * @var numeric
 	 * @author simon
 	 */
-	protected static $fields = [
-			'pid'=>'Simon\Document\Fields\Category\Pid',
-			'name'=>'Simon\Document\Fields\Category\Name',
-			'mark'=>'Simon\Document\Fields\Category\Mark',
-			'status'=>'Simon\Document\Fields\Category\Status',
-	];
+	const STATUS_OPEN = 1;
+	
+	/**
+	 * 状态
+	 * @var numeric
+	 * @author simon
+	 */
+	const  STATUS_HIDDEN = 2;
+	
+	/**
+	 * 状态
+	 * @var numeric
+	 * @author simon
+	 */
+	const STATUS_CLOSE = 3;
+	
+	/**
+	 * 会员状态数组
+	 * @var numeric
+	 * @author simon
+	 */
+	const STATUS = [self::STATUS_OPEN=>'开启',self::STATUS_HIDDEN=>'隐藏',self::STATUS_CLOSE=>'禁止'];
+	
+	/**
+	 * table name
+	 * @var string
+	 * @author simon
+	 */
+	protected $table = 'categorys';
 	
 	/**
 	 * 对多对  所有category
