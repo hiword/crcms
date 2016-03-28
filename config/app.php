@@ -155,6 +155,10 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+    	
+    		
+    	//模块加载
+    	Simon\Document\Providers\DocumentServiceProvider::class,
 
     ],
 
