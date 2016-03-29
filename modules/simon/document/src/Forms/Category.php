@@ -1,33 +1,13 @@
 <?php
 namespace Simon\Document\Forms;
-use App\Forms\Interfaces\FormInterface;
 use App\Forms\AbsForm;
-class Category extends AbsForm implements FormInterface
+abstract class Category extends AbsForm
 {
-	/* 
-	 * (non-PHPdoc)
-	 * @see \App\Forms\Interfaces\FormInterface::getAttr()
-	 * @author simon
-	 */
-	public function getAttr()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* 
-	 * (non-PHPdoc)
-	 * @see \App\Forms\Interfaces\FormInterface::getRule()
-	 * @author simon
-	 */
-	public function getRule()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 	
-	
-	
+	protected $rule = [
+		'name'=>['required','max:100'],
+		'pid'=>['required','integer'],
+		'status'=>['required','integer'],
+	];
 	
 }

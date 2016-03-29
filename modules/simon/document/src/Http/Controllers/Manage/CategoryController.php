@@ -4,8 +4,11 @@ use App\Http\Controllers\Controller;
 use Simon\Document\Fields\Category\Status;
 use App\Forms\Form;
 use Simon\Document\Services\Interfaces\CategoryInterface;
+use Simon\Document\Forms\Category\CategoryStore;
+use Simon\Document\Services\Category\CategoryStoreService;
 class CategoryController extends Controller
 {
+	protected $view = 'document::manage.category.';
 	
 	public function __construct(CategoryInterface $Category)
 	{
@@ -14,7 +17,7 @@ class CategoryController extends Controller
 // 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		
 		$this->service = $Category;
-		$this->view = 'document::manage.category.';
+		
 		
 		view()->share([
 			'tree'=>$this->service->tree(),
@@ -37,25 +40,31 @@ class CategoryController extends Controller
 		return $this->view('create');
 	}
 	
-	public function postStore(Form $Form) 
+	public function postStore(Form $Form,CategoryStore $CategoryStore,CategoryStoreService $CategoryStoreService) 
 	{
 		
-		$Form->validator($Rule);
-		$fields = ['pid','name','mark','status'];
+		$Form->validator($CategoryStore);
 		
-		$this->validate($fields);
+		$CUd->save($CategoryStoreService);
+		$this->service->handle($this->data,['pid','name','mark','status'])->store();
 		
-		$this->storeData($fields);
+		return redirect('manage/category/index');
+// 		exit();
+// 		$fields = ['pid','name','mark','status'];
 		
-// 		$this->logs(['remark'=>'add category']);
+// 		$this->validate($fields);
 		
-		return $this->response(['success'],'manage/category/index');
+// 		$this->storeData($fields);
+		
+// // 		$this->logs(['remark'=>'add category']);
+		
+// 		return $this->response(['success'],'manage/category/index');
 	}
 	
 	public function getEdit($id)
 	{
 		$this->model = $this->model->findOrFail($id);
-		return $this->response('edit',['model'=>$this->model]);
+		return view($this->view.'edit',['model'=>$this->model]);
 	}
 	
 	public function putUpdate($id)

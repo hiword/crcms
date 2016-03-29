@@ -3,24 +3,8 @@ namespace App\Forms;
 use Illuminate\Support\Facades\Validator;
 use App\Exceptions\ValidateException;
 use App\Forms\Interfaces\FormInterface;
-abstract class Form {
-	
-	/**
-	 * 
-	 * @var Illuminate\Http\Request
-	 * @author simon
-	 */
-	protected $request = null;
-	
-	/**
-	 * 
-	 * 
-	 * @author simon
-	 */
-	public function __construct()
-	{
-		$this->request = app('request');
-	}
+use Illuminate\Support\Facades\Input;
+class Form {
 	
 	/**
 	 * Validator Interface
@@ -30,7 +14,7 @@ abstract class Form {
 	 */
 	public function validator(FormInterface $Rule)
 	{
-		$validator = Validator::make($this->request->all(),$Rule->getRule());
+		$validator = Validator::make(Input::all(),$Rule->getRule());
 		if ($validator->fails())
 		{
 			throw new ValidateException($validator);

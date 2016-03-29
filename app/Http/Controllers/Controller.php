@@ -34,7 +34,7 @@ class Controller extends BaseController
     
     protected function view($view,$prefix = null)
     {
-    	return view($this->view.'view');
+    	return view($this->view.$view);
     }
     
 }

@@ -3,13 +3,16 @@ namespace Simon\Document\Services;
 use App\Services\Service;
 use Simon\Document\Services\Interfaces\CategoryInterface;
 use Simon\Document\Models\Category as CategoryModel;
+use App\Services\ServiceCudTrait;
 class Category extends Service implements CategoryInterface
 {
+	use ServiceCudTrait;
 	
 	public function __construct(CategoryModel $Category)
 	{
-		$this->model = $Category;
 		parent::__construct();
+		
+		$this->model = $Category;
 	}
 	
 	public function find($id)

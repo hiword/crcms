@@ -3,7 +3,7 @@ namespace Simon\Document\Forms\Category;
 use Simon\Document\Forms\Category;
 use App\Forms\Interfaces\FormInterface;
 
-class CategoryStore extends Category implements FormInterface
+class CategoryFormStore extends Category implements FormInterface
 {
 	/* 
 	 * (non-PHPdoc)
@@ -23,10 +23,8 @@ class CategoryStore extends Category implements FormInterface
 	 */
 	public function getRule()
 	{
-		// TODO Auto-generated method stub
-		
+		$this->rule['mark'] = ['required','unique:categorys'];
+		return $this->rule;
 	}
 
-	
-	
 }

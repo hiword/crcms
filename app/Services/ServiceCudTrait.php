@@ -64,7 +64,7 @@ trait ServiceCudTrait
 		$this->setHandleMethod('store');//
 	
 		//保存数据
-		return $this->create($this->data);
+		return $this->model->create($this->data);
 	}
 	
 	/**
@@ -98,11 +98,11 @@ trait ServiceCudTrait
 		//复合主键支持
 		if (is_array($this->model->primaryKey) && is_array($id))
 		{
-			$object = $this->where($id);
+			$object = $this->model->where($id);
 		}
 		else
 		{
-			$object = $this->where($this->model->primaryKey,$id);
+			$object = $this->model->where($this->model->primaryKey,$id);
 		}
 	
 		return $object->update($this->data);
@@ -137,9 +137,9 @@ trait ServiceCudTrait
 		$this->setHandleMethod('destroy');//
 	
 		//增加软删除数据
-		$this->whereIn($this->model->primaryKey,$this->data['_primaryKey'])->update(array_except($this->data, '_primaryKey'));
+		$this->model->whereIn($this->model->primaryKey,$this->data['_primaryKey'])->update(array_except($this->data, '_primaryKey'));
 	
-		return $this->destroy($this->data['_primaryKey']);
+		return $this->model->destroy($this->data['_primaryKey']);
 	}
 	
 }

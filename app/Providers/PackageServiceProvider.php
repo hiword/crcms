@@ -70,7 +70,7 @@ abstract class PackageServiceProvider extends ServiceProvider
 	 */
 	protected function setupRoutes(Router $router)
 	{
-		$router->group(['namespace' => 'Simon\\'.ucwords($this->namespaceName).'\\Http\Controllers'], function($router)
+		$router->group(['namespace' => 'Simon\\'.ucwords($this->namespaceName).'\\Http\Controllers','middleware' => ['web']], function($router)
 		{
 			$file = $this->packagePath.'src'.DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'router.php';
 			file_exists($file) && require $file;
