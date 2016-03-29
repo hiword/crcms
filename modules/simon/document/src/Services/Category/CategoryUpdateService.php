@@ -1,26 +1,26 @@
 <?php
 namespace Simon\Document\Services\Category;
 use Simon\Document\Services\CategoryCud;
-use App\Services\Interfaces\StoreInterface;
-class CategoryStoreService extends CategoryCud implements StoreInterface
+use App\Services\Interfaces\UpdateInterface;
+class CategoryUpdateService extends CategoryCud implements UpdateInterface
 {
 	/* 
 	 * (non-PHPdoc)
-	 * @see \App\Services\Interfaces\CudInterface::save()
-	 * @author simon
+	 * @see \App\Services\Interfaces\UpdateInterface::update()
+	 * @author root
 	 */
-	public function store(array $data)
+	public function update($id, array $data)
 	{
-		// TODO Auto-generated method stub
-		
+		$this->model->id = $id;
 		$this->model->pid = $data['pid'];
 		$this->model->name = $data['name'];
 		$this->model->mark = $data['mark'];
 		$this->model->status = $data['status'];
 		
-		$this->builtStore();
+		$this->builtUpdate();
 		
 		return $this->model->save();
 	}
+
 	
 }

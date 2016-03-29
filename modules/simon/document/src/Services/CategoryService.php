@@ -4,9 +4,9 @@ use App\Services\Service;
 use Simon\Document\Services\Interfaces\CategoryInterface;
 use Simon\Document\Models\Category as CategoryModel;
 use App\Services\ServiceCudTrait;
-class Category extends Service implements CategoryInterface
+class CategoryService extends Service implements CategoryInterface
 {
-	use ServiceCudTrait;
+// 	use ServiceCudTrait;
 	
 	public function __construct(CategoryModel $Category)
 	{

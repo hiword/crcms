@@ -1,9 +1,10 @@
 <?php
 namespace Simon\Document\Forms\Category;
-use Simon\Document\Forms\Category;
 use App\Forms\Interfaces\FormInterface;
 use Illuminate\Support\Facades\Input;
-class CategoryFormUpdate extends Category implements FormInterface
+use Simon\Document\Forms\CategoryForm;
+
+class CategoryUpdateForm extends CategoryForm implements FormInterface
 {
 	/* 
 	 * (non-PHPdoc)

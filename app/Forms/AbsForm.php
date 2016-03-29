@@ -3,8 +3,16 @@ namespace App\Forms;
 abstract class AbsForm
 {
 	
+	/**
+	 * 
+	 * @var array $rule
+	 */
 	protected $rule = [];
 	
+	/**
+	 * 
+	 * @var array $attr
+	 */
 	protected $attr = [];
 	
 

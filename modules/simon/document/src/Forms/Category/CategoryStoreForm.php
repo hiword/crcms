@@ -1,9 +1,9 @@
 <?php
 namespace Simon\Document\Forms\Category;
-use Simon\Document\Forms\Category;
 use App\Forms\Interfaces\FormInterface;
+use Simon\Document\Forms\CategoryForm;
 
-class CategoryFormStore extends Category implements FormInterface
+class CategoryStoreForm extends CategoryForm implements FormInterface
 {
 	/* 
 	 * (non-PHPdoc)

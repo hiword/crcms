@@ -1,10 +1,18 @@
 <?php
 namespace App\Services;
-use App\Services\Interfaces\CudInterface;
+use App\Services\Interfaces\StoreInterface;
+use App\Services\Interfaces\UpdateInterface;
 class Cud 
 {
-	public function save($data,CudInterface $Cud) 
+	public function store(array $data,StoreInterface $StoreInterface)
 	{
-		$Cud->save($data);
+		return $StoreInterface->store($data);
 	}
+
+	public function update($id,$data,UpdateInterface $UpdateInterface)
+	{
+		return $UpdateInterface->update($id, $data);
+	}
+	
+	
 }

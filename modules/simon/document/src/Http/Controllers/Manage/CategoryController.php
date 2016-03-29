@@ -4,8 +4,12 @@ use App\Http\Controllers\Controller;
 use Simon\Document\Fields\Category\Status;
 use App\Forms\Form;
 use Simon\Document\Services\Interfaces\CategoryInterface;
-use Simon\Document\Forms\Category\CategoryStore;
 use Simon\Document\Services\Category\CategoryStoreService;
+use Simon\Document\Forms\Category\CategoryStoreForm;
+use Simon\Document\Services\Category;
+use App\Services\Cud;
+use Simon\Document\Forms\Category\CategoryUpdateForm;
+use Simon\Document\Services\Category\CategoryUpdateService;
 class CategoryController extends Controller
 {
 	protected $view = 'document::manage.category.';
@@ -17,7 +21,6 @@ class CategoryController extends Controller
 // 		$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		
 		$this->service = $Category;
-		
 		
 		view()->share([
 			'tree'=>$this->service->tree(),
@@ -40,13 +43,16 @@ class CategoryController extends Controller
 		return $this->view('create');
 	}
 	
-	public function postStore(Form $Form,CategoryStore $CategoryStore,CategoryStoreService $CategoryStoreService) 
+	public function postStore(Form $Form,CategoryStoreForm $CategoryStoreForm,Cud $Cud,CategoryStoreService $CategoryStoreService) 
 	{
 		
-		$Form->validator($CategoryStore);
+		$Form->validator($CategoryStoreForm);
 		
-		$CUd->save($CategoryStoreService);
-		$this->service->handle($this->data,['pid','name','mark','status'])->store();
+		//
+		$CategoryStoreService->store($this->data);
+		
+// 		$CUd->save($CategoryStoreService);
+// 		$this->service->handle($this->data,['pid','name','mark','status'])->store();
 		
 		return redirect('manage/category/index');
 // 		exit();
@@ -67,15 +73,20 @@ class CategoryController extends Controller
 		return view($this->view.'edit',['model'=>$this->model]);
 	}
 	
-	public function putUpdate($id)
+	public function putUpdate($id,Form $Form,CategoryUpdateForm $CategoryUpdateForm,CategoryUpdateService $CategoryUpdateService)
 	{
-		$fields = ['pid','name','status'];
+		$Form->validator($CategoryUpdateForm);
 		
-		$this->validate($fields);
+		$CategoryUpdateService->update($id, $this->data);
 		
-		$this->updateData($id,$fields);
+		return redirect('manage/category/index');
+// 		$fields = ['pid','name','status'];
 		
-		$this->logs(['remark'=>'update category']);
+// 		$this->validate($fields);
+		
+// 		$this->updateData($id,$fields);
+		
+// 		$this->logs(['remark'=>'update category']);
 		
 		return $this->response(['success'],'manage/category/index');
 	}
