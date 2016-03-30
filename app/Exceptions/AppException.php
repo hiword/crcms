@@ -24,12 +24,7 @@ class AppException extends \Exception
 	public function __construct($message,$response = null)
 	{
 		$this->response = $response;
-		parent::__construct($this->setMessage($message));
-	}
-	
-	protected function setMessage($message)
-	{
-		return strpos($message, '.') ? trans($message) : $message;
+		parent::__construct($message);
 	}
 	
 	/**
@@ -55,7 +50,6 @@ class AppException extends \Exception
 	
 	/**
 	 * 
-	 * 
 	 * @author simon
 	 */
 	protected function getRedirect()
@@ -78,7 +72,7 @@ class AppException extends \Exception
 	 */
 	protected function getJsonResponse()
 	{
-		return new JsonResponse(['app_code'=>static::APP_CODE,'app_message'=>$this->getMessage()], static::HTTP_CODE);
+		return new JsonResponse(app_response($this->getMessage(),static::APP_CODE), static::HTTP_CODE);
 	}
 	
 	/**
@@ -89,6 +83,7 @@ class AppException extends \Exception
 	 */
 	protected function getRedirectResponse()
 	{
-		return $this->getRedirect()->withErrors(['app_code'=>static::APP_CODE,'app_message'=>$this->getMessage()]);
+		$appResponseData = app_response($this->getMessage(),static::APP_CODE);
+		return $this->getRedirect()->withInput()->with($appResponseData)->withErrors($appResponseData);
 	}
 }

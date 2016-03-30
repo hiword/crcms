@@ -16,13 +16,25 @@ class ValidateException extends AppException
 		$this->response = $response;
 	}
 	
-	protected function getRedirectResponse()
-	{
-		return $this->getRedirect()->withErrors(['app_code'=>static::APP_CODE,'app_message'=>$this->validator->errors()->first()]);
-	}
-	
+	/**
+	 * Get Json Response
+	 *
+	 * @author simon
+	 */
 	protected function getJsonResponse()
 	{
-		return new JsonResponse(['app_code'=>static::APP_CODE,'app_message'=>$this->validator->errors()->first()], static::HTTP_CODE);
+		return new JsonResponse(app_response($this->validator->errors()->first(),static::APP_CODE), static::HTTP_CODE);
+	}
+	
+	/**
+	 *
+	 * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 *
+	 * @author simon
+	 */
+	protected function getRedirectResponse()
+	{
+		$appResponseData = app_response($this->validator->errors()->first(),static::APP_CODE);
+		return $this->getRedirect()->withInput()->with($appResponseData)->withErrors($appResponseData);
 	}
 }

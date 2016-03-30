@@ -7,10 +7,19 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Services\Service;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
+    /**
+     * 
+     * @var Illuminate\Http\Request
+     * @author simon
+     */
+    protected $request = null;
     
     /**
      * 
@@ -19,22 +28,38 @@ class Controller extends BaseController
      */
     protected $service = null;
     
-    protected $request = null;
     
+    /**
+     * 
+     * @var array
+     * @author simon
+     */
     protected $data = [];
     
+    /**
+     * 
+     * @var string
+     * @author simon
+     */
     protected $view = null;
+    
     
     public function __construct()
     {
     	$this->request = app('request');
     	
     	$this->data = $this->request->all();
+    	
+    	DB::enableQueryLog();
     }
     
-    protected function view($view,$prefix = null)
+    protected function view($view,array $data = [],array $mergeData = [])
     {
-    	return view($this->view.$view);
+    	return view($this->view.$view,$data,$mergeData);
     }
     
+    protected function response($status,$data = [],$url = null) 
+    {
+    	return responding($status,$data,$url);
+    }
 }

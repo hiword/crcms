@@ -442,12 +442,12 @@ use Illuminate\Http\Response;
 		return $IpLocation->getlocation($ip);
 	}
 	
-	function category_tree($Category = null)
-	{
-		$Category = empty($Category) ? new Category() : $Category;
-		$category = $Category->orderBy('created_at','desc')->get()->toArray();
-		return show_tree(array_tree($category));
-	}
+// 	function category_tree($Category = null)
+// 	{
+// 		$Category = empty($Category) ? new Category() : $Category;
+// 		$category = $Category->orderBy('created_at','desc')->get()->toArray();
+// 		return show_tree(array_tree($category));
+// 	}
 	
 	/**
 	 * 判断当前模型是否存在
@@ -469,6 +469,115 @@ use Illuminate\Http\Response;
 			$modules = array_get($content, 'autoload.psr-4');
 		}
 		return in_array("Simon\\{$module}\\", array_keys($modules),true);
+	}
+	
+	function responding($status,$data = [],$url = null)
+	{
+		
+		if (is_array($status))
+		{
+			$response = isset($status[1]) ? app_response($status[0],$status[1]) : app_response($status[0]);
+		}
+		else
+		{
+			$response = app_response($status);
+		}
+		
+		//快捷$mixed参数设置
+		if (is_string($data))
+		{
+			$url = $data;
+			$data = [];
+		}
+		
+		$request = app('request');
+		
+		//ajax加载
+		if (($request->ajax() && !$request->pjax()) || $request->wantsJson())
+		{
+			return new JsonResponse($response);
+		}
+		//数据提交返回
+		else
+		{
+			$redirect = empty($url) ? redirect()->back() : redirect($url);
+			return $redirect->with($response)->withInput(array_merge($request->all(),$data));
+		}
+	}
+	
+	
+// 	function responding($status,$mixed = null,array $data = [])
+// 	{
+		
+// 		//快捷$data参数设置
+// 		if (is_array($mixed) && empty($data))
+// 		{
+// 			$data = $mixed;
+// 			$mixed = null;
+// 		}
+		
+// 		if (is_array($status))
+// 		{
+// 			$response = isset($status[1]) ? app_response($status[0],$status[1]) : app_response($status[0]);
+// 		}
+// 		else
+// 		{
+// 			$response = [];
+// 		}
+		
+// 		$request = app('request');
+		
+// 		//ajax加载
+// 		if (($request->ajax() && !$request->pjax()) || $request->wantsJson())
+// 		{
+// 			if ($response)
+// 			{
+// 				$response['data'] = $data;
+// 				return new JsonResponse($response);
+// 			}
+// 			//返回html
+// 			elseif (!is_array($status))
+// 			{
+// 				return view($status,$data);
+// 			}
+// 		}
+// 		//正常视图渲染加载
+// 		elseif (!is_array($status) && $mixed === null)//非跳转链接
+// 		{
+// 			return view($status,$data);
+// 		}
+// 		//数据提交返回
+// 		else
+// 		{
+// 			$redirect = empty($mixed) ? redirect()->back() : redirect($mixed);
+// 			return $redirect->with($response)->withInput(array_merge($request->all(),$data));
+// 		}
+// 	}
+	
+	/**
+	 * 
+	 * @param string $appMessage
+	 * @param int $appCode
+	 * @return array]
+	 * @author simon
+	 */
+	function app_response($appMessage,$appCode = 1000)
+	{
+		return [
+			'app_message'=>message_lang($appMessage),
+			'app_code'=>$appCode,
+		];
+	}
+	
+	/**
+	 * 
+	 * @param string $message
+	 * @return \Symfony\Component\Translation\TranslatorInterface|string|unknown
+	 * @author simon
+	 */
+	function message_lang($message)
+	{
+		return strpos($message, '.') ? trans($message) : $message;
 	}
 	
 	/**
