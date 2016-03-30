@@ -1,15 +1,14 @@
 <?php
 namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
-use Simon\Document\Fields\Category\Status;
 use App\Forms\Form;
 use Simon\Document\Services\Interfaces\CategoryInterface;
 use Simon\Document\Services\Category\CategoryStoreService;
 use Simon\Document\Forms\Category\CategoryStoreForm;
 use Simon\Document\Services\Category;
-use App\Services\Cud;
 use Simon\Document\Forms\Category\CategoryUpdateForm;
 use Simon\Document\Services\Category\CategoryUpdateService;
+use Simon\Document\Services\Category\CategoryDestroyService;
 class CategoryController extends Controller
 {
 	protected $view = 'document::manage.category.';
@@ -30,9 +29,7 @@ class CategoryController extends Controller
 	
 	public function getIndex()
 	{
-		
 		return $this->view('index');
-// 		return $this->response('index');
 	}
 	
 	/**
@@ -43,7 +40,7 @@ class CategoryController extends Controller
 		return $this->view('create');
 	}
 	
-	public function postStore(Form $Form,CategoryStoreForm $CategoryStoreForm,Cud $Cud,CategoryStoreService $CategoryStoreService) 
+	public function postStore(Form $Form,CategoryStoreForm $CategoryStoreForm,CategoryStoreService $CategoryStoreService) 
 	{
 		
 		$Form->validator($CategoryStoreForm);
@@ -51,35 +48,23 @@ class CategoryController extends Controller
 		//
 		$CategoryStoreService->store($this->data);
 		
-// 		$CUd->save($CategoryStoreService);
-// 		$this->service->handle($this->data,['pid','name','mark','status'])->store();
-		
-		return redirect('manage/category/index');
-// 		exit();
-// 		$fields = ['pid','name','mark','status'];
-		
-// 		$this->validate($fields);
-		
-// 		$this->storeData($fields);
-		
-// // 		$this->logs(['remark'=>'add category']);
-		
-// 		return $this->response(['success'],'manage/category/index');
+		return $this->response('app.success','manage/category/index');
 	}
 	
 	public function getEdit($id)
 	{
-		$this->model = $this->model->findOrFail($id);
-		return view($this->view.'edit',['model'=>$this->model]);
+		$model = $this->service->find($id);
+		return $this->view('edit',['model'=>$model]);
 	}
 	
 	public function putUpdate($id,Form $Form,CategoryUpdateForm $CategoryUpdateForm,CategoryUpdateService $CategoryUpdateService)
 	{
+		
 		$Form->validator($CategoryUpdateForm);
 		
 		$CategoryUpdateService->update($id, $this->data);
 		
-		return redirect('manage/category/index');
+		return $this->response('app.success','manage/category/index');
 // 		$fields = ['pid','name','status'];
 		
 // 		$this->validate($fields);
@@ -88,16 +73,20 @@ class CategoryController extends Controller
 		
 // 		$this->logs(['remark'=>'update category']);
 		
-		return $this->response(['success'],'manage/category/index');
+// 		return $this->response(['success'],'manage/category/index');
 	}
 	
-	public function deleteDestroy()
+	public function deleteDestroy(CategoryDestroyService $CategoryDestroyService)
 	{
-	    $this->destroyData($this->data['id']);
+		$CategoryDestroyService->destroy($this->data['id']);
+		
+		return $this->response('app.success');
+// 	    $this->destroyData($this->data['id']);
 	    
-	    $this->logs(['remark'=>'destroy category']);
+// 	    $this->logs(['remark'=>'destroy category']);
 	    
-	    return $this->response(['success']);
+// 	    return $this->response(['success']);
+	    
 	}
 	
 }

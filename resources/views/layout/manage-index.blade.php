@@ -75,8 +75,9 @@ $(function(){
 				beforeSend:$.noop,
 				error:$.noop,
 				success:function(data, textStatus, jqXHR){
-					alert(data.msg);
-					if(data.status == 'success' || data.status == 1000) {
+					alert(data.app_message);
+					if(data.app_code == 1000)
+					{
 						window.location.reload();
 					}
 				},
