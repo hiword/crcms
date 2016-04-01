@@ -5,15 +5,12 @@ abstract class Service
 	
 	/**
 	 * 
-	 * @var 
+	 * @var App\Models\Model
 	 * @author simon
 	 */
 	protected $model = null;
 	
 
-	public function __construct() 
-	{
-		
-	}
+	public function __construct() {}
 	
 }

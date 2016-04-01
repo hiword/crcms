@@ -2,7 +2,7 @@
 namespace Simon\Document\Services;
 use App\Services\AbsCud;
 use Simon\Document\Models\Category;
-abstract class CategoryCud extends AbsCud
+abstract class CategoryCudService extends AbsCud
 {
 	
 	public function __construct(Category $Category)

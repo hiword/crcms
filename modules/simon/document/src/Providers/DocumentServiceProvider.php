@@ -39,7 +39,7 @@ class DocumentServiceProvider extends PackageServiceProvider
     	
     	$this->app->bind(
     			'Simon\Document\Services\Interfaces\CategoryInterface',
-    			'Simon\Document\Services\CategoryService'
+    			'Simon\Document\Services\Category\CategoryService'
     	);
     }
     
