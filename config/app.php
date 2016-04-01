@@ -160,8 +160,8 @@ return [
     	//模块加载
     	Simon\Document\Providers\DocumentServiceProvider::class,
 
-    	Simon\Log\Providers\EventServiceProvider::class,
-    	Simon\Log\Providers\LogServiceProvider::class,
+//     	Simon\Log\Providers\EventServiceProvider::class,
+//     	Simon\Log\Providers\LogServiceProvider::class,
     ],
 
     /*
