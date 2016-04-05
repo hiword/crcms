@@ -22,7 +22,8 @@
         ],
         "files" : [ 
         	"app/tool.php", 
-        	"app/helper.php"
+        	"app/helper.php",
+        	"modules/simon/log/src/helper.php"
         ],
         "psr-4": {
             "App\\": "app/",

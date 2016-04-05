@@ -53,6 +53,22 @@ class Controller extends BaseController
     	DB::enableQueryLog();
     }
     
+    /**
+     *
+     * @param array $options
+     * @param string $actionLog
+     * @author simon
+     */
+    protected function logs(array $data,$actionLog = true)
+    {
+    	if (module_exists('log'))
+    	{
+    		logs($data,$actionLog);
+    	}
+    	
+    	return $this;
+    }
+    
     protected function view($view,array $data = [],array $mergeData = [])
     {
     	return view($this->view.$view,$data,$mergeData);

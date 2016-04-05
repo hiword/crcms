@@ -468,6 +468,7 @@ use Illuminate\Http\Response;
 			$content = json_decode($content,true);
 			$modules = array_get($content, 'autoload.psr-4');
 		}
+		
 		return in_array("Simon\\{$module}\\", array_keys($modules),true);
 	}
 	

@@ -1,5 +1,6 @@
 <?php
 use Simon\Log\Events\Logs;
+use Jenssegers\Agent\Agent;
 	/**
 	 * Request And Agent
 	 * @return multitype:string number NULL
@@ -51,12 +52,13 @@ use Simon\Log\Events\Logs;
 		
 		if ($actionLog)
 		{
-			$log = ['Simon\Log\Service\ActionLog\ActionLogStoreService'=>$data];
+			$logs = ['Simon\Log\Services\ActionLog\ActionLogStoreService'=>$data];
 		}
 		else
 		{
-			$log = $data;
+			$logs = $data;
 		}
 		//Logs
-// 		event(new Logs($data,app('request'),));
+		
+		event(new Logs($logs,app('request'),new Jenssegers\Agent\Agent()));
 	}

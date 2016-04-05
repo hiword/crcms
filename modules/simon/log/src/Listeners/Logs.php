@@ -5,11 +5,12 @@ namespace Simon\Log\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Event;
+use Illuminate\Queue\SerializesModels;
 
 class Logs implements ShouldQueue
 {
 	
-	use InteractsWithQueue;
+	use InteractsWithQueue,SerializesModels;
 	
     /**
      * Create the event handler.
@@ -34,7 +35,8 @@ class Logs implements ShouldQueue
     		foreach ($Event->data as $key=>$values)
     		{
     			$Service = new $key();
-    			$Service->store($values,$Event->request,$Event->agent);
+    			dd($values);
+//     			$Service->store($values,app('request'),app('Jenssegers\Agent\Agent'));
     		}
     	} 
     	catch (\Exception $e) 

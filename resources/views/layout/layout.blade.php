@@ -6,18 +6,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	@yield('meta')
 	<title>{{config('site.web_name')}}</title>
-	<link rel="stylesheet" href="{{static_asset('static/bootstrap/css/bootstrap.min.css')}}" />
-	<link rel="stylesheet" href="{{static_asset('static/common/css/global.css')}}" />
-	<link rel="stylesheet" href="{{static_asset('static/common/css/bootstrap.custom.css')}}" />
+	<link rel="stylesheet" href="{{static_asset('vendor/bootstrap/css/bootstrap.min.css')}}" />
+	<link rel="stylesheet" href="{{static_asset('vendor/common/css/global.css')}}" />
+	<link rel="stylesheet" href="{{static_asset('vendor/common/css/bootstrap.custom.css')}}" />
 	@yield('style')
 </head>
 <body>
 	@yield('body')
 	@section('script')
-		<script src="{{static_asset('static/common/js/jquery-2.1.3.min.js')}}"></script>
-		<script src="<?php echo static_asset('static/bootstrap/js/bootstrap.min.js')?>"></script>
-		<script src="{{static_asset('static/artdialog/6.0.2/js/dialog-plus-min.js')}}"></script>
-		<script src="{{static_asset('static/common/js/common.js')}}"></script>
+		<script src="{{static_asset('vendor/common/js/jquery-2.1.3.min.js')}}"></script>
+		<script src="{{static_asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+		<script src="{{static_asset('vendor/artdialog/6.0.2/js/dialog-plus-min.js')}}"></script>
+		<script src="{{static_asset('vendor/common/js/common.js')}}"></script>
 		<script>
 			$.ajaxSetup({
 		  	    headers: {

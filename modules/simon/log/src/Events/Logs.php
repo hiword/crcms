@@ -34,6 +34,7 @@ class Logs extends Event
     public function __construct(array $data,Request $Request,Agent $Agent = null)
     {
     	parent::__construct($data);
+//     	dd($Request,$Agent);
     	$this->request = $Request;
     	$this->agent = $Agent;
     }

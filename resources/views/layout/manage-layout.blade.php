@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('style')
-<link rel="stylesheet" href="{{static_asset('static/manage/css/css.css')}}" />
-<link rel="stylesheet" href="{{static_asset('static/artdialog/6.0.2/css/ui-dialog.css')}}" />
+<link rel="stylesheet" href="{{static_asset('vendor/manage/css/css.css')}}" />
+<link rel="stylesheet" href="{{static_asset('vendor/artdialog/6.0.2/css/ui-dialog.css')}}" />
 @endsection
 @section('body')
 <div class="main">

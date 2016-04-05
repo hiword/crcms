@@ -42,11 +42,12 @@ class CategoryController extends Controller
 	
 	public function postStore(Form $Form,CategoryStoreForm $CategoryStoreForm,CategoryStoreService $CategoryStoreService) 
 	{
-		
-		$Form->validator($CategoryStoreForm);
+// 		$Form->validator($CategoryStoreForm);
 		
 		//
-		$CategoryStoreService->store($this->data);
+// 		$CategoryStoreService->store($this->data);
+		
+		$this->logs(['remark'=>'add store']);
 		
 		return $this->response('app.success','manage/category/index');
 	}

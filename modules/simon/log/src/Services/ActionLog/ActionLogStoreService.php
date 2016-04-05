@@ -45,6 +45,7 @@ class ActionLogStoreService extends ActionLog implements ActionLogStoreInterface
 		}
 	
 		$this->builtStore();
+		
 		return $this->model->save();
 	}
 
