@@ -1,34 +1,73 @@
 <?php
 namespace Simon\Log\Services\ActionLog;
-use Simon\Log\Services\ActionLogCudService;
 use App\Services\Interfaces\StoreInterface;
-class ActionLogStoreService extends ActionLogCudService implements StoreInterface
+use Simon\Log\Services\ActionLog;
+use App\Services\Traits\StoreTrait;
+use Simon\Log\Services\Interfaces\ActionLogStoreInterface;
+class ActionLogStoreService extends ActionLog implements ActionLogStoreInterface
 {
+	
+	use StoreTrait;
+	
 	/* 
 	 * (non-PHPdoc)
 	 * @see \App\Services\Interfaces\StoreInterface::store()
 	 * @author simon
 	 */
-	public function store(array $data)
+	
+	
+	
+	/* 
+	 * (non-PHPdoc)
+	 * @see \Simon\Log\Services\Interfaces\ActionLogStoreInterface::store()
+	 * @author simon
+	 */
+	public function store(array $data, \Illuminate\Http\Request $Request, \Jenssegers\Agent\Agent $Agent = null) 
 	{
-		$this->model->url = $data['url'];
-		$this->model->method = $data['method'];
-		$this->model->scheme = $data['scheme'];
-		$this->model->port = $data['port'];
-		$this->model->client_ip = $data['client_ip'];
-		$this->model->device = $data['device'];
-		$this->model->browser = $data['browser'];
-		$this->model->browser_version = $data['browser_version'];
-		$this->model->os = $data['os'];
-		$this->model->os_version = $data['os_version'];
-		$this->model->is_robot = $data['is_robot'];
-		$this->model->robot_name = $data['robot_name'];
-		$this->model->remark = $data['remark'];
-		$this->model->created_uid = $data['created_uid'];
-		$this->model->created_type = $data['created_type'];
+		// TODO Auto-generated method stub
 		
+		$this->model->remark = $data['remark'];
+		$this->model->url = $Request->fullUrl();
+		$this->model->method = $Request->method();
+		$this->model->scheme = $Request->getScheme();
+		$this->model->client_ip = ip_long($Request->ip());
+		$this->model->port = $Request->port();
+	
+		if ($Agent)
+		{
+			$this->model->device = '';//(string)$Agent->device();
+			$this->model->browser = '';//(string)$Agent->browser();
+			$this->model->browser_version = '';//(string)$Agent->version($data['browser']);
+			$this->model->os = '';//(string)$Agent->platform();
+			$this->model->os_version = '';//(string)$Agent->version($data['os']);
+			$this->model->is_robot = 1;//$Agent->isRobot() ? 1 : 0;
+			$this->model->robot_name = '';//(string)$Agent->robot();
+		}
+	
+		$this->builtStore();
 		return $this->model->save();
 	}
 
+	public function requestOptions()
+	{
+		$Request = app('request');
+		
+	}
+	
+	function agentLogOptions()
+	{
+		//$Agent = new \Jenssegers\Agent\Agent();
+
+		// 		$data['port'] = $Request->port();
+		// 		$data['user_agent'] = '';
+	
+		$this->model->device = '';//(string)$Agent->device();
+		$this->model->browser = '';//(string)$Agent->browser();
+		$this->model->browser_version = '';//(string)$Agent->version($data['browser']);
+		$this->model->os = '';//(string)$Agent->platform();
+		$this->model->os_version = '';//(string)$Agent->version($data['os']);
+		$this->model->is_robot = 1;//$Agent->isRobot() ? 1 : 0;
+		$this->model->robot_name = '';//(string)$Agent->robot();
+	}
 	
 }
