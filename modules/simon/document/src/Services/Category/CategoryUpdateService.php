@@ -1,10 +1,14 @@
 <?php
 namespace Simon\Document\Services\Category;
-use Simon\Document\Services\CategoryCud;
 use App\Services\Interfaces\UpdateInterface;
 use Illuminate\Support\Facades\DB;
-class CategoryUpdateService extends CategoryCud implements UpdateInterface
+use Simon\Document\Services\Category;
+use App\Services\Traits\UpdateTrait;
+class CategoryUpdateService extends Category implements UpdateInterface
 {
+	
+	use UpdateTrait;
+	
 	/* 
 	 * (non-PHPdoc)
 	 * @see \App\Services\Interfaces\UpdateInterface::update()

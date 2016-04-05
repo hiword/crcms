@@ -11,7 +11,7 @@ class DocumentServiceProvider extends PackageServiceProvider
 	 *
 	 * @var bool
 	 */
-	protected $defer = true;
+	protected $defer = false;
 	
 	/**
 	 * 
@@ -45,7 +45,8 @@ class DocumentServiceProvider extends PackageServiceProvider
     
     public function provides()
     {
-    	return ['Simon\Document\Services\Interfaces\CategoryInterface'];
+    	//'Simon\Document\Services\Interfaces\CategoryInterface'
+    	return [];
     }
 	
 }

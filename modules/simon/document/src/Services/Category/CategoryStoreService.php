@@ -1,9 +1,12 @@
 <?php
 namespace Simon\Document\Services\Category;
-use Simon\Document\Services\CategoryCud;
 use App\Services\Interfaces\StoreInterface;
-class CategoryStoreService extends CategoryCud implements StoreInterface
+use Simon\Document\Services\Category;
+use App\Services\Traits\StoreTrait;
+class CategoryStoreService extends Category implements StoreInterface
 {
+	use StoreTrait;
+	
 	/* 
 	 * (non-PHPdoc)
 	 * @see \App\Services\Interfaces\CudInterface::save()
