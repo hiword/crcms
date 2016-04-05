@@ -156,12 +156,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     	
+    	Jenssegers\Agent\AgentServiceProvider::class,
     		
     	//模块加载
     	Simon\Document\Providers\DocumentServiceProvider::class,
 
-//     	Simon\Log\Providers\EventServiceProvider::class,
-//     	Simon\Log\Providers\LogServiceProvider::class,
+    	Simon\Log\Providers\EventServiceProvider::class,
+    	Simon\Log\Providers\LogServiceProvider::class,
     ],
 
     /*
@@ -208,6 +209,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+    	
+    	'Agent' =>Jenssegers\Agent\Facades\Agent::class,
     ],
 
 ];

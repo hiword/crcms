@@ -12,7 +12,14 @@ abstract class PackageServiceProvider extends ServiceProvider
 	 */
 	protected $namespaceName = null;
 	
+	
+	/**
+	 * 
+	 * @var string
+	 * @author simon
+	 */
 	protected $packagePath = null;
+	
 	
 	
 	public function __construct($app)
