@@ -1,3 +1,7 @@
 @if((boolean)$_msg = session('app_message'))
-<div class="alert {{count($errors)>0 ? 'alert-danger' : 'alert-success'}}">错误码：{{session('app_code')}}，错误信息：{{$_msg}}</div>
+	@if(count($errors)>0)
+		<div class="alert alert-danger">错误码：{{session('app_code')}}，错误信息：{{$_msg}}</div>
+	@else
+		<div class="alert alert-success">{{$_msg}}</div>
+	@endif
 @endif
