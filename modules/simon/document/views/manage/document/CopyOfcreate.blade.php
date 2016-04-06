@@ -70,6 +70,7 @@
 		</div>
 		<div class="form-group">
 			<label class=" Validform_label label-name">标签</label>
+			@include('tag::select_tags')
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
@@ -114,8 +115,8 @@
 @endsection
 @section('script')
 @parent
-<script src="{{static_asset('vendor/ueditor/ueditor.config.js')}}"></script>
-<script src="{{static_asset('vendor/ueditor/ueditor.all.min.js')}}"></script>
+<script src="{{static_asset('static/ueditor/ueditor.config.js')}}"></script>
+<script src="{{static_asset('static/ueditor/ueditor.all.min.js')}}"></script>
 <script>
 	var ue = UE.getEditor('container');
 	//single img upload
@@ -125,7 +126,7 @@
 			ok:function(){
 				var value = $('[name^="uploads[][src]"]').first().val();
 				$this.find('img').attr('src',value);
-				$('[name="document[thumbnail]"]').val($('[name^="uploads[][src]"]').first().attr('path'));
+				$('[name="document[thumbnail]"]').val(value);
 				return true;
 			}
 		});
@@ -140,7 +141,7 @@
 					var str = '<div class="col-md-3">';
 						str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
 							str += 		'</div>';
-							str += '<input type="hidden" name="images[][path]" value="'+$(this).attr('path')+'" />';
+							str += '<input type="hidden" name="images[][path]" value="'+$(this).val()+'" />';
 					$('.images-queue').append(str);
 				});
 				return true;
@@ -149,4 +150,5 @@
 		return false;
 	});
 </script>
+@include('tag::select_tags_js')
 @endsection

@@ -42,12 +42,11 @@ class CategoryController extends Controller
 	
 	public function postStore(Form $Form,CategoryStoreForm $CategoryStoreForm,CategoryStoreService $CategoryStoreService) 
 	{
-// 		$Form->validator($CategoryStoreForm);
-		
+		$Form->validator($CategoryStoreForm);
 		//
-// 		$CategoryStoreService->store($this->data);
+		$CategoryStoreService->store($this->data);
 		
-		$this->logs(['remark'=>'add store']);
+		$this->logs(['remark'=>'category store']);
 		
 		return $this->response('app.success','manage/category/index');
 	}
@@ -65,6 +64,8 @@ class CategoryController extends Controller
 		
 		$CategoryUpdateService->update($id, $this->data);
 		
+		$this->logs(['remark'=>'category update']);
+		
 		return $this->response('app.success','manage/category/index');
 // 		$fields = ['pid','name','status'];
 		
@@ -80,6 +81,8 @@ class CategoryController extends Controller
 	public function deleteDestroy(CategoryDestroyService $CategoryDestroyService)
 	{
 		$CategoryDestroyService->destroy($this->data['id']);
+		
+		$this->logs(['remark'=>'category destroy']);
 		
 		return $this->response('app.success');
 // 	    $this->destroyData($this->data['id']);

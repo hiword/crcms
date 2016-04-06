@@ -1,7 +1,6 @@
 <?php
 namespace Simon\Document\Providers;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
 use App\Providers\PackageServiceProvider;
 class DocumentServiceProvider extends PackageServiceProvider
 {
@@ -40,6 +39,16 @@ class DocumentServiceProvider extends PackageServiceProvider
     	$this->app->bind(
     			'Simon\Document\Services\Interfaces\CategoryInterface',
     			'Simon\Document\Services\Category\CategoryService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Interfaces\DocumentInterface',
+    			'Simon\Document\Services\Document\DocumentService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Interfaces\DocumentDataInterface',
+    			'Simon\Document\Services\DocumentData\DocumentDataService'
     	);
     }
     
