@@ -619,8 +619,8 @@ function uploaded(options)
 	};
 	
 	dialogOptions = $.extend(dialogOptions,options);
-	
-	$.get('http://'+window.location.host+'/index.php/upload/upload',function(data){
+	//'http://'+window.location.host+'/index.php/upload/upload'
+	$.get('http://localhost/3.1/public/index.php/upload/upload',function(data){
 		dialogOptions.content = data;
 		dialog(dialogOptions).show();
 	});
