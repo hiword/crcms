@@ -7,7 +7,9 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-		"jenssegers/agent" : "^2.3"
+		"jenssegers/agent" : "^2.3",
+		"intervention/image" : "^2.3",
+    	"intervention/imagecache" : "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -23,12 +25,14 @@
         "files" : [ 
         	"app/tool.php", 
         	"app/helper.php",
-        	"modules/simon/log/src/helper.php"
+        	"modules/simon/log/src/helper.php",
+        	"modules/simon/file/src/helper.php"
         ],
         "psr-4": {
             "App\\": "app/",
 			"Simon\\Document\\" : "modules/simon/document/src",
-			"Simon\\Log\\" : "modules/simon/log/src"
+			"Simon\\Log\\" : "modules/simon/log/src",
+			"Simon\\File\\" : "modules/simon/file/src"
         }
     },
     "autoload-dev": {
