@@ -3,7 +3,7 @@ namespace Simon\Log\Services\Interfaces;
 use App\Services\Interfaces\StoreInterface;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
-interface ActionLogStoreInterface extends StoreInterface
+interface ActionLogStoreInterface
 {
 	
 	/**

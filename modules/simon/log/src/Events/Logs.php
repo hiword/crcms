@@ -32,12 +32,12 @@ class Logs extends Event
      *
      * @return void
      */
-    public function __construct(array $data,Request $Request,Agent $Agent = null)
+    public function __construct(array $data)
     {
     	parent::__construct($data);
 //     	dd($Request,$Agent);
-    	$this->request = $Request;
-    	$this->agent = $Agent;
+//     	$this->request = $Request;
+//     	$this->agent = $Agent;
     }
 
     /**

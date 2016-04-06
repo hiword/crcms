@@ -39,7 +39,7 @@ class LogServiceProvider extends PackageServiceProvider
     	 
     	$this->app->bind(
     		'Simon\Log\Services\Interfaces\ActionLogInterface',
-    		'Simon\Log\Services\ActionLogService'
+    		'Simon\Log\Services\ActionLog\ActionLogService'
     	);
     }
 	

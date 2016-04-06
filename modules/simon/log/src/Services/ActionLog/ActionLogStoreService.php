@@ -31,7 +31,7 @@ class ActionLogStoreService extends ActionLog implements ActionLogStoreInterface
 		$this->model->method = $Request->method();
 		$this->model->scheme = $Request->getScheme();
 		$this->model->client_ip = ip_long($Request->ip());
-		$this->model->port = $Request->port();
+// 		$this->model->port = $Request->port();
 	
 		if ($Agent)
 		{

@@ -60,5 +60,5 @@ use Jenssegers\Agent\Agent;
 		}
 		//Logs
 		
-		event(new Logs($logs,app('request'),new Jenssegers\Agent\Agent()));
+		event(new Logs($logs));
 	}

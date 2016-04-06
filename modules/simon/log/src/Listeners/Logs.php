@@ -34,9 +34,7 @@ class Logs implements ShouldQueue
     	{
     		foreach ($Event->data as $key=>$values)
     		{
-    			$Service = new $key();
-    			dd($values);
-//     			$Service->store($values,app('request'),app('Jenssegers\Agent\Agent'));
+    			app($key)->store($values,app('request'),app('Jenssegers\Agent\Agent'));
     		}
     	} 
     	catch (\Exception $e) 
