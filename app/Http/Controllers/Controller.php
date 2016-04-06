@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Services\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Forms\Form;
 
 class Controller extends BaseController
 {
@@ -27,6 +28,13 @@ class Controller extends BaseController
      * @author simon
      */
     protected $service = null;
+    
+    /**
+     * 
+     * @var App\Forms\Form
+     * @author simon
+     */
+    protected $form = null;
     
     
     /**
@@ -49,6 +57,8 @@ class Controller extends BaseController
     	$this->request = app('request');
     	
     	$this->data = $this->request->all();
+    	
+    	$this->form = app('App\Forms\Form');
     	
     	DB::enableQueryLog();
     }
