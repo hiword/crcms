@@ -157,7 +157,7 @@ return [
         App\Providers\RouteServiceProvider::class,
     	
     	Jenssegers\Agent\AgentServiceProvider::class,
-    	Intervention\Image\ImageServiceProvider::class,
+//     	Intervention\Image\ImageServiceProvider::class,
     		
     	//模块加载
     	Simon\Document\Providers\DocumentServiceProvider::class,
@@ -168,6 +168,10 @@ return [
     	//file
     	Simon\File\Providers\FileServiceProvider::class,
     	Simon\File\Providers\EventServiceProvider::class,
+    		
+    	//tag
+    	Simon\Tag\Providers\TagServiceProvider::class,
+    	Simon\Tag\Providers\EventServiceProvider::class,
     ],
 
     /*
@@ -216,7 +220,7 @@ return [
 
     	
     	'Agent' =>Jenssegers\Agent\Facades\Agent::class,
-    	'Image' => Intervention\Image\Facades\Image::class,
+//     	'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
