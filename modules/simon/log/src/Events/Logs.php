@@ -12,6 +12,7 @@ class Logs extends Event
 {
     use SerializesModels;
     
+    
     /**
      * 
      * @var Illuminate\Http\Request
