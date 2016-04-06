@@ -32,7 +32,7 @@
 				</div>
 			</td>
 			<td>{{$model->hasOneTagContent->content}}</td>
-			<td>{{$status[$model->status]}}</td>
+			<td>{{$status[$model->status] or null}}</td>
 		</tr>
 	@endforeach
 @endsection

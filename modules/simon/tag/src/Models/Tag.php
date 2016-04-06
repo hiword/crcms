@@ -7,6 +7,42 @@ class Tag extends Model
 {
 	
 	/**
+	 * 已验证状态
+	 * @var numeric
+	 * @author simon
+	 */
+	CONST STATUS_VERIFIED = 1;
+	
+	/**
+	 * 未验证状态
+	 * @var numeric
+	 * @author simon
+	 */
+	CONST STATUS_NOT_VERIFIED = 2;
+	
+	/**
+	 * 未通过状态
+	 * @var numeric
+	 * @author simon
+	 */
+	CONST STATUS_NOT_BY = 3;
+	
+	/**
+	 * 禁止
+	 * @var numeric
+	 * @author simon
+	 */
+	CONST STATUS_BAN = 4;
+	
+	/**
+	 * 会员状态数组
+	 * @var numeric
+	 * @author simon
+	 */
+	const STATUS = [self::STATUS_VERIFIED=>'已验证',self::STATUS_NOT_VERIFIED=>'未验证',self::STATUS_NOT_BY=>'未通过',self::STATUS_BAN=>'已禁止'];
+	
+	
+	/**
 	 * 字段
 	 * @var array
 	 * @author simon
