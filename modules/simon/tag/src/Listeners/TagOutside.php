@@ -5,23 +5,30 @@ namespace Simon\Tag\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Event;
-use Simon\Tag\Models\TagOutside as TagOutsideModel;
 use Simon\Tag\Models\Tag;
 use Illuminate\Support\Facades\DB;
+use Simon\Tag\Services\Tag\Interfaces\TagInterface;
+use Simon\Tag\Services\TagOutside\Interfaces\TagOutsideStoreInterface;
 
 class TagOutside implements ShouldQueue
 {
 	
 	use InteractsWithQueue;
 	
+	protected $tag = null;
+	
+	protected $tagOutsideStore = null;
+	
     /**
      * Create the event handler.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TagInterface $Tag,TagOutsideStoreInterface $TagStoreInterface)
     {
         //
+        $this->tag = $Tag;
+        $this->tagOutsideStore = $TagStoreInterface;
     }
 
     /**
@@ -34,26 +41,19 @@ class TagOutside implements ShouldQueue
     {
     	try 
     	{
-    		//tags过滤
-    		//$tags = array_unique(explode(" ", $Event->data['tags']));
-    		
-    		//查找tags
-    		$Tag = new Tag();
-    		$tags = $Tag->whereIn('id',$Event->tags)->lists('id');
-    		if(empty($tags))
+    		$tags = $this->tag->lists($Event->tags);
+    		if ($tags)
     		{
-    			return ;
+    			$tag = [];
+    			foreach ($tags as $_tag)
+    			{
+    				$tag['tag_id'] = $_tag->id;
+    				$tag['outside_id'] = $Event->outside['id'];
+    				$tag['outside_type'] = $Event->outside['model'];
+    				$this->tagOutsideStore->store($tag);
+    			}
     		}
     		
-    		$TagOutside = new TagOutsideModel();
-    		$tag = [];
-    		foreach ($tags as $id)
-    		{
-    			$tag['tag_id'] = $id;
-    			$tag['outside_id'] = $Event->outside['id'];
-    			$tag['outside_type'] = $Event->outside['model'];
-    			$TagOutside->storeData($tag);
-    		}
     	} 
     	catch (\Exception $e) 
     	{

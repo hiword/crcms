@@ -1,9 +1,12 @@
 <?php
 namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
-use Simon\Document\Services\Interfaces\DocumentInterface;
-use Simon\Document\Services\Interfaces\CategoryInterface;
-use Simon\Document\Services\Interfaces\DocumentDataInterface;
+use Simon\Document\Services\Document\Interfaces\DocumentInterface;
+use Simon\Document\Forms\Document\DocumentStoreForm;
+use Simon\Document\Services\Document\Interfaces\DocumentStoreInterface;
+use Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentStoreInterface;
+use Simon\Document\Services\Category\Interfaces\CategoryInterface;
+use Simon\Document\Forms\CategoryDocument\CategoryDocumentStoreForm;
 // use Simon\Document\Fields\Document\Status;
 // use Simon\Document\Models\Category;
 // use Simon\Document\Models\Document;
@@ -14,9 +17,9 @@ class DocumentController extends Controller
 {
 	protected $view = 'document::manage.document.';
 	
-	protected $appendService = null; 
+// 	protected $appendService = null;
 	
-	public function __construct(DocumentInterface $Document,DocumentDataInterface $DocumentData,CategoryInterface $Category)
+	public function __construct(DocumentInterface $Document,CategoryInterface $Category)
 	{
 		
 		parent::__construct();
@@ -32,12 +35,12 @@ class DocumentController extends Controller
 		]);
 		
 		$this->service = $Document;
-		$this->appendService = $DocumentData;
+// 		$this->appendService = $DocumentData;
 	}
 	
 	public function getIndex() 
 	{
-		return '<img src="'.route('img_src',['filename'=>base64_encode('f/3/o_1afl6v4dcidi1mm01o441cr01vag7.jpg')]).'" alt="" />';;
+// 		return '<img src="'.route('img_src',['filename'=>base64_encode('f/3/o_1afl6v4dcidi1mm01o441cr01vag7.jpg')]).'" alt="" />';;
 		$page = $this->service->paginate();
 		return $this->view('index',$page);
 // 		Paginate $Paginate
@@ -59,51 +62,62 @@ class DocumentController extends Controller
 		return $this->view('create',['uploading'=>$uploading]);
 	}
 	
-	public function postStore(DocumentData $DocumentData,CategoryDocument $CategoryDocument) 
+	public function postStore(DocumentStoreForm $DocumentStoreForm,CategoryDocumentStoreForm $CategoryDocumentStoreForm,DocumentStoreInterface $DocumentStoreInterface,CategoryDocumentStoreInterface $CategoryDocumentStoreInterface) 
 	{
+		//validator
+		$this->form->validator($DocumentStoreForm);
 		
-		$this->validate(['title','status','category_id','thumbnail'],$this->model,array_merge($this->data['document'],['category_id'=>$this->data['category_id']]));
-		$this->validate(['content','seo_title','seo_keywords','seo_description'],$this->model,$this->data['document_data']);
+		$this->form->validator($CategoryDocumentStoreForm);
 		
-		$this->model = $this->storeData(['title','status','thumbnail'],$this->model,$this->data['document']);
-		$this->storeData(['did','content','seo_title','seo_keywords','seo_description'],$DocumentData,array_merge($this->data['document_data'],['did'=>$this->model->id]));
+		//store
+		$model = $DocumentStoreInterface->store($this->data['document'],$this->data['document_data']);
 		
-		//类别
-		$CategoryDocument->storeData($this->data['category_id'],$this->model->id);
+		//category
+		$CategoryDocumentStoreInterface->store($model->id, $this->data['category_id']);
 		
-		//tags
+// 		$this->model = $this->storeData(['title','status','thumbnail'],$this->model,$this->data['document']);
+// 		$this->storeData(['did','content','seo_title','seo_keywords','seo_description'],$DocumentData,array_merge($this->data['document_data'],['did'=>$this->model->id]));
+		
+// 		//类别
+// 		$CategoryDocument->storeData($this->data['category_id'],$this->model->id);
+		
+// 		//tags
 		if (module_exists('tag') && !empty($this->data['tags']))
 		{
-			event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$this->model->id,'Simon\Document\Models\Document'));
+			event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$model->id,'Simon\Document\Models\Document'));
 		}
 		
-		//images
-		if (module_exists('file') && !empty($this->data['images']))
-		{
-			event(new \Simon\File\Events\ImageOutside($this->data['images'],$this->model->id,'Simon\Document\Models\Document'));
-		}
+// 		//images
+// 		if (module_exists('file') && !empty($this->data['images']))
+// 		{
+// 			event(new \Simon\File\Events\ImageOutside($this->data['images'],$this->model->id,'Simon\Document\Models\Document'));
+// 		}
 		
 		//logs
 		$this->logs(['remark'=>'add document']);
 		
-		return $this->response(['success'],'manage/document/index');
+		return $this->response(['app.success'],'manage/document/index');
 	}
 	
 	public function getEdit($id,$hash)
 	{
 		
-		$this->validateHash($id,$hash);
+// 		$this->validateHash($id,$hash);
 		
-		$this->model = $this->model->findOrFail($id);
+		$model = $this->service->find($id);
 		
-		$this->hash($id);
+// 		$this->hash($id);
 		
-		$this->model->categorys = $this->model->belongsToManyCategory()->lists('id')->toArray();
+		//categories
+		$categories = $this->service->categoryIds($model);
 		
 		//images
-		$images = $this->model->morphManyImages;
+		$images = $this->service->images($model);
 		
-		return $this->response("edit",['model'=>$this->model,'images'=>$images]);
+		//tags
+		$tags = $this->service->tags($model);
+		
+		return $this->view("edit",['model'=>$model,'categories'=>$categories,'images'=>$images,'tags'=>$tags]);
 	}
 	
 	public function putUpdate($id,DocumentData $DocumentData,CategoryDocument $CategoryDocument) 

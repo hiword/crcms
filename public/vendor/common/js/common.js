@@ -7,10 +7,11 @@
 				$typeahead.typeahead({
 					source: function (query, process) {
 				        return $.get(url, { 'name': query }, function (response) {
-				        	if(response.data.model.length > 0)
+				        	console.log(response);
+				        	if(response.app_code == 1000 && response.data.models.length > 0)
 				        	{
-				        		response.data.model.push({name:"创建标签"+query,id:-1,_name:query});
-				        		return process(response.data.model);
+				        		response.data.models.push({name:"创建标签"+query,id:-1,_name:query});
+				        		return process(response.data.models);
 				        	}
 				        	else{
 				        		return process([{name:"创建标签"+query,id:-1,_name:query}]);
@@ -58,12 +59,12 @@
 							    		data:_form.serialize(),
 							    		success:function(response){
 							    			console.log(response);
-							    			if(response.status == 1000)
+							    			if(response.app_code == 1000)
 								    		{
 								    			that.title('提交成功');
 								    			item.id = response.data.model.id;
 								    			item.name = response.data.model.name;
-								    			
+								    			console.log(item);
 								    			//添加标签
 								    			$.TAGS.addTag(input,item);
 								    			
@@ -73,12 +74,12 @@
 								    		}
 								    		else
 							    			{
-								    			that.title('提交失败：'+response.msg);
+								    			that.title('提交失败：'+response.app_message);
 							    			}
 							    		},
 							    		error:function(response)
 							    		{
-							    			that.title('提交失败：'+response.responseJSON.msg);
+							    			that.title('提交失败：'+response.responseJSON.app_message);
 							    		}
 							    	});
 							    	return false;

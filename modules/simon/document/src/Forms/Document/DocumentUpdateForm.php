@@ -23,7 +23,7 @@ class DocumentUpdateForm extends DocumentForm implements FormInterface
 	public function getRule()
 	{
 		// TODO Auto-generated method stub
-		
+		return $this->rule;
 	}
 
 	

@@ -38,8 +38,13 @@ class LogServiceProvider extends PackageServiceProvider
     	parent::register();
     	 
     	$this->app->bind(
-    		'Simon\Log\Services\Interfaces\ActionLogInterface',
+    		'Simon\Log\Services\ActionLog\Interfaces\ActionLogInterface',
     		'Simon\Log\Services\ActionLog\ActionLogService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\Log\Services\ActionLog\Interfaces\ActionLogStoreInterface',
+    		'Simon\Log\Services\ActionLog\ActionLogStoreService'
     	);
     }
 	

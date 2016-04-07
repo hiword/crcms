@@ -24,7 +24,7 @@ class TagStoreForm extends TagForm implements FormInterface
 	{
 		// TODO Auto-generated method stub
 		$rule = [
-				'name'=>['required','min:1','max:50','unique:tags,name'],
+			'name'=>['required','min:1','max:50','unique:tags,name'],
 		];
 		
 		return array_merge($this->rule,$rule);

@@ -10,6 +10,8 @@ abstract class Service
 	 */
 	protected $model = null;
 	
+	protected $append = null;
+	
 
 	public function __construct() {}
 	

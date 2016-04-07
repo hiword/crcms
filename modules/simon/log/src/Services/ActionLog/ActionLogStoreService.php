@@ -1,21 +1,12 @@
 <?php
 namespace Simon\Log\Services\ActionLog;
-use App\Services\Interfaces\StoreInterface;
 use Simon\Log\Services\ActionLog;
 use App\Services\Traits\StoreTrait;
-use Simon\Log\Services\Interfaces\ActionLogStoreInterface;
+use Simon\Log\Services\ActionLog\Interfaces\ActionLogStoreInterface;
 class ActionLogStoreService extends ActionLog implements ActionLogStoreInterface
 {
 	
 	use StoreTrait;
-	
-	/* 
-	 * (non-PHPdoc)
-	 * @see \App\Services\Interfaces\StoreInterface::store()
-	 * @author simon
-	 */
-	
-	
 	
 	/* 
 	 * (non-PHPdoc)

@@ -37,12 +37,57 @@ class DocumentServiceProvider extends PackageServiceProvider
     	parent::register();
     	
     	$this->app->bind(
-    			'Simon\Document\Services\Interfaces\CategoryInterface',
+    			'Simon\Document\Services\Category\Interfaces\CategoryInterface',
     			'Simon\Document\Services\Category\CategoryService'
     	);
     	
     	$this->app->bind(
-    			'Simon\Document\Services\Interfaces\DocumentInterface',
+    			'Simon\Document\Services\Category\Interfaces\CategoryStoreInterface',
+    			'Simon\Document\Services\Category\CategoryStoreService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Category\Interfaces\CategoryUpdateInterface',
+    			'Simon\Document\Services\Category\CategoryUpdateService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Category\Interfaces\CategoryDestroyInterface',
+    			'Simon\Document\Services\Category\CategoryDestroyService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Document\Interfaces\DocumentStoreInterface',
+    			'Simon\Document\Services\Document\DocumentStoreService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Document\Interfaces\DocumentUpdateInterface',
+    			'Simon\Document\Services\Document\DocumentUpdateService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Document\Interfaces\DocumentDestroyInterface',
+    			'Simon\Document\Services\Document\DocumentDestroyService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\DocumentData\Interfaces\DocumentDataStoreInterface',
+    			'Simon\Document\Services\DocumentData\DocumentDataStoreService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\DocumentData\Interfaces\DocumentDataUpdateInterface',
+    			'Simon\Document\Services\DocumentData\DocumentDataUpdateService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentStoreInterface',
+    			'Simon\Document\Services\CategoryDocument\CategoryDocumentStoreService'
+    	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Document\Interfaces\DocumentInterface',
     			'Simon\Document\Services\Document\DocumentService'
     	);
     	

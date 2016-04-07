@@ -1,23 +1,25 @@
 <?php
 namespace Simon\Tag\Http\Controllers;
 use App\Http\Controllers\Controller;
-use Simon\Tag\Models\Tag;
-use Simon\Tag\Models\TagContent;
 use App\Services\Paginate;
+use Simon\Tag\Services\Tag\Interfaces\TagInterface;
+use Simon\Tag\Forms\Tag\TagStoreForm;
+use Simon\Tag\Services\Tag\Interfaces\TagStoreInterface;
 class TagController extends Controller
 {
-	public function __construct(Tag $Tag)
+	
+	protected $view = 'tag::tag.';
+	
+	public function __construct(TagInterface $Tag)
 	{
 		parent::__construct();
-		$this->model = $Tag;
-		$this->view = 'tag::tag.';
+		$this->service = $Tag;
 	}
 	
 	public function getSearch()
 	{
-		$name = $this->request->input('name');
-		$this->model = $this->model->where('name','like',"%{$name}%")->get();
-		return $this->response(['success'],['model'=>$this->model]);
+		$models = $this->service->search($this->data['name']);
+		return $this->response(['app.success'],['models'=>$models]);
 	}
 	
 	public function getIndex(Paginate $Paginate)
@@ -41,20 +43,27 @@ class TagController extends Controller
 	
 	public function getCreate()
 	{
-		return $this->response("create",['name'=>$this->request->input('name')]);
+		return $this->view("create",['name'=>$this->request->input('name')]);
 	}
 	
-	public function postStore(TagContent $TagContent)
+	public function postStore(TagStoreForm $TagStoreForm,TagStoreInterface $TagStoreInterface)
 	{
-		$this->validate(['name']);
 		
-		$this->validate(['content'],$TagContent);
+		$this->form->validator($TagStoreForm);
 		
-		$this->model = $this->storeData(['name']);
+		$model = $TagStoreInterface->store($this->data);
 		
-		$this->storeData(['tid','content'],$TagContent,array_merge($this->data,['tid'=>$this->model->id]));
+		return $this->response(['app.success'],['model'=>$model]);
 		
-		return $this->response(['success'],['model'=>$this->model]);
+// 		$this->validate(['name']);
+		
+// 		$this->validate(['content'],$TagContent);
+		
+// 		$this->model = $this->storeData(['name']);
+		
+// 		$this->storeData(['tid','content'],$TagContent,array_merge($this->data,['tid'=>$this->model->id]));
+		
+// 		return $this->response(['success'],['model'=>$this->model]);
 	}
 	
 	public function postAssocTags()

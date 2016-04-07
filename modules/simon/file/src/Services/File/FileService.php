@@ -1,9 +1,9 @@
 <?php
 namespace Simon\File\Services\File;
 use Simon\File\Services\File;
-use Simon\File\Services\Interfaces\FileInterface;
 use Simon\File\Exceptions\FileUploadException;
 use Simon\File\Uploads\PlUpload;
+use Simon\File\Services\File\Interfaces\FileInterface;
 class FileService extends File implements FileInterface
 {
 	

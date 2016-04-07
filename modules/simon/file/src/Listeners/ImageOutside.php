@@ -6,20 +6,29 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Event;
 use Simon\File\Models\Image;
+use Simon\File\Services\Image\Interfaces\ImageInterface;
+use Simon\File\Services\Image\Interfaces\ImageStoreInterface;
+use Simon\File\Services\Image\Interfaces\ImageDestroyInterface;
 
 class ImageOutside implements ShouldQueue
 {
 	
 	use InteractsWithQueue;
 	
+	protected $imageStore = null;
+	
+	protected $imageDestroy = null;
+	
     /**
      * Create the event handler.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ImageDestroyInterface $ImageDestroyInterface,ImageStoreInterface $ImageStoreInterface)
     {
         //
+        $this->imageStore = $ImageStoreInterface;
+        $this->imageDestroy = $ImageDestroyInterface;
     }
 
     /**
@@ -32,12 +41,11 @@ class ImageOutside implements ShouldQueue
     {
     	try 
     	{
-    		$Image = new Image();
-    		
     		//先删除原数据
-    		$Image->where('outside_id',$Event->outside['id'])->where('outside_type',$Event->outside['model'])->delete();
+    		$this->imageDestroy->outsideDestroy((array)$Event->outside['id'], $Event->outside['model']);
     		
     		$img = [];
+    		
     		foreach ($Event->images as $image)
     		{
     			if (empty($image['path']))
@@ -49,7 +57,7 @@ class ImageOutside implements ShouldQueue
     			$img['alt'] = isset($image['alt']) ? $image['alt'] : '';
     			$img['outside_id'] = $Event->outside['id'];
     			$img['outside_type'] = $Event->outside['model'];
-    			$Image->storeData($img);
+    			$this->imageStore->store($img);
     		}
     	} 
     	catch (\Exception $e) 

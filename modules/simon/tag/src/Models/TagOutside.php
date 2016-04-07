@@ -10,6 +10,7 @@ class TagOutside extends Model
 	 */
 	public $timestamps = false;
 	
+	
 	protected $fillable = ['tag_id','outside_id','outside_type'];
 	
 	/**

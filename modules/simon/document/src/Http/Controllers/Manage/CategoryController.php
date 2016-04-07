@@ -1,14 +1,13 @@
 <?php
 namespace Simon\Document\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
-use App\Forms\Form;
-use Simon\Document\Services\Interfaces\CategoryInterface;
-use Simon\Document\Services\Category\CategoryStoreService;
+use Simon\Document\Services\Category\Interfaces\CategoryInterface;
 use Simon\Document\Forms\Category\CategoryStoreForm;
 use Simon\Document\Services\Category;
 use Simon\Document\Forms\Category\CategoryUpdateForm;
-use Simon\Document\Services\Category\CategoryUpdateService;
-use Simon\Document\Services\Category\CategoryDestroyService;
+use Simon\Document\Services\Category\Interfaces\CategoryStoreInterface;
+use Simon\Document\Services\Category\Interfaces\CategoryUpdateInterface;
+use Simon\Document\Services\Category\Interfaces\CategoryDestroyInterface;
 class CategoryController extends Controller
 {
 	protected $view = 'document::manage.category.';
@@ -40,12 +39,15 @@ class CategoryController extends Controller
 		return $this->view('create');
 	}
 	
-	public function postStore(Form $Form,CategoryStoreForm $CategoryStoreForm,CategoryStoreService $CategoryStoreService) 
+	public function postStore(CategoryStoreForm $CategoryStoreForm,CategoryStoreInterface $CategoryStoreInterface) 
 	{
-		$Form->validator($CategoryStoreForm);
 		//
-		$CategoryStoreService->store($this->data);
+		$this->form->validator($CategoryStoreForm);
 		
+		//
+		$CategoryStoreInterface->store($this->data);
+		
+		//
 		$this->logs(['remark'=>'category store']);
 		
 		return $this->response('app.success','manage/category/index');
@@ -57,40 +59,25 @@ class CategoryController extends Controller
 		return $this->view('edit',['model'=>$model]);
 	}
 	
-	public function putUpdate($id,Form $Form,CategoryUpdateForm $CategoryUpdateForm,CategoryUpdateService $CategoryUpdateService)
+	public function putUpdate($id,CategoryUpdateForm $CategoryUpdateForm,CategoryUpdateInterface $CategoryUpdateInterface)
 	{
 		
-		$Form->validator($CategoryUpdateForm);
+		$this->form->validator($CategoryUpdateForm);
 		
-		$CategoryUpdateService->update($id, $this->data);
+		$CategoryUpdateInterface->update($id, $this->data);
 		
 		$this->logs(['remark'=>'category update']);
 		
 		return $this->response('app.success','manage/category/index');
-// 		$fields = ['pid','name','status'];
-		
-// 		$this->validate($fields);
-		
-// 		$this->updateData($id,$fields);
-		
-// 		$this->logs(['remark'=>'update category']);
-		
-// 		return $this->response(['success'],'manage/category/index');
 	}
 	
-	public function deleteDestroy(CategoryDestroyService $CategoryDestroyService)
+	public function deleteDestroy(CategoryDestroyInterface $CategoryDestroyInterface)
 	{
-		$CategoryDestroyService->destroy($this->data['id']);
+		$CategoryDestroyInterface->destroy($this->data['id']);
 		
 		$this->logs(['remark'=>'category destroy']);
 		
 		return $this->response('app.success');
-// 	    $this->destroyData($this->data['id']);
-	    
-// 	    $this->logs(['remark'=>'destroy category']);
-	    
-// 	    return $this->response(['success']);
-	    
 	}
 	
 }

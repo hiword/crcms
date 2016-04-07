@@ -6,9 +6,10 @@ use Simon\File\Models\FileData;
 use Filter;
 use File\Services\Upload;
 use CrCms\Contracts\Service\Message;
-use Simon\File\Services\Interfaces\FileInterface;
 use Simon\File\Services\File\FileStoreService;
 use Simon\File\Services\FileData\FileDataStoreService;
+use Simon\File\Services\File\Interfaces\FileStoreInterface;
+use Simon\File\Services\File\Interfaces\FileInterface;
 // use Illuminate\Support\Facades\Session;
 class UploadController extends Controller {
 	
@@ -201,13 +202,11 @@ $result = json_encode($up->getFileInfo());
 	 * 
 	 * @author simon
 	 */
-	public function postUpload(FileStoreService $FileStoreService,FileDataStoreService $FileDataStoreService)
+	public function postUpload(FileStoreInterface $FileStoreInterface)
 	{
 		$file = $this->service->uploading();
 		
-		$model = $FileStoreService->store($file,$this->request);
-		
-		$FileDataStoreService->store($model->id,$file,$this->request);
+		$model = $FileStoreInterface->store($file,$this->request);
 		
 		return response()->json(array_merge(app_response('app.success'),['data'=>$file]));
 	}

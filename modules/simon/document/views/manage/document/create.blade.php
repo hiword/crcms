@@ -70,6 +70,7 @@
 		</div>
 		<div class="form-group">
 			<label class=" Validform_label label-name">标签</label>
+			@include('tag::select_tags')
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
@@ -149,4 +150,5 @@
 		return false;
 	});
 </script>
+@include('tag::select_tags_js')
 @endsection

@@ -9,8 +9,10 @@
 <form action="{{url('manage/document/update/'.$model->id)}}" class="valid-form" method="post">
 <input type="hidden" name="_token" value="{{csrf_token()}}" />
 <input type="hidden" name="_method" value="put" />
+<?php /*
 <input type="hidden" name="id" value="{{$model->id}}" />
 <input type="hidden" name="_hash" value="{{$_hash}}" />
+*/?>
 <div class="row pb20">
 	<div class="col-md-9">
 		
@@ -64,7 +66,7 @@
 			<label class=" Validform_label label-name">类别</label>
 			<select class="form-control" name="category_id[]" multiple="multiple" style="height: 150px;">
 				@foreach($tree as $key=>$values)
-					<option value="{{$values['id']}}" {{in_array($values['id'],$model->categorys,true) ? 'selected' : null}}>
+					<option value="{{$values['id']}}" {{in_array($values['id'],$categories,true) ? 'selected' : null}}>
 					{{$values['delimiter']}}
 					{{$values['name']}}
 					</option>
@@ -76,13 +78,13 @@
 		<div class="form-group">
 			<label class=" Validform_label label-name">缩略图</label>
 			<input type="hidden" name="document[thumbnail]" value="{{$model->thumbnail}}" />
-			<a href="###" class="thumbnail upload-dialog"><img src="{{$model->thumbnail ? $model->thumbnail : 'http://placehold.it/300x180'}}" alt="" /></a>
+			<a href="###" class="thumbnail upload-dialog"><img src="{{$model->thumbnail ? img_src($model->thumbnail) : 'http://placehold.it/300x180'}}" alt="" /></a>
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		
 		<div class="form-group">
 			<label class=" Validform_label label-name">标签</label>
-			@include('tag::select_tags',['tags'=>$model->morphToManyTag])
+			@include('tag::select_tags',['tags'=>$tags])
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
@@ -127,8 +129,8 @@
 @endsection
 @section('script')
 @parent
-<script src="{{static_asset('static/ueditor/ueditor.config.js')}}"></script>
-<script src="{{static_asset('static/ueditor/ueditor.all.min.js')}}"></script>
+<script src="{{static_asset('vendor/ueditor/ueditor.config.js')}}"></script>
+<script src="{{static_asset('vendor/ueditor/ueditor.all.min.js')}}"></script>
 <script type="text/javascript">
 	var ue = UE.getEditor('container');
 

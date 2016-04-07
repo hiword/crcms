@@ -52,17 +52,17 @@ class TagServiceProvider extends PackageServiceProvider
     		'Simon\Tag\Services\Tag\TagUpdateService'
     	);
     	
+    	$this->app->bind(
+    		'Simon\Tag\Services\Tag\Interfaces\TagDestroyInterface',
+    		'Simon\Tag\Services\Tag\TagDestroyService'
+    	);
     	
     	
     	$this->app->bind(
-    		'Simon\Tag\Services\TagContent\Interfaces\TagContentStoreInterface',
-    		'Simon\Tag\Services\TagContent\TagContentStoreService'
+    		'Simon\Tag\Services\TagOutside\Interfaces\TagOutsideStoreInterface',
+    		'Simon\Tag\Services\TagOutside\TagOutsideStoreService'
     	);
     	
-    	$this->app->bind(
-    		'Simon\Tag\Services\TagContent\Interfaces\TagContentUpdateInterface',
-    		'Simon\Tag\Services\TagContent\TagContentUpdateService'
-    	);
     	
     }
 	

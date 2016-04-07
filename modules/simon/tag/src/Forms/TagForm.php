@@ -5,7 +5,10 @@ abstract class TagForm extends AbsForm
 {
 	
 	protected $rule = [
-			'status'=>['required','integer',],
+// 		'status'=>['required','integer',],
+		'status'=>['integer',],
+		
+		'content'=>['min:5'],
 	];
 	
 }

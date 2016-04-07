@@ -1,7 +1,7 @@
 <?php
 namespace Simon\Document\Services\Category;
 // use App\Services\Service;
-use Simon\Document\Services\Interfaces\CategoryInterface;
+use Simon\Document\Services\Category\Interfaces\CategoryInterface;
 use Simon\Document\Services\Category;
 use Simon\Document\Models\Category as CategoryModel;
 // use App\Services\ServiceCudTrait;

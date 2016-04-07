@@ -496,7 +496,7 @@ use Illuminate\Http\Response;
 		//ajax加载
 		if (($request->ajax() && !$request->pjax()) || $request->wantsJson())
 		{
-			return new JsonResponse($response);
+			return new JsonResponse(array_merge($response,['data'=>$data]));
 		}
 		//数据提交返回
 		else

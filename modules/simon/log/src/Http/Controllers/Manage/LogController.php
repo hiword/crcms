@@ -3,7 +3,7 @@ namespace Simon\Log\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use Simon\Log\Models\ActionLog;
 use App\Services\Paginate;
-use Simon\Log\Services\Interfaces\ActionLogInterface;
+use Simon\Log\Services\ActionLog\Interfaces\ActionLogInterface;
 class LogController extends Controller
 {
 	protected $view = 'log::manage.log.';

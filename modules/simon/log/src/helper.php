@@ -52,7 +52,7 @@ use Jenssegers\Agent\Agent;
 		
 		if ($actionLog)
 		{
-			$logs = ['Simon\Log\Services\ActionLog\ActionLogStoreService'=>$data];
+			$logs = ['Simon\Log\Services\ActionLog\Interfaces\ActionLogStoreInterface'=>$data];
 		}
 		else
 		{

@@ -36,8 +36,28 @@ class FileServiceProvider extends PackageServiceProvider
     	parent::register();
     	
     	$this->app->bind(
-    		'Simon\File\Services\Interfaces\FileInterface',
+    		'Simon\File\Services\File\Interfaces\FileInterface',
     		'Simon\File\Services\File\FileService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\File\Services\File\Interfaces\FileStoreInterface',
+    		'Simon\File\Services\File\FileStoreService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\File\Services\Image\Interfaces\ImageInterface',
+    		'Simon\File\Services\Image\ImageService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\File\Services\Image\Interfaces\ImageStoreInterface',
+    		'Simon\File\Services\Image\ImageStoreService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\File\Services\Image\Interfaces\ImageDestroyInterface',
+    		'Simon\File\Services\Image\ImageDestroyService'
     	);
     }
 	

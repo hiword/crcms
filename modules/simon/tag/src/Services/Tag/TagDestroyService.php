@@ -13,6 +13,7 @@ class TagDestroyService extends Tag implements TagDestroyInterface
 	{
 		// TODO Auto-generated method stub
 		
+		return $this->model->destroy($data);
 	}
 
 	

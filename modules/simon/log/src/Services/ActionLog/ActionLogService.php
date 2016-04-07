@@ -1,7 +1,7 @@
 <?php
 namespace Simon\Log\Services\ActionLog;
 use Simon\Log\Services\ActionLog;
-use Simon\Log\Services\Interfaces\ActionLogInterface;
+use Simon\Log\Services\ActionLog\Interfaces\ActionLogInterface;
 class ActionLogService extends ActionLog implements ActionLogInterface
 {
 	

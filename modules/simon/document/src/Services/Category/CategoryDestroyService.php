@@ -1,9 +1,9 @@
 <?php
 namespace Simon\Document\Services\Category;
-use App\Services\Interfaces\DestroyInterface;
 use Simon\Document\Services\Category;
 use App\Services\Traits\DestroyTrait;
-class CategoryDestroyService extends Category implements DestroyInterface
+use Simon\Document\Services\Category\Interfaces\CategoryDestroyInterface;
+class CategoryDestroyService extends Category implements CategoryDestroyInterface
 {
 	
 	use DestroyTrait;

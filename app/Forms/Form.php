@@ -12,9 +12,9 @@ class Form {
 	 * @throws ValidateException
 	 * @author simon
 	 */
-	public function validator(FormInterface $Rule)
+	public function validator(FormInterface $Rule,array $data = [])
 	{
-		$validator = Validator::make(Input::all(),$Rule->getRule());
+		$validator = Validator::make(empty($data) ? Input::all() : $data,$Rule->getRule());
 		if ($validator->fails())
 		{
 			throw new ValidateException($validator);

@@ -22,4 +22,13 @@ class TagService extends Tag implements TagInterface
 		return TagModel::STATUS;
 	}
 	
+	public function lists(array $id) 
+	{
+		return $this->model->whereIn('id',$id)->get();
+	}
+	
+	public function search($name) 
+	{	//where('status',TagModel::STATUS_VERIFIED)->
+		return $this->model->where('name','like',"%{$name}%")->orderBy(TagModel::CREATED_AT,'desc')->get();
+	}
 }

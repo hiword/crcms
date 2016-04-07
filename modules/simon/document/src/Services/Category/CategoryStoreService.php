@@ -1,9 +1,9 @@
 <?php
 namespace Simon\Document\Services\Category;
-use App\Services\Interfaces\StoreInterface;
 use Simon\Document\Services\Category;
 use App\Services\Traits\StoreTrait;
-class CategoryStoreService extends Category implements StoreInterface
+use Simon\Document\Services\Category\Interfaces\CategoryStoreInterface;
+class CategoryStoreService extends Category implements CategoryStoreInterface
 {
 	use StoreTrait;
 	

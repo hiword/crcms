@@ -7,6 +7,35 @@ class Document extends Model
 {
 	use SoftDeletes;
 	
+	/**
+	 * 状态
+	 * @var numeric
+	 * @author simon
+	 */
+	const STATUS_OPEN = 1;
+	
+	/**
+	 * 状态
+	 * @var numeric
+	 * @author simon
+	 */
+	const  STATUS_HIDDEN = 2;
+	
+	/**
+	 * 状态
+	 * @var numeric
+	 * @author simon
+	 */
+	const STATUS_CLOSE = 3;
+	
+	/**
+	 * 会员状态数组
+	 * @var numeric
+	 * @author simon
+	 */
+	const STATUS = [self::STATUS_OPEN=>'开启',self::STATUS_HIDDEN=>'隐藏',self::STATUS_CLOSE=>'禁止'];
+	
+	
 	protected static $fields = [
 		'title'=>'Simon\Document\Fields\Document\Title',
 		'thumbnail'=>'Simon\Document\Fields\Document\Thumbnail',
