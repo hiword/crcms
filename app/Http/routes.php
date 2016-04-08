@@ -12,10 +12,11 @@ use App\Exceptions\AppException;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
 //     return redirect('/b')->withErrors(['a'=>'a','b'=>'b'],'s')->withErrors(['c'=>'c','b'=>'d'],'k');
-	throw new AppException('abc');
-});
+// 	throw new AppException('abc');
+// });
+// Route::get('/','Simon\Document\DocumentController@getIndex');
 Route::get('/b',function(){
 	return view('welcome');
 });

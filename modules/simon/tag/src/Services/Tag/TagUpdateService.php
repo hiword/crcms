@@ -22,17 +22,15 @@ class TagUpdateService extends Tag implements TagUpdateInterface
 	public function update($id, array $data)
 	{
 		// TODO Auto-generated method stub
-		$this->model = $this->model->findOrFail($id);
-		$this->model->name = $data['name'];
-		$this->model->status = $data['status'];
-		$this->builtUpdate();
-		$this->model->save();
+		$this->data['name'] = $data['name'];
+		$this->data['status'] = $data['status'];
+		$this->builtDataUpdate();
+		$this->model->where('id',$id)->update($this->data);
 		
-		$this->append = $this->append->findOrFail($id);
-		$this->append->content = $data['content'];
-		$this->append->save();
 		
-		return $this->model;
+		$this->append->where('tid',$id)->update([
+			'content'=>$data['content'],
+		]);
 	}
 
 	

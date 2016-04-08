@@ -1,7 +1,8 @@
 <?php
 namespace Simon\Document\Services\Document\Interfaces;
-use App\Services\Interfaces\UpdateInterface;
-interface DocumentUpdateInterface extends UpdateInterface
+interface DocumentUpdateInterface
 {
+
+	public function update($id,array $data,array $append); 
 	
 }

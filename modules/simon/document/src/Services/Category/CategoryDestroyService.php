@@ -16,6 +16,8 @@ class CategoryDestroyService extends Category implements CategoryDestroyInterfac
 	public function destroy(array $data)
 	{
 		// TODO Auto-generated method stub
+		$this->updateDestroyBuilt($data);
+		
 		return $this->model->destroy($data);
 	}
 

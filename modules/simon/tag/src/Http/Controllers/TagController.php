@@ -46,12 +46,12 @@ class TagController extends Controller
 		return $this->view("create",['name'=>$this->request->input('name')]);
 	}
 	
-	public function postStore(TagStoreForm $TagStoreForm,TagStoreInterface $TagStoreInterface)
+	public function postStore(TagUserStoreForm $TagStoreForm,TagStoreInterface $TagStoreInterface)
 	{
 		
 		$this->form->validator($TagStoreForm);
 		
-		$model = $TagStoreInterface->store($this->data);
+		$model = $TagStoreInterface->userStore($this->data);
 		
 		return $this->response(['app.success'],['model'=>$model]);
 		

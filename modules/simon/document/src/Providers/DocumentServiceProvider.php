@@ -87,6 +87,11 @@ class DocumentServiceProvider extends PackageServiceProvider
     	);
     	
     	$this->app->bind(
+    			'Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentUpdateInterface',
+    			'Simon\Document\Services\CategoryDocument\CategoryDocumentUpdateService'
+    	);
+    	
+    	$this->app->bind(
     			'Simon\Document\Services\Document\Interfaces\DocumentInterface',
     			'Simon\Document\Services\Document\DocumentService'
     	);

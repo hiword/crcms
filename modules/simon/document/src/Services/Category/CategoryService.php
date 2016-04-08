@@ -31,5 +31,14 @@ class CategoryService extends Category implements CategoryInterface
 		return CategoryModel::STATUS;
 	}
 	
+	public function lists()
+	{
+		return $this->model->where('status',1)->orderBy('created_at','desc')->get();
+	}
+	
+// 	public function documents(CategoryModel $Category) 
+// 	{
+// 		return $Category->belongsToManyDocument();
+// 	}
 	
 }

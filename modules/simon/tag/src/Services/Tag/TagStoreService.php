@@ -23,23 +23,38 @@ class TagStoreService extends Tag implements TagStoreInterface
 	public function store(array $data)
 	{
 		// TODO Auto-generated method stub
+		
+		$this->model->status = $data['status'];;
+		
+		return $this->storeHandle($data);
+	}
+	
+	/*
+	 * (non-PHPdoc)
+	 * @see \Simon\Tag\Services\Tag\Interfaces\TagStoreInterface::userStore()
+	 * @author simon
+	 */
+	public function userStore(array $data)
+	{
+		// TODO Auto-generated method stub
+		$this->model->status = TagModel::STATUS_NOT_VERIFIED;
+		
+		return $this->storeHandle($data);
+	}
+
+	protected function storeHandle(array $data)
+	{
 		$this->model->name = $data['name'];
-		
-		//这里要user_session判断用户，并定义status的状态，
-		//现在为了逻辑，简单点
-		$this->model->status = isset($data['status']) ? $data['status'] : TagModel::STATUS_NOT_VERIFIED;
-		
-		$this->builtStore();
+		$this->builtModelStore();
 		$this->model->save();
 		
+		//append
 		$this->append->tid = $this->model->id;
 		$this->append->content = $data['content'];
 		$this->append->save();
 		
 		return $this->model;
 	}
-
-	
 	
 	
 }

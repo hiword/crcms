@@ -43,7 +43,7 @@
 	    			<div class="row images-queue">
 	    				@foreach($images as $image)
 	    				<div class="col-md-3">
-							<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="{{$image->path}}" alt="" /></a>
+							<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="{{img_src($image->path)}}" alt="" /></a>
 						</div>
 						<input type="hidden" name="images[][path]" value="{{$image->path}}" />
 						@endforeach
@@ -131,9 +131,8 @@
 @parent
 <script src="{{static_asset('vendor/ueditor/ueditor.config.js')}}"></script>
 <script src="{{static_asset('vendor/ueditor/ueditor.all.min.js')}}"></script>
-<script type="text/javascript">
+<script>
 	var ue = UE.getEditor('container');
-
 	//single img upload
 	$('.upload-dialog').on('click',function(){
 		var $this = $(this);
@@ -141,7 +140,7 @@
 			ok:function(){
 				var value = $('[name^="uploads[][src]"]').first().val();
 				$this.find('img').attr('src',value);
-				$('[name="document[thumbnail]"]').val(value);
+				$('[name="document[thumbnail]"]').val($('[name^="uploads[][src]"]').first().attr('path'));
 				return true;
 			}
 		});
@@ -156,7 +155,7 @@
 					var str = '<div class="col-md-3">';
 						str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
 							str += 		'</div>';
-							str += '<input type="hidden" name="images[][path]" value="'+$(this).val()+'" />';
+							str += '<input type="hidden" name="images[][path]" value="'+$(this).attr('path')+'" />';
 					$('.images-queue').append(str);
 				});
 				return true;

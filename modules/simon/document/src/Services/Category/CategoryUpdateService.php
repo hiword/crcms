@@ -23,7 +23,7 @@ class CategoryUpdateService extends Category implements CategoryUpdateInterface
 		$this->model->mark = $data['mark'];
 		$this->model->status = $data['status'];
 		
-		$this->builtUpdate();
+		$this->builtModelUpdate();
 		
 		return $this->model->save();
 	}

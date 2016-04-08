@@ -47,7 +47,7 @@
 		return route('img_src',['filename'=>base64_encode($filename)]);
 	}
 	
-	function template_img_src($filename)
+	function template_img_src($template,$filename)
 	{
-		return route('template_img_src',['filename'=>base64_encode($filename)]);
+		return route('template_img_src',['template'=>$template,'filename'=>base64_encode($filename)]);
 	}

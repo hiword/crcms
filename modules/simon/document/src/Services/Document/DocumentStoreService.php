@@ -29,7 +29,7 @@ class DocumentStoreService extends Document implements DocumentStoreInterface
 		$this->model->title = $data['title'];
 		$this->model->status = $data['status'];
 		$this->model->thumbnail = $data['thumbnail'];
-		$this->builtStore();
+		$this->builtModelStore();
 		$this->model->save();
 		
 		//append

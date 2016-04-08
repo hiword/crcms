@@ -35,7 +35,7 @@ class ActionLogStoreService extends ActionLog implements ActionLogStoreInterface
 			$this->model->robot_name = '';//(string)$Agent->robot();
 		}
 	
-		$this->builtStore();
+		$this->builtModelStore();
 		
 		return $this->model->save();
 	}

@@ -45,13 +45,10 @@ class ImageOutside implements ShouldQueue
     		$this->imageDestroy->outsideDestroy((array)$Event->outside['id'], $Event->outside['model']);
     		
     		$img = [];
-    		
     		foreach ($Event->images as $image)
     		{
-    			if (empty($image['path']))
-    			{
-    				continue;
-    			}
+    			if (empty($image['path'])) continue;
+    			
     			$img['path'] = $image['path'];
     			$img['hash'] = isset($image['hash']) ? $image['hash'] : '';
     			$img['alt'] = isset($image['alt']) ? $image['alt'] : '';

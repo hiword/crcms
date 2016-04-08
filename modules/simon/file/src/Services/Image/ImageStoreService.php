@@ -3,6 +3,7 @@ namespace Simon\File\Services\Image;
 use Simon\File\Services\Image;
 use Simon\File\Services\Image\Interfaces\ImageStoreInterface;
 use App\Services\Traits\StoreTrait;
+use Illuminate\Support\Facades\DB;
 class ImageStoreService extends Image implements ImageStoreInterface
 {
 	
@@ -16,14 +17,15 @@ class ImageStoreService extends Image implements ImageStoreInterface
 	public function store(array $data)
 	{
 		// TODO Auto-generated method stub
-		$this->model->path = $data['path'];
-		$this->model->hash = $data['hash'];
-		$this->model->alt = $data['alt'];
-		$this->model->outside_id = $data['outside_id'];
-		$this->model->outside_type = $data['outside_type'];
-		$this->builtStore();
-		$this->model->save();
-		return $this->model;
+		
+		$this->data['path'] = $data['path'];
+		$this->data['hash'] = $data['hash'];
+		$this->data['alt'] = $data['alt'];
+		$this->data['outside_id'] = $data['outside_id'];
+		$this->data['outside_type'] = $data['outside_type'];
+		$this->builtModelStore();
+		
+		return $this->model->create($this->data);
 	}
 
 	

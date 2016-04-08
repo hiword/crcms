@@ -21,7 +21,7 @@ class CategoryStoreService extends Category implements CategoryStoreInterface
 		$this->model->mark = $data['mark'];
 		$this->model->status = $data['status'];
 		
-		$this->builtStore();
+		$this->builtModelStore();
 		
 		return $this->model->save();
 	}

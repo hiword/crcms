@@ -12,7 +12,11 @@ abstract class Service
 	
 	protected $append = null;
 	
-
-	public function __construct() {}
+	protected $std = null;
+	
+	protected $data = [];
+	
+	public function __construct()
+	{}
 	
 }

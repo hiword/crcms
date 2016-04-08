@@ -7,6 +7,10 @@ use Simon\Document\Services\Document\Interfaces\DocumentStoreInterface;
 use Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentStoreInterface;
 use Simon\Document\Services\Category\Interfaces\CategoryInterface;
 use Simon\Document\Forms\CategoryDocument\CategoryDocumentStoreForm;
+use Simon\Document\Forms\Document\DocumentUpdateForm;
+use Simon\Document\Forms\CategoryDocument\CategoryDocumentUpdateForm;
+use Simon\Document\Services\Document\Interfaces\DocumentUpdateInterface;
+use Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentUpdateInterface;
 // use Simon\Document\Fields\Document\Status;
 // use Simon\Document\Models\Category;
 // use Simon\Document\Models\Document;
@@ -88,10 +92,10 @@ class DocumentController extends Controller
 		}
 		
 // 		//images
-// 		if (module_exists('file') && !empty($this->data['images']))
-// 		{
-// 			event(new \Simon\File\Events\ImageOutside($this->data['images'],$this->model->id,'Simon\Document\Models\Document'));
-// 		}
+		if (module_exists('file') && !empty($this->data['images']))
+		{
+			event(new \Simon\File\Events\ImageOutside($this->data['images'],$model->id,'Simon\Document\Models\Document'));
+		}
 		
 		//logs
 		$this->logs(['remark'=>'add document']);
@@ -101,6 +105,15 @@ class DocumentController extends Controller
 	
 	public function getEdit($id,$hash)
 	{
+		if (module_exists('file'))
+		{
+			upload_config('image_upload');
+			$uploading = true;
+		}
+		else
+		{
+			$uploading = false;
+		}
 		
 // 		$this->validateHash($id,$hash);
 		
@@ -117,26 +130,36 @@ class DocumentController extends Controller
 		//tags
 		$tags = $this->service->tags($model);
 		
-		return $this->view("edit",['model'=>$model,'categories'=>$categories,'images'=>$images,'tags'=>$tags]);
+		return $this->view("edit",['uploading'=>$uploading,'model'=>$model,'categories'=>$categories,'images'=>$images,'tags'=>$tags]);
 	}
 	
-	public function putUpdate($id,DocumentData $DocumentData,CategoryDocument $CategoryDocument) 
+	public function putUpdate($id,DocumentUpdateForm $DocumentUpdateForm,CategoryDocumentUpdateForm $CategoryDocumentUpdateForm,CategoryDocumentUpdateInterface $CategoryDocumentUpdateInterface,DocumentUpdateInterface $DocumentUpdateInterface) 
 	{
-		$this->validateHash($id);
 		
-		$this->validate(['title','status','category_id','thumbnail'],$this->model,array_merge($this->data['document'],['category_id'=>$this->data['category_id']]));
-		$this->validate(['content','seo_title','seo_keywords','seo_description'],$this->model,$this->data['document_data']);
+		//validator
+		$this->form->validator($DocumentUpdateForm);
 		
-		$this->updateData($id,['title','status','thumbnail'],$this->model,$this->data['document']);
-		$this->updateData($id,['content','seo_title','seo_keywords','seo_description'],$DocumentData,$this->data['document_data']);
+		$this->form->validator($CategoryDocumentUpdateForm);
+		
+		
+		$DocumentUpdateInterface->update($id, $this->data['document'], $this->data['document_data']);
+		
+// 		$this->validateHash($id);
+		
+// 		$this->validate(['title','status','category_id','thumbnail'],$this->model,array_merge($this->data['document'],['category_id'=>$this->data['category_id']]));
+// 		$this->validate(['content','seo_title','seo_keywords','seo_description'],$this->model,$this->data['document_data']);
+		
+// 		$this->updateData($id,['title','status','thumbnail'],$this->model,$this->data['document']);
+// 		$this->updateData($id,['content','seo_title','seo_keywords','seo_description'],$DocumentData,$this->data['document_data']);
 		
 		//主体编辑
 // 		$this->model->updateData($id,$this->data['document']);
 // 		$DocumentData->updateData($id,array_merge($this->data['document_data']));
 		
 		//category-现在，全删除，全添加
-		$CategoryDocument->where('document_id',$id)->delete();
-		$CategoryDocument->storeData($this->data['category_id'],$id);
+		$CategoryDocumentUpdateInterface->update($id, $this->data['category_id']);
+// 		$CategoryDocument->where('document_id',$id)->delete();
+// 		$CategoryDocument->storeData($this->data['category_id'],$id);
 		
 		//tags
 		if (module_exists('tag'))
