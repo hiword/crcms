@@ -33,7 +33,7 @@
 			 	 <div class="panel-heading">视频链接</div>
 				  <div class="panel-body text-center">
 				    	<a href="###" target="_blank" class="btn btn-danger">点击下载</a>
-				    	<p class="download-link">btn-danger</p>
+				    	<p class="download-link">download-link</p>
 				  </div>
 			</div>
 			<div class="panel panel-default">
