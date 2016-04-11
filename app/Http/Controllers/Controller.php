@@ -56,7 +56,7 @@ class Controller extends BaseController
     {
     	$this->request = app('request');
     	
-    	$this->data = $this->request->all();
+    	$this->data = clean_xss($this->request->all());
     	
     	$this->form = app('App\Forms\Form');
     	

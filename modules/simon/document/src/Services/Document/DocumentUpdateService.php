@@ -5,6 +5,7 @@ use Simon\Document\Services\Document\Interfaces\DocumentUpdateInterface;
 use App\Services\Traits\UpdateTrait;
 use Simon\Document\Models\DocumentData;
 use Simon\Document\Models\Document as DocumentModel;
+use Illuminate\Support\Facades\Input;
 class DocumentUpdateService extends Document implements DocumentUpdateInterface
 {
 	use UpdateTrait;
@@ -32,7 +33,7 @@ class DocumentUpdateService extends Document implements DocumentUpdateInterface
 		
 		//
 		$this->append->where('did',$id)->update([
-			'content'=>$append['content'],
+			'content'=>format_xss(Input::get('document_data.content')),
 			'keyword'=>$append['seo_keywords'],
 			'intro'=>$append['seo_description'],
 		]);

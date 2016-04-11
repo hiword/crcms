@@ -4,6 +4,7 @@ use Simon\Document\Services\Document;
 use Simon\Document\Services\Document\Interfaces\DocumentStoreInterface;
 use App\Services\Traits\StoreTrait;
 use Simon\Document\Models\DocumentData;
+use Illuminate\Support\Facades\Input;
 class DocumentStoreService extends Document implements DocumentStoreInterface
 {
 	use StoreTrait;
@@ -34,7 +35,7 @@ class DocumentStoreService extends Document implements DocumentStoreInterface
 		
 		//append
 		$this->append->did = $this->model->id;
-		$this->append->content = $append['content'];
+		$this->append->content = format_xss(Input::get('document_data.content'));
 // 		$this->append->seo_title = $data['seo_title'];
 		$this->append->keyword = $append['seo_keywords'];
 		$this->append->intro = $append['seo_description'];

@@ -158,6 +158,7 @@ return [
     	
     	Jenssegers\Agent\AgentServiceProvider::class,
     	Intervention\Image\ImageServiceProvider::class,
+    	Mews\Purifier\PurifierServiceProvider::class,
     		
     	//模块加载
     	Simon\Document\Providers\DocumentServiceProvider::class,
@@ -221,6 +222,7 @@ return [
     	
     	'Agent' =>Jenssegers\Agent\Facades\Agent::class,
     	'Image' => Intervention\Image\Facades\Image::class,
+    	'Purifier' => Mews\Purifier\Facades\Purifier::class,
     ],
 
 ];
