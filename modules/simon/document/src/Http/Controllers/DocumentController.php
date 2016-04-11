@@ -113,7 +113,11 @@ class DocumentController extends Controller
 	{
 		$model = $this->service->find($id);
 		
-		return $this->view("show",['model'=>$model]);
+		$lists = $this->service->lists(10);
+		
+		$categories = $this->service->categories($model);
+	
+		return $this->view("show",['model'=>$model,'lists'=>$lists,'categories'=>$categories]);
 	}
 	
 	public function postDocumentData(DocumentData $DocumentData)
