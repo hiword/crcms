@@ -33,7 +33,13 @@ class DocumentService extends Document implements DocumentInterface
 		
 		$paginate = $this->model->where('documents.status',1)->orderBy('documents.'.DocumentModel::CREATED_AT,'DESC')->paginate(21);
 		
-		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
+		$items = $paginate->items();
+		foreach ($items as $item)
+		{
+			$item->tags = $this->tags($item);
+		}
+		
+		return ['models'=>$items,'page'=>$paginate->appends($appends)->render()];
 	}
 	
 	public function lists($limit = 5)
@@ -48,7 +54,7 @@ class DocumentService extends Document implements DocumentInterface
 	
 	public function categories(DocumentModel $Document)
 	{
-		return $Document->belongsToManyCategory()->get();
+		return $Document->belongsToManyCategory;
 	}
 	
 	public function categoryIds(DocumentModel $Document)

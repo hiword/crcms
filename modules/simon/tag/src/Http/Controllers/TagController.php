@@ -5,6 +5,7 @@ use App\Services\Paginate;
 use Simon\Tag\Services\Tag\Interfaces\TagInterface;
 use Simon\Tag\Forms\Tag\TagStoreForm;
 use Simon\Tag\Services\Tag\Interfaces\TagStoreInterface;
+use Simon\Tag\Forms\Tag\TagUserStoreForm;
 class TagController extends Controller
 {
 	

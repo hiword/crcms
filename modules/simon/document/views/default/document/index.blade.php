@@ -17,11 +17,9 @@
 				<div class="content-box2">
 					<a href="{{url('show/'.$model->id)}}" class="title">{{$model->title}}</a>
 					<div class="info-box clearfix">
-						<?php /*
-						@foreach($model->morphToManyTag as $tag)
+						@foreach($model->tags as $tag)
 						<a href="###" class="tags"><i class="glyphicon glyphicon-tag"></i>&nbsp;{{$tag->name}}</a>
 						@endforeach
-						*/?>
 						<span>
 							<a href="###" class="icon-play"><i class="glyphicon glyphicon-triangle-right"></i></a>
 							{{mt_rand(500,20000)}}次

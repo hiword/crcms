@@ -116,8 +116,10 @@ class DocumentController extends Controller
 		$lists = $this->service->lists(10);
 		
 		$categories = $this->service->categories($model);
+		
+		$tags = $this->service->tags($model);
 	
-		return $this->view("show",['model'=>$model,'lists'=>$lists,'categories'=>$categories]);
+		return $this->view("show",['model'=>$model,'lists'=>$lists,'categories'=>$categories,'tags'=>$tags]);
 	}
 	
 	public function postDocumentData(DocumentData $DocumentData)
