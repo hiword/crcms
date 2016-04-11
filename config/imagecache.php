@@ -55,6 +55,7 @@ return array(
         'medium' => 'Intervention\Image\Templates\Medium',
         'large' => 'Intervention\Image\Templates\Large',
         'img_1' => 'Simon\File\Services\ImageTemplates\DocumentIndex',
+        'sidebar' => 'Simon\File\Services\ImageTemplates\DocumentThumb',
     ),
 
     /*

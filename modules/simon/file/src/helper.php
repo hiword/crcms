@@ -41,6 +41,27 @@
 		}
 	}
 	
+
+	/**
+	 *
+	 * @param string $path
+	 * @param string $template
+	 * @return string
+	 * @author simon
+	 */
+	function img_url($path,$template = null)
+	{
+		$path = rawurlencode($path);
+	
+		if (empty($template))
+		{
+			return route('img_src',['filename'=>$path]);
+		}
+		else
+		{
+			return route('template_img_src',['template'=>$template,'filename'=>$path]);
+		}
+	}
 	
 	function img_src($filename)
 	{

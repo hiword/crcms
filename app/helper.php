@@ -79,27 +79,6 @@ use Illuminate\Http\Response;
 	}
 	
 	/**
-	 * 
-	 * @param string $path
-	 * @param string $template
-	 * @return string
-	 * @author simon
-	 */
-	function img_url($path,$template = null)
-	{
-		$path = rawurlencode($path);
-		
-		if (empty($template))
-		{
-			return route('img_src',['filename'=>$path]);
-		}
-		else
-		{
-			return route('template_img_src',['template'=>$template,'filename'=>$path]);
-		}
-	}
-	
-	/**
 	 * 日期格式
 	 * @param int $timestamp
 	 * @param number $type
@@ -123,6 +102,16 @@ use Illuminate\Http\Response;
 				break;
 		}
 		return date($format,$timestamp);
+	}
+	
+	/**
+	 * 
+	 * @param unknown $string
+	 * @author simon
+	 */
+	function format_xss($string, $config = null)
+	{
+		return clean($string, $config);
 	}
 	
 	/**
