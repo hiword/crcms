@@ -31,7 +31,7 @@
 
         // 服务器统一请求接口路径
        // , serverUrl: URL + "php/controller.php"
-        , serverUrl: "/index.php/upload/ueditor"
+        , serverUrl: "/3.1/public/index.php/upload/ueditor"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         , toolbars: [[

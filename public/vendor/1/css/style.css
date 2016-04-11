@@ -126,13 +126,20 @@ body {
 	background:none;
 	border:0px;
 	box-shadow:none;
+	border:1px solid #eaeaea;	
 }
 .right-box .panel .panel-body {
 	border:0px;background:none;
 }
-.right-box .panel-heading {background:none;border-bottom:1px solid #CCCCCC;font-size:16px;}
+.right-box .panel-heading {background:none;border-bottom:1px solid #eaeaea;font-size:16px;}
 /*  */
+.right-box .panel {
+	
+}
 
+.right-box .panel .panel-heading {
+	background:#fbfbfb;
+}
 .right-box .panel .ul-list {
 	padding-left:0px;
 }
@@ -147,6 +154,8 @@ body {
 	color:red;
 	margin-top:10px;
 }
+
+.categories {font-size:20px;color:#337ab7!important;}
 
 footer {
 	border-top:1px solid #CCCCCC;

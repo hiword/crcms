@@ -10,6 +10,8 @@ use Simon\File\Services\File\FileStoreService;
 use Simon\File\Services\FileData\FileDataStoreService;
 use Simon\File\Services\File\Interfaces\FileStoreInterface;
 use Simon\File\Services\File\Interfaces\FileInterface;
+use Simon\File\Uploads\PlUpload;
+use Simon\File\Uploads\UeditorUpload;
 // use Illuminate\Support\Facades\Session;
 class UploadController extends Controller {
 	
@@ -55,27 +57,27 @@ class UploadController extends Controller {
 	public function postUeditor(FileData $FileData)
 	{
 		//文件上传
-		$FileUpload = new \Simon\File\Uploads\UeditorUpload(public_path('uploads'));
-		$FileUpload->upload();
-		$files = $FileUpload->getFiles();
-		$file = $files[0];
-		//数据写入
-		try 
-		{
-			$this->model = $this->model->storeData($file);
-			$FileData->storeData(array_merge($file,['fid'=>$this->model->id]));
-		} 
-		catch (\Exception $e) 
-		{
-// 			logger('================');
-// 			logger($e->getMessage());
-		}
-		
+// 		$FileUpload = new \Simon\File\Uploads\UeditorUpload(public_path('uploads'));
+// 		$FileUpload->upload();
+// 		$files = $FileUpload->getFiles();
+// 		$file = $files[0];
+// 		//数据写入
+// 		try 
+// 		{
+// 			$this->model = $this->model->storeData($file);
+// 			$FileData->storeData(array_merge($file,['fid'=>$this->model->id]));
+// 		} 
+// 		catch (\Exception $e) 
+// 		{
+// // 			logger('================');
+// // 			logger($e->getMessage());
+// 		}
+		$file = $this->service->uploading(new UeditorUpload(storage_path('app/uploads')));
 		
 		/* 输出结果 */
 		$result = json_encode([
 				'state'=>'SUCCESS',
-				'url'=>img_url($file['full_root']),
+				'url'=>$file['img_src'],
 				'title'=>$file['new_name'],
 				'original'=>$file['old_name'],
 				'type'=>'.'.$file['extension'],
@@ -101,7 +103,7 @@ class UploadController extends Controller {
 	
 	public function getUeditor()
 	{
-		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(static_asset('static/ueditor/php/config.json'))), true);
+		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(static_asset('vendor/ueditor/php/config.json'))), true);
 		
 		switch ($this->data['action']) {
 			case 'config':
@@ -204,7 +206,7 @@ $result = json_encode($up->getFileInfo());
 	 */
 	public function postUpload(FileStoreInterface $FileStoreInterface)
 	{
-		$file = $this->service->uploading();
+		$file = $this->service->uploading(new PlUpload(storage_path('app/uploads')));
 		
 		$model = $FileStoreInterface->store($file,$this->request);
 		

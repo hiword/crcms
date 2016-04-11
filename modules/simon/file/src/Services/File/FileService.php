@@ -4,14 +4,14 @@ use Simon\File\Services\File;
 use Simon\File\Exceptions\FileUploadException;
 use Simon\File\Uploads\PlUpload;
 use Simon\File\Services\File\Interfaces\FileInterface;
+use Simon\File\Uploads\FileUpload;
 class FileService extends File implements FileInterface
 {
 	
-	public function uploading() 
+	public function uploading(FileUpload $FileUpload) 
 	{
 		try
 		{
-			$FileUpload = new PlUpload(storage_path('app/uploads'));
 			$FileUpload->config(upload_config())->upload();
 			$files = $FileUpload->getFiles();
 		}
