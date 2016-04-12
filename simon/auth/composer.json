@@ -1,0 +1,32 @@
+{
+    "name": "simon/auth",
+    "description": "a public global auth",
+    "keywords": ["auth", "crcms", "laravel"],
+    "homepage": "http://crcms.cn",
+    "license" : "MIT",
+    "authors": [
+        {
+            "name": "simon",
+            "homepage": "http://crcms.cn"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/config": "5.2.*",
+        "illuminate/database": "5.2.*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Simon\\Auth\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
