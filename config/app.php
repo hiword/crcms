@@ -173,6 +173,9 @@ return [
     	//tag
     	Simon\Tag\Providers\TagServiceProvider::class,
     	Simon\Tag\Providers\EventServiceProvider::class,
+    		
+    	//
+    	Simon\System\Providers\SystemServiceProvider::class,
     ],
 
     /*

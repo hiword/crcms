@@ -34,7 +34,8 @@
 			"Simon\\Document\\" : "modules/simon/document/src",
 			"Simon\\Log\\" : "modules/simon/log/src",
 			"Simon\\File\\" : "modules/simon/file/src",
-			"Simon\\Tag\\" : "modules/simon/tag/src"
+			"Simon\\Tag\\" : "modules/simon/tag/src",
+			"Simon\\System\\" : "modules/simon/system/src"
         }
     },
     "autoload-dev": {
