@@ -7,6 +7,7 @@ use Simon\System\Forms\Admin\AdminStoreForm;
 use Simon\System\Services\Admin\Interfaces\AdminStoreInterface;
 use Simon\System\Forms\Admin\AdminUpdateForm;
 use Simon\System\Services\Admin\Interfaces\AdminUpdateInterface;
+use Simon\System\Services\Admin\Interfaces\AdminDestroyInterface;
 class AdminController extends Controller
 {
     protected $view = 'system::admin.';
@@ -94,13 +95,14 @@ class AdminController extends Controller
         return $this->response(['success'],'manage/admin');
     }
     
-    public function deleteDestroy()
+    public function deleteDestroy(AdminDestroyInterface $AdminDestroyInterface)
     {
-        $this->destroyData($this->data['id']);
-        
+    	
+    	$AdminDestroyInterface->destroy($this->data['id']);
+    	
         //logs
         $this->logs(['remark'=>'destroy administrator']);
         
-        return $this->response(['success']);
+        return $this->response(['app.success']);
     }
 }
