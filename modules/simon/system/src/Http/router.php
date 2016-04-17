@@ -1,6 +1,6 @@
 <?php 
 $router->controllers([
-// 	'auth'=>'AuthController',
+	'manage/auth'=>'AuthController',
     'manage/admin'=>'AdminController',
     'manage/'=>'IndexController',
 ]);

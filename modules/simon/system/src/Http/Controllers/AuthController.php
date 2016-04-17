@@ -6,16 +6,17 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 	
+	protected $view = 'system::auth.';
+	
 	public function __construct(Admin $Admin)
 	{
 		parent::__construct();
 		$this->model = $Admin;
-		$this->view = 'system::auth.';
 	}
 	
 	public function getLogin() 
 	{
-		return $this->response("login");
+		return $this->view("login");
 	}
 	
 	public function postLogin()
