@@ -21,7 +21,7 @@ class DocumentService extends Document implements DocumentInterface
 		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
 	}
 	
-	public function frontPaginate($cid = 0,array $appends = []) 
+	public function paginateFront($cid = 0,array $appends = []) 
 	{
 		if ($cid) 
 		{
