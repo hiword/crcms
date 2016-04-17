@@ -8,6 +8,11 @@ use Simon\File\Uploads\FileUpload;
 class FileService extends File implements FileInterface
 {
 	
+	public function paginate() 
+	{
+		
+	}
+	
 	public function uploading(FileUpload $FileUpload) 
 	{
 		try

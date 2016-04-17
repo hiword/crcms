@@ -18,6 +18,7 @@
 	      	@foreach($categories as $model)
 	        <li class="{{Request::is('/'.$model->id.'*') ? 'active' : null}}"><a href="{{url('/'.$model->id)}}">{{$model->name}} <span class="sr-only">(current)</span></a></li>
 	        @endforeach
+	        <li class="{{Request::is('tags/*') ? 'active' : null}}"><a href="{{url('/tags')}}">标签云</a></li>
 	      </ul>
 	      <!-- 
 	      <ul class="nav navbar-nav navbar-right">
