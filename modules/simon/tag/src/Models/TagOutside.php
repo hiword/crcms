@@ -22,6 +22,11 @@ class TagOutside extends Model
 		return $this->morphTo(null,'outside_type','outside_id');
 	}
 	
+	public function countTags($tagId)
+	{
+		return $this->where('tag_id',$tagId)->count();
+	}
+	
 	/**
 	 * 获取当前outside的tags
 	 * @param array $outside_id

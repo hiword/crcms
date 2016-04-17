@@ -87,7 +87,6 @@ class Tag extends Model
 		return $this->belongsToMany('Simon\Tag\Models\TagType','tag_tag_types','tag_id','type_id');
 	}
 	
-
 	/**
 	 * 一对多tags
 	 * @param array $outside_id

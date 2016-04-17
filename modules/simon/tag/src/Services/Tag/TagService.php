@@ -3,13 +3,47 @@ namespace Simon\Tag\Services\Tag;
 use Simon\Tag\Services\Tag;
 use Simon\Tag\Services\Tag\Interfaces\TagInterface;
 use Simon\Tag\Models\Tag as TagModel;
+use Illuminate\Support\Facades\DB;
+use Simon\Tag\Models\TagOutside;
 class TagService extends Tag implements TagInterface
 {
 	
-	public function paginate(array $appends = [])
+	protected $tagOutside = null;
+	
+	public function __construct(TagModel $Tag,TagOutside $TagOutside)
+	{
+		parent::__construct($Tag);
+		$this->tagOutside = $TagOutside;
+	}
+	
+// 	LengthAwarePaginatorContract
+	protected function paginate($paginate,array $appends = [])
+	{
+		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
+	}
+	
+	public function paginateBackend(array $appends = [])
 	{
 		$paginate = $this->model->orderBy(TagModel::CREATED_AT,'DESC')->paginate(15);
-		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
+		return $this->paginate($paginate,$appends);
+	}
+
+	public function paginateFront()
+	{
+// 		$paginate = $this->model->select(DB::raw('count(*) as tag_count, name'))->orderBy(TagModel::CREATED_AT,'DESC')->where('status',TagModel::STATUS_VERIFIED)->groupBy('name')->paginate(48);
+		$paginate = $this->model->orderBy(TagModel::CREATED_AT,'DESC')->where('status',TagModel::STATUS_VERIFIED)->paginate(48);
+		
+		$paginate = $this->paginate($paginate);
+		
+		if ($paginate['models'])
+		{
+			foreach ($paginate['models'] as $model)
+			{
+				$model->count = $this->tagOutside->countTags($model->id);
+			}
+		}
+		
+		return $paginate;
 	}
 	
 	public function find($id)

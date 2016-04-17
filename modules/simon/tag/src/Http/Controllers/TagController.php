@@ -6,15 +6,19 @@ use Simon\Tag\Services\Tag\Interfaces\TagInterface;
 use Simon\Tag\Forms\Tag\TagStoreForm;
 use Simon\Tag\Services\Tag\Interfaces\TagStoreInterface;
 use Simon\Tag\Forms\Tag\TagUserStoreForm;
+use Simon\Document\Services\Category\Interfaces\CategoryInterface;
 class TagController extends Controller
 {
 	
-	protected $view = 'tag::tag.';
-	
-	public function __construct(TagInterface $Tag)
+	public function __construct(TagInterface $Tag,CategoryInterface $CategoryInterface)
 	{
 		parent::__construct();
 		$this->service = $Tag;
+		$this->view = 'tag::'.config('site.theme').'.tag.';
+		
+		view()->share([
+			'categories'=>$CategoryInterface->lists(),
+		]);
 	}
 	
 	public function getSearch()
@@ -23,10 +27,10 @@ class TagController extends Controller
 		return $this->response(['app.success'],['models'=>$models]);
 	}
 	
-	public function getIndex(Paginate $Paginate)
+	public function getIndex()
 	{
-		
-		$page = $Paginate->page($this->model->select(['id','name'])
+		$page = $this->service->paginateFront();
+// 		$page = $Paginate->page($this->model->select(['id','name'])
 // 				,function ($models){
 // 			foreach ($models as $model)
 // 			{
@@ -38,8 +42,8 @@ class TagController extends Controller
 // 			}
 // 			return $models;
 // 		}
-		);
-		return $this->response("index",$page);
+// 		);
+		return $this->view("index",$page);
 	}
 	
 	public function getCreate()
@@ -67,9 +71,9 @@ class TagController extends Controller
 // 		return $this->response(['success'],['model'=>$this->model]);
 	}
 	
-	public function postAssocTags()
-	{
-		$tags = $this->model->hasManyTags($this->data['id'],'Simon\\'.$this->data['model']);
-		return $this->response(['success'],['tags'=>$tags]);
-	}
+// 	public function postAssocTags()
+// 	{
+// 		$tags = $this->model->hasManyTags($this->data['id'],'Simon\\'.$this->data['model']);
+// 		return $this->response(['success'],['tags'=>$tags]);
+// 	}
 }
