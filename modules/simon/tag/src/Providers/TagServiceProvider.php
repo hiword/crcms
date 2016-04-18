@@ -63,6 +63,16 @@ class TagServiceProvider extends PackageServiceProvider
     		'Simon\Tag\Services\TagOutside\TagOutsideStoreService'
     	);
     	
+    	$this->app->bind(
+    		'Simon\Tag\Services\TagOutside\Interfaces\TagOutsideInterface',
+    		'Simon\Tag\Services\TagOutside\TagOutsideService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\Tag\Services\TagOutside\Interfaces\TagOutsideDestroyInterface',
+    		'Simon\Tag\Services\TagOutside\TagOutsideDestroyService'
+    	);
+    	
     	
     }
 	

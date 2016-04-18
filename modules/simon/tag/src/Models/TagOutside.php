@@ -22,9 +22,23 @@ class TagOutside extends Model
 		return $this->morphTo(null,'outside_type','outside_id');
 	}
 	
+	/**
+	 * 
+	 * @param integer $tagId
+	 * @author simon
+	 */
 	public function countTags($tagId)
 	{
 		return $this->where('tag_id',$tagId)->count();
+	}
+	
+	/**
+	 * 获取对应Tags
+	 * @author simon
+	 */
+	public function hasOneTag()
+	{
+		return $this->hasOne('Simon\Tag\Models\Tag','id','tag_id');
 	}
 	
 	/**

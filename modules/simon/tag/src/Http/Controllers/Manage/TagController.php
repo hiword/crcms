@@ -27,7 +27,7 @@ class TagController extends Controller
 	
 	public function getIndex() 
 	{
-		$page = $this->service->paginate();
+		$page = $this->service->paginateBackend();
 		return $this->view('index',$page);
 	}
 	
