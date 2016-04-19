@@ -152,10 +152,11 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+//      App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     	
+    	App\Providers\AuthServiceProvider::class,
     	Jenssegers\Agent\AgentServiceProvider::class,
     	//Intervention\Image\ImageServiceProvider::class,
     	Mews\Purifier\PurifierServiceProvider::class,
@@ -176,6 +177,13 @@ return [
     		
     	//
     	Simon\System\Providers\SystemServiceProvider::class,
+    	
+    	//
+		Simon\User\Providers\UserServiceProvider::class,
+    	
+    	//
+    	Simon\Mail\Providers\EventServiceProvider::class,
+    	Simon\Mail\Providers\MailServiceProvider::class,
     ],
 
     /*
@@ -193,7 +201,7 @@ return [
 
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
-        'Auth' => Illuminate\Support\Facades\Auth::class,
+//      'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
@@ -222,7 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-    	
+    	'Auth' => App\Facades\Auth::class,
     	'Agent' =>Jenssegers\Agent\Facades\Agent::class,
     	'Image' => Intervention\Image\Facades\Image::class,
     	'Purifier' => Mews\Purifier\Facades\Purifier::class,

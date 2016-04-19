@@ -16,7 +16,6 @@ abstract class Service
 	
 	protected $data = [];
 	
-	public function __construct()
-	{}
+	public function __construct(){}
 	
 }
