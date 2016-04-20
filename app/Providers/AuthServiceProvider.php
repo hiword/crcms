@@ -6,7 +6,7 @@ use App\Services\Auth;
 class AuthServiceProvider extends ServiceProvider
 {
 	
-	protected $defer = true;
+	protected $defer = false;
 	
 	/* 
 	 * (non-PHPdoc)
@@ -27,7 +27,8 @@ class AuthServiceProvider extends ServiceProvider
 
 	public function provides()
 	{
-		return ['App\Services\Interfaces\AuthInterface'];
+// 		return ['App\Services\Interfaces\AuthInterface'];
+		return [];
 	}
 	
 	
