@@ -184,6 +184,8 @@ return [
     	//
     	Simon\Mail\Providers\EventServiceProvider::class,
     	Simon\Mail\Providers\MailServiceProvider::class,
+    		
+    	Simon\Model\Providers\ModelServiceProvider::class,
     ],
 
     /*
