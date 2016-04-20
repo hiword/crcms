@@ -52,6 +52,9 @@ class Controller extends BaseController
     protected $view = null;
     
     
+    protected $redirectUrl = null;
+    
+    
     public function __construct()
     {
     	$this->request = app('request');
@@ -69,11 +72,11 @@ class Controller extends BaseController
      * @param string $actionLog
      * @author simon
      */
-    protected function logs(array $data,$actionLog = true)
+    protected function logs(array $data)
     {
     	if (module_exists('log'))
     	{
-    		logs($data,$actionLog);
+    		action_log($data);
     	}
     	
     	return $this;
