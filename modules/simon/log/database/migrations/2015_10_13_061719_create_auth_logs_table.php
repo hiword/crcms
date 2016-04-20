@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoginLogsTable extends Migration
+class CreateAuthLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLoginLogsTable extends Migration
     public function up()
     {
         //
-    	Schema::create('login_logs', function(Blueprint $table)
+    	Schema::create('auth_logs', function(Blueprint $table)
     	{
     		$table->mediumInteger('id',true,true);
     		$table->mediumInteger('userid',false,true);
@@ -21,7 +21,12 @@ class CreateLoginLogsTable extends Migration
     		$table->string('email',40);
     		$table->string('url',255);
     		$table->bigInteger('client_ip',false,true)->default(0);
-    			
+    		
+    		$table->tinyInteger('type',false,true)->default(0);
+    		$table->tinyInteger('status',false,true)->default(0);
+    		
+    		$table->string('login_type',30);
+    		
     		$table->tinyInteger('created_type',false,true)->default(0);
     		$table->tinyInteger('updated_type',false,true)->default(0);
     		$table->tinyInteger('deleted_type',false,true)->default(0);

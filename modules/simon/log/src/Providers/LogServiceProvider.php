@@ -46,6 +46,16 @@ class LogServiceProvider extends PackageServiceProvider
     		'Simon\Log\Services\ActionLog\Interfaces\ActionLogStoreInterface',
     		'Simon\Log\Services\ActionLog\ActionLogStoreService'
     	);
+    	
+    	$this->app->bind(
+    		'Simon\Log\Services\AuthLog\Interfaces\AuthLogInterface',
+    		'Simon\Log\Services\AuthLog\AuthLogService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface',
+    		'Simon\Log\Services\AuthLog\AuthLogStoreService'
+    	);
     }
 	
 }
