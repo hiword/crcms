@@ -14,6 +14,7 @@ class UserRegisterService extends User implements UserRegisterInterface
 		// TODO Auto-generated method stub
 		$this->model->name = $data['name'];
 		$this->model->password = bcrypt($data['password']);
+		$this->model->email = $data['email'];
 		$this->model->save();
 		
 		return $this->model;

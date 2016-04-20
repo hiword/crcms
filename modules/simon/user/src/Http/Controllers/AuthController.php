@@ -9,6 +9,7 @@ use App\Facades\Auth;
 use Simon\User\Forms\User\UserLoginForm;
 use Simon\User\Services\User\Interfaces\UserLoginInterface;
 use Simon\Mail\Events\Mail;
+use Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface;
 class AuthController extends Controller
 {
 	
@@ -25,6 +26,13 @@ class AuthController extends Controller
 	
 	public function getRegister()
 	{
+		
+		
+// 		\Illuminate\Support\Facades\Mail::raw('fdsafdsafdsafdsa',function($message){
+// 			$message->to('28737164@qq.com','test')->subject('Hello');
+// 		});
+		
+// 		exit();
 		return $this->view('register');
 	}
 	
@@ -38,12 +46,18 @@ class AuthController extends Controller
 		
 		if (module_exists('mail')) 
 		{
-			mailer('user::emails.register', $user->email,$user->toArray());
+			mailer('user::emails.register', $user->email,$user->toArray(),'register');
 		}
 		
-// 		$this->logs([
-			
-// 		]);
+		$this->logs([
+				['Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface'=>[
+						'userid'=>$user->id,
+						'name'=>$user->name,
+						'email'=>$user->email,
+// 						'status'=>AuthLogStoreInterface::STATUS_SUCCESS,
+// 						'type'=>A
+				]];
+		],false);
 		
 		return $this->response(['app.success'],$this->redirectUrl);
 	}
