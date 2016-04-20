@@ -2,36 +2,28 @@
 namespace Simon\Log\Services\AuthLog;
 use Simon\Log\Services\AuthLog;
 use Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface;
+use Simon\Log\Models\AuthLog as AuthLogModel;
 class AuthLogStoreService extends AuthLog implements AuthLogStoreInterface
 {
 	/* 
 	 * (non-PHPdoc)
 	 * @see \Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface::store()
-	 * @author root
+	 * @author simon
 	 */
-	public function store($type, $status, array $data, \Illuminate\Http\Request $Request)
+	public function store($type, $status, \App\Models\Model $user, \Illuminate\Http\Request $Request)
 	{
 		// TODO Auto-generated method stub
+		
 		return $this->model->create([
-				'name'=>$data['name'],
-				'email'=>$data['email'],
-				'url'=>$Request->fullUrl(),
-				'status'=>$data['status'],
-				'type'=>$data['type'],
-				'login_type'=>isset($data['login_type']) ? $data['login_type'] : 0,
-				'userid'=>isset($data['userid']) ? $data['userid'] : 0,
-				'client_ip'=>ip_long($Request->ip()),
+			'userid'=>$user->id,
+			'name'=>$user->name,
+			'email'=>$user->email,
+			'url'=>$Request->fullUrl(),
+			'status'=>$status,
+			'type'=>$type,
+			'client_ip'=>ip_long($Request->ip()),
 		]);
 	}
 
-	/* 
-	 * (non-PHPdoc)
-	 * @see \Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface::store()
-	 * @author root
-	 */
-	
-
-	
-	
 	
 }

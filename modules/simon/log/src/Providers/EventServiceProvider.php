@@ -13,8 +13,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Simon\Log\Events\Logs' => [
-            'Simon\Log\Listeners\Logs',
+        'Simon\Log\Events\ActionLog' => [
+            'Simon\Log\Listeners\ActionLog',
+        ],
+        'Simon\Log\Events\AuthLog' => [
+            'Simon\Log\Listeners\AuthLog',
         ],
     ];
 

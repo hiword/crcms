@@ -1,6 +1,9 @@
 <?php
 use Simon\Log\Events\Logs;
 use Jenssegers\Agent\Agent;
+use Simon\Log\Events\ActionLog;
+use Simon\Log\Events\AuthLog;
+use App\Models\Model;
 	/**
 	 * Request And Agent
 	 * @return multitype:string number NULL
@@ -47,18 +50,29 @@ use Jenssegers\Agent\Agent;
 // 		return array_merge(request_log_options(),agent_log_options(),$logs);
 // 	}
 	
-	function logs(array $data,$actionLog = true)
+	function action_log(array $data)
 	{
-		
-		if ($actionLog)
-		{
-			$logs = ['Simon\Log\Services\ActionLog\Interfaces\ActionLogStoreInterface'=>$data];
-		}
-		else
-		{
-			$logs = $data;
-		}
-		//Logs
-		
-		event(new Logs($logs));
+		event(new ActionLog($data));
 	}
+	
+	function auth_log(Model $user,$type,$status)
+	{
+		event(new AuthLog($user, $type, $status));
+	}
+
+
+// 	function logs(array $data,$actionLog = true)
+// 	{
+		
+// 		if ($actionLog)
+// 		{
+// 			$logs = ['Simon\Log\Services\ActionLog\Interfaces\ActionLogStoreInterface'=>$data];
+// 		}
+// 		else
+// 		{
+// 			$logs = $data;
+// 		}
+// 		//Logs
+		
+// 		event(new Logs($logs));
+// 	}
