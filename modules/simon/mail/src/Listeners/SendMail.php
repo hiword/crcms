@@ -32,11 +32,9 @@ class SendMail implements ShouldQueue
     {
     	try 
     	{
-    		$data = $Event->data;
-    		
-    		Mail::send($Event->template, $data, function($message) use ($data,$Event)
+    		Mail::send($Event->template, $Event->data, function($message) use ($Event)
 	        {
-	        	$message->to($Event->email, isset($data['name']) ? $data['name'] : null)->subject($Event->subject);
+	        	$message->to($Event->email, isset($Event->data['name']) ? $Event->data['name'] : null)->subject($Event->subject);
 	        });
     	} 
     	catch (\Exception $e) 

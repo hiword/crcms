@@ -16,7 +16,7 @@ class MailStoreService extends Mail implements MailStoreInterface
 			'email'=>$data['email'],
 			'subject'=>$data['subject'],
 			'template'=>$data['template'],
-			'content'=>view($data['template'],$data),
+			'content'=>view($data['template'],$data['data']),
 		]);
 	}
 

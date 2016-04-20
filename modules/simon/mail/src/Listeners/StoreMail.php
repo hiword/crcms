@@ -40,6 +40,7 @@ class StoreMail implements ShouldQueue
     			'email'=>$Event->email,
     			'subject'=>$Event->subject,
     			'template'=>$Event->template,
+    			'data'=>$Event->data,
     		]);
     	} 
     	catch (\Exception $e) 
