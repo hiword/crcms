@@ -55,8 +55,8 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
-
+    //'from' => ['address' => null, 'name' => null],
+	'from' => ['address' => 'crcms@crcms.cn', 'name' => 'crcms'],
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol
