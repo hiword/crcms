@@ -6,6 +6,7 @@ use Simon\Model\Forms\Model\ModelStoreForm;
 use Simon\Model\Services\Model\Interfaces\ModelStoreInterface;
 use Simon\Model\Forms\Model\ModelUpdateForm;
 use Simon\Model\Services\Model\Interfaces\ModelUpdateInterface;
+use Simon\Model\Services\Model\Interfaces\ModelDestroyInterface;
 class ModelController extends Controller
 {
 	
@@ -69,6 +70,12 @@ class ModelController extends Controller
 		$this->logs(['remark'=>'update model']);
 		
 		return $this->response(['app.success'],$this->redirectUrl);
+	}
+	
+	public function deleteDestroy(ModelDestroyInterface $ModelDestroyInterface)
+	{
+		$ModelDestroyInterface->destroy($this->data['id']);
+		return $this->response(['app.success']);
 	}
 	
 	public function getGenerate()

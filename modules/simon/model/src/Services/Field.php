@@ -7,7 +7,7 @@ abstract class Field extends Service
 	public function __construct(FieldModel $Field)
 	{
 		parent::__construct();
-		$this->model	 = $Field;
+		$this->model = $Field;
 	}
 
 }

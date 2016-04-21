@@ -22,4 +22,16 @@ class Model extends AppModel
 	const ENGINE_MEMORY = 'MEMORY';
 	
 	const ENGINE = [self::ENGINE_INNODB=>'InnoDB',self::ENGINE_MYISAM=>'MyISAM',self::ENGINE_MEMORY=>'MEMORY'];
+	
+	/**
+	 * 
+	 * 
+	 * @author simon
+	 */
+	public function belongsToManyField()
+	{
+		return $this->belongsToMany('Simon\Model\Models\Field','model_fields','model_id','field_id');
+	}
+	
+	
 }

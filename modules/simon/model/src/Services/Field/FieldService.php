@@ -1,8 +1,8 @@
 <?php
 namespace Simon\Model\Services\Field;
 use Simon\Model\Services\Field;
-use Cron\FieldInterface;
 use Simon\Model\Models\Field as FieldModel;
+use Simon\Model\Services\Field\Interfaces\FieldInterface;
 class FieldService extends Field implements FieldInterface
 {
 	
@@ -17,4 +17,13 @@ class FieldService extends Field implements FieldInterface
 		return $this->model->findOrFail($id);
 	}
 	
+	public function status() 
+	{
+		return FieldModel::STATUS;
+	}
+	
+	public function primary() 
+	{
+		return FieldModel::PRIMARY;
+	}
 }

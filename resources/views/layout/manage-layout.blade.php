@@ -16,6 +16,13 @@
 					</ul>
 				</li>
 				<li id="accordion1" class="active">
+					<a href="#collapse-ul-4" data-parent="#accordion4" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">模型</a>
+					<ul  id="collapse-ul-4" class="collapse in">
+						<li><a href="{{url('manage/model/index')}}">模型列表</a></li>
+						<li><a href="{{url('manage/field/index')}}">字段列表</a></li>
+					</ul>
+				</li>
+				<li id="accordion1" class="active">
 					<a href="#collapse-ul-1" data-parent="#accordion1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">文档</a>
 					<ul  id="collapse-ul-1" class="collapse in">
 						<li><a href="{{url('manage/document/index')}}">文档列表</a></li>

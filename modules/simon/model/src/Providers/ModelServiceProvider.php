@@ -76,6 +76,10 @@ class ModelServiceProvider extends PackageServiceProvider
     		'Simon\Model\Services\Field\FieldDestroyService'
     	);
     	
+    	$this->app->bind(
+    		'Simon\Model\Services\Element\Interfaces\ElementInterface',
+    		'Simon\Model\Services\Element\ElementService'
+    	);
     }
 	
 }

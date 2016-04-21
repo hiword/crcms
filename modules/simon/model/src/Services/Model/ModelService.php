@@ -45,4 +45,9 @@ class ModelService extends Model implements ModelInterface
 	{
 		return ModelRelation::where('model_id',$id)->lists('extend_id')->toArray();
 	}
+	
+	public function fields(\Simon\Model\Models\Model $Model) 
+	{
+		return $Model->belongsToManyField;
+	}
 }

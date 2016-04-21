@@ -1,12 +1,13 @@
 <?php
 namespace Simon\Model\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
-use Cron\FieldInterface;
 use Simon\Model\Forms\Field\FieldStoreForm;
 use Simon\Model\Services\Field\Interfaces\FieldStoreInterface;
 use Simon\Model\Forms\Field\FieldUpdateForm;
 use Simon\Model\Services\Field\Interfaces\FieldUpdateInterface;
 use Simon\Model\Services\Field\Interfaces\FieldDestroyInterface;
+use Simon\Model\Services\Field\Interfaces\FieldInterface;
+use Simon\Model\Services\Model\Interfaces\ModelInterface;
 class FieldController extends Controller
 {
 	
@@ -14,10 +15,17 @@ class FieldController extends Controller
 	
 	protected $redirectUrl = 'manage/field';
 	
-	public function __construct(FieldInterface $FieldInterface)
+	public function __construct(FieldInterface $FieldInterface,ModelInterface $ModelInterface)
 	{
 		parent::__construct();
 		$this->service = $FieldInterface;
+		
+		view()->share([
+			'_models'=>$ModelInterface->lists(),
+			'field_types'=>config('model.field_types'),
+			'status'=>$this->service->status(),
+			'primaryKey'=>$this->service->primary(),
+		]);
 	}
 	
 	public function getIndex()
@@ -65,6 +73,12 @@ class FieldController extends Controller
 		$FieldDestroyInterface->destroy($this->data['id']);
 		
 		return $this->response(['app.success']);
+	}
+	
+	public function postFieldSetting() 
+	{
+		$namespace = '\Simon\Model\Fields\Option\\'.$this->data['type'];
+		return $this->response(['app.success'],['template'=>(new $namespace())->setting()]);
 	}
 	
 }
