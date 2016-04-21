@@ -22,7 +22,7 @@ class CreateFieldsTable extends Migration {
 			$table->char('tip',255);
 			$table->char('type',30);
 			$table->text('validate_rule');
-			$table->text('form_attr');
+			$table->text('attribute');
 			$table->text('setting');//表单配置 包括titletip  //表单项
 			$table->tinyInteger('is_primary',false,true)->default(0);
 			$table->tinyInteger('status',false,true)->default(0);
