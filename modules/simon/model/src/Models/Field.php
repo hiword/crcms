@@ -49,7 +49,7 @@ class Field extends AppModel
 	protected $casts = [
 		'setting' => 'object',
 		'validate_rule' => 'array',
-		'attr' => 'array',
+		'attribute' => 'array',
 	];
 	
 	

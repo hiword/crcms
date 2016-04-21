@@ -26,7 +26,7 @@ class FieldStoreService extends Field implements FieldStoreInterface
 			foreach ($formAttr as $value)
 			{
 				$value = explode(':',$value);
-				$newFormAttr[$value[0]] = $value[1];
+				$newFormAttr[$value[0]] = str_replace(',',' ',$value[1]);
 			}
 // 			$data['form_attr'] = array_map(function($value){return str_replace(',',' ',trim($value));},explode("\n",str_replace("\r\n","\n",$data['form_attr'])));
 		}
@@ -40,8 +40,8 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		$this->model->type = $data['type'];
 		$this->model->alias = $data['alias'];
 		$this->model->validate_rule = json_encode($data['validate_rule']);
-		$this->model->form_attr = json_encode($newFormAttr);
-		$this->model->setting = json_encode($data['setting']);
+		$this->model->form_attr = $newFormAttr;
+		$this->model->setting = $data['setting'];
 		$this->model->name = $data['name'];
 		$this->model->tip = $data['tip'];
 		$this->model->sort = $data['sort'];

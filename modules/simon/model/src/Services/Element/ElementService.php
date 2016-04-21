@@ -5,9 +5,9 @@ use Simon\Model\Services\Element\Interfaces\ElementInterface;
 class ElementService extends Element implements ElementInterface
 {
 	
-	public function b($modelId) 
-	{
+// 	public function b(array ) 
+// 	{
 		
-	}
+// 	}
 	
 }

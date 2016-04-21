@@ -5,13 +5,6 @@ use Simon\Model\Fields\FieldInterface;
 class Text extends Field implements FieldInterface
 {
 	
-	protected $setting = null;
-	
-	
-	public function __construct($field = null)
-	{
-		$this->field = $field;
-	}
 	
 	/* 
 	 * (non-PHPdoc)
@@ -24,19 +17,38 @@ class Text extends Field implements FieldInterface
 		return (string)view('model::field.text',['setting'=>$setting]);
 	}
 	
-	public function showHtml($value)
+	public function htmlForm($value = null)
 	{
 		
 	}
 	
-	public function showArray()
-	{
-		$this->field
-		$array = [
-			$this->field->name=>[
+// 	public function arrayForm($value = null)
+// 	{
+// 		$formAttribute = $this->field->form_attr;
+		
+// 		//auto complete name
+// 		$formAttribute['name'] = "{$this->model->mark}[{$this->field->name}]";
+		
+// 		//auto complete value
+// 		if ($value)
+// 		{
+// 			$formAttribute['value'] = $value;
+// 		}
+		
+// 		//auto complete type
+// 		if (empty($formAttribute['type'])) 
+// 		{
+// 			$formAttribute['type'] = 'text';
+// 		}
+		
+// 		return $formAttribute;
+// 		dd($this->field->form_attr);
+// 		$this->field
+// 		$array = [
+// 			$this->field->name=>[
 				
-			],
-		];
+// 			],
+// 		];
 		
 // 		'name'=>[
 // 				'is_show'=>1,
@@ -45,6 +57,24 @@ class Text extends Field implements FieldInterface
 // 				return $this->uniqueValidator('required|min:3|max:20','name');
 // 				}
 // 				],
+// 	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \Simon\Model\Fields\Field::attributes()
+	 * @author root
+	 */
+	protected function attributes($value = null)
+	{
+		// TODO Auto-generated method stub
+		//auto complete name
+		$this->attributes['name'] = $this->attributeName();
+		
+		//auto complete value
+		$value && $this->attributes['value'] = $value;
+		
+		//auto complete type
+		empty($this->attributes['type']) && $this->attributes['type'] = 'text';
 	}
 
 	public function filter($value)
