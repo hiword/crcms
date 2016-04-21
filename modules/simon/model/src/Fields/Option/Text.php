@@ -31,6 +31,7 @@ class Text extends Field implements FieldInterface
 	
 	public function showArray()
 	{
+		$this->field
 		$array = [
 			$this->field->name=>[
 				
