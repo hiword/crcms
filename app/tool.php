@@ -367,3 +367,8 @@
 		
 		return $data;
 	}
+	
+	function enter_format_array($value)
+	{
+		return array_filter(explode("\n", str_replace("\r\n","\n", $value)),function($value){return trim($value);});
+	}
