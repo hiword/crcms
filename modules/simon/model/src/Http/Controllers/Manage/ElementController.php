@@ -33,9 +33,9 @@ class ElementController extends Controller
 		foreach ($fields as  $field)
 		{
 			$fieldObject = 'Simon\Model\Fields\Option\\'.$field->type;
-			$forms[$field->name] = (new $fieldObject($field,$model))->arrayForm();
+			echo  (new $fieldObject($field,$model))->htmlForm();
 		}
-		dd($forms);
+// 		dd($forms);
 // 		$this->service->b($fields);
 		return $this->view('create');
 	}

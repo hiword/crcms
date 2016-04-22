@@ -34,7 +34,7 @@ abstract class Field
 		//options
 		if (isset($this->field->setting->option))
 		{
-			$this->options($this->formatEnter($this->field->setting->option));
+			$form['options'] = $this->options($this->formatEnter($this->field->setting->option));
 		}
 	
 		return $form;

@@ -19,7 +19,8 @@ class Text extends Field implements FieldInterface
 	
 	public function htmlForm($value = null)
 	{
-		
+		$form = $this->arrayForm($value);
+		return (string)view('model::field.template.text',['form'=>$form]);
 	}
 	
 // 	public function arrayForm($value = null)
@@ -71,7 +72,7 @@ class Text extends Field implements FieldInterface
 		$this->attributes['name'] = $this->attributeName();
 		
 		//auto complete value
-		$value && $this->attributes['value'] = $value;
+		$this->attributes['value'] = $value ? $value : '';
 		
 		//auto complete type
 		empty($this->attributes['type']) && $this->attributes['type'] = 'text';

@@ -49,8 +49,11 @@ class Radio extends Field implements FieldInterface
 	 */
 	public function htmlForm($value = null)
 	{
+		$form = $this->arrayForm($value);
+// 		dd($form);
 		// TODO Auto-generated method stub
-		
+		return (string)view('model::field.template.radio',['form'=>$form]);
+// 		return (string)view("model::field.{$type}",['setting'=>$setting]);
 	}
 
 	/* 
