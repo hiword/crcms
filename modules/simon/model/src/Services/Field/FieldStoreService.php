@@ -15,13 +15,13 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		// TODO Auto-generated method stub
 		
 		//format
-		if (!empty($data['validate_rule']))
-		{
-			$data['validate_rule'] = array_map(function($value){return trim($value);},explode("\n",str_replace("\r\n","\n",$data['validate_rule'])));
-		}
+// 		if (!empty($data['validate_rule']))
+// 		{
+// 			$data['validate_rule'] = enter_format_array($data['validate_rule']);
+// 		}
 		if (!empty($data['form_attr']))
 		{
-			$formAttr = explode("\n",str_replace("\r\n","\n",$data['form_attr']));
+			$formAttr = enter_format_array($data['form_attr']);
 			$newFormAttr = [];
 			foreach ($formAttr as $value)
 			{
@@ -39,8 +39,8 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		$this->model->name = $data['name'];
 		$this->model->type = $data['type'];
 		$this->model->alias = $data['alias'];
-		$this->model->validate_rule = json_encode($data['validate_rule']);
-		$this->model->form_attr = $newFormAttr;
+		$this->model->validate_rule = enter_format_array($data['validate_rule']);
+		$this->model->attribute = $newFormAttr;
 		$this->model->setting = $data['setting'];
 		$this->model->name = $data['name'];
 		$this->model->tip = $data['tip'];

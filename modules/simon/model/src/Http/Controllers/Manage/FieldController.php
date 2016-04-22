@@ -53,8 +53,8 @@ class FieldController extends Controller
 	public function getEdit($id)
 	{
 		$model = $this->service->find($id);
-		
-		return $this->view('edit',['model'=>$model]);
+		$models = $this->service->models($model);
+		return $this->view('edit',['model'=>$model,'models'=>$models]);
 	}
 	
 	public function putUpdate($id,FieldUpdateForm $FieldUpdateForm,FieldUpdateInterface $FieldUpdateInterface)
@@ -78,7 +78,14 @@ class FieldController extends Controller
 	public function postFieldSetting() 
 	{
 		$namespace = '\Simon\Model\Fields\Option\\'.$this->data['type'];
-		return $this->response(['app.success'],['template'=>(new $namespace())->setting()]);
+		
+		$field = null;
+		
+		if (!empty($this->data['id']))
+		{
+			$field = $this->service->find($this->data['id']);
+		}
+		return $this->response(['app.success'],['template'=>(new $namespace($field))->setting()]);
 	}
 	
 }

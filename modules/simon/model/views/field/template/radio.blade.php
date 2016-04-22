@@ -1,15 +1,27 @@
 <div class="form-group">
-	<label class="Validform_label label-name">{{$form['label']}}</label>
-	@if($form['attributes']['type'] === 'radio')
+	<label class="Validform_label label-name">{{$label}}</label>
+	@if($attributes['type'] === 'radio')
 	<div>
-		@foreach($form['options'] as $key=>$value)
+		@foreach($options as $key=>$value)
 		<label class="radio-inline">
-			<input type="radio" name="{{$form['attributes']['name']}}" value="{{$key}}" /> {{$value}}
+			<input {!!$attribute!!} value="{{$key}}" {{$key==$radio_value ? 'checked' : null}} /> {{$value}}
 		</label>
 		@endforeach
 	</div>
-	@elseif($form['attributes']['type'] === 'select')
-	
+	@elseif($attributes['type'] === 'select')
+		<select {!!$attribute!!}>
+		@foreach($options as $key=>$value)
+			<option {!!$attribute!!} value="{{$key}}" {{$key==$radio_value ? 'selected' : null}}>{{$value}}</option>
+		@endforeach
+		</select>
+	@elseif($attributes['type'] === 'checkbox')
+	<div>
+		@foreach($options as $key=>$value)
+		<label class="checkbox-inline">
+			<input {!!$attribute!!} value="{{$key}}" {{$key==$radio_value ? 'checked' : null}} /> {{$value}}
+		</label>
+		@endforeach
+	</div>
 	@endif
-	<p class="help-block Validform_checktip">{{$form['tip']}}</p>
+	<p class="help-block Validform_checktip">{{$tip}}</p>
 </div>

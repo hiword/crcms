@@ -5,23 +5,30 @@ use Simon\Model\Fields\FieldInterface;
 class Text extends Field implements FieldInterface
 {
 	
+	protected $type = 'text';
 	
 	/* 
 	 * (non-PHPdoc)
 	 * @see \Simon\Model\Fields\FieldInterface::setting()
 	 * @author simon
 	 */
-	public function setting(array $setting = array())
-	{
-		// TODO Auto-generated method stub
-		return (string)view('model::field.text',['setting'=>$setting]);
-	}
+// 	public function setting(array $setting = array())
+// 	{
+// 		// TODO Auto-generated method stub
+// 		return (string)view('model::field.text',['setting'=>$setting]);
+// 	}
 	
-	public function htmlForm($value = null)
-	{
-		$form = $this->arrayForm($value);
-		return (string)view('model::field.template.text',['form'=>$form]);
-	}
+// 	public function htmlForm($value = null)
+// 	{
+// 		$form = $this->arrayForm($value);
+// 		$str = '';
+// 		foreach ($form['attributes'] as $key=>$value)
+// 		{
+// 			$str .= "{$key}=\"{$value}\" ";
+// 		}
+// 		dd($str);
+// 		return (string)view('model::field.template.text',['form'=>$form]);
+// 	}
 	
 // 	public function arrayForm($value = null)
 // 	{

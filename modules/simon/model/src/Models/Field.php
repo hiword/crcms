@@ -52,5 +52,8 @@ class Field extends AppModel
 		'attribute' => 'array',
 	];
 	
-	
+	public function belongsToManyModel() 
+	{
+		return $this->belongsToMany('Simon\Model\Models\Model','model_fields','field_id','model_id');
+	}
 }

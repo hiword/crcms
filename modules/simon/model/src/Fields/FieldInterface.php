@@ -6,7 +6,7 @@ interface FieldInterface
 {
 	
 	
-	public function setting(array $setting = []);
+	public function setting();
 	
 	public function htmlForm($value = null);
 	
