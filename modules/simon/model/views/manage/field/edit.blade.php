@@ -47,7 +47,7 @@
 		<div id="setting"></div>
 	    <div class="form-group">
 			<label class=" Validform_label label-name">验证规则</label>
-			<textarea class="form-control" name="validate_rule"><?php /*{{implode("\n",$model->validate_rule)}}*/?></textarea>
+			<textarea class="form-control" name="validate_rule">{{implode("\n",$model->validate_rule)}}</textarea>
 			<p class="help-block Validform_checktip">使用Laravel验证规则，一行一个，{Id}：表示当前id</p>
 		</div>
 	    <div class="form-group">

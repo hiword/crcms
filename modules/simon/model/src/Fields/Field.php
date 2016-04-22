@@ -42,7 +42,11 @@ abstract class Field
 	{
 		$this->field = $field;
 		$this->model = $model;
-		$this->attributes = $this->field ? $this->field->attribute : [];
+		
+		if ($this->field)
+		{
+			$this->resolveAttribute($this->field->attribute);
+		}
 	}
 	
 	/**
@@ -71,6 +75,16 @@ abstract class Field
 		}
 	
 		return $form;
+	}
+	
+	protected function resolveAttribute(array $attributes)
+	{
+		foreach ($attributes as $attribute)
+		{
+			$attribute = explode(':',$attribute);
+			$this->attributes[$attribute[0]] = str_replace(',',' ',$attribute[1]);
+		}
+		return $this->attributes;
 	}
 	
 	/**
