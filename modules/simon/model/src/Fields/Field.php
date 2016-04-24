@@ -71,7 +71,7 @@ abstract class Field
 		//options
 		if (isset($this->field->setting->option))
 		{
-			$form['options'] = $this->options(enter_format_array($this->field->setting->option));
+			$form['options'] = $this->options($this->field->setting->option);
 		}
 	
 		return $form;
@@ -82,7 +82,10 @@ abstract class Field
 		foreach ($attributes as $attribute)
 		{
 			$attribute = explode(':',$attribute);
-			$this->attributes[$attribute[0]] = str_replace(',',' ',$attribute[1]);
+			if (count($attribute) === 2) 
+			{
+				$this->attributes[$attribute[0]] = str_replace(',',' ',$attribute[1]);
+			}
 		}
 		return $this->attributes;
 	}
@@ -114,6 +117,7 @@ abstract class Field
 	 */
 	protected function options(array $option)
 	{
+// 		$option = enter_format_array($option)
 		$options = [];
 		
 		foreach ($option as $op)
@@ -156,7 +160,18 @@ abstract class Field
 	 */
 	public function setting()
 	{
-		return (string)view("model::field.{$this->type}",['setting'=>$this->field->setting]);
+		return (string)view("model::field.{$this->type}",['setting'=>isset($this->field->setting) ? $this->field->setting : new \stdClass()]);
+	}
+	
+	public function validateRule($id = 0)
+	{
+		
+		return $this->field->validate_rule  
+					?
+					array_map(function($value) use ($id){
+						return str_replace('{Id}',$id,$value);
+					}, $this->field->validate_rule)
+					: [];
 	}
 	
 	/**

@@ -35,6 +35,11 @@ class FieldStoreService extends Field implements FieldStoreInterface
 // 			$newFormAttr = [];
 // 		}
 		
+		if (!empty($data['setting']['option']))
+		{
+			$data['setting']['option'] = enter_format_array($data['setting']['option']);
+		}
+
 		//save
 		$this->model->name = $data['name'];
 		$this->model->type = $data['type'];

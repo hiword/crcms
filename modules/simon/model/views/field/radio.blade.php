@@ -40,7 +40,7 @@
 </div>
 <div class="form-group">
 	<label class="Validform_label label-name">表单选项</label>
-	<textarea name="setting[option]" class="form-control">{{isset($setting->option) ? $setting->option : null}}</textarea>
+	<textarea name="setting[option]" class="form-control">{{isset($setting->option) ? implode("\n",$setting->option) : null}}</textarea>
 	<p class="help-block Validform_checktip">
 		一行一个，可关联数据表，格式如下：<br />
 		SQL:SQLvalue:值字段,显示字段，如：select id,name from models where id=? or id=?:3,4:id,name<br />

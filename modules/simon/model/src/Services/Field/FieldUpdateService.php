@@ -15,6 +15,11 @@ class FieldUpdateService extends Field implements FieldUpdateInterface
 		// TODO Auto-generated method stub
 		$this->model = $this->model->findOrFail($id);
 		
+		if (!empty($data['setting']['option']))
+		{
+			$data['setting']['option'] = enter_format_array($data['setting']['option']);
+		}
+		
 		//save
 		$this->model->name = $data['name'];
 		$this->model->type = $data['type'];

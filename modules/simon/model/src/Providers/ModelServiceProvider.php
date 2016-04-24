@@ -37,6 +37,11 @@ class ModelServiceProvider extends PackageServiceProvider
     	parent::register();
     	
     	$this->app->bind(
+    		'Simon\Model\Services\Model\Interfaces\SchemaInterface',
+    		'Simon\Model\Services\Model\SchemaService'
+    	);
+    	
+    	$this->app->bind(
     		'Simon\Model\Services\Model\Interfaces\ModelInterface',
     		'Simon\Model\Services\Model\ModelService'
     	);

@@ -1,0 +1,32 @@
+@extends('layout.manage-layout')
+@section('list-header')
+<h3>
+	新增字段
+	<a class="btn btn-sm btn-default" href="{{url('manage/field/index')}}">列表</a>
+</h3>
+@endsection
+@section('main')
+<form action="{{url('manage/element/store')}}" method="post" class="valid-form">
+<input type="hidden" name="_token" value="{{csrf_token()}}" />
+<input type="hidden" name="model_id" value="{{$model->id}}" />
+<div class="row">
+	<div class="col-md-9">
+		@foreach($forms as $form)
+		{!!$form!!}
+		@endforeach
+		<div class="form-group btn-action">
+      		<button class="btn btn-default mr10" type="button">重置</button>
+      		<button class="btn btn-success " type="submit">提交</button>
+      	</div>
+	</div>
+	<div class="col-md-3">
+	</div>
+</div>
+</form>
+
+@endsection
+@section('script')
+@parent
+<script>
+</script>
+@endsection

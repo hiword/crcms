@@ -3,6 +3,7 @@ namespace Simon\Model\Services\Model;
 use Simon\Model\Services\Model\Interfaces\ModelInterface;
 use Simon\Model\Services\Model;
 use Simon\Model\Models\ModelRelation;
+use Simon\Model\Models\Field;
 class ModelService extends Model implements ModelInterface
 {
 	
@@ -48,6 +49,6 @@ class ModelService extends Model implements ModelInterface
 	
 	public function fields(\Simon\Model\Models\Model $Model) 
 	{
-		return $Model->belongsToManyField;
+		return $Model->belongsToManyField()->where('status',Field::STATUS_OPEN)->orderBy('sort','DESC')->get();
 	}
 }

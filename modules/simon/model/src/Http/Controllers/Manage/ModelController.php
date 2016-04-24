@@ -7,6 +7,9 @@ use Simon\Model\Services\Model\Interfaces\ModelStoreInterface;
 use Simon\Model\Forms\Model\ModelUpdateForm;
 use Simon\Model\Services\Model\Interfaces\ModelUpdateInterface;
 use Simon\Model\Services\Model\Interfaces\ModelDestroyInterface;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Simon\Model\Services\Model\Interfaces\SchemaInterface;
 class ModelController extends Controller
 {
 	
@@ -78,8 +81,17 @@ class ModelController extends Controller
 		return $this->response(['app.success']);
 	}
 	
-	public function getGenerate()
+	public function getGenerate($id,SchemaInterface $SchemaInterface)
 	{
+		//get model
+		$model = $this->service->find($id);
+		
+		//get fields collections
+		$fields = $this->service->fields($model);
+		
+		//create table schema
+		$SchemaInterface->createTable($model, $fields);
+		
 		return $this->response(['app.success']);
 	}
 }

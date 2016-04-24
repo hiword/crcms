@@ -1,20 +1,11 @@
 <?php
 namespace Simon\Model\Fields\Option;
-use Simon\Model\Fields\Field;
 use Simon\Model\Fields\FieldInterface;
-class Textarea extends Field implements FieldInterface
+use Simon\Model\Fields\Field;
+class Numeric extends Field implements FieldInterface
 {
 	
-	protected $type = 'textarea';
-	
-	public function arrayForm($value = null)
-	{
-		$form = parent::arrayForm($value);
-		
-		$form['value'] = $value ? $value : '';
-		
-		return $form;
-	}
+	protected $type = 'numeric';
 	
 	/* 
 	 * (non-PHPdoc)
@@ -24,7 +15,9 @@ class Textarea extends Field implements FieldInterface
 	protected function attributes($value = null)
 	{
 		// TODO Auto-generated method stub
+		$this->attributes['type'] = 'number';
 		$this->attributes['name'] = $this->attributeName();
+		$this->attributes['value'] = $value ? $value : $this->field->setting->default_value;
 	}
-	
+
 }
