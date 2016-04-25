@@ -29,6 +29,8 @@ class SchemaService implements SchemaInterface
 
 	protected function createBuiltInElement(Blueprint $table)
 	{
+		$table->mediumInteger('model_id',false,true)->default(0);
+		
 		$table->mediumInteger('created_uid',false,true)->default(0);
 		$table->mediumInteger('updated_uid',false,true)->default(0);
 		$table->mediumInteger('deleted_uid',false,true)->default(0);

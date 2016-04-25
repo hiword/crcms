@@ -17,6 +17,7 @@ class ModelService extends Model implements ModelInterface
 		return $this->model->orderBy(\Simon\Model\Models\Model::CREATED_AT,'desc')->get();
 	}
 	
+	
 	public function status() 
 	{
 		return \Simon\Model\Models\Model::STATUS;
@@ -45,6 +46,11 @@ class ModelService extends Model implements ModelInterface
 	public function alreadyExtend($id)
 	{
 		return ModelRelation::where('model_id',$id)->lists('extend_id')->toArray();
+	}
+	
+	public function beExtend($id)
+	{
+		return ModelRelation::where('extend_id',$id)->lists('model_id')->toArray();
 	}
 	
 	public function fields(\Simon\Model\Models\Model $Model) 

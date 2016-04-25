@@ -8,7 +8,10 @@
 @section('main')
 <form action="{{url('manage/element/store')}}" method="post" class="valid-form">
 <input type="hidden" name="_token" value="{{csrf_token()}}" />
-<input type="hidden" name="model_id" value="{{$model->id}}" />
+<input type="hidden" name="model_id" value="{{$model_id}}" />
+@foreach($append_model_ids as $extendId)
+<input type="hidden" name="extend_id[]" value="{{$extendId}}" />
+@endforeach
 <div class="row">
 	<div class="col-md-9">
 		@foreach($forms as $form)

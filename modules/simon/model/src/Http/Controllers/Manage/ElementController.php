@@ -13,10 +13,16 @@ class ElementController extends Controller
 	
 	protected $factory = null;
 	
-	public function __construct(ElementInterface $ElementInterface) 
+	protected $modelService = null;
+	
+	protected $fieldService = null;
+	
+	public function __construct(ElementInterface $ElementInterface,ModelInterface $ModelInterface,FieldInterface $FieldInterface) 
 	{
 		parent::__construct();
 		$this->service = $ElementInterface;
+		$this->modelService = $ModelInterface;
+		$this->fieldService = $FieldInterface;
 	}
 	
 	public function getIndex() 
@@ -26,19 +32,40 @@ class ElementController extends Controller
 		dd($query);
 	}
 	
-	public function getCreate(ModelInterface $ModelInterface,FieldInterface $FieldInterface) 
+	protected function forms($modelIds)
+	{
+		$forms = [];
+		foreach($modelIds as $id)
+		{
+			$model = $this->modelService->find($id);
+			$fields = $this->modelService->fields($model);
+			$view = (new Factory($model, $fields))->view();
+			$forms = array_merge($view,$forms);
+		}
+		return $forms;  
+	}
+	
+	public function getCreate() 
 	{
 		//最后等待测试
 		/* 这里面的一块代码，回头需要，使用一个elementService来操作，需要调用 这个fieldClient  */
-		$modelId = 2;
-		$model = $ModelInterface->find($modelId);
-		$extendId = $ModelInterface->alreadyExtend($modelId);
-		$fields = $ModelInterface->fields($model);
+		$modelId = 3;
+		$extendId = $this->modelService->beExtend($modelId);
+		$forms = $this->forms(array_merge([$modelId],$extendId));
 		
-		$this->factory = new Factory($model, $fields);
+// 		$modelIds = ;
+// 		dd($modelIds);
+// 		$model = $this->modelService->find($modelId);
+// 		$fields = $this->modelService->fields($model);
+// 		$forms = (new Factory($model, $fields))->view();
 		
-		$forms = $this->factory->view();
 		
+// 		$extendId = $ModelInterface->alreadyExtend($modelId);
+// 		$fields = $ModelInterface->fields($model);
+		
+// 		$this->factory = new Factory($model, $fields);
+		
+// 		$forms = $this->factory->view();
 // 		$forms = [];
 // 		foreach ($fields as  $field)
 // 		{
@@ -50,7 +77,7 @@ class ElementController extends Controller
 // 		exit;
 // 		dd($forms);
 // 		$this->service->b($fields);
-		return $this->view('create',['forms'=>$forms,'model'=>$model]);
+		return $this->view('create',['forms'=>$forms,'model_id'=>$modelId,'append_model_ids'=>$extendId]);
 	}
 	
 	public function getEdit()
