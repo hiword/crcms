@@ -64,6 +64,11 @@
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
+			<label class=" Validform_label label-name">uri路径</label>
+			<textarea class="form-control" name="uri"></textarea>
+			<p class="help-block Validform_checktip">一行一个</p>
+		</div>
+		<div class="form-group">
 			<label class=" Validform_label label-name">主键</label>
 			<div>
 				@foreach($primaryKey as $key=>$value)

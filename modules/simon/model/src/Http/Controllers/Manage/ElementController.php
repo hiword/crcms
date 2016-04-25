@@ -7,6 +7,7 @@ use Simon\Model\Services\Field\Interfaces\FieldInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Simon\Model\Fields\Factory;
+use Illuminate\Http\Request;
 class ElementController extends Controller
 {
 	protected $view = 'model::manage.element.'; 
@@ -25,11 +26,17 @@ class ElementController extends Controller
 		$this->fieldService = $FieldInterface;
 	}
 	
-	public function getIndex() 
+	public function getIndex(Request $Request) 
 	{
-		$query = DB::select('select * from models where id=?',[3]);
 		
-		dd($query);
+		dd($Request->is('manage/element/index*'));
+		
+		dd($Request->route()->getAction(),$Request->url());
+		
+// 		$query = DB::select('select * from models where id=?',[3]);
+		
+// 		dd($query);
+		return $this->view('index');
 	}
 	
 	protected function forms($modelIds)
@@ -39,7 +46,7 @@ class ElementController extends Controller
 		{
 			$model = $this->modelService->find($id);
 			$fields = $this->modelService->fields($model);
-			$view = (new Factory($model, $fields))->view();
+			$view = (new Factory($model, $fields,$this->request))->view();
 			$forms = array_merge($view,$forms);
 		}
 		return $forms;  
@@ -49,7 +56,7 @@ class ElementController extends Controller
 	{
 		//最后等待测试
 		/* 这里面的一块代码，回头需要，使用一个elementService来操作，需要调用 这个fieldClient  */
-		$modelId = 3;
+		$modelId = 6;
 		$extendId = $this->modelService->beExtend($modelId);
 		$forms = $this->forms(array_merge([$modelId],$extendId));
 		

@@ -61,6 +61,7 @@ class Field extends AppModel
 		'setting' => 'object',
 		'validate_rule' => 'array',
 		'attribute' => 'array',
+		'uri'=>'array',
 	];
 	
 	public function belongsToManyModel() 

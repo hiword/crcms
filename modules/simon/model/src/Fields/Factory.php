@@ -4,16 +4,20 @@ use Simon\Model\Models\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Simon\Model\Models\Field;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 class Factory
 {
 	protected $model = null;
 	
 	protected $fields = [];
 	
-	public function __construct(Model $model,Collection $fields)
+	protected $request = null;
+	
+	public function __construct(Model $model,Collection $fields,Request $Request)
 	{
 		$this->model = $model;
 		$this->setFieldInstance($fields);
+		$this->request = $Request;
 	}
 	
 	protected function setFieldInstance(Collection $fields)
@@ -21,6 +25,20 @@ class Factory
 		
 		foreach ($fields as $key=>$field)
 		{
+			
+			//匹配uri模式
+			if ($field->uri)
+			{
+				$uri = array_filter($field->uri,function($value) {
+					return app('request')->is($value);
+				});
+						
+				if (empty($uri))
+				{
+					continue;
+				}
+			}
+			
 			$namespace = 'Simon\Model\Fields\Option\\'.$field->type;
 			$field->instance = new $namespace($field,$this->model);
 			

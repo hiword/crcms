@@ -26,6 +26,7 @@ class FieldUpdateService extends Field implements FieldUpdateInterface
 		$this->model->alias = $data['alias'];
 		$this->model->validate_rule = enter_format_array($data['validate_rule']);
 		$this->model->attribute = enter_format_array($data['form_attr']);
+		$this->model->uri = enter_format_array($data['uri']);
 		$this->model->setting = $data['setting'];
 		$this->model->name = $data['name'];
 		$this->model->tip = $data['tip'];

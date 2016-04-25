@@ -24,6 +24,7 @@ class CreateFieldsTable extends Migration {
 			$table->text('validate_rule');
 			$table->text('attribute');
 			$table->text('setting');//表单配置 包括titletip  //表单项
+			$table->text('uri');
 			$table->tinyInteger('is_primary',false,true)->default(0);
 			$table->tinyInteger('status',false,true)->default(0);
 			$table->smallInteger('sort',false,true)->default(0);
