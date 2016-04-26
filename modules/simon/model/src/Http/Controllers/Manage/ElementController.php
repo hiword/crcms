@@ -56,7 +56,7 @@ class ElementController extends Controller
 	{
 		//最后等待测试
 		/* 这里面的一块代码，回头需要，使用一个elementService来操作，需要调用 这个fieldClient  */
-		$modelId = 6;
+		$modelId = 10;
 		$extendId = $this->modelService->beExtend($modelId);
 		$forms = $this->forms(array_merge([$modelId],$extendId));
 		
@@ -94,11 +94,11 @@ class ElementController extends Controller
 	
 	public function postStore(ModelInterface $ModelInterface)
 	{
-		$model = $ModelInterface->find($this->data['model_id']);
+		$model = $this->modelService->find($this->data['model_id']);
 		
-		$fields = $ModelInterface->fields($model);
+		$fields = $this->modelService->fields($model);
 		
-		$this->factory = new Factory($model, $fields);
+		$this->factory = new Factory($model, $fields,$this->request);
 		
 		$validateRule = $this->factory->validator();
 		
@@ -110,10 +110,21 @@ class ElementController extends Controller
 // 		dd(2);
 
 		//store
-		unset($this->data[$model->mark]['id']);
+// 		unset($this->data[$model->mark]['id']);
 // 		unset($this->data[$model->mark]['mult']);
 
-		$this->factory->store($this->data[$model->mark]);
+		$insertId = $this->factory->store($this->data[$model->mark]);
+		
+		foreach ($this->data['extend_id'] as $extendId)
+		{
+			$model = $this->modelService->find($extendId);
+			
+			$fields = $this->modelService->fields($model);
+			
+			$this->factory = new Factory($model, $fields,$this->request);
+			$this->factory->store($this->data[$model->mark],$insertId,'id');
+		}
+		
 		exit();
 		$data = $store_table = [];
 		foreach ($fields as  $field)

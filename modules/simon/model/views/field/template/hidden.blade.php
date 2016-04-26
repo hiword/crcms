@@ -1,1 +1,1 @@
-<input type="text" {!!$attribute!!} />
+<input {!!$attribute!!} />
