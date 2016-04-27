@@ -15,9 +15,9 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	      	@foreach($categories as $model)
-	        <li class="{{Request::is('/'.$model->id.'*') ? 'active' : null}}"><a href="{{url('/'.$model->id)}}">{{$model->name}} <span class="sr-only">(current)</span></a></li>
-	        @endforeach
+	      	@category(app('request')->url())
+	        <li class="{{Request::is('/'.$category->id.'*') ? 'active' : null}}"><a href="{{url('/'.$category->id)}}">{{$category->name}} <span class="sr-only">(current)</span></a></li>
+	        @endcategory
 	        <li class="{{Request::is('tags/*') ? 'active' : null}}"><a href="{{url('/tags')}}">标签云</a></li>
 	      </ul>
 	      <!-- 
