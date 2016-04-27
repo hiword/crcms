@@ -1,0 +1,597 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="1PE0i9eNPdsddm46zItCZd3fR9myhlYWIYM1NRS-nCM" />
+    <meta name="baidu-site-verification" content="1CfQmzzLcg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="这里汇集了git的常用资源。">
+    <meta name="keywords"  content="git,git用法">
+    <link rel="shortcut icon" href="http://7xln77.com1.z0.glb.clouddn.com/coffeboy/blog/img/ico.jpg">
+
+    <title>Git资源汇总 - Zebulon Blog</title>
+
+    <link rel="canonical" href="2016/01/19/git-resources/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/hux-blog.css">
+ <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">   
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">Zebulon</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="">首页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="category/">分类</a>
+                    </li>
+                    
+                    <li>
+                        <a href="tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://7xq2ld.com1.z0.glb.clouddn.com/blog%2Fpost-img%2Fgirls.jpg?imageView2/1/w/1920/h/500')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="tags/#git" title="git">git</a>
+                        
+                    </div>
+                    <h1>Git资源汇总</h1>
+                    
+                    
+                    <h2 class="subheading">汇集git常用命令</h2>
+                    
+                    <span class="meta">Posted by Zebulon on January 19, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div id="main" class="container main">
+    <div class="row">
+      <div id="myArticle" class="col-lg-9 col-md-9 col-sm-9">
+        <div class="post-area post">   
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#git" id="markdown-toc-git">Git的基本操作</a>    <ul>
+      <li><a href="#section-1" id="markdown-toc-section-1">设置用户名和邮箱</a></li>
+      <li><a href="#git-1" id="markdown-toc-git-1">Git命令帮助</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">常用命令</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-3" id="markdown-toc-section-3">参考资源</a></li>
+</ul>
+
+<h2 id="section">前言</h2>
+
+<p>由于工作原因，之前一直用的是svn，由于某些原因接触了git，之后就深深地喜欢了git。目前git托管的网站也非常的多。譬如<a href="http://www.github.com">github</a>、国内的<a href="http://www.coding.net">coding</a>、<a href="http://www.GitCafe.com">GitCafe</a>;目前也是在慢慢熟悉git的一些功能，特此将自己常用的一些命令和遇到的一些问题记录在这篇blog里，希望和小白一起学习。</p>
+
+<h2 id="git">Git的基本操作</h2>
+
+<h3 id="section-1">设置用户名和邮箱</h3>
+
+<ol>
+  <li>
+    <p>设置用户名<br />
+<code>git config user.name "Your Name"</code><br />
+<code>git config  --global user.name "Your Name"</code></p>
+  </li>
+  <li>
+    <p>设置用户邮箱<br />
+<code>git config user.email "demo@test.com"</code><br />
+<code>git config  --global user.email "demo@test.com"</code></p>
+  </li>
+  <li>
+    <p>查看设置<br />
+<code>git config --list</code></p>
+  </li>
+</ol>
+
+<h3 id="git-1">Git命令帮助</h3>
+
+<p>通过<code>git help</code>来获取命令帮助<br />
+通过<code>git help 特定cmd</code>获取特定指定的帮助</p>
+
+<h3 id="section-2">常用命令</h3>
+<ol>
+  <li>克隆项目 <code>git clone URL</code></li>
+  <li>添加文件<code>git add *</code></li>
+  <li>查看状态 <code>git status</code></li>
+  <li>提交代码 <code>git commit -m "打标内容" </code></li>
+  <li>向远程仓库推送代码<code>git push</code></li>
+  <li>从远程仓库下载代码<code>git pull</code></li>
+  <li>部署时经常会遇到，远程版本与本地冲突，需要用远程版本覆盖本地版本。则执行<br />
+<code>git reset --hard</code><br />
+<code>git pull</code></li>
+</ol>
+
+<h2 id="section-3">参考资源</h2>
+
+<ol>
+  <li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/">廖雪峰git教程</a></li>
+  <li><a href="http://www.bootcss.com/p/git-guide/">boot-css-git教程</a></li>
+  <li><a href="https://coding.net/help/faq/git/git.html">coding-git教程</a></li>
+</ol>
+
+
+          </article>
+          <hr>
+          </div>
+      </div>
+      <div id="content" class="col-lg-3 col-md-3 col-sm-3">
+        <div id="myAffix" class="shadow-bottom-center hidden-xs" >
+          <div class="categories-list-header">
+            文章目录
+          </div>
+          <div class="content-text"></div>
+        </div>
+      </div>
+      <hr>
+      <!-- Post Container -->
+                <div class="col-lg-9 col-md-9 col-sm-9 sidebar-container">
+
+               
+
+                
+                <!-- 多说 Share start -->
+                </style>
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="2016/01/19/git-resources"
+                    data-title="Git资源汇总"
+                    data-url="2016/01/19/git-resources/"
+                    data-images="http://7xq2ld.com1.z0.glb.clouddn.com/blog%2Fpost-img%2Fgirls.jpg"
+                    data-content="
+  前言
+  Git的基本操作    
+      设置用户名和邮箱
+      Git命令帮助
+      常用命令
+    
+  
+  参考资源
+
+... | Zebulon Blog " >
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="2016/01/21/tool-of-create-blog/" data-toggle="tooltip" data-placement="top" title="写博客常用工具 @Jekyll">&larr; 上一篇</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="2016/01/17/xbmc-on-raspberryPi/" data-toggle="tooltip" data-placement="top" title="XBMC on Raspberry Pi">下一篇 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/01/19/git-resources"
+                        data-title="Git资源汇总"
+                        data-url="2016/01/19/git-resources/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="col-lg-9 col-md-9 col-sm-9 sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="tags/">常用标签</a></h5>
+                    <div class="tags">
+                
+                            
+                        <a href="tags/#生活" title="生活" rel="1">
+                                    生活
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#jekyll" title="jekyll" rel="3">
+                                    jekyll
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#树莓派" title="树莓派" rel="1">
+                                    树莓派
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#git" title="git" rel="1">
+                                    git
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#科学上网" title="科学上网" rel="2">
+                                    科学上网
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#电路" title="电路" rel="1">
+                                    电路
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#OSX" title="OSX" rel="1">
+                                    OSX
+                                </a>
+                            
+                
+                            
+                        <a href="tags/#踏青" title="踏青" rel="1">
+                                    踏青
+                                </a>
+                            
+                
+              </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a id="friend-tag" href="http://www.csoneplus.com/">中安亿嘉科技</a></li>
+                    
+                        <li><a id="friend-tag" href="http://micrortl.com/">MicroRTL</a></li>
+                    
+                        <li><a id="friend-tag" href="https://laravist.com">For Laravel Artist</a></li>
+                    
+                </ul>
+                
+
+            </div> 
+    </div>
+
+</div>
+
+
+
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'coffeboy';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '/static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<!-- 
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+-->
+
+
+
+
+
+	<div id="top" data-toggle="tooltip" data-placement="left" title="回到顶部">
+      <a href="javascript:;">
+        <div class="arrow"></div>
+        <div class="stick"></div>
+      </a>
+    </div>
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zebulon.jiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/jzb8736">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Zebulonjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Zebulon 2016|
+                    Powered by <a href="http://jekyllrb.com">Jekyll</a> |
+                    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257159415'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257159415%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/hux-blog.js "></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/index.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+<!-- Migrate from head to bottom, no longer block render and still work -->
+<!-- 在新窗口中打开 -->
+  <script type="text/javascript">
+    function addBlankTargetForLinks () {
+      $('a[href^="http"]').each(function(){
+          $(this).attr('target', '_blank');
+      });
+    }
+    //每次在有DOM插入时触发
+    $(document).bind('DOMNodeInserted', function(event) {
+      addBlankTargetForLinks();
+    });
+  </script>
+</body>
+
+</html>
+
