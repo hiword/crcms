@@ -2,6 +2,7 @@
 namespace Simon\Document\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\PackageServiceProvider;
+use Illuminate\Support\Facades\Blade;
 class DocumentServiceProvider extends PackageServiceProvider
 {
 	
@@ -26,6 +27,35 @@ class DocumentServiceProvider extends PackageServiceProvider
 	 */
 	protected $packagePath = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
 
+	
+	public function boot()
+	{
+		parent::boot();
+		
+		//category
+		Blade::directive('category',function($expression){
+			$expression = $expression ? : '()';
+			return "<?php foreach(app('Simon\Document\Blade\Category')->resolve{$expression} as \$category):?>";
+		});
+			 
+		Blade::directive('endcategory',function($expression){
+			return "<?php endforeach; ?>";
+		});
+		//category end
+		
+		Blade::directive('document',function($expression){
+			$expression = $expression ? : '()';
+			$php = "<?php \$__documents = app('Simon\Document\Blade\Document')->resolve{$expression}; ?>";
+			$php .= "<?php \$page = \$__documents['page'] ?>";
+			$php .= "<?php foreach(\$__documents['models'] as \$document):?>";
+			return $php;
+		});
+		
+		Blade::directive('enddocument',function($expression){
+			return "<?php endforeach; ?>";
+		});
+	}
+	
 	/**
      * 
      * (non-PHPdoc)

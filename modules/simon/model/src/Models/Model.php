@@ -23,6 +23,11 @@ class Model extends AppModel
 	
 	const ENGINE = [self::ENGINE_INNODB=>'InnoDB',self::ENGINE_MYISAM=>'MyISAM',self::ENGINE_MEMORY=>'MEMORY'];
 	
+	
+	protected $casts = [
+		'uri'=>'array',
+	];
+	
 	/**
 	 * 
 	 * 

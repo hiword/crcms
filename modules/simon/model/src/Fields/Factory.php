@@ -62,12 +62,12 @@ class Factory
 		return $views;
 	}
 	
-	public function validator()
+	public function validator($id = 0)
 	{
 		$validateRule = [];
 		foreach ($this->fields as $field)
 		{
-			$validateRule[$field->name] = $field->instance->validateRule();
+			$validateRule[$field->name] = $field->instance->validateRule($id);
 		}
 		return $validateRule;
 	}
@@ -90,7 +90,6 @@ class Factory
 				$field = $this->fields->get($index);
 				if ($field->setting->store_type === 'table')
 				{
-// 					$this->assoces[$key] = $this->assoc($field->setting->store_table); 
 					$this->assoces[$key]['expression'] = $field->setting->store_table; 
 					$this->assoces[$key]['value'] = $value;
 					continue;
@@ -105,30 +104,30 @@ class Factory
 		}
 	}
 	
-	public function store(array $data,$mainId = 0,$primary = null)
+	public function store(array $data,$primary,$mainId = 0)
 	{
-		
+		//过滤数据处理
 		$this->filterValue($data);
 		
 		//附加表主键自动关联
-		if ($mainId && $primary)
+		if ($mainId)
 		{
-// 			$key = $this->fields->search(function($item,$key){
-// 				return $item->is_primary===Field::PRIMARY_NOT ? false : true;
-// 			});
 			$this->data[$primary] = $mainId;
 		}
 		
-		//附加表如果，id不是autoIncrement的话，则会有问题
-		//附加表如果，id不是autoIncrement的话，则会有问题，得不到id的最后写入值
-		
 		//录入数据
 		$insertId = DB::table($this->model->table_name)->insertGetId($this->data);
-// 		if ()
+
+		//多选table关联
 		if ($this->assoces)
 		{
+			//附加表如果，id不是autoIncrement的话，则会有问题，得不到id的最后写入值
+			//防止非自增数据，获取不到id值，则拿出最后一条
+			if (!$insertId)
+			{
+				$insertId = DB::table($this->model->table_name)->orderBy($primary,'desc')->take(1)->value($primary);
+			}
 			$assoced = $this->assoced($insertId);
-			var_dump($insertId);
 			foreach ($assoced as $table=>$values)
 			{
 				DB::table($table)->insert($values);
@@ -136,69 +135,15 @@ class Factory
 		}
 		
 		return $insertId;
-// 		dd($this->assocValue(5,$data));
-		
-		dd($this->data,$this->assoces);
-		
-		
-		$this->multiselect();
-		$store = $this->handle($data);
-		$insertId = 10;
-// 		$insertId = DB::table($this->model->table_name)->insertGetId($store['result']);
-		
-		if ($store['assoc'])
-		{
-			foreach ($store['assoc'] as $field=>$assoc)
-			{
-				$temp = [];
-				foreach ($assoc as $table=>$value)
-				{
-					foreach ($data[$field] as $v)
-					{
-						$temp[] = str_replace(['{Id}','{Value}'],[$insertId,$v],$value);
-					}
-				}
-			}
-		}
-		
-// 		$store = [];
-		
-// 		foreach ($this->fields as  $field)
-// 		{
-// 			if (!isset($data[$field->name]))
-// 			{
-// 				continue;
-// 			}
-			
-// 			//多选特例
-// 			if ($field->type === 'Multiselect')
-// 			{
-// 				if ($field->setting->store_type === 'table')
-// 				{
-// 					$accossTable[$field->name] = explode(',', $setting->store_table);
-// 					$assoc = $this->accossTable($accoss, $data);
-// 				}
-// 				elseif ($field->setting->store_type === 'feld')
-// 				{
-// 					$store[$field->name] = implode(',', $data[$field->name]);
-// 				}
-// 			}
-// 			else
-// 			{
-// 				$store[$field->name] = $data[$field->name];
-// 			}
-// 		}
-		
-// 		$insertId = DB::table($model->table_name)->insertGetId($store);
-		
-// 		if ($insertId && isset($accossTable)) 
-// 		{
-// 			$this->accossTable($accossTable, $insertId, $data);
-// 		}
 	}
 	
+	/**
+	 * 
+	 * @param unknown $insertId
+	 * @author simon
+	 */
 	protected function assoced($insertId)
-	{var_dump($insertId);
+	{
 		$expressionValue = [];
 		
 		foreach ($this->assoces as $field=>&$assoc)
@@ -210,7 +155,6 @@ class Factory
 				$accoced = $this->assoc($expression);
 				$table = array_shift($accoced);
 				
-				//此处有问题
 				$expressionValue[$table] = array_merge($accoced,isset($expressionValue[$table]) ? $expressionValue[$table] : []);
 			}
 		}
@@ -218,6 +162,11 @@ class Factory
 		return $expressionValue;
 	}
 	
+	/**
+	 * 
+	 * @param unknown $assoc
+	 * @author simon
+	 */
 	protected function assoc($assoc)
 	{
 		$assoc = explode(',',$assoc);
@@ -235,68 +184,4 @@ class Factory
 		return [$table,$ts];
 	}
 	
-	protected function assocValue($insertId,array $data)
-	{
-// 		dd($values);
-		foreach ($this->assoces as $field=>&$assoc)
-		{
-			$temp = [];
-			foreach ($assoc as $table=>$value)
-			{
-				foreach ($data[$field] as $v)
-				{
-					$temp[] = str_replace(['{Id}','{Value}'],[$insertId,$v],$value);
-				}
-			}
-// 			$array[$table]
-// 			$assoc = $temp;
-		}
-	}
-	
-	protected function accossTable($accoss,$data)
-	{
-		$result = [];
-		
-		foreach ($accoss as $key=>$table)
-		{
-			$dbTable = array_shift($table);
-		
-			$ts = [];
-			foreach ($table as $t)
-			{
-				$t = explode(':', $t);
-				$ts = array_merge($ts,[$t[0]=>$t[1]]);
-			}
-		
-			if (is_array($data[$key]))
-			{
-				$ats = [];
-				foreach ($data[$key] as $value)
-				{
-					$ats[] = str_replace(['{Value}'], [$value], $ts);
-				}
-			}
-			//DB::table($dbTable)->insert($ats);
-			$result[$dbTable] = $ats;
-		}
-		return $result;
-	}
-	
-// 	protected function multiselect(Field $field)
-// 	{
-// 		$setting = $field->setting;
-// 		if ($setting->store_type === 'table')
-// 		{
-// 			$store_table[$field->name] = explode(',', $setting->store_table);
-// 		}
-// 		elseif ($setting->store_type === 'feld')
-// 		{
-// 			$data[$field->name] = implode(',', $this->data[$model->mark][$field->name]);
-// 		}
-// 	}
-	
-	public function data()
-	{
-		
-	}
 }

@@ -13,16 +13,18 @@ class ModelUpdateService extends Model implements ModelUpdateInterface
 	public function update($id, array $data)
 	{
 		// TODO Auto-generated method stub
-		$this->model->where('id',$id)->update([
-			'name'=>$data['name'],
-			'mark'=>$data['mark'],
-			'table_name'=>$data['table_name'],
-			'engine'=>$data['engine'],
-			'type'=>$data['type'],
-			'status'=>$data['status'],
-			'remark'=>$data['remark'],
-		]);
+		$this->model = $this->model->findOrFail($id);
 		
+		$this->model->name = $data['name'];
+		$this->model->mark = $data['mark'];
+		$this->model->table_name = $data['table_name'];
+		$this->model->engine = $data['engine'];
+		$this->model->type = $data['type'];
+		$this->model->status = $data['status'];
+		$this->model->uri = enter_format_array($data['uri']);
+		$this->model->remark = $data['remark'];
+		
+		$this->model->save();
 		//
 		if(!empty($data['extends']) && $data['type'] == \Simon\Model\Models\Model::TYPE_APPEND)
 		{

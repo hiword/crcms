@@ -4,6 +4,7 @@ use Simon\Model\Services\Model\Interfaces\ModelInterface;
 use Simon\Model\Services\Model;
 use Simon\Model\Models\ModelRelation;
 use Simon\Model\Models\Field;
+use Illuminate\Http\Request;
 class ModelService extends Model implements ModelInterface
 {
 	
@@ -48,9 +49,30 @@ class ModelService extends Model implements ModelInterface
 		return ModelRelation::where('model_id',$id)->lists('extend_id')->toArray();
 	}
 	
-	public function beExtend($id)
+	public function beExtend($id,Request $Request)
 	{
-		return ModelRelation::where('extend_id',$id)->lists('model_id')->toArray();
+		$modelIds = ModelRelation::where('extend_id',$id)->lists('model_id')->toArray();
+		$models = $this->model->whereIn('id',$modelIds)->get();
+		$newIds = [];
+		foreach ($models as $model)
+		{
+			//匹配uri模式
+			if ($model->uri)
+			{
+				$uri = array_filter($model->uri,function($value) use ($Request) {
+					return $Request->is($value);
+				});
+						
+				if (empty($uri))
+				{
+					continue;
+				}
+			}
+			
+			$newIds[] = $model->id;
+		}
+		
+		return $newIds;
 	}
 	
 	public function fields(\Simon\Model\Models\Model $Model) 

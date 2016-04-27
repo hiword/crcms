@@ -23,6 +23,7 @@ class CreateModelsTable extends Migration {
 			$table->char('field_path',100);
 			$table->char('engine',30);
 			$table->char('remark',255);
+			$table->text('uri');
 			
 			$table->tinyInteger('is_created',false,true)->default(0);
 			$table->tinyInteger('status',false,true)->default(0);

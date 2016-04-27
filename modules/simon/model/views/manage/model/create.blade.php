@@ -62,6 +62,11 @@
 			<p class="help-block Validform_checktip"></p>
 		</div>
 	    <div class="form-group">
+			<label class=" Validform_label label-name">uri路径</label>
+			<textarea name="uri" class="form-control"></textarea>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+	    <div class="form-group">
 			<label class=" Validform_label label-name">备注说明</label>
 			<textarea name="remark" class="form-control"></textarea>
 			<p class="help-block Validform_checktip"></p>

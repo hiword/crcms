@@ -19,6 +19,7 @@ class ModelStoreService extends Model implements ModelStoreInterface
 		$this->model->type = $data['type'];
 		$this->model->remark = $data['remark'];
 		$this->model->status = $data['status'];
+		$this->model->uri = enter_format_array($data['uri']);
 		$this->model->save();
 		
 		//extends
