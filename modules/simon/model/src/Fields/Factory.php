@@ -119,14 +119,18 @@ class Factory
 			$this->data[$primary] = $mainId;
 		}
 		
+		//附加表如果，id不是autoIncrement的话，则会有问题
+		//附加表如果，id不是autoIncrement的话，则会有问题，得不到id的最后写入值
+		
 		//录入数据
 		$insertId = DB::table($this->model->table_name)->insertGetId($this->data);
-		
+// 		if ()
 		if ($this->assoces)
 		{
 			$assoced = $this->assoced($insertId);
+			var_dump($insertId);
 			foreach ($assoced as $table=>$values)
-			{dd($values);
+			{
 				DB::table($table)->insert($values);
 			}
 		}
@@ -194,7 +198,7 @@ class Factory
 	}
 	
 	protected function assoced($insertId)
-	{
+	{var_dump($insertId);
 		$expressionValue = [];
 		
 		foreach ($this->assoces as $field=>&$assoc)
@@ -205,8 +209,9 @@ class Factory
 				
 				$accoced = $this->assoc($expression);
 				$table = array_shift($accoced);
+				
 				//此处有问题
-				$expressionValue[$table] = array_merge($accoced,$expressionValue[$table]);
+				$expressionValue[$table] = array_merge($accoced,isset($expressionValue[$table]) ? $expressionValue[$table] : []);
 			}
 		}
 		

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Simon\Model\Fields\Factory;
 use Illuminate\Http\Request;
+use Simon\Model\Forms\Element\AdapterElementForm;
 class ElementController extends Controller
 {
 	protected $view = 'model::manage.element.'; 
@@ -92,15 +93,25 @@ class ElementController extends Controller
 		
 	}
 	
+	protected function validators()
+	{
+// 		$this->form->
+	}
+	
 	public function postStore(ModelInterface $ModelInterface)
 	{
 		$model = $this->modelService->find($this->data['model_id']);
 		
 		$fields = $this->modelService->fields($model);
 		
+		
+// 		$this->form->validator(new AdapterElementForm($model, $fields));
+		
+		
+		
 		$this->factory = new Factory($model, $fields,$this->request);
 		
-		$validateRule = $this->factory->validator();
+// 		$validateRule = $this->factory->validator();
 		
 // 		$validator = Validator::make($this->data[$model->mark],$validateRule);
 // 		if ($validator->fails())
@@ -122,10 +133,13 @@ class ElementController extends Controller
 			$fields = $this->modelService->fields($model);
 			
 			$this->factory = new Factory($model, $fields,$this->request);
-			$this->factory->store($this->data[$model->mark],$insertId,'id');
+			
+			$this->factory->store($this->data[$model->mark],$insertId,$fields->get($fields->search(function($item,$key){
+				return $item->is_primary !== 2;
+			}))->name);
 		}
 		
-		exit();
+		exit(1);
 		$data = $store_table = [];
 		foreach ($fields as  $field)
 		{
