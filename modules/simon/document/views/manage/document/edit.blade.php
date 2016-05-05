@@ -37,20 +37,24 @@
 		<div class="form-group">
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
-			    	<h3 class="panel-title">图集列表</h3>
+			    	<h3 class="panel-title">文件列表</h3>
 			  	</div>
 		  		<div class="panel-body">
 	    			<div class="row images-queue">
 	    				@foreach($images as $image)
 	    				<div class="col-md-3">
+	    					@if(in_array($image->extension,['jpg','png','jpeg','gif']))
 							<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="{{img_src($image->path)}}" alt="" /></a>
+							@else
+							<a href="###" class="thumbnail" style="height:150px;overflow:hidden;">{{$image->extension}}</a>
+							@endif
 						</div>
 						<input type="hidden" name="images[][path]" value="{{$image->path}}" />
 						@endforeach
 	    			</div>
 	  			</div>
 	  			<div class="panel-footer">
-	  				<button class="btn btn-default upload-images" type="button">上传图集</button>
+	  				<button class="btn btn-default upload-images" type="button">上传文件</button>
 	  			</div>
 			</div>
 		</div>

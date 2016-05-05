@@ -23,6 +23,8 @@ class ImageStoreService extends Image implements ImageStoreInterface
 		$this->data['alt'] = $data['alt'];
 		$this->data['outside_id'] = $data['outside_id'];
 		$this->data['outside_type'] = $data['outside_type'];
+		$this->data['outside_type'] = $data['outside_type'];
+		$this->data['extension'] = $data['extension'];
 		$this->builtModelStore();
 		
 		return $this->model->create($this->data);

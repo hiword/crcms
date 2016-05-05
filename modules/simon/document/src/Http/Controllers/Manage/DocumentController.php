@@ -56,7 +56,7 @@ class DocumentController extends Controller
 	{
 		if (module_exists('file'))
 		{
-			upload_config('image_upload');
+// 			upload_config('image_upload');
 			$uploading = true;
 		}
 		else

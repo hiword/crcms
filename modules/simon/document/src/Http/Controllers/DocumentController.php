@@ -23,8 +23,6 @@ class DocumentController extends Controller
 		
 		$this->view = 'document::'.config('site.theme').'.document.';
 		
-		
-		
 		view()->share([
 			'categories'=>$this->categories->lists(),
 // 			'categories'=>$Category->where('status',1)->orderBy('created_at','desc')->get(),

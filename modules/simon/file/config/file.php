@@ -14,6 +14,13 @@ return [
 			'check_mime'=>true,
 			'rename'=>true,
 	],
+	'mixed_upload'=>[
+			'filesize'=>size_byte('2MB'),
+			'extensions'=>['jpg','jpeg','gif','png','bmp','rar','zip','gz'],
+			'check_extension'=>true,
+			'check_mime'=>true,
+			'rename'=>true,
+	],
 	'video_upload'=>[
 			'filesize'=>size_byte('10MB'),
 			'extensions'=>['mp3','mp4','mp5','rmvb','avi','wma'],

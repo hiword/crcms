@@ -48,12 +48,13 @@ class ImageOutside implements ShouldQueue
     		foreach ($Event->images as $image)
     		{
     			if (empty($image['path'])) continue;
-    			
     			$img['path'] = $image['path'];
-    			$img['hash'] = isset($image['hash']) ? $image['hash'] : '';
-    			$img['alt'] = isset($image['alt']) ? $image['alt'] : '';
     			$img['outside_id'] = $Event->outside['id'];
     			$img['outside_type'] = $Event->outside['model'];
+				//这里这些判断，其实是放在store里面去处理了，但是开启队列后可能会影响队列序列化，  所以先放这里    			
+    			$img['hash'] = isset($image['hash']) ? $image['hash'] : '';
+    			$img['alt'] = isset($image['alt']) ? $image['alt'] : '';
+    			$img['extension'] = pathinfo($image['path'],PATHINFO_EXTENSION);
     			$this->imageStore->store($img);
     		}
     	} 

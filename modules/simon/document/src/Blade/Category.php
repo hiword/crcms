@@ -16,7 +16,7 @@ class Category extends AbsBlade
 	 * @see \App\Blade\BladeInterface::resolve()
 	 * @author simon
 	 */
-	public function resolve($url)
+	public function resolve()
 	{
 		// TODO Auto-generated method stub
 		return $this->service->lists();

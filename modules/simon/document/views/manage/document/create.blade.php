@@ -32,14 +32,14 @@
 		<div class="form-group">
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
-			    	<h3 class="panel-title">图集列表</h3>
+			    	<h3 class="panel-title">文件列表</h3>
 			  	</div>
 		  		<div class="panel-body">
 	    			<div class="row images-queue">
 	    			</div>
 	  			</div>
 	  			<div class="panel-footer">
-	  				<button class="btn btn-default upload-images" type="button">上传图集</button>
+	  				<button class="btn btn-default upload-images" type="button">上传文件</button>
 	  			</div>
 			</div>
 		</div>
@@ -134,12 +134,21 @@
 	});
 
 	$('.upload-images').on('click',function(){
+
 		var $this = $(this);
-		uploaded({
+		
+		uploaded('mixed_upload',{
 			ok:function(){
 				$('[name^="uploads[][src]"]').each(function(){
 					var str = '<div class="col-md-3">';
-						str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
+						if($.inArray($(this).attr('extension'),['jpg','jpeg','gif','png']) > -1)
+						{
+							str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
+						}
+						else
+						{
+							str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;">'+$(this).attr('extension')+'</a>' ;
+						}
 							str += 		'</div>';
 							str += '<input type="hidden" name="images[][path]" value="'+$(this).attr('path')+'" />';
 					$('.images-queue').append(str);
@@ -149,6 +158,23 @@
 		});
 		return false;
 	});
+	
+// 	$('.upload-files').on('click',function(){
+// 		var $this = $(this);
+// 		uploaded('seed_upload',{
+// 			ok:function(){
+// 				$('[name^="uploads[][src]"]').each(function(){
+// 					var str = '<div class="col-md-3">';
+// 						str += '<a href="###" class="thumbnail" style="height:150px;overflow:hidden;"><img src="'+$(this).val()+'" alt="" /></a>' ;
+// 							str += 		'</div>';
+// 							str += '<input type="hidden" name="files[][path]" value="'+$(this).attr('path')+'" />';
+// 					$('.files-queue').append(str);
+// 				});
+// 				return true;
+// 			}
+// 		});
+// 		return false;
+// 	});
 </script>
 @include('tag::select_tags_js')
 @endsection
