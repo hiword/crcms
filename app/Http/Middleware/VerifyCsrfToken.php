@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
-        'upload/ueditor'
+        'upload/ueditor',
+    	'upload/setting',
     ];
 }

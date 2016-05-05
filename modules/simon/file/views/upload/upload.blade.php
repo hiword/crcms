@@ -99,8 +99,9 @@
 					var $div = $('#'+file.id);
 					//修改队列上传图标-->完成
 					$div.find('.glyphicon').removeClass('.glyphicon-minus-sign').addClass('glyphicon glyphicon-ok-sign');
-					$div.append('<input type="hidden" name="uploads[][src]" path="'+response.data.full_root+'" value="'+response.data.img_src+'" />');
+					$div.append('<input type="hidden" name="uploads[][src]" extension="'+response.data.extension+'" path="'+response.data.full_root+'" value="'+response.data.img_src+'" />');
 					$div.append('<input type="hidden" name="uploads[][hash]" value="'+response.data.hash+'" />');
+					$div.append('<input type="hidden" name="uploads[][extension]" value="'+response.data.extension+'" />');
 				}
 	    },
 	

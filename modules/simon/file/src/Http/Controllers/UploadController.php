@@ -188,6 +188,12 @@ $result = json_encode($up->getFileInfo());
 // 	{
 // 		return $this->response(['success'],$upload->getConfig());
 // 	}
+
+	public function postSetting()
+	{
+		$data = upload_config($this->data['type']);
+		return $this->response(['app.success']);
+	}
 	
 	public function getUpload()
 	{

@@ -607,24 +607,48 @@
 	}
 })(window,jQuery);
 
-function uploaded(options)
+function uploaded(type,options)
 {
-
-	options = options || {};
 	
-	var dialogOptions = {
-		id: 'file-upload-dialog',
-	    title:'文件上传',
-	    width:600,
-		okValue:'确定'
-	};
+	if(!type)
+	{
+		type = 'image_upload';
+	}
+	else if(typeof type === 'object')
+	{
+		options = type;
+		type = 'image_upload';
+	}
 	
-	dialogOptions = $.extend(dialogOptions,options);
-	//'http://'+window.location.host+'/index.php/upload/upload'
-	$.get('http://localhost/3.1/public/index.php/upload/upload',function(data){
-		dialogOptions.content = data;
-		dialog(dialogOptions).show();
+	$.ajax({
+		url:'http://crcms.cs/upload/setting',
+		data:{'type':type},
+		type:'POST',
+		success:function(response)
+		{
+			options = options || {};
+			
+			var dialogOptions = {
+				id: 'file-upload-dialog',
+			    title:'文件上传',
+			    width:600,
+				okValue:'确定'
+			};
+			
+			dialogOptions = $.extend(dialogOptions,options);
+			//'http://'+window.location.host+'/index.php/upload/upload'
+			$.get('http://crcms.cs/upload/upload',function(data){
+				dialogOptions.content = data;
+				dialog(dialogOptions).show();
+			});
+		},
+		error:function()
+		{
+			alert('配置加载出错，无法上传!');
+		}
 	});
+	
+	
 }
 
 //var TAGS_SEARCH = (function($){

@@ -7,7 +7,53 @@
 	 * @return unknown|mixed|\Illuminate\Foundation\Application|boolean
 	 * @author simon
 	 */
-	function upload_config($type = null,$config = [])
+// 	function upload_config($type = null,$config = [])
+// 	{
+		
+// 		//type配置
+// 		if (empty($type))
+// 		{
+// 			$type = (array)session('upload_type');
+// 		}
+// 		else
+// 		{
+// 			$type = (array)$type;
+// 			session()->put('upload_type',$type);
+// 		}
+	
+// 		if (empty($type))
+// 		{
+// 			throw new \Exception('未找到type索引！');
+// 		}
+	
+// 		//config配置
+// 		if (empty($config) && is_array($config))
+// 		{
+// 				foreach ($type as $t)
+// 				{
+// 					session($t,config("file.{$t}"));
+// 				}
+// 				return true;
+// 		}
+// 		elseif ($config === null)
+// 		{
+// 			foreach ($type as $t)
+// 			{
+// 				session()->forget($t);
+// 			}
+// 			return true;
+// 		}
+// 		else
+// 		{
+// 			foreach ($type as $t)
+// 			{
+// 				session()->put($t,$config[$t]);
+// 			}
+// 			return true;
+// 		}
+// 	}
+	
+	function upload_config($type = null)
 	{
 		//type配置
 		if (empty($type))
@@ -24,23 +70,61 @@
 			throw new \Exception('未找到type索引！');
 		}
 	
-		//config配置
-		if (empty($config) && is_array($config))
+		$config = config("file.{$type}");
+		if (empty($config))
 		{
-			return session($type,config("file.{$type}"));
+			throw new \Exception('config is not exists!');
 		}
-		elseif ($config === null)
-		{
-			session()->forget($type);
-			return true;
-		}
-		else
-		{
-			session()->put($type,$config);
-			return true;
-		}
+		return $config;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 	function upload_config($type = null,$config = [])
+// 	{
+// 		//type配置
+// 		if (empty($type))
+// 		{
+// 			$type = session('upload_type');
+// 		}
+// 		else
+// 		{
+// 			session()->put('upload_type',$type);
+// 		}
 	
+// 		if (empty($type))
+// 		{
+// 			throw new \Exception('未找到type索引！');
+// 		}
+	
+// 		//config配置
+// 		if (empty($config) && is_array($config))
+// 		{
+// 			return session($type,config("file.{$type}"));
+// 		}
+// 		elseif ($config === null)
+// 		{
+// 			session()->forget($type);
+// 			return true;
+// 		}
+// 		else
+// 		{
+// 			session()->put($type,$config);
+// 			return true;
+// 		}
+// 	}
 
 	/**
 	 *
