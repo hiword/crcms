@@ -621,7 +621,7 @@ function uploaded(type,options)
 	}
 	
 	$.ajax({
-		url:'http://crcms.cs/upload/setting',
+		url:'http://localhost/3.1/public/index.php/upload/setting',
 		data:{'type':type},
 		type:'POST',
 		success:function(response)
@@ -637,7 +637,7 @@ function uploaded(type,options)
 			
 			dialogOptions = $.extend(dialogOptions,options);
 			//'http://'+window.location.host+'/index.php/upload/upload'
-			$.get('http://crcms.cs/upload/upload',function(data){
+			$.get('http://localhost/3.1/public/index.php/upload/upload',function(data){
 				dialogOptions.content = data;
 				dialog(dialogOptions).show();
 			});

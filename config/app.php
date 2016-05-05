@@ -158,7 +158,7 @@ return [
     	
     	App\Providers\AuthServiceProvider::class,
     	Jenssegers\Agent\AgentServiceProvider::class,
-    	//Intervention\Image\ImageServiceProvider::class,
+    	Intervention\Image\ImageServiceProvider::class,
     	Mews\Purifier\PurifierServiceProvider::class,
     		
     	//模块加载

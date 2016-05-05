@@ -135,7 +135,7 @@
 	 */
 	function img_url($path,$template = null)
 	{
-		$path = rawurlencode($path);
+		$path = base64_encode($path);
 	
 		if (empty($template))
 		{

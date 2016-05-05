@@ -1,12 +1,12 @@
 @media (min-width: 1200px) {
   .post-container,
   .sidebar-container {
-    padding-right: 5%;
+    /* padding-right: 5%; */
   }
 }
 @media (min-width: 768px) {
   .post-container {
-    padding-right: 5%;
+    /* padding-right: 5%; */
   }
 }
 .sidebar-container {
@@ -518,7 +518,7 @@ pre code {
   color: #271515;
   font-size: 16px;
   font-style: italic;
-  margin-top: 0;
+  margin-top: 10px;
 }
 .post-preview > .post-meta > a {
   text-decoration: none;
