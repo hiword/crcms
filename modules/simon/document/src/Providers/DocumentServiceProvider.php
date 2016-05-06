@@ -43,6 +43,18 @@ class DocumentServiceProvider extends PackageServiceProvider
 		});
 		//category end
 		
+		//next
+		Blade::directive('next',function($expression){
+			$expression = $expression ? : '()';
+			return "<?php \$next = app('Simon\Document\Blade\Document')->next{$expression};?>";
+		});
+		
+		//prev
+		Blade::directive('prev',function($expression){
+			$expression = $expression ? : '()';
+			return "<?php \$prev = app('Simon\Document\Blade\Document')->prev{$expression};?>";
+		});
+		
 		Blade::directive('document',function($expression){
 			$expression = $expression ? : '()';
 			$php = "<?php \$__documents = app('Simon\Document\Blade\Document')->resolve{$expression}; ?>";

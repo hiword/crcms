@@ -23,4 +23,13 @@ class Document extends AbsBlade
 	}
 
 	
+	public function next($id) 
+	{
+		return $this->service->next($id);
+	}
+	
+	public function prev($id)
+	{
+		return $this->service->prev($id);
+	}
 }

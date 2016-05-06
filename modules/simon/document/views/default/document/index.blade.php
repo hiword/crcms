@@ -53,35 +53,12 @@
           <section>
             <hr class="hidden-sm hidden-xs">
             <h5>
-              <a href="">
-                常用标签
-              </a>
+              <a href="">常用标签</a>
             </h5>
             <div class="tags">
-              <a href="tags/#生活" title="生活" rel="1">
-                生活
-              </a>
-              <a href="tags/#jekyll" title="jekyll" rel="3">
-                jekyll
-              </a>
-              <a href="tags/#树莓派" title="树莓派" rel="1">
-                树莓派
-              </a>
-              <a href="tags/#git" title="git" rel="1">
-                git
-              </a>
-              <a href="tags/#科学上网" title="科学上网" rel="2">
-                科学上网
-              </a>
-              <a href="tags/#电路" title="电路" rel="1">
-                电路
-              </a>
-              <a href="tags/#OSX" title="OSX" rel="1">
-                OSX
-              </a>
-              <a href="tags/#踏青" title="踏青" rel="1">
-                踏青
-              </a>
+            @tag
+            <a href="{{url('tags/search')}}?name={{$tag->name}}" title="{{$tag->name}}" rel="1">{{$tag->name}}</a>
+            @endtag
             </div>
           </section>
           <!-- Short About -->
@@ -143,18 +120,8 @@
           </h5>
           <ul class="list-inline">
             <li>
-              <a id="friend-tag" href="http://www.csoneplus.com/">
-                中安亿嘉科技
-              </a>
-            </li>
-            <li>
-              <a id="friend-tag" href="http://micrortl.com/">
-                MicroRTL
-              </a>
-            </li>
-            <li>
-              <a id="friend-tag" href="https://laravist.com">
-                For Laravel Artist
+              <a id="friend-tag" href="http://crcms.cn/">
+                crcms
               </a>
             </li>
           </ul>

@@ -71,4 +71,14 @@ class DocumentService extends Document implements DocumentInterface
 	{
 		return $Document->morphToManyTag;
 	}
+	
+	public function prev($id) 
+	{
+		return $this->model->where('id','>',$id)->orderBy('id','desc')->first();
+	}
+	
+	public function next($id) 
+	{
+		return $this->model->where('id','<',$id)->orderBy('id','desc')->first();
+	}
 }
