@@ -38,6 +38,18 @@
 	color:#FFFFFF;
 }
 
+.main-left .bottom-icons
+{
+	bottom:30px;
+	position: absolute;
+	text-align: right;
+	right:4em;
+}
+.main-left .bottom-icons a
+{
+	color:#FFFFFF;
+}
+
 .main-right .main-box {
 	width:100%;
 	padding:2em 4% 1em;
