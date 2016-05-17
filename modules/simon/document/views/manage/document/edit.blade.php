@@ -117,12 +117,12 @@
 		</div>
 		<div class="form-group">
 			<label class=" Validform_label label-name">SEO关键字</label>
-			<input class="form-control" type="text" name="document_data[seo_keywords]" value="{{$model->hasOneDocumentData->seo_keywords}}" datatype="*1-120" placeholder="">
+			<input class="form-control" type="text" name="document_data[seo_keywords]" value="{{$model->hasOneDocumentData->keyword}}" datatype="*1-120" placeholder="">
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
 			<label class=" Validform_label label-name">SEO描述</label>
-			<textarea class="form-control" name="document_data[seo_description]">{{$model->hasOneDocumentData->seo_description}}</textarea>
+			<textarea class="form-control" name="document_data[seo_description]">{{$model->hasOneDocumentData->intro}}</textarea>
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		
