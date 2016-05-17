@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	@yield('meta')
-	<title>{{config('site.web_name')}}</title>
+	<title>@yield('title')</title>
 	<link rel="stylesheet" href="{{static_asset('vendor/bootstrap/css/bootstrap.min.css')}}" />
 	<link rel="stylesheet" href="{{static_asset('vendor/common/css/global.css')}}" />
 	<link rel="stylesheet" href="{{static_asset('vendor/common/css/bootstrap.custom.css')}}" />
