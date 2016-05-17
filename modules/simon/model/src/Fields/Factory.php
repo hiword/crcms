@@ -52,12 +52,12 @@ class Factory
 		
 	}
 	
-	public function view($type = 'htmlForm',$value = null)
+	public function view(array $data = [],$type = 'htmlForm')
 	{
 		$views = [];
 		foreach ($this->fields as $field)
 		{
-			$views[$field->name] = call_user_func_array([$field->instance,$type],[$value]);
+			$views[$field->name] = call_user_func_array([$field->instance,$type],[isset($data[$field->name]) ? $data[$field->name] : null]);
 		}
 		return $views;
 	}
@@ -73,6 +73,36 @@ class Factory
 	}
 	
 	protected function filterValue(array $data)
+	{
+		foreach ($this->fields as $field)
+		{
+			//如果值是数组并且是多选
+			if (is_array($data[$field->name]) && 'Multiselect' === $field->type) 
+			{
+				//存储到关联数据表
+				if ($field->setting->store_type === 'table')
+				{
+					$this->assoces[$field->name]['expression'] = $field->setting->store_table; 
+					$this->assoces[$field->name]['value'] = $data[$field->name];
+					continue;
+				}
+				//存储到当前字段
+				elseif ($field->setting->store_type === 'field')
+				{
+					$this->data[$field->name] = implode(',',$field->instance->filter($data[$field->name]));
+				}
+			}
+			else
+			{
+				//数据过滤
+				$this->data[$field->name] = $field->instance->filter($data[$field->name]);
+			}
+		}
+		
+		return $this->data;
+	}
+	
+	/* protected function filterValue(array $data)
 	{
 		foreach ($data as $key=>$value)
 		{
@@ -102,13 +132,13 @@ class Factory
 			
 			$this->data[$key] = $value;
 		}
-	}
+	} */
 	
 	public function store(array $data,$primary,$mainId = 0)
 	{
 		//过滤数据处理
 		$this->filterValue($data);
-		
+
 		//附加表主键自动关联
 		if ($mainId)
 		{

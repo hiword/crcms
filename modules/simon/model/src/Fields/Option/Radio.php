@@ -25,4 +25,8 @@ class Radio extends Field implements FieldInterface
 		$this->attributes['type'] = $this->field->setting->radio_type;
 	}
 	
+	public function filter($value)
+	{
+		return xss_clean($value);
+	}
 }

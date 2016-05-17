@@ -13,4 +13,6 @@ interface FieldInterface
 	
 	public function validateRule($id = 0);
 	
+	public function filter($value);
+	
 }

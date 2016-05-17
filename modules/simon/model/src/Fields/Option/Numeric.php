@@ -19,5 +19,11 @@ class Numeric extends Field implements FieldInterface
 		$this->attributes['name'] = $this->attributeName();
 		$this->attributes['value'] = $value ? $value : $this->field->setting->default_value;
 	}
+	
+	public function filter($value)
+	{
+		//先不考虑float,
+		return intval($value);
+	}
 
 }

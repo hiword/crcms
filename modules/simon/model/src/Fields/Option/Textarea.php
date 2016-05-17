@@ -27,4 +27,8 @@ class Textarea extends Field implements FieldInterface
 		$this->attributes['name'] = $this->attributeName();
 	}
 	
+	public function filter($value)
+	{
+		return xss_clean($value);
+	}
 }

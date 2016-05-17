@@ -41,4 +41,17 @@ class Multiselect extends Field implements FieldInterface
 		unset($this->attributes['value']);
 	}
 	
+	public function filter($value)
+	{
+		if (is_array($value))
+		{
+			return array_map(function($v){
+				return xss_clean($v);
+			},$value);
+		}
+		else
+		{
+			return xss_clean($value);
+		}
+	}
 }
