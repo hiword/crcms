@@ -48,6 +48,7 @@ class TagController extends Controller
 	
 	public function getCreate()
 	{
+		return view("tag::tag.create",['name'=>$this->request->input('name')]);
 		return $this->view("create",['name'=>$this->request->input('name')]);
 	}
 	
