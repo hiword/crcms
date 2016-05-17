@@ -54,8 +54,14 @@ class UploadController extends Controller {
 // 		}
 	}
 	
-	public function postUeditor(FileData $FileData)
+	public function postUeditor(FileStoreInterface $FileStoreInterface,FileData $FileData)
 	{
+		//先设置为上传图片
+		upload_config('image_upload');
+		$file = $this->service->uploading(new UeditorUpload(storage_path('app/uploads')));
+		
+// 		return response()->json(array_merge(app_response('app.success'),['data'=>$file]));
+		
 		//文件上传
 // 		$FileUpload = new \Simon\File\Uploads\UeditorUpload(public_path('uploads'));
 // 		$FileUpload->upload();
@@ -72,7 +78,7 @@ class UploadController extends Controller {
 // // 			logger('================');
 // // 			logger($e->getMessage());
 // 		}
-		$file = $this->service->uploading(new UeditorUpload(storage_path('app/uploads')));
+// 		$file = $this->service->uploading(new UeditorUpload(storage_path('app/uploads')));
 		
 		/* 输出结果 */
 		$result = json_encode([
