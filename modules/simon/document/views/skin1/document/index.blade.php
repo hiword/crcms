@@ -40,7 +40,7 @@ CRCMS - 致力于打造全面化的开源CMS
 							@endforeach
 						</span>
 					</div>
-					<div class="content">{{$document->hasOneDocumentData->interceptContent()}}</div>
+					<div class="content">{!!$document->hasOneDocumentData->interceptContent()!!}</div>
 				</article>
 				@enddocument
 				<div class="page">{{$page}}</div>
