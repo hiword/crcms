@@ -1,4 +1,4 @@
 <?php
 return [
-	'theme'=>'default',
+	'theme'=>'skin1',
 ];
