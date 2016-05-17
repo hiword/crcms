@@ -6,6 +6,6 @@ class DocumentIndex implements FilterInterface
 {
 	public function applyFilter(Image $image)
 	{
-		return $image->fit(800,200);
+		return $image->fit(350,260);
 	}
 }
