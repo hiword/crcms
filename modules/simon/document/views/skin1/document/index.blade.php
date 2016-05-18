@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('style')
+<link rel="stylesheet" href="{{static_asset('vendor/font-awesome/4.5.0/css/font-awesome.min.css')}}" />
 <link rel="stylesheet" href="{{static_asset('vendor/skin1/css/basic.css')}}" />
 @endsection
 @section('title')
