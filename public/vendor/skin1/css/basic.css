@@ -87,10 +87,10 @@
 
 .document-show h1.title
 {
-	font-size: 32px;
     font-weight: bold;
     line-height: 1.5;
     word-break: break-all;
+	padding-top:0px;margin-top:0px;
 }
 .document-show .info
 {
@@ -104,6 +104,7 @@
     font-weight: normal;
     line-height: 1.7;
 }
+/*
 #myArticle h2
 {
 	font-size:22px;
@@ -115,22 +116,58 @@
 #myArticle h4
 {
 	font-size:16px;
+}*/
+.sidebar .panel
+{
+	box-shadow:none;
+	border:0px;
+}
+.sidebar .panel-heading
+{
+	border-bottom:1px solid #DEDEDE;
+	padding-left:0px;
+	padding-right:0px;
+}
+.sidebar .panel-body
+{
+	padding-left:0px;
+	padding-right:0px;
+}
+.content-index
+{
+	font-size:16px;
+	font-weight:bold;
+	margin:0px;
+	
 }
 #toc {
-	padding:10px 0px;
+	padding-left:15px;
+}
+#toc ul {
+	padding:0px;
 }
 #toc a
 {
-	font-size: 12px;
+	font-size: 14px;
+	color:#999;
 }
 #toc li {
     line-height: 25px;
 	padding:0px;margin:0px;
+	font-size:14px;
 }
-
+#toc li.h2
+{
+	list-style-type:square;
+}
 #toc li.h3 {
-	margin-left:20px;
-	list-style-type:circle;
+	margin-left:15px;
+	list-style-type:disc;
+}
+#toc li.h4
+{
+	padding-left:15px;
+	list-style-type:square;
 }
 footer {
 	border-top:1px solid #d9d9d9;

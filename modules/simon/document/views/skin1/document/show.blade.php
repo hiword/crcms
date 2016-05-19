@@ -45,10 +45,12 @@
 							{!!$model->hasOneDocumentData->content or null!!}
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 sidebar">
 						<div class="panel">
-							<div class="panel-heading">文章目录</div>
-							<div class="" id="toc"></div>
+							<div class="panel-heading"><h3 class="content-index">文章目录</h3></div>
+							<div class="panel-body">
+								<div id="toc"></div>
+							</div>
 						</div>
 					</div>
 				</div>
