@@ -55,6 +55,11 @@ class SystemServiceProvider extends PackageServiceProvider
     		'Simon\System\Services\Admin\Interfaces\AdminDestroyInterface',
     		'Simon\System\Services\Admin\AdminDestroyService'
     	);
+    	
+    	$this->app->bind(
+    		'Simon\System\Services\Admin\Interfaces\AdminLoginInterface',
+    		'Simon\System\Services\Admin\AdminLoginService'
+    	);
     }
 	
 }

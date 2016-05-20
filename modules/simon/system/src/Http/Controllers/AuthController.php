@@ -3,15 +3,21 @@ namespace Simon\System\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Simon\System\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Simon\System\Forms\Admin\AdminLoginForm;
+use Simon\System\Services\Admin\Interfaces\AdminLoginInterface;
+use App\Services\Interfaces\AuthInterface;
+use App\Facades\Auth;
 class AuthController extends Controller
 {
 	
 	protected $view = 'system::auth.';
 	
-	public function __construct(Admin $Admin)
+	protected $auth = null;
+	
+	public function __construct(AuthInterface $AuthInterface)
 	{
 		parent::__construct();
-		$this->model = $Admin;
+		$this->auth = $AuthInterface;
 	}
 	
 	public function getLogin() 
@@ -19,32 +25,22 @@ class AuthController extends Controller
 		return $this->view("login");
 	}
 	
-	public function postLogin()
+	public function postLogin(AdminLoginForm $AdminLoginForm,AdminLoginInterface $AdminLoginInterface)
 	{
-	    
-		$this->validate(['name','password']);
+		$this->form->validator($AdminLoginForm);
 		
-		$this->model = $this->model->where('name',$this->data['name'])->first();
+		$user = $AdminLoginInterface->findUser($this->data['name']);
 		
-		if (empty($this->model))
-		{
-		    $this->throwError(['error','user.user_not_exists']);
-		}
+		$AdminLoginInterface->comparePassword($this->data['password']);
 		
-		//比对密码
-		if (!Hash::check($this->data['password'],$this->model->password))
-		{
-			$this->throwError(['error','user.password_error']);
-		}
-		
-		user_session($this->model);
+		$this->auth->store($user);
 		
 		return $this->response(['success'],'manage/index');
 	}
 	
 	public function getLogout() 
 	{
-		user_session(false);
+		Auth::logout();
 		return $this->response(['success'],'manage/auth/login');
 	}
 	

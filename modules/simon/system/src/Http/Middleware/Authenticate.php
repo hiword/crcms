@@ -6,6 +6,7 @@
 namespace Simon\System\Http\Middleware;
 
 use Closure;
+use App\Facades\Auth;
 
 class Authenticate
 {
@@ -21,7 +22,7 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-    	if (user_session())
+    	if (Auth::user())
     	{
     		return $next($request);
     	}
