@@ -16,7 +16,7 @@ class AdminController extends Controller
     {
         parent::__construct();
         
-//         $this->middleware('Simon\System\Http\Middleware\Authenticate');
+		$this->middleware('Simon\System\Http\Middleware\Authenticate');
         
         $this->service = $Admin;
         
