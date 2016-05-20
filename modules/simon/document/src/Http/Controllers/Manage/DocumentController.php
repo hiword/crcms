@@ -28,10 +28,10 @@ class DocumentController extends Controller
 		
 		parent::__construct();
 		
-// 		if (module_exists('system'))
-// 		{
-// 			$this->middleware('Simon\System\Http\Middleware\Authenticate');
-// 		}
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
 		
 		view()->share([
 			'tree'=>$Category->tree(),

@@ -16,7 +16,10 @@ class TagController extends Controller
 	{
 		parent::__construct();
 		
-	    //$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
 		
 		$this->service = $Tag;
 		

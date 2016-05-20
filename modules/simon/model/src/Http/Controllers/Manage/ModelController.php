@@ -22,6 +22,11 @@ class ModelController extends Controller
 		parent::__construct();
 		$this->service = $Model;
 		
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
+		
 		view()->share([
 			'status'=>$this->service->status(),
 			'type'=>$this->service->type(),

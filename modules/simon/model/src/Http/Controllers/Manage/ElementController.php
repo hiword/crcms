@@ -22,6 +22,12 @@ class ElementController extends Controller
 	public function __construct(ElementInterface $ElementInterface,ModelInterface $ModelInterface,FieldInterface $FieldInterface) 
 	{
 		parent::__construct();
+		
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
+		
 		$this->service = $ElementInterface;
 		$this->modelService = $ModelInterface;
 		$this->fieldService = $FieldInterface;

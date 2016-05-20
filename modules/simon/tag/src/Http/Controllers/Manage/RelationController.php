@@ -11,6 +11,10 @@ class RelationController extends Controller
 	public function __construct(TagOutsideInterface $TagOutsideInterface) 
 	{
 		parent::__construct();
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
 		$this->service = $TagOutsideInterface;
 	}
 	

@@ -11,8 +11,12 @@ class LogController extends Controller
 	public function __construct(ActionLogInterface $ActionLog)
 	{
 		
-		//$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		parent::__construct();
+		
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
 		
 		$this->service = $ActionLog;
 	}

@@ -18,6 +18,12 @@ class FieldController extends Controller
 	public function __construct(FieldInterface $FieldInterface,ModelInterface $ModelInterface)
 	{
 		parent::__construct();
+		
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
+		
 		$this->service = $FieldInterface;
 		
 		view()->share([
