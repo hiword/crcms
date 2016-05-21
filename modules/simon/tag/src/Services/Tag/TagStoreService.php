@@ -42,6 +42,11 @@ class TagStoreService extends Tag implements TagStoreInterface
 		return $this->storeHandle($data);
 	}
 
+	/**
+	 * 存储处理
+	 * @param array $data
+	 * @author simon
+	 */
 	protected function storeHandle(array $data)
 	{
 		$this->model->name = $data['name'];
@@ -56,5 +61,14 @@ class TagStoreService extends Tag implements TagStoreInterface
 		return $this->model;
 	}
 	
+	/**
+	 * 
+	 * @param numeric $tagId
+	 * @author simon
+	 */
+	public function increment($tagId)
+	{
+		$this->model->where('id',$tagId)->increment('count_num');
+	}
 	
 }

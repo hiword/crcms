@@ -52,6 +52,14 @@
 								<div id="toc"></div>
 							</div>
 						</div>
+						<div class="panel">
+							<div class="panel-heading"><h3 class="content-index">热门标签</h3></div>
+							<div class="panel-body">
+								@tag('hot')
+								<a href="###" class="sidebar-tag">{{$tag->name}}</a>
+								@endtag
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

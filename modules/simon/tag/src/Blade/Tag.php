@@ -9,9 +9,13 @@ class Tag extends AbsBlade
 		$this->service = $TagInterface;
 	}
 	
-	public function resolve() 
+	public function resolve($type = null) 
 	{
-		return $this->service->hostTags();
+		if ($type === 'hot') 
+		{
+			return $this->service->hotTags();
+		}
+		
 	}
 	
 }

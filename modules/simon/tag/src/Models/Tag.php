@@ -102,7 +102,6 @@ class Tag extends Model
 							->select('tags.id','tags.name','tag_outsides.outside_id')->get();
 	}
 	
-	
 	public function morphedByManyTopic()
 	{
 		return $this->morphedByMany('Simon\Topic\Models\Topic', 'outside','tag_outsides','tag_id','outside_id');

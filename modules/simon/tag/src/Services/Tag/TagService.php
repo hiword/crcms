@@ -61,10 +61,13 @@ class TagService extends Tag implements TagInterface
 		return $this->model->whereIn('id',$id)->get();
 	}
 	
-	//这里先这样，其实还需要在tags里面加个统计
-	public function hostTags()
+	/**
+	 * 热门标签
+	 * @author simon
+	 */
+	public function hotTags()
 	{
-		return $this->model->orderBy('id','desc')->take(20)->get();
+		return $this->model->orderBy('count_num','desc')->take(20)->get();
 	}
 	
 	public function search($name) 

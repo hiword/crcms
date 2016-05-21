@@ -6,4 +6,6 @@ interface TagStoreInterface extends StoreInterface
 	
 	public function userStore(array $data); 
 	
+	public function increment($tagId);
+	
 }
