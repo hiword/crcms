@@ -11,4 +11,13 @@ class TagOutsideService extends TagOutside implements TagOutsideInterface
 		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
 	}
 	
+	public function lists($outsideId,$outsideType)
+	{
+		return $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->get();
+	}
+	
+	public function find($outsideId,$outsideType)
+	{
+		return $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->findOrFail();
+	}
 }

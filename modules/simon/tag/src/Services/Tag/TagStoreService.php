@@ -61,14 +61,6 @@ class TagStoreService extends Tag implements TagStoreInterface
 		return $this->model;
 	}
 	
-	/**
-	 * 
-	 * @param numeric $tagId
-	 * @author simon
-	 */
-	public function increment($tagId)
-	{
-		$this->model->where('id',$tagId)->increment('count_num');
-	}
+
 	
 }

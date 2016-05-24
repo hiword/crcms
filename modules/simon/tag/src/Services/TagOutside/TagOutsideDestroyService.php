@@ -20,5 +20,9 @@ class TagOutsideDestroyService extends TagOutside implements TagOutsideDestroyIn
 		}
 	}
 
+	public function tagAssocDestroy($tagId,$outsideId,$outsideType)
+	{
+		return $this->model->where('tag_id',$tagId)->where('outside_id',$outsideId)->where('outside_type',$outsideType)->delete();
+	}
 	
 }

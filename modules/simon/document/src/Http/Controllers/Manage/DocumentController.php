@@ -164,11 +164,12 @@ class DocumentController extends Controller
 		//tags
 		if (module_exists('tag'))
 		{
-			\Simon\Tag\Models\TagOutside::where('outside_id',$id)->where('outside_type','Simon\Document\Models\Document')->delete();
-			if (!empty($this->data['tags']))
-			{
-				event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$id,'Simon\Document\Models\Document'));
-			}	
+			//\Simon\Tag\Models\TagOutside::where('outside_id',$id)->where('outside_type','Simon\Document\Models\Document')->delete();
+			$tags = empty($this->data['tags']) ? [] : $this->data['tags'];
+// 			if (!empty($this->data['tags']))
+// 			{
+				event(new \Simon\Tag\Events\TagOutside($tags,$id,'Simon\Document\Models\Document'));
+// 			}	
 		}
 		
 		//images

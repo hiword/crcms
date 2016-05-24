@@ -10,7 +10,18 @@ class TagOutside extends Model
 	 */
 	public $timestamps = false;
 	
+// 	/**
+// 	 * 
+// 	 * @var unknown
+// 	 * @author simon
+// 	 */
+// 	public $primaryKey = null;
 	
+	/**
+	 * 
+	 * @var array
+	 * @author simon
+	 */
 	protected $fillable = ['tag_id','outside_id','outside_type'];
 	
 	/**

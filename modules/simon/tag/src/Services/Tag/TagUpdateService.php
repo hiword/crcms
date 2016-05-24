@@ -33,5 +33,29 @@ class TagUpdateService extends Tag implements TagUpdateInterface
 		]);
 	}
 
+	/**
+	 *
+	 * @param numeric $tagId
+	 * @author simon
+	 */
+	public function increment($tagId)
+	{
+		return $this->model->where('id',$tagId)->increment('count_num');
+	}
+	/* 
+	 * (non-PHPdoc)
+	 * @see \Simon\Tag\Services\Tag\Interfaces\TagUpdateInterface::decrement()
+	 * @author simon
+	 */
+	public function decrement($tagId)
+	{
+		// TODO Auto-generated method stub
+		if ($this->model->where('id',$tagId)->take(1)->value('count_num') > 0)
+		{
+			return $this->model->where('id',$tagId)->decrement('count_num');
+		}
+		
+	}
+
 	
 }
