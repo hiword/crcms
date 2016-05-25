@@ -72,7 +72,9 @@
 @section('script')
 @parent
 <script src="{{static_asset("vendor/toc/toc.min.js")}}"></script>
+<script src="{{static_asset("vendor/common/js/jQuery.autoIMG.min.js")}}"></script>
 <script>
+$('#myArticle').autoIMG();
 $('#toc').toc({
     'selectors': 'h2,h3,h4', //elements to use as headings
     'container': '#myArticle', //element to find all selectors in
