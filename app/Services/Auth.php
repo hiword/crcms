@@ -19,7 +19,8 @@ class Auth implements AuthInterface
 	public function id()
 	{
 		// TODO Auto-generated method stub
-		return session($this->sessionKey)->id;
+		$user = $this->user();
+		return $user ? $user->id : 0;
 	}
 
 	/* 
