@@ -2,6 +2,7 @@
 namespace Simon\Model\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\PackageServiceProvider;
+use Illuminate\Routing\Router;
 class ModelServiceProvider extends PackageServiceProvider
 {
 	
