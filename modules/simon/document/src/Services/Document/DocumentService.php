@@ -37,6 +37,7 @@ class DocumentService extends Document implements DocumentInterface
 		foreach ($items as $item)
 		{
 			$item->tags = $this->tags($item);
+			$item->count = $this->count($item);
 		}
 		
 		return ['models'=>$items,'page'=>$paginate->appends($appends)->render()];
@@ -70,6 +71,11 @@ class DocumentService extends Document implements DocumentInterface
 	public function tags(DocumentModel $Document) 
 	{
 		return $Document->morphToManyTag;
+	}
+	
+	public function count(DocumentModel $Document)
+	{
+		return $Document->morphManyCount()->count();
 	}
 	
 	public function prev($id) 

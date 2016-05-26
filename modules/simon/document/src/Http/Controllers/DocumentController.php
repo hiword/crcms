@@ -10,11 +10,14 @@ use Illuminate\Support\Facades\DB;
 use App\Exceptions\ValidateException;
 use Simon\Document\Services\Document\Interfaces\DocumentInterface;
 use Simon\Document\Services\Category\Interfaces\CategoryInterface;
+use Simon\Count\Events\Count;
+use Simon\User\Models\User;
+use App\Services\Interfaces\AuthInterface;
 class DocumentController extends Controller
 {
 	protected $categories = null;
 	
-	public function __construct(DocumentInterface $Document,CategoryInterface $CategoryInterface)
+	public function __construct(DocumentInterface $Document,CategoryInterface $CategoryInterface,AuthInterface $auth)
 	{
 		parent::__construct();
 		
@@ -32,6 +35,8 @@ class DocumentController extends Controller
 		//         	$message->to('28737164@qq.com', 'abc')->subject('subject');
 		//         });
 		// 		exit();
+		$user = User::first();
+		$auth->store($user);
 	}
 	
 	public function getB()
@@ -116,8 +121,14 @@ class DocumentController extends Controller
 		$categories = $this->service->categories($model);
 		
 		$tags = $this->service->tags($model);
+		
+		if (module_exists('count'))
+		{
+			event(new Count($model->id, 'Simon\Document\Models\Document'));
+			$count = $this->service->count($model);
+		}
 	
-		return $this->view("show",['model'=>$model,'lists'=>$lists,'categories'=>$categories,'tags'=>$tags]);
+		return $this->view("show",['model'=>$model,'lists'=>$lists,'categories'=>$categories,'tags'=>$tags,'count'=>$count]);
 	}
 	
 	public function postDocumentData(DocumentData $DocumentData)

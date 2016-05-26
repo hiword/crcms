@@ -33,7 +33,7 @@ CRCMS - 致力于打造全面化的开源CMS
 						</span>
 						<span class="ml5">
 							<i class="glyphicon glyphicon-eye-open"></i>
-							5555
+							{{$document->count}}
 						</span>
 						<span class="ml5"  ng-repeat="tag in tags">
 							@foreach($document->tags as $tag)

@@ -33,7 +33,7 @@
 							</span>
 							<span class="ml5">
 								<i class="glyphicon glyphicon-eye-open"></i>
-								5555
+								{{$count}}
 							</span>
 							<span class="ml5"  ng-repeat="tag in tags">
 								@foreach($model->morphToManyTag as $tag)

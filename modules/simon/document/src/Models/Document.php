@@ -71,4 +71,13 @@ class Document extends Model
 		return $this->morphMany('Simon\File\Models\Image','images','outside_type','outside_id');
 	}
 	
+	/**
+	 * 多态，images,多对多
+	 * @author simon
+	 */
+	public function morphManyCount()
+	{
+		return $this->morphMany('Simon\Count\Models\Count','counts','outside_type','outside_id');
+	}
+	
 }
