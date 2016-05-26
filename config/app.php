@@ -186,6 +186,10 @@ return [
     	Simon\Mail\Providers\MailServiceProvider::class,
     		
     	Simon\Model\Providers\ModelServiceProvider::class,
+    		
+    		//count
+    	Simon\Count\Providers\EventServiceProvider::class,
+    	Simon\Count\Providers\CountServiceProvider::class,
     ],
 
     /*

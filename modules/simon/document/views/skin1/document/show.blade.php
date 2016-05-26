@@ -42,7 +42,9 @@
 							</span>
 						</div>
 						<div class="main-content" id="myArticle">
-							{!!$model->hasOneDocumentData->content or null!!}
+						@if($model->hasOneDocumentData->content)
+							{!!str_replace('_ueditor_page_break_tag_',null,$model->hasOneDocumentData->content)!!}
+						@endif
 						</div>
 					</div>
 					<div class="col-md-3 sidebar">
