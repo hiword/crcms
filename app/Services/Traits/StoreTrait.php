@@ -1,12 +1,13 @@
 <?php
 namespace App\Services\Traits;
+use App\Facades\Auth;
 trait StoreTrait
 {
 	
 	protected function builtDataStore()
 	{
-		$this->data['created_uid'] = intval(user_session('id'));
-		$this->data['created_type'] = intval(user_session('session_type'));
+		$this->data['created_uid'] = Auth::id();
+		$this->data['created_type'] = Auth::type();
 	}
 	
 	/**
@@ -14,8 +15,8 @@ trait StoreTrait
 	 */
 	protected function builtModelStore()
 	{
-		$this->model->created_uid = intval(user_session('id'));
- 		$this->model->created_type = intval(user_session('session_type'));
+		$this->model->created_uid = Auth::id();
+ 		$this->model->created_type = Auth::type();
 	}
 	
 }

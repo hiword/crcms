@@ -48,7 +48,7 @@ class FileStoreService extends File implements FileStoreInterface
 		$this->append->extension = $data['extension'];
 		$this->append->mime_type = $data['mime_type'];
 		$this->append->save_path = $data['save_path'];
-		return $this->append->save();
+		$this->append->save();
 		
 		return $this->model;
 	}

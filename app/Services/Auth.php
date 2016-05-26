@@ -55,7 +55,22 @@ class Auth implements AuthInterface
 		return session($this->sessionKey);
 	}
 
-	
+	public function type() 
+	{
+		$user = $this->user();
+		if ($user && app('request')->is('manage/*'))
+		{
+			return 1;
+		}
+		elseif ($user && ! app('request')->is('manage/*'))
+		{
+			return 2;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 	
 }
 

@@ -27,7 +27,7 @@ class TagUpdateService extends Tag implements TagUpdateInterface
 		$this->builtDataUpdate();
 		$this->model->where('id',$id)->update($this->data);
 		
-		
+		//append
 		$this->append->where('tid',$id)->update([
 			'content'=>$data['content'],
 		]);
