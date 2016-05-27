@@ -24,21 +24,55 @@ class CountStoreService extends Count implements CountStoreInterface
 	 * @see \Simon\Count\Services\Count\Interfaces\CountStoreInterface::store()
 	 * @author root
 	 */
-	public function store(array $data, \Illuminate\Http\Request $Request, \Jenssegers\Agent\Agent $Agent)
-	{
+	//public function store(array $data, \Illuminate\Http\Request $Request, \Jenssegers\Agent\Agent $Agent)
+// 	{
+// 		// TODO Auto-generated method stub
+// 		$this->model->outside_type = $data['outside_type'];
+// 		$this->model->outside_id = $data['outside_id'];
+// 		$this->model->client_ip = ip_long($Request->ip());
+// 		$this->builtModelStore();
+// 		$this->model->save();
+		
+// 		//append
+// 		$this->append->create([
+// 				'cid'=>$this->model->id,
+// 				'agent'=>$Agent->getUserAgent(),
+// 		]);
+		
+// 		return $this->model;
+// 	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \Simon\Count\Services\Count\Interfaces\CountStoreInterface::store()
+	 * @author simon
+	 */
+	public function store(array $data, \Jenssegers\Agent\Agent $Agent, \Illuminate\Http\Request $Request = null) {
 		// TODO Auto-generated method stub
 		$this->model->outside_type = $data['outside_type'];
 		$this->model->outside_id = $data['outside_id'];
-		$this->model->client_ip = ip_long($Request->ip());
+		if ($Request)
+		{
+			$this->model->client_ip = ip_long($Request->ip());
+		}
+		elseif (isset($data['client_ip']))
+		{
+			$this->model->client_ip = ip_long($data['client_ip']);
+		}
+		else
+		{
+			$this->model->client_ip = 0;
+		}
+		
 		$this->builtModelStore();
 		$this->model->save();
-		
+
 		//append
 		$this->append->create([
 				'cid'=>$this->model->id,
-				'agent'=>$Agent->browser(),
+				'agent'=>$Agent->getUserAgent(),
 		]);
-		
+
 		return $this->model;
 	}
 	

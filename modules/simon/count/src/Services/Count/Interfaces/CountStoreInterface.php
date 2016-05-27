@@ -5,6 +5,6 @@ use Jenssegers\Agent\Agent;
 interface CountStoreInterface 
 {
 	
-	public function store(array $data,Request $Request,Agent $Agent);
+	public function store(array $data,Agent $Agent,Request $Request = null);
 	
 }

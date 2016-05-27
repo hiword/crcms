@@ -8,12 +8,15 @@ class Count extends Event
 {
     use SerializesModels;
     
+    
     /**
      * 外键存储数据
      * @var array
      * @author simon
      */
     public $outside = [];
+    
+    public $agent = null;
     
     
     /**
@@ -25,6 +28,8 @@ class Count extends Event
     {
     	$this->outside['outside_id'] = $outside_id;
     	$this->outside['outside_type'] = $outside_model;
+    	$this->outside['client_ip'] = app('request')->ip();
+    	$this->agent = app('Jenssegers\Agent\Agent');
     }
 
     /**
