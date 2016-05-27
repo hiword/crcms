@@ -37,7 +37,7 @@ class Count implements ShouldQueue
     {
     	try 
     	{
-    		$this->countStore->store($Event->outside, $Event->agent);
+    		$this->countStore->store($Event->outside, $Event->agent,app('request'));
     	} 
     	catch (\Exception $e) 
     	{
