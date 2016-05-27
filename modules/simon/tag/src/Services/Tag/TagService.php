@@ -72,6 +72,22 @@ class TagService extends Tag implements TagInterface
 	
 	public function search($name) 
 	{	//where('status',TagModel::STATUS_VERIFIED)->
-		return $this->model->where('name','like',"%{$name}%")->orderBy(TagModel::CREATED_AT,'desc')->get();
+		
+		//此处可能需要分页，暂时先这样
+		
+		//获取当前标签
+		$tag = $this->model->where('name',$name)->first();
+		
+		//获取所有关联
+		$outsides = $this->tagOutside->where('tag_id',$tag->id)->get();
+		
+		$models = [];
+		foreach ($outsides as $outside)
+		{
+			$model = (new $outside->outside_type)->find($outside->outside_id);
+			if ($model)  $models[] = $model;
+		}
+		
+		return ['models'=>$models,'tag'=>$tag];
 	}
 }
