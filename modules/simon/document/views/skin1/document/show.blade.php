@@ -37,7 +37,7 @@
 							</span>
 							<span class="ml5"  ng-repeat="tag in tags">
 								@foreach($model->morphToManyTag as $tag)
-								<a href="###" class="tags"><i class="glyphicon glyphicon-tag"></i>&nbsp;{{$tag->name}}</a>
+								<a href="{{url('tags/search')}}?name={{$tag->name}}" class="tags"><i class="glyphicon glyphicon-tag"></i>&nbsp;{{$tag->name}}</a>
 								@endforeach
 							</span>
 						</div>
@@ -58,7 +58,7 @@
 							<div class="panel-heading"><h3 class="content-index">热门标签</h3></div>
 							<div class="panel-body">
 								@tag('hot')
-								<a href="###" class="sidebar-tag">{{$tag->name}} ({{$tag->count_num}})</a>
+								<a href="{{url('tags/search')}}?name={{$tag->name}}" class="sidebar-tag">{{$tag->name}} ({{$tag->count_num}})</a>
 								@endtag
 							</div>
 						</div>

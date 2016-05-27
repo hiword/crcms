@@ -37,7 +37,7 @@ CRCMS - 致力于打造全面化的开源CMS
 						</span>
 						<span class="ml5"  ng-repeat="tag in tags">
 							@foreach($document->tags as $tag)
-							<a href="###" class="tags"><i class="glyphicon glyphicon-tag"></i>&nbsp;{{$tag->name}}</a>
+							<a href="{{url('tags/search')}}?name={{$tag->name}}" class="tags"><i class="glyphicon glyphicon-tag"></i>&nbsp;{{$tag->name}}</a>
 							@endforeach
 						</span>
 					</div>
