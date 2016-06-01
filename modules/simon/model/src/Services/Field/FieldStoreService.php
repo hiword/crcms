@@ -53,7 +53,7 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		$this->model->sort = $data['sort'];
 		$this->model->is_primary = $data['is_primary'];
 		$this->model->status = $data['status'];
-		
+		$this->model->option = $data['option'];
 		$this->model->save();
 		
 		if (!empty($data['model_id']))
@@ -66,8 +66,5 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		
 		return $this->model;
 	}
-
-	
-	
 	
 }

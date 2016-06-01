@@ -58,6 +58,11 @@ class ModelController extends Controller
 		return $this->response(['app.success'],$this->redirectUrl);
 	}
 	
+	public function getTest()
+	{
+		return 123;
+	}
+	
 	public function getEdit($id) 
 	{
 		$model = $this->service->find($id);

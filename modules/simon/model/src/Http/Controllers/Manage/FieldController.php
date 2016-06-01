@@ -31,6 +31,9 @@ class FieldController extends Controller
 			'field_types'=>config('model.field_types'),
 			'status'=>$this->service->status(),
 			'primaryKey'=>$this->service->primary(),
+			'list'=>$this->service->listOption(),
+			'search'=>$this->service->search(),
+			'option'=>$this->service->option(),
 		]);
 	}
 	

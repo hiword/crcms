@@ -43,8 +43,18 @@ class FieldService extends Field implements FieldInterface
 		return $Field->belongsToManyModel()->lists('name','id')->toArray();
 	}
 	
-	public function function_name($param) 
+	public function option()
 	{
-		;
+		return FieldModel::OPTION;
+	}
+	
+	public function listOption()
+	{
+		return FieldModel::LISTS;
+	}
+	
+	public function search()
+	{
+		return FieldModel::SEARCH;
 	}
 }
