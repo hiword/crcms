@@ -81,6 +81,43 @@
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
+			<label class=" Validform_label label-name">选项</label>
+			<div>
+				@foreach($option as $key=>$value)
+				<label class="checkbox-inline">
+					<input type="checkbox" name="option[]" value="{{$key}}">
+					{{$value}}
+				</label>
+				@endforeach
+			</div>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		<?php /*
+		<div class="form-group">
+			<label class=" Validform_label label-name">列表项</label>
+			<div>
+				@foreach($list as $key=>$value)
+				<label class="radio-inline">
+					<input type="radio" name="option[is_list]" value="{{$key}}" {{$key==1 ? 'checked' : null}}>
+					{{$value}}
+				</label>
+				@endforeach
+			</div>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		<div class="form-group">
+			<label class=" Validform_label label-name">搜索项</label>
+			<div>
+				@foreach($search as $key=>$value)
+				<label class="radio-inline">
+					<input type="radio" name="option[is_search]" value="{{$key}}" {{$key==1 ? 'checked' : null}}>
+					{{$value}}
+				</label>
+				@endforeach
+			</div>
+			<p class="help-block Validform_checktip"></p>
+		</div>*/?>
+		<div class="form-group">
 			<label class=" Validform_label label-name">状态</label>
 			<div>
 				@foreach($status as $key=>$value)

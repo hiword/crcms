@@ -83,6 +83,18 @@
 			<p class="help-block Validform_checktip"></p>
 		</div>
 		<div class="form-group">
+			<label class=" Validform_label label-name">选项</label>
+			<div>
+				@foreach($option as $key=>$value)
+				<label class="checkbox-inline">
+					<input type="checkbox" name="option[]" value="{{$key}}" {{$model->option ? in_array($key,$model->option) ? 'checked' : null : null}}>
+					{{$value}}
+				</label>
+				@endforeach
+			</div>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		<div class="form-group">
 			<label class=" Validform_label label-name">状态</label>
 			<div>
 				@foreach($status as $key=>$value)
