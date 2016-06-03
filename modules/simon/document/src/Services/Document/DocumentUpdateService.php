@@ -25,9 +25,10 @@ class DocumentUpdateService extends Document implements DocumentUpdateInterface
 	{
 		// TODO Auto-generated method stub
 		
-		$this->data['title'] = $data['title'];
+		
 		$this->data['title'] = $data['title'];
 		$this->data['thumbnail'] = $data['thumbnail'];
+		$this->data['status'] = $data['status'];
 		$this->builtDataUpdate();
 		$this->model->where('id',$id)->update($this->data);
 		
