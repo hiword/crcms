@@ -23,10 +23,17 @@ class TagController extends Controller
 	
 	public function getSearch()
 	{
-		$search = $this->service->search($this->data['name']);
+		$search = $this->service->assocSearch($this->data['name']);
 		//return $this->response(['app.success'],['models'=>$models]);
 		return view("tag::tag.search",$search);
-		return $this->view('search',['models'=>$models]);
+		
+	}
+	
+	public function getLike()
+	{
+		$models = $this->service->tagSearch($this->data['name']);
+		return view('tag::select_tags',['tags'=>$models]);
+		return $this->view('search',['tags'=>$models]);
 	}
 	
 	public function getIndex()
