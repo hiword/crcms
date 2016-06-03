@@ -32,7 +32,8 @@ class TagController extends Controller
 	public function getLike()
 	{
 		$models = $this->service->tagSearch($this->data['name']);
-		return view('tag::select_tags',['tags'=>$models]);
+		return $this->response(['app.success'],['models'=>$models]);
+		return view('tag::select_tags',['models'=>$models]);
 		return $this->view('search',['tags'=>$models]);
 	}
 	
