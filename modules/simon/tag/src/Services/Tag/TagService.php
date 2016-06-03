@@ -71,8 +71,8 @@ class TagService extends Tag implements TagInterface
 	}
 	
 	public function tagSearch($name)
-	{
-		return $this->model->where('name','like',"%{$name}%")->where('status',TagModel::STATUS_VERIFIED)->orderBy('count_num','desc')->get();
+	{//->where('status',TagModel::STATUS_VERIFIED)
+		return $this->model->where('name','like',"%{$name}%")->orderBy('count_num','desc')->get();
 	}
 	
 	public function assocSearch($name) 
