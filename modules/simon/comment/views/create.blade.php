@@ -44,10 +44,13 @@
 		<h3 class="panel-title">发表评论</h3>
 	</div>
 	<div class="panel-body">
-		<div contenteditable="true" placeholder="写点什么..." name="content" onkeydown="(event.ctrlKey &amp;&amp; event.keyCode== 13) ? $('#submit_post').trigger('click') : '';" class="form-control" style="height: 70px;overflow-y:auto;"></div>
+		<div id="comment-box" contenteditable="true" placeholder="写点什么..." name="content" onkeydown="(event.ctrlKey &amp;&amp; event.keyCode== 13) ? $('#submit_post').trigger('click') : '';" class="form-control" style="height: 70px;overflow-y:auto;"></div>
 		<div class="clearfix comment-action">
-			<a href="###" status="close" class="face-action pull-left"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;表情</a>
-			<button class="pull-right btn btn-primary btn-sm">发表评论</button>
+			<form id="comment-form" action="{{url('comment/store')}}" method="post">
+				<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				<a href="###" status="close" class="face-action pull-left"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;表情</a>
+				<button type="submit" class="pull-right btn btn-primary btn-sm">发表评论</button>
+			</form>
 		</div>
 		<div class="icons" style="display: none;">
 			@for($i=0;$i<$img_num;$i++)
@@ -71,6 +74,16 @@ $(function(){
 			$(this).attr('status','close');
 			$('.icons').hide();
 		}
+		return false;
+	});
+
+	$('.icons img').on('click',function(){
+		var src = $(this).attr('src');
+		$('#comment-box').append('<img src="'+src+'" alt="" />');
+	});
+
+	$('#comment-form').on('submit',function(){
+		alert('功能待开发中！');
 		return false;
 	});
 });
