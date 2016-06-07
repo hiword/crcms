@@ -14,6 +14,7 @@ class CountService extends Count implements CountInterface
 		foreach ($models as $item)
 		{
 			$item->client_ip = long_ip($item->client_ip);
+			$item->client_ip_area = ip_location($item->client_ip);
 		}
 		
 		return ['models'=>$models,'page'=>$paginate->appends($appends)->render()];

@@ -20,7 +20,7 @@
 	@foreach($models as $model)
 	<tr>
 		<td><input type="checkbox" name="id[]" value="{{$model->id}}" /></td>
-		<td>{{$model->client_ip}}</td>
+		<td>{{$model->client_ip}} ({{$model->client_ip_area['country'].'-'.$model->client_ip_area['city']}})</td>
 		<td>{{$model->hasOneCountDetail->agent or null}}</td>
 		<td>{{format_date($model->created_at)}}</td>
 	</tr>
