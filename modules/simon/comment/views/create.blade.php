@@ -48,10 +48,12 @@
 	<div class="panel-body">
 		<div id="comment-box" contenteditable="true" placeholder="写点什么..." name="content" onkeydown="(event.ctrlKey &amp;&amp; event.keyCode== 13) ? $('#submit_post').trigger('click') : '';" class="form-control" style="height: 70px;overflow-y:auto;"></div>
 		<div class="clearfix comment-action">
-			<form id="comment-form" action="{{url('comment/store')}}" method="post">
+			<form action="{{url('comment/store')}}" method="post">
 				<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				<input type="hidden" name="outside_id" value="{{$outside_id}}" />
+				<input type="hidden" name="outside_type" value="{{$outside_type}}" />
 				<a href="###" status="close" class="face-action pull-left"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;表情</a>
-				<button type="submit" class="pull-right btn btn-primary btn-sm">发表评论</button>
+				<button type="button" class="comment-btn pull-right btn btn-primary btn-sm">发表评论</button>
 			</form>
 		</div>
 		<div class="icons" style="display: none;">
@@ -86,7 +88,13 @@ $(function(){
 		$('#comment-box').append('<img src="'+src+'" alt="" />');
 	});
 
-	$('#comment-form').on('submit',function(){
+	$('.comment-btn').on('click',function(){
+		var form = $(this).closest('form');
+		var values = form.serialize();
+		$.post(form.attr('action'),values,function(data){
+			console.log(data);
+		});
+		
 		alert('功能待开发中！');
 		return false;
 	});
