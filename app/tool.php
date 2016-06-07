@@ -149,6 +149,36 @@
 	}
 	
 	/**
+	 * 
+	 * @param string $from
+	 * @param string $to
+	 * @author simon
+	 */
+	function copy_folder($from, $to)
+	{
+	
+		//处理win下的目录分隔符转换为统一的 /
+		$from = str_replace('\\', '/', $from);
+		$to = str_replace('\\', '/', $to);
+		//获得要复制的文件夹名称,并在目标文件夹中创建（当然是不存在的时候）
+		$dir_name = array_pop(explode('/', $from));
+		file_exists($to.'/'.$dir_name) || mkdir($to.'/'.$dir_name);
+		//获得文件夹下的所有直接的子文件夹和子文件，glob() 这是个核心
+		$child_dir_array = glob($from.'/*');
+		foreach ($child_dir_array as $v)
+		{
+			//复制文件和文件夹
+			if (is_file($v))
+			{
+				$file_name = array_pop(explode('/', $v));
+				copy($v, $to.'/'.$dir_name.'/'.$file_name);
+			} else {
+				copy_folder($v, $to.'/'.$dir_name);
+			}
+		}
+	}
+	
+	/**
 	 * 删除文件或目录
 	 * @param string $path
 	 */
