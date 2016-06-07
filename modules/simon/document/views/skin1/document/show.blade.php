@@ -99,7 +99,7 @@ $('#toc').toc({
 });
 //comments
 $(function(){
-	$.get('{{url("comment/create")}}',{},function(data){
+	$.get('{{url("comment/create")}}?type={{rawurlencode("Simon\Document\Models\Document")}}&out_id={{$model->id}}',{},function(data){
 		$('#comments').html(data);
 	});
 })
