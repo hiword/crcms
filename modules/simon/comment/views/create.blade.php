@@ -90,7 +90,7 @@ $(function(){
 
 	$('.comment-btn').on('click',function(){
 		var form = $(this).closest('form');
-		var values = form.serialize();
+		var values = form.serialize()+'&content='+form.find('[name="content"]').html();
 		$.post(form.attr('action'),values,function(data){
 			console.log(data);
 		});
