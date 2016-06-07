@@ -425,11 +425,11 @@ use Illuminate\Http\Response;
 	 * @param string $ip
 	 * @return Ambigous <multitype:, NULL, string>
 	 */
-	function ip_location($ip)
-	{
-		$IpLocation = new App\Helpers\IpLocation();
-		return $IpLocation->getlocation($ip);
-	}
+// 	function ip_location($ip)
+// 	{
+// 		$IpLocation = new App\Helpers\IpLocation();
+// 		return $IpLocation->getlocation($ip);
+// 	}
 	
 // 	function category_tree($Category = null)
 // 	{
@@ -587,5 +587,15 @@ use Illuminate\Http\Response;
 			}
 		}
 		return $data;
+	}
+	
+	/**
+	 * 获取IP地区
+	 * @param string $ip
+	 * @author simon
+	 */
+	function ip_location($ip)
+	{
+		return \Torann\GeoIP\GeoIPFacade::getLocation($ip);
 	}
 	

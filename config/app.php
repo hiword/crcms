@@ -160,6 +160,7 @@ return [
     	Jenssegers\Agent\AgentServiceProvider::class,
     	Intervention\Image\ImageServiceProvider::class,
     	Mews\Purifier\PurifierServiceProvider::class,
+    	Torann\GeoIP\GeoIPServiceProvider::class,
     		
     	//模块加载
     	Simon\Document\Providers\DocumentServiceProvider::class,
@@ -187,7 +188,7 @@ return [
     		
     	Simon\Model\Providers\ModelServiceProvider::class,
     		
-    		//count
+    	//count
     	Simon\Count\Providers\EventServiceProvider::class,
     	Simon\Count\Providers\CountServiceProvider::class,
     ],
@@ -240,6 +241,7 @@ return [
     	'Agent' =>Jenssegers\Agent\Facades\Agent::class,
     	'Image' => Intervention\Image\Facades\Image::class,
     	'Purifier' => Mews\Purifier\Facades\Purifier::class,
+    	'GeoIP' => Torann\GeoIP\GeoIPFacade::class,
     ],
 
 ];
