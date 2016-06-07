@@ -1,9 +1,10 @@
+<!-- 
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<!-- 新 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	 -->
 	<style type="text/css">
 		.comment-action {margin-top: 20px;}
 		.comment-action .face-action,.comment-action .face-action:hover
@@ -37,8 +38,9 @@
 		    padding: 3px;
 		}
 	</style>
+	<!-- 
 </head>
-<body>
+<body> -->
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">发表评论</h3>
@@ -60,7 +62,9 @@
 	</div>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<!-- 
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+ -->
 <script>
 $(function(){
 	$('.face-action').on('click',function(){
@@ -87,6 +91,9 @@ $(function(){
 		return false;
 	});
 });
+
 </script>
+<!-- 
 </body>
 </html>
+ -->
