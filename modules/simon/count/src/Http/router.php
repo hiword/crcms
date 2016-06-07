@@ -1,4 +1,5 @@
 <?php
 $router->controllers([
-		'count'=>'CountController',
+	'count'=>'CountController',
+	'manage/count'=>'Manage\CountController',
 ]);

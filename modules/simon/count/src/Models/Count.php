@@ -12,4 +12,8 @@ class Count extends Model
 		return $this->morphTo('counts','outside_type','outside_id');
 	}
 	
+	public function hasOneCountDetail() 
+	{
+		return $this->hasOne('Simon\Count\Models\CountDetail','cid','id');
+	}
 }

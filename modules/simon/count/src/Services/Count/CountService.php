@@ -2,8 +2,22 @@
 namespace Simon\Count\Services\Count;
 use Simon\Count\Services\Count;
 use Simon\Count\Services\Count\Interfaces\CountInterface;
+use Simon\Count\Models\Count as CountModel;
 class CountService extends Count implements CountInterface
 {
+	
+	public function paginate(array $appends = [])
+	{
+		$paginate = $this->model->orderBy(CountModel::CREATED_AT,'DESC')->paginate(15);
+		
+		$models = $paginate->items();
+		foreach ($models as $item)
+		{
+			$item->client_ip = long_ip($item->client_ip);
+		}
+		
+		return ['models'=>$models,'page'=>$paginate->appends($appends)->render()];
+	}
 	
 	public function count($outsideId,$outsideType)
 	{
