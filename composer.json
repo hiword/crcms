@@ -41,6 +41,7 @@
 			"Simon\\Mail\\" : "modules/simon/mail/src",
 			"Simon\\Model\\" : "modules/simon/model/src",
 			"Simon\\Count\\" : "modules/simon/count/src",
+			"Simon\\Comment\\" : "modules/simon/comment/src",
 			"Simon\\System\\" : "modules/simon/system/src"
         }
     },

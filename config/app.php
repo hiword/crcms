@@ -191,6 +191,9 @@ return [
     	//count
     	Simon\Count\Providers\EventServiceProvider::class,
     	Simon\Count\Providers\CountServiceProvider::class,
+    	
+    	//comments
+    	Simon\Comment\Providers\CommentServiceProvider::class,
     ],
 
     /*

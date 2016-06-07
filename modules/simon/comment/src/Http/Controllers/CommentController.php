@@ -25,7 +25,7 @@ class CommentController extends Controller
 	
 	public function getCreate()
 	{
-		
+		return view('comment::create',['img_path'=>config('comment.icon_path'),'img_num'=>config('comment.icon_num')]);
 	}
 	
 	public function postStore(CommentStoreForm $CommentStoreForm,CommentStoreInterface $CommentStoreInterface)
