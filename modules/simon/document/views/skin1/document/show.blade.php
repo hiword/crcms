@@ -46,6 +46,8 @@
 							{!!str_replace('_ueditor_page_break_tag_',null,$model->hasOneDocumentData->content)!!}
 						@endif
 						</div>
+						<!-- comments -->
+						<div id="comments"></div>
 					</div>
 					<div class="col-md-3 sidebar">
 						<div class="panel">
@@ -95,6 +97,12 @@ $('#toc').toc({
 	  return $heading[0].tagName.toLowerCase();
 	}
 });
+//comments
+$(function(){
+	$.get('{{url("comment/create")}}',{},function(data){
+		$('#comments').html(data);
+	});
+})
 </script>
 @endsection
 
