@@ -15,6 +15,7 @@ class CountService extends Count implements CountInterface
 		{
 			$item->client_ip = long_ip($item->client_ip);
 			$item->client_ip_area = ip_location($item->client_ip);
+// 			$item->outside = $item->outside();
 		}
 		
 		return ['models'=>$models,'page'=>$paginate->appends($appends)->render()];
