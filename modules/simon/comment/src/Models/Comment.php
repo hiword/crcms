@@ -51,4 +51,9 @@ class Comment extends Model
 		});
 	}
 	
+	public function hasOneUser() 
+	{
+		return $this->hasOne('Simon\User\Models\User','id','created_uid');
+	}
+	
 }

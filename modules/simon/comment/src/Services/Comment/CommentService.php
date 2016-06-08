@@ -26,9 +26,11 @@ class CommentService extends Comment implements CommentInterface
 	public function getOutsideList($outsideId,$outsideType) 
 	{
 		$models = $this->model->outside($outsideId,$outsideType)->orderBy('created_at','desc')->get();
+		
 		foreach ($models as $model)
 		{
-			$model->content = $model->hasOneCommentData->content;
+			$model->content = empty($model->hasOneCommentData->content) ? null : $model->hasOneCommentData->content;
+			$model->user = module_exists('user') ? $model->hasOneUser : null;
 		}
 		return $models;
 	}

@@ -11,16 +11,17 @@ class CommentController extends Controller
 	{
 		parent::__construct();
 		$this->service = $Comment;
-		$this->view = 'comment::'.config('site.theme').'.comment.';
+		//$this->view = 'comment::'.config('site.theme').'.comment.';
 	}
 	
-	public function getComment($outsideId,$outsideType)
+	public function getIndex()
 	{
-		$outsideType = base64_decode($outsideType);
+		$type = rawurldecode($this->data['type']);
+		$outId = $this->data['out_id'];
 		
-		$this->service->getOutsideList($outsideId,$outsideType);
+		$models = $this->service->getOutsideList($outId,$type);
 		
-		$view = (string)view($this->view.'comment-list');
+		return view('comment::comment-list',['models'=>$models]);
 	}
 	
 	public function getCreate()
