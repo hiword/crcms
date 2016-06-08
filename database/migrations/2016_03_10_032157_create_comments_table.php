@@ -25,6 +25,10 @@ class CreateCommentsTable extends Migration {
 			$table->unsignedBigInteger('client_ip')->default(0);
 			$table->tinyInteger('status',false,true)->default(0);//审核状态
 			
+			$table->tinyInteger('created_type',false,true)->default(0);
+			$table->tinyInteger('updated_type',false,true)->default(0);
+			$table->tinyInteger('deleted_type',false,true)->default(0);
+			
 			$table->mediumInteger('created_uid',false,true)->default(0);
 			$table->mediumInteger('updated_uid',false,true)->default(0);
 			$table->mediumInteger('deleted_uid',false,true)->default(0);
