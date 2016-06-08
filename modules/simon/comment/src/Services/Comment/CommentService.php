@@ -14,7 +14,7 @@ class CommentService extends Comment implements CommentInterface
 	public function findFull($id) 
 	{
 		$this->model = $this->find($id);
-		$this->model->content = $this->model->hasOneDocumentData->content;
+		$this->model->content = $this->model->hasOneCommentData->content;
 		return $this->model;
 	}
 	
@@ -28,7 +28,7 @@ class CommentService extends Comment implements CommentInterface
 		$models = $this->model->outside($outsideId,$outsideType)->orderBy('created_at','desc')->get();
 		foreach ($models as $model)
 		{
-			$model->content = $model->hasOneDocumentData->content;
+			$model->content = $model->hasOneCommentData->content;
 		}
 		return $models;
 	}

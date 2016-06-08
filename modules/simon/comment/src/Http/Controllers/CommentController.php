@@ -35,7 +35,7 @@ class CommentController extends Controller
 		
 		$this->form->validator($CommentStoreForm);
 		
-		$model = $CommentStoreInterface->store($this->data);
+		$model = $CommentStoreInterface->store($this->data,$this->request);
 		
 		$comment = $this->service->findFull($model->id);
 		

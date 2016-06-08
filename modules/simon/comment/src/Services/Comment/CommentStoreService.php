@@ -7,13 +7,15 @@ use Simon\Comment\Models\CommentData;
 class CommentStoreService extends Comment implements CommentStoreInterface
 {
 	
+	use StoreTrait;
+	
 	public function __construct(\Simon\Comment\Models\Comment $Comment,CommentData $CommentData)
 	{
 		parent::__construct($Comment);
 		$this->append = $CommentData;
 	}
 	
-	use StoreTrait;
+	
 	/* 
 	 * (non-PHPdoc)
 	 * @see \Simon\Comment\Services\Comment\Interfaces\CommentStoreInterface::store()
@@ -29,7 +31,7 @@ class CommentStoreService extends Comment implements CommentStoreInterface
 		//这里先默认为未审核
 		$this->model->status = \Simon\Comment\Models\Comment::STATUS_NOT_AUDIT;
 		$this->builtModelStore();
-		$this->model = $this->model->save();
+		$this->model->save();
 		
 		$this->append->cid = $this->model->id;
 		$this->append->content = $data['content'];
@@ -39,22 +41,22 @@ class CommentStoreService extends Comment implements CommentStoreInterface
 	}
 
 
-	/*
-	 * (non-PHPdoc)
-	 * @see \App\Services\Interfaces\StoreInterface::store()
-	 * @author simon
-	 */
-	public function store(array $data)
-	{
-		// TODO Auto-generated method stub
+// 	/*
+// 	 * (non-PHPdoc)
+// 	 * @see \App\Services\Interfaces\StoreInterface::store()
+// 	 * @author simon
+// 	 */
+// 	public function store(array $data)
+// 	{
+// 		// TODO Auto-generated method stub
 		
-		// 		$this->model->client_ip = ip_long($ip)
+// 		// 		$this->model->client_ip = ip_long($ip)
 	
-		// 		$table->char('outside_type',50);
-		// 		$table->mediumInteger('outside_id',false,true)->default(0);
+// 		// 		$table->char('outside_type',50);
+// 		// 		$table->mediumInteger('outside_id',false,true)->default(0);
 	
-		$this->builtModelStore();
-	}
+// 		$this->builtModelStore();
+// 	}
 
 	
 }

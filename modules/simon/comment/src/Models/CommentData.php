@@ -1,6 +1,6 @@
 <?php
 namespace Simon\Comment\Models;
-use Admin\Models\Model;
+use App\Models\Model;
 class CommentData extends Model
 {
 	
