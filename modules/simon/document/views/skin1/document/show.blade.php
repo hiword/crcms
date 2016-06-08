@@ -48,6 +48,7 @@
 						</div>
 						<!-- comments -->
 						<div id="comments"></div>
+						<div id="comments-list"></div>
 					</div>
 					<div class="col-md-3 sidebar">
 						<div class="panel">
@@ -101,6 +102,9 @@ $('#toc').toc({
 $(function(){
 	$.get('{{url("comment/create")}}?type={{rawurlencode("Simon\Document\Models\Document")}}&out_id={{$model->id}}',{},function(data){
 		$('#comments').html(data);
+	});
+	$.get('{{url("comment/index")}}?type={{rawurlencode("Simon\Document\Models\Document")}}&out_id={{$model->id}}',{},function(data){
+		$('#comments-list').html(data);
 	});
 })
 </script>
