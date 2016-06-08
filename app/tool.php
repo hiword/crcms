@@ -359,7 +359,7 @@
 	{
 		if (is_array($data))
 		{
-			foreach ($data as $value)
+			foreach ($data as &$value)
 			{
 				$value = clean_xss($value);
 			}
