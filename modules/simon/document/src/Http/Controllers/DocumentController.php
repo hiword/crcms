@@ -35,8 +35,8 @@ class DocumentController extends Controller
 		//         	$message->to('28737164@qq.com', 'abc')->subject('subject');
 		//         });
 		// 		exit();
-		$user = User::first();
-		$auth->store($user);
+// 		$user = User::first();
+// 		$auth->store($user);
 	}
 	
 	public function getB()
