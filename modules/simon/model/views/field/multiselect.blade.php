@@ -11,6 +11,11 @@
 	<p class="help-block Validform_checktip"></p>
 </div>
 <div class="form-group">
+<label class="Validform_label label-name">字段长度</label>
+<input class="form-control" type="number" value="{{$setting->length or null}}" name="setting[length]">
+<p class="help-block Validform_checktip">CHAR，VARCHAR类型请填写，数字类型无需填写</p>
+</div>
+<div class="form-group">
 	<label class=" Validform_label label-name">默认值</label>
 	<input type="text" class="form-control" name="setting[default_value]" value="{{$setting->default_value or null}}" />
 	<p class="help-block Validform_checktip">多个值以“,”隔开，如：a,b,c</p>
@@ -50,8 +55,7 @@
 			<input class="form-control" type="text" name="setting[store_table]" value="{{$setting->store_table or null}}" datatype="*1-120" placeholder="">
 		</div>
 		<p class="help-block Validform_checktip">
-			格式：表名,外键名:值,字段名:值,其它字段:值，如：table,id:{Id},value:{Value},other_field:abc<br />
+			格式：表名,外键字段,数据字段,类型字段，如：table,forkId,valueId,typeId<br />
 			本地字段将会以“,”分隔<br />
-			{Id}表单当前数据id，{Value}表示当前值<br />
 		</p>
 </div>
