@@ -301,7 +301,7 @@
 	 * @param number $count
 	 * @return Ambigous <multitype:, multitype:multitype: , multitype:>
 	 */
-	function array_tree(array &$data,$pid = 0,$count = 0)
+	function array_tree(array &$data,$pid = 0,$count = 0,$pidKey = 'pid')
 	{
 		if(!isset($data['old']))
 		{
@@ -309,15 +309,36 @@
 		}
 		foreach ($data['old'] as $k => $v)
 		{
-			if($v['pid']==$pid)
+			if($v[$pidKey]==$pid)
 			{
 				$v['count'] = $count;
 				$data['new'][]=$v;
 				unset($data['old'][$k]);
-				array_tree($data,$v['id'],$count+1);
+				array_tree($data,$v['id'],$count+1,$pidKey);
 			}
 		}
 		return $data['new'];
+	}
+	
+	/**
+	 * 
+	 * @param array $array
+	 * @param number $pid
+	 * @param string $pidKey
+	 * @author simon
+	 */
+	function array_tree_child(array $array, $pid = 0, $pidKey = 'pid')
+	{
+		$arr = $tem = array();
+		foreach ($array as $v) {
+			if ($v[$pidKey] == $pid) {
+				$tem = array_tree_child($array, $v['id'], $pidKey);
+				//判断是否存在子数组
+				$tem && $v['children'] = $tem;
+				$arr[] = $v;
+			}
+		}
+		return $arr;
 	}
 	
 	/**
