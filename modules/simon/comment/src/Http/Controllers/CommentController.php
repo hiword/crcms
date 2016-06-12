@@ -21,7 +21,7 @@ class CommentController extends Controller
 		
 		$models = $this->service->getOutsideList($outId,$type);
 		
-		return view('comment::comment-list',['models'=>$models]);
+		return view('comment::comment-list',['models'=>array_tree_child($models,0,'reply_id')]);
 	}
 	
 	public function getCreate()

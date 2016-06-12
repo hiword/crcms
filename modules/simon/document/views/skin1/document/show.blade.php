@@ -3,6 +3,7 @@
 @section('style')
 <link rel="stylesheet" href="{{static_asset('vendor/font-awesome/4.5.0/css/font-awesome.min.css')}}" />
 <link rel="stylesheet" href="{{static_asset('vendor/skin1/css/basic.css')}}" />
+<link rel="stylesheet" href="{{static_asset('vendor/comments/comment.css')}}" />
 @endsection
 @section('title')
 {{$model->title}} - crcms
@@ -47,8 +48,8 @@
 						@endif
 						</div>
 						<!-- comments -->
-						<div id="comments"></div>
-						<div id="comments-list"></div>
+						<div id="show-comment"></div>
+						<div id="show-comment-list"></div>
 					</div>
 					<div class="col-md-3 sidebar">
 						<div class="panel">
@@ -78,6 +79,7 @@
 @parent
 <script src="{{static_asset("vendor/toc/toc.min.js")}}"></script>
 <script src="{{static_asset("vendor/common/js/jQuery.autoIMG.min.js")}}"></script>
+<script src="{{static_asset("vendor/comments/comment.js")}}"></script>
 <script>
 $('#myArticle').autoIMG();
 $('#toc').toc({
@@ -101,10 +103,10 @@ $('#toc').toc({
 //comments
 $(function(){
 	$.get('{{url("comment/create")}}?type={{rawurlencode("Simon\Document\Models\Document")}}&out_id={{$model->id}}',{},function(data){
-		$('#comments').html(data);
+		$('#show-comment').html(data);
 	});
 	$.get('{{url("comment/index")}}?type={{rawurlencode("Simon\Document\Models\Document")}}&out_id={{$model->id}}',{},function(data){
-		$('#comments-list').html(data);
+		$('#show-comment-list').html(data);
 	});
 })
 </script>

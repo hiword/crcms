@@ -29,9 +29,9 @@ class CommentService extends Comment implements CommentInterface
 		
 		foreach ($models as $model)
 		{
-			$model->content = empty($model->hasOneCommentData->content) ? null : $model->hasOneCommentData->content;
+			$model->content = empty($model->hasOneCommentData->content) ? null : htmlspecialchars($model->hasOneCommentData->content);
 			$model->user = module_exists('user') ? $model->hasOneUser : null;
 		}
-		return $models;
+		return $models->toArray();
 	}
 }
