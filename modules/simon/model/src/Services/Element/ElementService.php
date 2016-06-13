@@ -16,49 +16,41 @@ class ElementService extends Element implements ElementInterface
 		}))->name;
 	}
 	
-	public function selectOptions()
+	protected function formatFields(Collection $fields,Model $model)
 	{
-		$tableName = $this->model->table_name;
+		//表名
+		$tableName = $model->table_name;
 		
-		//primary
-		$primary = $this->fields->get($this->fields->search(function($item,$key){
+		//主键
+		$primary = $fields->get($fields->search(function($item,$key){
 			return $item->is_primary !== 2;
 		}))->name;
 		
-		//get list option
-		$databaseFields = $this->fields->filter(function($item){
-			if(empty($item->option))
-			{
-				return false;
-			}
-			if (!in_array('list',$item->option,true))
-			{
-				return false;	
-			}
+		//获取本数据表字段
+		$databaseFields = $fields->filter(function($item){
 			if ($item->type==='Multiselect' && $item->setting->store_type!=='field')
 			{
 				return false;
 			}
 			return true;
 		})->map(function($item) use ($tableName){
-			return ['as_field'=>$tableName.'.'.$item->name,'field'=>$item->name];
-// 			return $tableName.'.'.$item->name." as {$tableName}.{$item->name}";
+			return ['as_field'=>$tableName.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
 		});
 		
-		//MultField
-		$databaseMultField = $this->fields->filter(function($item){
+		//获取外键数据表字段
+		$databaseMultField = $fields->filter(function($item){
 			if($item->type==='Multiselect' && $item->setting->store_type==='table')
 			{
 				return true;
 			}
 			return false;
 		})->map(function($item) use ($tableName,$primary){
-				
+		
 			//获取SQL查询语句的列
 			$selects = array_filter($item->setting->option,function($value){
 				return stripos($value, 'select')!==false && stripos($value, 'from')!==false;
 			});
-			
+					
 			$expressions = [];$i=0;$expression = [];
 			foreach($selects as $select)
 			{
@@ -67,6 +59,7 @@ class ElementService extends Element implements ElementInterface
 					$field = explode(',', explode(':',$select)[count(explode(':',$select))-1]);
 					$table = trim($match[1]);
 					$expression['field'] = $item->name;
+					$expression['field_info'] = ['as_field'=>$tableName.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
 					$expression['relation_table'] = $table;
 					$expression['relation_other_id'] = $table.'.'.$field[0];
 					$expression['relation_show_name'] = $table.'.'.$field[1];
@@ -85,8 +78,104 @@ class ElementService extends Element implements ElementInterface
 			}
 			return $expressions;
 		});
-		$databaseAsField = $databaseFields->pluck('as_field')->all();
-		$databaseField = $databaseFields->pluck('field')->all();
+		
+		$asFields = $databaseFields->pluck('as_field')->all();
+		$fields = $databaseFields->pluck('field')->all();
+		$alias = $databaseFields->pluck('alias')->all();
+		
+		$multAsFields = $databaseMultField->pluck('field_info.as_field')->all();
+		$multFields = $databaseMultField->pluck('field_info.field')->all();
+		$multAlias = $databaseMultField->pluck('field_info.alias')->all();
+		
+		return ['table'=>$tableName,'primary'=>$primary,'field'=>$databaseFields,'mult_field'=>$databaseMultField];
+	}
+	
+	public function selectOptions()
+	{
+		$fields = $this->fields->filter(function($item){
+			if(empty($item->option))
+			{
+				return false;
+			}
+			if (!in_array('list',$item->option,true))
+			{
+				return false;	
+			}
+			return true;
+		});
+		
+		return $this->formatFields($fields, $this->model);
+		
+		return array_merge($formatFields,['table'=>$this->model->table_name]);
+// 		$tableName = $this->model->table_name;
+		
+// 		//primary
+// 		$primary = $this->fields->get($this->fields->search(function($item,$key){
+// 			return $item->is_primary !== 2;
+// 		}))->name;
+		
+// 		//get list option
+// 		$databaseFields = $this->fields->filter(function($item){
+// 			if(empty($item->option))
+// 			{
+// 				return false;
+// 			}
+// 			if (!in_array('list',$item->option,true))
+// 			{
+// 				return false;	
+// 			}
+// 			if ($item->type==='Multiselect' && $item->setting->store_type!=='field')
+// 			{
+// 				return false;
+// 			}
+// 			return true;
+// 		})->map(function($item) use ($tableName){
+// 			return ['as_field'=>$tableName.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
+// // 			return $tableName.'.'.$item->name." as {$tableName}.{$item->name}";
+// 		});
+		
+// 		//MultField
+// 		$databaseMultField = $this->fields->filter(function($item){
+// 			if($item->type==='Multiselect' && $item->setting->store_type==='table')
+// 			{
+// 				return true;
+// 			}
+// 			return false;
+// 		})->map(function($item) use ($tableName,$primary){
+				
+// 			//获取SQL查询语句的列
+// 			$selects = array_filter($item->setting->option,function($value){
+// 				return stripos($value, 'select')!==false && stripos($value, 'from')!==false;
+// 			});
+			
+// 			$expressions = [];$i=0;$expression = [];
+// 			foreach($selects as $select)
+// 			{
+// 				if(preg_match('/from\s+([^\s]+)[\s+|:]/imU',$select,$match))
+// 				{
+// 					$field = explode(',', explode(':',$select)[count(explode(':',$select))-1]);
+// 					$table = trim($match[1]);
+// 					$expression['field'] = $item->name;
+// 					$expression['relation_table'] = $table;
+// 					$expression['relation_other_id'] = $table.'.'.$field[0];
+// 					$expression['relation_show_name'] = $table.'.'.$field[1];
+// 					$expression['main_fork_id'] = $primary;
+// 					$expression['main_table'] = $tableName;
+// 					//中间关联表信息
+// 					$middle = explode(',', $item->setting->store_table);
+// 					$expression['middle_table'] = $middle[0];
+// 					$expression['middle_fork_id'] = $middle[0].'.'.explode(':',$middle[1])[0];
+// 					$expression['middle_other_id'] = $middle[0].'.'.explode(':',$middle[2])[0];
+// 					$expression['middle_fork_type'] = $middle[0].'.'.$middle[3];
+// 					$expression['middle_fork_type_value'] = $tableName;
+// 					$expressions[$i] = $expression;
+// 					$i+=1;
+// 				}
+// 			}
+// 			return $expressions;
+// 		});
+// 		$databaseAsField = $databaseFields->pluck('as_field')->all();
+// 		$databaseField = $databaseFields->pluck('field')->all();
 		return ['mult_field'=>(array)$databaseMultField->first(),'table'=>$this->model->table_name,'field'=>['as_field'=>$databaseAsField,'field'=>$databaseField],'primary'=>$primary];
 	}
 	
