@@ -41,7 +41,7 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		}
 
 		//save
-		$this->model->name = $data['name'];
+		$this->model->name = uniqid($data['name']);
 		$this->model->type = $data['type'];
 		$this->model->alias = $data['alias'];
 		$this->model->validate_rule = enter_format_array($data['validate_rule']);
@@ -53,7 +53,7 @@ class FieldStoreService extends Field implements FieldStoreInterface
 		$this->model->sort = $data['sort'];
 		$this->model->is_primary = $data['is_primary'];
 		$this->model->status = $data['status'];
-		$this->model->option = $data['option'];
+		$this->model->option = isset($data['option']) ? $data['option'] : [];
 		$this->model->save();
 		
 		if (!empty($data['model_id']))

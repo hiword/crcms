@@ -119,22 +119,19 @@ abstract class Field
 	{
 // 		$option = enter_format_array($option)
 		$options = [];
-		
 		foreach ($option as $op)
 		{
 			if (stripos($op, 'select') !== false)
 			{
 				$op = explode(':', $op);
-				$results = DB::select($op[0],explode(',', $op[1]));
-				if ($results)
-				{
-					$ov = explode(',', $op[2]);
-	
-					foreach ($results as $result)
-					{
-						$options[$result->{$ov[0]}] = $result->{$ov[1]};
-					}
-				}
+				$showField = array_pop($op);
+				$results = DB::select($op[0],isset($op[1]) ? $op[1] : []);//,explode(',', $op[1])
+				if (empty($results)) {continue;}
+				
+				$ov = explode(',', $showField);
+				array_map(function($result) use (&$options,$ov){
+					$options[$result->{$ov[0]}] = $result->{$ov[1]};
+				}, $results);
 			}
 			else
 			{

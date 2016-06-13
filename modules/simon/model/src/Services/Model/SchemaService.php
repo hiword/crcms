@@ -31,6 +31,10 @@ class SchemaService implements SchemaInterface
 	{
 		$table->mediumInteger('model_id',false,true)->default(0);
 		
+		$table->tinyInteger('created_type',false,true)->default(0);
+		$table->tinyInteger('updated_type',false,true)->default(0);
+		$table->tinyInteger('deleted_type',false,true)->default(0);
+		
 		$table->mediumInteger('created_uid',false,true)->default(0);
 		$table->mediumInteger('updated_uid',false,true)->default(0);
 		$table->mediumInteger('deleted_uid',false,true)->default(0);

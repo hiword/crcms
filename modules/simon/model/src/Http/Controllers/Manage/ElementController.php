@@ -9,15 +9,62 @@ use Illuminate\Support\Facades\Validator;
 use Simon\Model\Fields\Factory;
 use Illuminate\Http\Request;
 use Simon\Model\Forms\Element\AdapterElementForm;
+use Simon\Model\Fields\Factory\View;
+use Simon\Model\Fields\Factory\Database;
+use App\Exceptions\AppException;
+use Simon\Model\Fields\Factory\Select;
+use Simon\Model\Services\Element\ElementStoreService;
+use Illuminate\Database\Eloquent\Collection;
+use Simon\Model\Services\Element\ElementUpdateService;
+use Simon\Model\Services\Element\ElementService;
 class ElementController extends Controller
 {
+	/**
+	 * 
+	 * @var string
+	 * @author root
+	 */
 	protected $view = 'model::manage.element.'; 
 	
-	protected $factory = null;
-	
+	/**
+	 * 
+	 * @var ModelInterface
+	 * @author root
+	 */
 	protected $modelService = null;
 	
-	protected $fieldService = null;
+	/**
+	 * @var array $views
+	 */
+	protected $views = [];
+	
+	/**
+	 * 
+	 * @var integer
+	 * @author root
+	 */
+	protected $mainModelId = 0;
+	
+	/**
+	 * 
+	 * @var array
+	 * @author root
+	 */
+	protected $extendId = [];
+	
+	/**
+	 * 
+	 * @var unknown $model
+	 */
+	protected $model = null;
+	
+	/**
+	 * 
+	 * @var Collection $fields
+	 */
+	protected $fields = null;
+	
+	protected $fieldsAndModels = [];
 	
 	public function __construct(ElementInterface $ElementInterface,ModelInterface $ModelInterface,FieldInterface $FieldInterface) 
 	{
@@ -28,9 +75,22 @@ class ElementController extends Controller
 			$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		}
 		
-		$this->service = $ElementInterface;
+		if (empty($this->data['model_id']))
+		{
+			throw new AppException('Model Id Is Not Exists!');
+		}
+		$this->mainModelId = $this->data['model_id'];
 		$this->modelService = $ModelInterface;
-		$this->fieldService = $FieldInterface;
+		$this->extendId = $this->modelService->subExtendId($this->mainModelId);
+		
+		$i = 0;
+		foreach(array_merge((array)$this->mainModelId,(array)$this->extendId) as $mid)
+		{
+			extract($this->modelService->requestModelAndFields($mid,$this->request));
+			$this->fieldsAndModels[$i]['model'] = $model;
+			$this->fieldsAndModels[$i]['field'] = $fields;
+			$i+=1;
+		}
 	}
 	
 	/**
@@ -50,16 +110,19 @@ class ElementController extends Controller
 // 		});
 		$tableName = $model->table_name;
 		
+		//primary
 		$primary = $fields->get($fields->search(function($item,$key){
 			return $item->is_primary !== 2;
 		}))->name;
 		
+		//get list option
 		$databaseField = $fields->filter(function($item){
 			return $item->option && in_array('list',$item->option,true) && $item->type!='Multiselect';
 		})->map(function($item) use ($tableName){
 			return $tableName.'.'.$item->name;
 		});
 		
+		//MultField
 		$databaseMultField = $fields->filter(function($item){
 			return $item->option && in_array('list',$item->option,true) && $item->type=='Multiselect';
 		})->map(function($item) use ($tableName,$primary){
@@ -78,7 +141,8 @@ class ElementController extends Controller
 			if(preg_match('/from\s+(.+)\s+/imU',$select,$match))
 			{
 				$expression = [];
-				$field = explode(',', explode(':',$select)[2]);
+
+				$field = explode(',', explode(':',$select)[count($select)-1]);
 				$table = trim($match[1]);
 				$expression['field'] = $item->name;
 				$expression['relation_table'] = $table;
@@ -96,51 +160,70 @@ class ElementController extends Controller
 			return false;
 		});
 		
-		
-		
-		
-// 		if($databaseField->isEmpty())
-// 		{
-// 			return [];
-// 		}
-// // 		dd($databaseField);
 		return ['mult_field'=>$databaseMultField->first(),'table'=>$model->table_name,'field'=>$databaseField->all(),'primary'=>$primary]; 
-// // 		dd($databaseField);
-// 		$result = DB::table($model->table_name)->select($databaseField->all())->get();
-// 		dd($result);
-// 		dd($fields,$b);
-// 		//取出字段
-// 		$databaseField = [];
-// 		foreach($fields as $field)
-// 		{
-// 			$databaseField[] = $field->name;
-// 		}
-// 		dd($databaseField);
 	}
 	
 	public function getIndex(Request $Request) 
 	{
-		$modelId = 10;
+		$main = array_shift($this->fieldsAndModels);
+		$mainOptions = (new ElementService($main['model'], $main['field']))->selectOptions();
+
+		$db = DB::table($mainOptions['table']);
+		$selectFields = $mainOptions['field']['as_field'];
+		$showFields = $mainOptions['field']['field'];
+		$multFields = $mainOptions['mult_field'];
+		foreach ($this->fieldsAndModels as $item)
+		{
+			$option = (new ElementService($item['model'], $item['field']))->selectOptions();
+			
+			//join
+			$db->join($option['table'],$mainOptions['table'].'.'.$mainOptions['primary'],'=',$option['table'].'.'.$option['primary']);
+			//获取字段
+			$selectFields = array_merge($selectFields,(array)$option['field']['as_field']);
+			$showFields = array_merge($showFields,(array)$option['field']['field']);
+			//多选字段
+			$multFields = array_merge($multFields,$option['mult_field']);
+		}
+		dd($selectFields);
+		$results = ($db->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->paginate());
+		$link = $results->appends(['model_id' => $this->data['model_id']])->links();
+// 		$results = collect($db->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->appends(['model_id'=>$this->data['model_id']])->paginate(15));
+// 		$results = collect($db->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->appends(['model_id'=>$this->data['model_id']])->paginate(15));
+		if($multFields)
+		{
+			foreach ($results as $result)
+			{
+				foreach($multFields as $mult)
+				{
+					//先查出中间表数据
+					$otherId = DB::table($mult['middle_table'])->where($mult['middle_fork_id'],$result->{$mult['main_fork_id']})->where($mult['middle_fork_type'],$mult['middle_fork_type_value'])->lists($mult['middle_other_id']);
+					//获取数据
+					$result->{$mult['field']} = collect(DB::table($mult['relation_table'])->select($mult['relation_other_id'],$mult['relation_show_name'])->whereIn($mult['relation_other_id'],$otherId)->get());
+				}
+			}	
+		}
+		return $this->view('index',['models'=>$results,'fields'=>$selectFields,'page'=>$link]);
+		dd($results);
 		
+		dd($result,DB::getQueryLog());
 		//主表字段查询表达式
-		$database = $this->listField($modelId);
+		$database = $this->listField($this->mainModelId);
 		
 		//多数据表字段
 		$multFields = [];
 		$database['mult_field'] && $multFields[$database['table']] =  $database['mult_field'];
 		
 		//所有附表查询表达式
-		$extendId = $this->modelService->beExtend($modelId,$this->request);
 		$appendDatabases = [];
-		foreach($extendId as $id)
+		foreach($this->extendId as $mid)
 		{
-			$appendDatabase = $this->listField($id);
+			$appendDatabase = $this->listField($mid);
 			$appendDatabase['mult_field'] && $multFields[$appendDatabase['table']] =  $appendDatabase['mult_field'];
 			
 			$appendDatabases[] = $appendDatabase;
 		}
 		
-		
+		dd($appendDatabases);
 		
 		//数据查询
 		
@@ -186,120 +269,176 @@ class ElementController extends Controller
 		return $this->view('index',['bs'=>[1,2]]);
 	}
 	
-	protected function forms($modelId,$id = 0)
+	/**
+	 * 
+	 * @param unknown $modelId
+	 * @param number $valueId
+	 * @author root
+	 */
+	protected function views($modelId,$valueId = 0)
 	{
+		extract($this->modelService->requestModelAndFields($modelId,$this->request));
 		$model = $this->modelService->find($modelId);
 		$fields = $this->modelService->fields($model);
-		if ($id)
+		$data = [];
+		
+		//get Data
+		if($valueId)
 		{
-			$primary = $fields->get($fields->search(function($item,$key){
-				return $item->is_primary !== 2;
-			}))->name;
-			$data = (array)DB::table($model->table_name)->where($primary,$id)->first();
-			
-			//mults
-			$index = $fields->search(function($item,$key){
-				return $item->type === 'Multiselect';
-			});
-			if ($index !== false)
-			{
-				$multField = $fields->get($index);
-				
-				if ($multField->setting->store_type === 'table')
-				{
-					$expression = $multField->setting->store_table;
-					list($table,$fork,$other) = explode(',', $expression);
-					$forkId = explode(':', $fork)[0];
-					$otherId = explode(':', $other)[0];
-					$data[$multField->name] = DB::table($table)->where($forkId,$id)->lists($otherId);
-				}
-				elseif ($multField->setting->store_type === 'field')
-				{
-					$data[$multField->name] = explode(',', $data[$multField->name]);
-				}
-			}
-			
-			
+			$data = (new Select($model, $fields))->find($valudId);
 		}
-		else {
-			$data = [];
-		}
-		return (new Factory($model, $fields,$this->request))->view($data);
-	}
-	
-// 	protected function forms($modelIds,array $data = [])
-// 	{
-// 		$forms = [];
-// 		foreach($modelIds as $id)
+// 		if ($valueId)
 // 		{
-// 			$model = $this->modelService->find($id);
-// 			$fields = $this->modelService->fields($model);
-// 			$view = (new Factory($model, $fields,$this->request))->view($data);
-// 			$forms = array_merge($view,$forms);
+// 			//get PrimaryKey
+// 			$primary = $fields->get($fields->search(function($item,$key){
+// 				return $item->is_primary !== 2;
+// 			}))->name;
+				
+// 			//get Data
+// 			$data = (array)DB::table($model->table_name)->where($primary,$valueId)->first();
+				
+// 			foreach ($fields as $item)
+// 			{
+// 				if($item->type !== 'Multiselect')
+// 				{
+// 					continue;
+// 				}
+		
+// 				if ($item->setting->store_type === 'table')
+// 				{
+// 					$expression = $item->setting->store_table;
+// 					list($table,$forkId,$otherId,$type) = explode(',', $expression);
+// 					$data[$item->name] = DB::table($table)->where($forkId,$valueId)->where($type,$model->table_name)->lists($otherId);
+// 				}
+// 				elseif ($item->setting->store_type === 'field')
+// 				{
+// 					$data[$item->name] = explode(',', $data[$item->name]);
+// 				}
+// 			}
+// 		} else {
+// 			$data = [];
 // 		}
-// 		return $forms;  
-// 	}
+		$view = (new View($model, $fields,$data))->html();
+		$this->views = array_merge($view,$this->views);
+	}
 	
 	public function getCreate() 
 	{
-		//最后等待测试
-		/* 这里面的一块代码，回头需要，使用一个elementService来操作，需要调用 这个fieldClient  */
-		$modelId = 10;
-		$extendId = $this->modelService->beExtend($modelId,$this->request);
-		
-		$forms = [];
-		foreach(array_merge([$modelId],$extendId) as $id)
+// 		foreach (array_merge($this->extendId,[$this->mainModelId]) as $mid)
+// 		{
+// 			$this->views($mid);
+// 		}
+// $data = (new Select($model, $fields))->find($valudId);
+		foreach ($this->fieldsAndModels as $item)
 		{
-			$forms = array_merge($this->forms($id),$forms);;
+			$view = (new View($item['model'], $item['field']))->html();
+			$this->views = array_merge($this->views,$view);
 		}
-// 		$forms = $this->forms(array_merge([$modelId],$extendId));
-		return $this->view('create',['forms'=>$forms,'model_id'=>$modelId,'append_model_ids'=>$extendId]);
+		return $this->view('create',['forms'=>$this->views,'model_id'=>$this->mainModelId,'append_model_ids'=>$this->extendId]);
 	}
 	
-	public function getEdit()
+	protected function validator($id = 0)
 	{
-		$id = 1;
-		$modelId = 10;
-		//查找数据
-		$extendId = $this->modelService->beExtend($modelId,$this->request);
-		
-		$forms = [];
-		foreach(array_merge([$modelId],$extendId) as $mid)
+		foreach($this->fieldsAndModels as $item)
 		{
-			$forms = array_merge($this->forms($mid,$id),$forms);;
+			$this->form->validator(new AdapterElementForm($item['model'], $item['field'], $id),$this->data[$item['model']->mark]);
 		}
-		// 		$forms = $this->forms(array_merge([$modelId],$extendId));
-		return $this->view('edit',['forms'=>$forms,'model_id'=>$modelId,'append_model_ids'=>$extendId,'id'=>$id]);
-	}
-	
-	protected function database($modelId,$insertId = 0)
-	{
-		$model = $this->modelService->find($modelId);
-		
-		$fields = $this->modelService->fields($model);
-		
-		$this->form->validator(new AdapterElementForm($model, $fields),$this->data[$model->mark]);
-		
-		$this->factory = new Factory($model,$fields,$this->request);
-		
-		return $this->factory->store($this->data[$model->mark],$fields->get($fields->search(function($item,$key){
-			return $item->is_primary !== 2;
-		}))->name,$insertId);
 	}
 	
 	public function postStore()
 	{
-		//主表数据
-		$mainId = $this->database($this->data['model_id']);
+		$this->validator();
 		
-		if (!empty($this->data['extend_id']))
+		$main = array_shift($this->fieldsAndModels);
+		$did = (new ElementStoreService($main['model'], $main['field']))->store($this->data[$main['model']->mark]);
+		
+		//附加表
+		foreach($this->fieldsAndModels as $item)
 		{
-			foreach ($this->data['extend_id'] as $extendId)
-			{
-				$this->database($extendId,$mainId);
-			}
+			(new ElementStoreService($item['model'], $item['field']))->store($this->data[$item['model']->mark],$did);
 		}
 		
-		return $this->response(['success'],'element/create');		
+// 		//get Fields And Model
+// 		extract($this->modelService->requestModelAndFields($modelId,$this->request));
+// 		//validator
+// 		$this->form->validator(new AdapterElementForm($model, $fields),$this->data[$model->mark]);
+// 		//store
+// 		return (new Database($model, $fields,$this->data[$model->mark]))->$type($did);
+		
+		
+		
+		
+// 		return $this->response(['app.success'],'manage/element/create?model_id='.$this->mainModelId);
+		
+// 		$mainId = $this->database($this->mainModelId,Database::STORE);
+	
+// 		foreach ($this->extendId as $eid)
+// 		{
+// 			$this->database($eid,Database::STORE,$mainId);
+// 		}
+	
+		return $this->response(['app.success'],'manage/element/create?model_id='.$this->mainModelId);
 	}
+	
+	public function getEdit($id)
+	{
+		foreach ($this->fieldsAndModels as $item)
+		{
+			$data = (new ElementService($item['model'], $item['field']))->find($id);
+			$view = (new View($item['model'], $item['field'], $data))->html();
+			$this->views = array_merge($this->views,$view);
+		}
+// 		foreach (array_merge($this->extendId,[$this->mainModelId]) as $mid)
+// 		{
+// 			$this->views($mid,$id);
+// 		}
+		return $this->view('edit',['forms'=>$this->views,'model_id'=>$this->mainModelId,'append_model_ids'=>$this->extendId,'id'=>$id]);
+	}
+	
+	public function putUpdate($id)
+	{
+		$this->validator($id);
+		
+// 		$main = array_shift($this->fieldsAndModels);
+// 		(new ElementUpdateService($main['model'], $main['field']))->update($this->data[$main['model']->mark],$id);
+		
+		//附加表
+		foreach($this->fieldsAndModels as $item)
+		{
+			(new ElementUpdateService($item['model'], $item['field']))->update($this->data[$item['model']->mark],$id);
+		}
+		
+		//main Table
+// 		$this->database($this->mainModelId,Database::UPDATE,$id);
+		
+		//get Extends Id
+// 		$extendId = $this->modelService->subExtendId($this->data['model_id']);
+// 		foreach ($this->extendId as $eid)
+// 		{
+// 			$this->database($eid,Database::UPDATE,$id);
+// 		}
+		
+		return $this->response(['app.success'],'manage/element/edit/'.$id.'?model_id='.$this->mainModelId);
+	}
+	
+// 	protected function 
+	
+	/**
+	 * 
+	 * @param number $modelId
+	 * @param string $type
+	 * @param number $did
+	 * @author root
+	 */
+	protected function store($modelId,$type,$did = 0)
+	{
+		//get Fields And Model
+		extract($this->modelService->requestModelAndFields($modelId,$this->request));
+		//validator
+		$this->form->validator(new AdapterElementForm($model, $fields, $did),$this->data[$model->mark]);
+		//store
+		return (new ElementStoreService($model, $fields))->$type($this->data[$model->mark],$did);
+// 		return (new Database($model, $fields,$this->data[$model->mark]))->$type($did);
+	}
+
 }
