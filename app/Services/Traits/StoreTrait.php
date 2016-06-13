@@ -4,6 +4,14 @@ use App\Facades\Auth;
 trait StoreTrait
 {
 	
+	public function builtExternalDataStore()
+	{
+		$data = [];
+		$data['created_uid'] = Auth::id();
+		$data['created_type'] = Auth::type();
+		return $data;
+	}
+	
 	protected function builtDataStore()
 	{
 		$this->data['created_uid'] = Auth::id();
