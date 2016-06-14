@@ -146,13 +146,17 @@ class ModelService extends Model implements ModelInterface
 
 		//获取匹配uri
 		$fields = $fields->filter(function($item) use ($Request){
+			//主键不受限制
+			if ($item->is_primary !== 2)
+			{
+				return true;
+			}
 			//匹配uri模式
 			if ($item->uri)
 			{
 				$uri = array_filter($item->uri,function($value) {
 					return $Request->is($value);
 				});
-
 				if (empty($uri))
 				{
 					return false;

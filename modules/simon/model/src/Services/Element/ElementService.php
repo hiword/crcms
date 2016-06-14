@@ -16,72 +16,135 @@ class ElementService extends Element implements ElementInterface
 		}))->name;
 	}
 	
-	protected function formatFields(Collection $fields,Model $model)
+	protected function formatMultField(Collection $fields)
 	{
-		//表名
-		$tableName = $model->table_name;
-		
-		//主键
-		$primary = $fields->get($fields->search(function($item,$key){
-			return $item->is_primary !== 2;
-		}))->name;
-		
-		//获取本数据表字段
-		$databaseFields = $fields->filter(function($item){
-			if ($item->type==='Multiselect' && $item->setting->store_type!=='field')
-			{
-				return false;
-			}
-			return true;
-		})->map(function($item) use ($tableName){
-			return ['as_field'=>$tableName.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
-		});
 		
 		//获取外键数据表字段
 		$databaseMultField = $fields->filter(function($item){
-			if($item->type==='Multiselect' && $item->setting->store_type==='table')
+			if($item->type === 'Multiselect' && $item->setting->store_type === 'table')
 			{
 				return true;
 			}
 			return false;
-		})->map(function($item) use ($tableName,$primary){
-		
-			//获取SQL查询语句的列
-			$selects = array_filter($item->setting->option,function($value){
-				return stripos($value, 'select')!==false && stripos($value, 'from')!==false;
-			});
-					
-			$expressions = [];$i=0;$expression = [];
-			foreach($selects as $select)
-			{
-				if(preg_match('/from\s+([^\s]+)[\s+|:]/imU',$select,$match))
-				{
-					$field = explode(',', explode(':',$select)[count(explode(':',$select))-1]);
-					$table = trim($match[1]);
-					$expression['field'] = $item->name;
-					$expression['field_info'] = ['as_field'=>$tableName.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
-					$expression['relation_table'] = $table;
-					$expression['relation_other_id'] = $table.'.'.$field[0];
-					$expression['relation_show_name'] = $table.'.'.$field[1];
-					$expression['main_fork_id'] = $primary;
-					$expression['main_table'] = $tableName;
-					//中间关联表信息
-					$middle = explode(',', $item->setting->store_table);
-					$expression['middle_table'] = $middle[0];
-					$expression['middle_fork_id'] = $middle[0].'.'.explode(':',$middle[1])[0];
-					$expression['middle_other_id'] = $middle[0].'.'.explode(':',$middle[2])[0];
-					$expression['middle_fork_type'] = $middle[0].'.'.$middle[3];
-					$expression['middle_fork_type_value'] = $tableName;
-					$expressions[$i] = $expression;
-					$i+=1;
-				}
-			}
-			return $expressions;
 		});
 		
-		$asFields = $databaseFields->pluck('as_field')->all();
-		$fields = $databaseFields->pluck('field')->all();
+		//变量申明
+		$field_alias = $select_field = $field = $alias = $relation = [];
+		
+		if (!$databaseMultField->isEmpty())
+		{
+			$databaseMultField = $databaseMultField->map(function($item){
+			
+				//获取SQL查询语句的列
+				$selects = array_filter($item->setting->option,function($value){
+					return stripos($value, 'select')!==false && stripos($value, 'from')!==false;
+				});
+					
+				$expressions = [];$i=0;$expression = [];
+				$expressions['relation'] = [];
+				$expressions['field'] = [];
+				foreach($selects as $select)
+				{
+					if(preg_match('/from\s+([^\s]+)[\s+|:]/imU',$select,$match))
+					{
+						$field = explode(',', explode(':',$select)[count(explode(':',$select))-1]);
+						$table = trim($match[1]);
+						$expression['field'] = $item->name;
+						$expression['field_info'] = ['select_field'=>$this->model->table_name.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
+						$expression['relation_table'] = $table;
+						$expression['relation_other_id'] = $table.'.'.$field[0];
+						$expression['relation_show_name'] = $table.'.'.$field[1];
+						$expression['main_fork_id'] = $this->getPrimaryKey();
+						$expression['main_table'] = $this->model->table_name;
+						//中间关联表信息
+						$middle = explode(',', $item->setting->store_table);
+						$expression['middle_table'] = $middle[0];
+						$expression['middle_fork_id'] = $middle[0].'.'.explode(':',$middle[1])[0];
+						$expression['middle_other_id'] = $middle[0].'.'.explode(':',$middle[2])[0];
+						$expression['middle_fork_type'] = $middle[0].'.'.$middle[3];
+						$expression['middle_fork_type_value'] = $this->model->table_name;
+						$expressions['relation'][$i] = $expression;
+							
+						$expressions['field'][$i] = ['select_field'=>$this->model->table_name.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
+						$i+=1;
+					}
+				}
+				return $expressions;
+			});
+			
+		
+			foreach ($databaseMultField as $item)
+			{
+				$relation = array_merge($relation,$item['relation']);
+				foreach ($item['field'] as $values)
+				{
+					$select_field[] = $values['select_field'];
+					$field[] = $values['field'];
+					$alias[] = $values['alias'];
+				}
+			}
+			
+			//增加主键
+			if (!in_array($this->getPrimaryKey(), $select_field,true))
+			{
+				array_unshift($select_field, $this->model->table_name.'.'.$this->getPrimaryKey());
+			}
+		
+			$field_alias = array_combine($field, $alias);
+			
+// 			dd($field_alias,$relation,$select_field,$field,$alias);
+		}
+		
+		
+		return compact('select_field','field','alias','field_alias','relation');
+// 		return ['relation'=>$relation]
+		dd($field_alias,$relation,$select_field,$field,$alias);
+		$databaseMultField->each(function ($item){
+			
+		});
+// 		$select_field = $databaseMultField->pluck('field')->all();
+// 		dd(array_get($select_field,'*.select_field'));
+		dd($databaseMultField);
+		$field = $databaseFields->pluck('field')->all();
 		$alias = $databaseFields->pluck('alias')->all();
+		$field_alias = array_combine($field, $alias);
+			
+		dd($databaseMultField);
+		return $databaseMultField;
+	}
+	
+	protected function formatField(Collection $fields)
+	{
+		//获取本数据表字段
+		$databaseFields = $fields->filter(function($item){
+			if ($item->type==='Multiselect' && $item->setting->store_type==='table')
+			{
+				return false;
+			}
+			return true;
+		})->map(function($item) {
+			return ['select_field'=>$this->model->table_name.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
+		});
+		
+		$select_field = $field = $alias = $alias = $field_alias = [];
+		
+		if (!$databaseFields->isEmpty())
+		{
+			$select_field = $databaseFields->pluck('select_field')->all();
+			$field = $databaseFields->pluck('field')->all();
+			$alias = $databaseFields->pluck('alias')->all();
+			
+			$field_alias = array_combine($field, $alias);
+			
+			//增加主键
+			if (!in_array($this->getPrimaryKey(), $select_field,true))
+			{
+				array_unshift($select_field, $this->model->table_name.'.'.$this->getPrimaryKey());
+			}
+		}
+		
+		
+		return compact('select_field','field','alias','field_alias');
 		
 		$multAsFields = $databaseMultField->pluck('field_info.as_field')->all();
 		$multFields = $databaseMultField->pluck('field_info.field')->all();
@@ -90,7 +153,7 @@ class ElementService extends Element implements ElementInterface
 		return ['table'=>$tableName,'primary'=>$primary,'field'=>$databaseFields,'mult_field'=>$databaseMultField];
 	}
 	
-	public function selectOptions()
+	public function selectListOptions()
 	{
 		$fields = $this->fields->filter(function($item){
 			if(empty($item->option))
@@ -104,6 +167,33 @@ class ElementService extends Element implements ElementInterface
 			return true;
 		});
 		
+		$databaseFields= $this->formatField($fields);
+// 		dd($databaseFields);
+		$databaseMultFields = $this->formatMultField($fields);
+			
+		$format = [
+			'table'=>$this->model->table_name,
+			'primary'=>$this->getPrimaryKey(),
+			'select_field'=>$databaseFields['select_field'],//这里是因为要查询表，字段也是外键虚拟字段，所以并不合并
+			'field'=>array_merge($databaseFields['field'],$databaseMultFields['field']),
+			'alias'=>array_merge($databaseFields['alias'],$databaseMultFields['alias']),
+			'field_alias'=>array_merge($databaseFields['field_alias'],$databaseMultFields['field_alias']),
+			'relation'=>(array)$databaseMultFields['relation'],
+		];
+		
+		return $format;
+		$b = array_merge($databaseFields,$databaseMultFields,[
+			'table'=>$this->model->table_name,
+			'primary'=>$this->getPrimaryKey(),
+		]);
+		if ($this->model->table_name == 'append_2')
+		{
+			dd($databaseFields);
+			dd($b);
+		}
+		return $b;
+		
+		dd($databaseFields,$databaseMultFields);
 		return $this->formatFields($fields, $this->model);
 		
 		return array_merge($formatFields,['table'=>$this->model->table_name]);

@@ -166,26 +166,38 @@ class ElementController extends Controller
 	public function getIndex(Request $Request) 
 	{
 		$main = array_shift($this->fieldsAndModels);
-		$mainOptions = (new ElementService($main['model'], $main['field']))->selectOptions();
+		$mainOptions = (new ElementService($main['model'], $main['field']))->selectListOptions();
 
-		$db = DB::table($mainOptions['table']);
-		$selectFields = $mainOptions['field']['as_field'];
-		$showFields = $mainOptions['field']['field'];
-		$multFields = $mainOptions['mult_field'];
+		$query= DB::table($mainOptions['table']);
+		
+		//数据库查询字段
+		$selectFields = $mainOptions['select_field'];
+		//显示的字段名
+		$showFields = $mainOptions['field'];
+		//显示的字段别名
+		$aliasFields = $mainOptions['alias'];
+		//字段名=>字段别名  的数组形式
+		$showAliasFields = $mainOptions['field_alias'];
+		
+		$multFields = $mainOptions['relation'];
+		
 		foreach ($this->fieldsAndModels as $item)
 		{
-			$option = (new ElementService($item['model'], $item['field']))->selectOptions();
+			$options = (new ElementService($item['model'], $item['field']))->selectListOptions();
 			
 			//join
-			$db->join($option['table'],$mainOptions['table'].'.'.$mainOptions['primary'],'=',$option['table'].'.'.$option['primary']);
+			$query->join($options['table'],$mainOptions['table'].'.'.$mainOptions['primary'],'=',$options['table'].'.'.$options['primary']);
+			
 			//获取字段
-			$selectFields = array_merge($selectFields,(array)$option['field']['as_field']);
-			$showFields = array_merge($showFields,(array)$option['field']['field']);
+			$selectFields = array_merge($selectFields,(array)$options['select_field']);
+			$showFields = array_merge($showFields,(array)$options['field']);
+			$aliasFields = array_merge($aliasFields,(array)$options['alias']);
+			$showAliasFields = array_merge($showAliasFields,(array)$options['field_alias']);
 			//多选字段
-			$multFields = array_merge($multFields,$option['mult_field']);
+			$multFields = array_merge($multFields,$options['relation']);
 		}
-		dd($selectFields);
-		$results = ($db->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->paginate());
+// 		dd($selectFields,$showFields,$aliasFields);
+		$results = ($query->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->paginate());
 		$link = $results->appends(['model_id' => $this->data['model_id']])->links();
 // 		$results = collect($db->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->appends(['model_id'=>$this->data['model_id']])->paginate(15));
 // 		$results = collect($db->select($selectFields)->orderBy($mainOptions['table'].'.'.$mainOptions['primary'],'desc')->appends(['model_id'=>$this->data['model_id']])->paginate(15));
@@ -195,6 +207,7 @@ class ElementController extends Controller
 			{
 				foreach($multFields as $mult)
 				{
+// 					dd($mult);
 					//先查出中间表数据
 					$otherId = DB::table($mult['middle_table'])->where($mult['middle_fork_id'],$result->{$mult['main_fork_id']})->where($mult['middle_fork_type'],$mult['middle_fork_type_value'])->lists($mult['middle_other_id']);
 					//获取数据
@@ -202,8 +215,7 @@ class ElementController extends Controller
 				}
 			}	
 		}
-		return $this->view('index',['models'=>$results,'fields'=>$selectFields,'page'=>$link]);
-		dd($results);
+		return $this->view('index',['models'=>$results,'fields'=>$showAliasFields,'page'=>$link]);
 		
 		dd($result,DB::getQueryLog());
 		//主表字段查询表达式
