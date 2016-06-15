@@ -12,6 +12,7 @@ use Simon\Mail\Events\Mail;
 use Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface;
 use Simon\Log\Models\AuthLog;
 use Simon\Log\Services\AuthLog\Interfaces\AuthLogInterface;
+use Simon\User\Services\User\Interfaces\UserInterface;
 class AuthController extends Controller
 {
 	
@@ -24,6 +25,31 @@ class AuthController extends Controller
 		parent::__construct();
 		$this->view = 'user::'.config('site.theme').'.auth.';
 		$this->auth = $AuthInterface;
+	}
+	
+	//UserInterface $UserInterface,
+	public function getVerifyRegister(UserInterface $UserInterface,UserRegisterInterface $UserRegisterInterface)
+	{
+		try 
+		{
+			extract($this->data);
+			$UserRegisterInterface->verfiyMailLink($id, $time, $rand, $hash);
+			
+			//检查原验证状态
+			$UserRegisterInterface->checkMailVerifyStatus($id);
+			
+			//修改验证状态
+			$UserRegisterInterface->updateMailVerifyStatus($id);
+			
+			return $this->response(['app.success'],$this->redirectUrl);
+		} 
+		catch (\Exception $e) 
+		{
+			//记录日志
+			
+			//throw
+			throw $e;
+		}
 	}
 	
 	public function getRegister()
@@ -47,29 +73,24 @@ class AuthController extends Controller
 			//判断注册时间
 		}
 		
-		$user = $UserRegisterInterface->store($this->data);
+		$user = $UserRegisterInterface->store($this->data,$this->request);
 		
+		//验证链接
+		$user->to_mail_link = $UserRegisterInterface->toMailLink();
+		
+		//保存session
 		$this->auth->store($user);
 		
-// 		if (module_exists('mail')) 
-// 		{
-// 			mailer('user::emails.register', $user->email,$user->toArray(),'register');
-// 		}
+		if (module_exists('mail')) 
+		{
+			mailer('user::emails.register', $user->email,$user->toArray(),'register');
+		}
 		
 		if (module_exists('log'))
 		{
-			/*这里先这样写，使用是的AuthLogModel里面的常理，不知controller应该如何调用，因为controller是不允许调用model的*/
+			/*这里先这样写，使用是的AuthLogModel里面的常量，不知controller应该如何调用，因为controller是不允许调用model的*/
 			auth_log($user, $AuthLogInterface->register(), $AuthLogInterface->success());
 		}
-// 		$this->logs([
-// 				'Simon\Log\Services\AuthLog\Interfaces\AuthLogStoreInterface'=>[
-// 					'userid'=>$user->id,
-// 					'name'=>$user->name,
-// 					'email'=>$user->email,
-// 					'status'=>AuthLog::STATUS_SUCCESS,
-// 					'type'=>AuthLog::TYPE_REGISTER,
-// 				]
-// 		],false);
 		
 		return $this->response(['app.success'],$this->redirectUrl);
 	}

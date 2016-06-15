@@ -24,8 +24,10 @@ class UserRegisterForm extends UserForm implements FormInterface
 	{
 		// TODO Auto-generated method stub
 		$rule = [
-// 			'email'=>['required','email'],
+			'email'=>['required','email','unique:users'],
+			'name'=>array_merge($this->rule['name'],['unique:users'])
 		];
+		
 		
 		return array_merge($this->rule,$rule);
 	}

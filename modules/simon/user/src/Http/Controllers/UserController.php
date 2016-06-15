@@ -7,7 +7,8 @@ class UserController extends Controller
 	
 	public function getIndex() 
 	{
-		dd(Auth::user());
+		//dd(Auth::user());
+		return redirect('hacker/index');
 	}
 	
 }

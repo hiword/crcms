@@ -46,6 +46,11 @@ class UserServiceProvider extends PackageServiceProvider
     		'Simon\User\Services\User\UserLoginService'
     	);
     	
+    	$this->app->bind(
+    		'Simon\User\Services\User\Interfaces\UserInterface',
+    		'Simon\User\Services\User\UserService'
+    	);
+    	
     }
     
     public function provides()
