@@ -6,6 +6,7 @@
 @section('body')
 <div class="main">
 	<div class="main-left">
+		@section('sidebar')
 		<h2 class="logo">CRCMS</h2>
 		<div class="sidebar">
 			<ul class="nav nav-pills nav-stacked">
@@ -45,6 +46,7 @@
 				</li>
 			</ul>
 		</div>
+		@show
 	</div>
 	<div class="main-right">
 		<div class="container-fluid">
