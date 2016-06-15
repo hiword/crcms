@@ -1,4 +1,4 @@
 <?php
 return [
-	'theme'=>'skin1',
+	'theme'=>env('SITE_THEME','skin1'),
 ];
