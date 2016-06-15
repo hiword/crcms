@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+body
+{
+	background:#F7F7F7;
+}
+
+.main-left .article-list {
+	padding:20px;
+	background:#FFFFFF;
+}
+
+.main-left .list-content
+{
+	line-height:200%;
+}
