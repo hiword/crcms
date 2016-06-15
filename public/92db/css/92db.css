@@ -3,7 +3,10 @@ body
 {
 	background:#F7F7F7;
 }
-
+.db-header .navbar 
+{
+	border-radius:0px!important;
+}
 .main-left .article-list {
 	padding:20px;
 	background:#FFFFFF;
@@ -12,4 +15,25 @@ body
 .main-left .list-content
 {
 	line-height:200%;
+}
+.main-left .list-status i,.main-left .list-status a{
+	color:#b5b5b5;
+}
+.main-left .list-status a {
+	text-decoration:none;
+}
+.page .pagination {
+	margin:0px;
+}
+
+.page .pagination > li > a,.page .pagination > li > span
+{
+	border:0px;
+	margin-right:5px;
+	color:#777777;
+}
+
+.page .pagination > li:first-child > a,.page .pagination > li:first-child > span
+{
+	border-radius:0px;
 }
