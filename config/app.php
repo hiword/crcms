@@ -194,6 +194,9 @@ return [
     	
     	//comments
     	Simon\Comment\Providers\CommentServiceProvider::class,
+    		
+    	//hacker
+    	Simon\Hacker\Providers\HackerServiceProvider::class,
     ],
 
     /*

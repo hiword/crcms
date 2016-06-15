@@ -42,6 +42,7 @@
 			"Simon\\Model\\" : "modules/simon/model/src",
 			"Simon\\Count\\" : "modules/simon/count/src",
 			"Simon\\Comment\\" : "modules/simon/comment/src",
+			"Simon\\Hacker\\" : "modules/simon/hacker/src",
 			"Simon\\System\\" : "modules/simon/system/src"
         }
     },

@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+html,body
+{
+	background:#000000;
+	color:#339933;
+	font-size:16px;
+}
+.g-title
+{
+	font-size:70px;
+	margin-top:100px;
+}
+
+a {
+	color:#339933;
+	font-size:20px;
+}
+.hacker-a {
+	color:red;
+}
+
+.index .list-group ,.index .list-group li{
+	background:none!important;
+	border:0px;
+}
+
+div.hacker-desc {
+	font-size:20px;
+	margin-top:30px;
+}
+.badge {
+	color:#FFFFFF;
+	background:red;
+}
+
+.hacker-form-box {
+	margin-top:25px;
+	width:100%;
+}
+.hacker-submit {
+	padding:0px;
+}
+.hacker-submit button {
+}
+.hacker-text-box {
+	padding:0px;
+}
+.hacker-text 
+{
+	background:none;
+}
