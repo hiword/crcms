@@ -19,7 +19,7 @@
  </head>
 <body>
 <div class="db-header">
-	<div class="container-fluid broadcast">
+	<div class="broadcast">
 		<div class="container ">
 			<span class="glyphicon glyphicon-volume-up"></span>
 			<a href="###">欢乐多多，热烈庆祝本站顺利开通！</a>
@@ -43,7 +43,6 @@
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
 	        <li><a href="#">Link</a></li>
-	        <!-- 
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
@@ -55,7 +54,7 @@
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">One more separated link</a></li>
 	          </ul>
-	        </li> -->
+	        </li>
 	      </ul>
 	      <!-- 
 	      <form class="navbar-form navbar-left" role="search">
