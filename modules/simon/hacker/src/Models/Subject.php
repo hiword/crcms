@@ -31,4 +31,9 @@ class Subject extends Model
 	
 	const STATUS = [self::STATUS_OPEN=>'开启',self::STATUS_HIDDEN=>'隐藏',self::STATUS_CLOSE=>'关闭'];
 	
+	
+	public function hasOneUserSubject() 
+	{
+		return $this->hasOne('Simon\Hacker\Models\UserSubject','subject_id','id');
+	}
 }

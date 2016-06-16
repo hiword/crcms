@@ -14,6 +14,7 @@ class IndexController extends Controller
 	
 	public function getIndex() 
 	{
+		return redirect('manage/subject/index');
 		echo 2;exit();
 		//echo 2;
 		  var_dump(\PhpSms::make()->to('18715155081')->content('【Laravel SMS】亲爱的张三，欢迎访问，祝你工作愉快。')->send());

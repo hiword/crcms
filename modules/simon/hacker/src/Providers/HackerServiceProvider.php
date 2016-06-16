@@ -56,6 +56,21 @@ class HackerServiceProvider extends PackageServiceProvider
     		'Simon\Hacker\Services\Subject\SubjectDestroyService'
     	);
     	
+    	$this->app->bind(
+    		'Simon\Hacker\Services\UserSubject\Interfaces\UserSubjectInterface',
+    		'Simon\Hacker\Services\UserSubject\UserSubjectService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\Hacker\Services\UserSubject\Interfaces\UserSubjectStoreInterface',
+    		'Simon\Hacker\Services\UserSubject\UserSubjectStoreService'
+    	);
+    	
+    	$this->app->bind(
+    		'Simon\Hacker\Services\UserSubject\Interfaces\UserSubjectUpdateInterface',
+    		'Simon\Hacker\Services\UserSubject\UserSubjectUpdateService'
+    	);
+    	
     }
 	
 }

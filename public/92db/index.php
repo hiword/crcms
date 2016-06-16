@@ -135,7 +135,14 @@
 			  </ul>
 		</div>
 	</div>
-	<div class="col-md-3">Cd</div>
+	<div class="col-md-3">
+		<div class="panel">
+			<div class="panel-heading"><h3 class="bs-callout bs-callout-danger">热门标签</h3></div>
+			<div class="panel-body">
+				fafdas
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

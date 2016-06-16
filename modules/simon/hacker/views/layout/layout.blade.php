@@ -29,8 +29,8 @@ $(function(){
 			url:$(this).attr('action'),
 			data:$(this).serialize(),
 			success:function(response){
-				alert(response.msg);
-				if(response.status == 1000)
+				alert(response.app_message);
+				if(response.app_code == 1000)
 				{
 					setTimeout(function(){
 						window.location.href = '{{url("hacker/index")}}';
@@ -38,7 +38,7 @@ $(function(){
 				}
 			},
 			error:function(response){
-				alert(response.responseJSON.msg);
+				alert(response.responseJSON.app_message);
 			}
 		});
 		return false;

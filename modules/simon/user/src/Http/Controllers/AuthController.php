@@ -112,4 +112,10 @@ class AuthController extends Controller
 		
 		return $this->response(['app.success'],$this->redirectUrl);
 	}
+	
+	public function getLogout() 
+	{
+		Auth::logout();
+		return $this->response(['app.success'],'auth/login');
+	}
 }

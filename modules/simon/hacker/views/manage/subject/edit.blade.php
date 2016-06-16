@@ -5,19 +5,7 @@
 	<a class="btn btn-sm btn-default" href="{{url('manage/subject/index')}}">列表</a>
 </h3>
 @endsection
-@section('sidebar')
-<h2 class="logo">Hacker</h2>
-<div class="sidebar">
-	<ul class="nav nav-pills nav-stacked">
-	     <li id="accordion0" class="active">
-			<a href="#collapse-ul-0" data-parent="#accordion0" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">HackerTest</a>
-			<ul  id="collapse-ul-0" class="collapse in">
-				<li><a href="{{url('manage/subject/index')}}">题目列表</a></li>
-			</ul>
-		</li>
-	</ul>
-</div>
-@endsection
+@include('hacker::manage.sidebar')
 @section('main')
 <form action="{{url('manage/subject/update/'.$model->id)}}" class="valid-form" method="post">
 {{csrf_field()}}

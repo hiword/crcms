@@ -26,6 +26,20 @@ class SubjectStoreService extends Subject implements SubjectStoreInterface
 		$this->model->save();
 		return $this->model;
 	}
+	/* 
+	 * (non-PHPdoc)
+	 * @see \Simon\Hacker\Services\Subject\Interfaces\SubjectStoreInterface::userSubjectStore()
+	 * @author simon
+	 */
+	public function userSubjectStore(\Simon\Hacker\Models\Subject $subject,array $data)
+	{
+		// TODO Auto-generated method stub
+		if ($subject->answer) 
+		{
+			;
+		}
+	}
+
 
 	
 }

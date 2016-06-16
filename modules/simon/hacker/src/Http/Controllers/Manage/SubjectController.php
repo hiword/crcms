@@ -15,6 +15,12 @@ class SubjectController extends Controller
 	public function __construct(SubjectInterface $SubjectInterface)
 	{
 		parent::__construct();	
+		
+		if (module_exists('system'))
+		{
+			$this->middleware('Simon\System\Http\Middleware\Authenticate');
+		}
+		
 		$this->service = $SubjectInterface;
 		
 		view()->share([
