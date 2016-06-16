@@ -63,6 +63,11 @@ body
 	border-radius:0px;
 }
 
+.page .pagination-lg > li:last-child > a, .page .pagination-lg > li:last-child > span
+{
+	border-radius:0px;
+}
+
 
 .main-right  {padding-top:0px;}
 .main-right .panel {
