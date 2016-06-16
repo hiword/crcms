@@ -17,6 +17,6 @@ use App\Exceptions\AppException;
 // 	throw new AppException('abc');
 // });
 // Route::get('/','Simon\Document\DocumentController@getIndex');
-Route::get('/b',function(){
-	return view('welcome');
-});
+// Route::get('/b',function(){
+// 	return view('welcome');
+// });
