@@ -56,6 +56,7 @@ return array(
         'large' => 'Intervention\Image\Templates\Large',
         'img_1' => 'Simon\File\Services\ImageTemplates\DocumentIndex',
         'sidebar' => 'Simon\File\Services\ImageTemplates\DocumentThumb',
+        '92db' => 'Simon\Document\Services\ImageTemplates\Db',
     ),
 
     /*
@@ -67,6 +68,6 @@ return array(
     |
     */
    
-    'lifetime' => 43200,
+    'lifetime' =>143200,
 
 );
