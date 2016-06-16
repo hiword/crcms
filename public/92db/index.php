@@ -122,7 +122,7 @@
 					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
 				</div>
 			</article>
-			<div class="page">
+			<div class="page mb20">
 				<ul class="pagination pagination-lg">
 				    <li>
 				      <a href="#" aria-label="Previous">
@@ -169,7 +169,7 @@
 				</div>
 			</div>
 			
-			<div class="panel mb0" style="margin-bottom: 0px;">
+			<div class="panel ">
 				<div class="panel-heading bs-callout bs-callout-danger">
 					<h3>关注我们</h3>
 				</div>
@@ -181,7 +181,7 @@
 	</div>
 </div>
 <!-- footer -->
-<footer class="mt20">
+<footer class="">
 	<div class="container">
 		<div class="copyright">
 			<p>CRCMS - 致力于打造全面化的开源CMS。</p>
