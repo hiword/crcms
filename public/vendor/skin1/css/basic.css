@@ -84,6 +84,8 @@
 	color:#b2b2b2;
 }
 
+
+
 .article-info,.article-info a {
     color: #999;
 }
@@ -210,6 +212,13 @@
 	margin-left:15px;
 	list-style-type:square;
 }
+
+.main-right .main-box article .content  img,.document-show .main-content img {
+	display: block;
+    height: auto;
+    max-width: 100%;
+}
+
 footer {
 	border-top:1px solid #d9d9d9;
 	padding:15px 4% 6px;
