@@ -135,14 +135,53 @@
 			  </ul>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 main-right">
 		<div class="panel">
-			<div class="panel-heading"><h3 class="bs-callout bs-callout-danger">热门标签</h3></div>
+			<div class="panel-heading bs-callout bs-callout-danger"><h3 class="">热门标签</h3></div>
 			<div class="panel-body">
-				fafdas
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=php">php (3)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=ubuntu">ubuntu (3)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=git">git (2)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=windows">windows (2)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=mysql">mysql (2)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=新特性">新特性 (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=触发器">触发器 (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=trigger">trigger (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=angularjs">angularjs (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=javascript">javascript (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=zend studio">zend studio (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=string">string (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=exception">exception (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=xss">xss (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=php7">php7 (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=java">java (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=reset">reset (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=apache">apache (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=水平分表">水平分表 (1)</a>
+				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=stash">stash (1)</a>
+			</div>
+		</div>
+		
+		<div class="panel mb0" style="margin-bottom: 0px;">
+			<div class="panel-heading bs-callout bs-callout-danger">
+				<h3>关注我们</h3>
+			</div>
+			<div class="panel-body">
+				<img alt="" class="img-responsive" src="http://www.pujie.net/static/images/weixingzh.jpg">
 			</div>
 		</div>
 	</div>
 </div>
+<!-- footer -->
+<footer class="mt20">
+	<div class="container">
+		<div class="copyright">
+			<p>CRCMS - 致力于打造全面化的开源CMS。</p>
+			<p>
+				版权所有，保留一切权利！ Copyright © 2013-2016 CRCMS-v2.1强力驱动 皖ICP备12004017号-2
+			</p>
+		</div>
+	</div>
+</footer>
 </body>
 </html>
