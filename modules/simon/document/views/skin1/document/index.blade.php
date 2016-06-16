@@ -17,7 +17,7 @@ CRCMS - 致力于打造全面化的开源CMS
 <div class="container-fluid">
 	<div class="row">
 		@include('document::skin1.includes.left')
-		<div class="main-right col-md-9 main-right col-md-offset-3">
+		<div class="main-right col-md-9 main-right col-md-offset-3  .col-xs-12 col-xs-offset-0">
 			<div class="main-box">
 				@document
 				<article>

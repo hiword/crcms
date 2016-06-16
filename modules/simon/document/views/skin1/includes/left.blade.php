@@ -1,4 +1,4 @@
-<div class="col-md-3 main-left" style="">
+<div class="col-md-3 .col-xs-0 main-left" style="">
 	<h1>CRCMS</h1>
 	<ul class="c-nav">
 		<li class="{{Request::is('/') || Request::is('show/*') ? 'active' : null}}"><a href="{{url('/')}}">Home</a></li>
