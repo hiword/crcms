@@ -19,6 +19,12 @@
  </head>
 <body>
 <div class="db-header">
+	<div class="container-fluid broadcast">
+		<div class="container ">
+			<span class="glyphicon glyphicon-volume-up"></span>
+			<a href="###">欢乐多多，热烈庆祝本站顺利开通！</a>
+		</div>
+	</div>
 	<nav class="navbar navbar-default">
 	  <div class="container"><!-- -fluid -->
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -77,97 +83,99 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 </div>
-<div class="container db-main">
-	<div class="col-md-9 main-left">
-		<article class="article-list mb20">
-			<div class="user-info">
-				<a rel="nofollow" target="_blank" href="/users/27825408/">
-					<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
-				</a>
-				<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
-					依然范特西:
-				</a>
-			</div>
-			<div class="list-content mt20">
-				我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
-			</div>
-			<div class="list-status mt20 clearfix">
-				<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
-				<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
-				<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
-			</div>
-		</article>
-		<article class="article-list mb20">
-			<div class="user-info">
-				<a rel="nofollow" target="_blank" href="/users/27825408/">
-					<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
-				</a>
-				<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
-					依然范特西:
-				</a>
-			</div>
-			<div class="list-content mt20">
-				我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
-			</div>
-			<div class="list-status mt20 clearfix">
-				<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
-				<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
-				<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
-			</div>
-		</article>
-		<div class="page">
-			<ul class="pagination pagination-lg">
-			    <li>
-			      <a href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li>
-			      <a href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-		</div>
-	</div>
-	<div class="col-md-3 main-right">
-		<div class="panel">
-			<div class="panel-heading bs-callout bs-callout-danger"><h3 class="">热门标签</h3></div>
-			<div class="panel-body">
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=php">php (3)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=ubuntu">ubuntu (3)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=git">git (2)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=windows">windows (2)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=mysql">mysql (2)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=新特性">新特性 (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=触发器">触发器 (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=trigger">trigger (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=angularjs">angularjs (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=javascript">javascript (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=zend studio">zend studio (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=string">string (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=exception">exception (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=xss">xss (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=php7">php7 (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=java">java (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=reset">reset (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=apache">apache (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=水平分表">水平分表 (1)</a>
-				<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=stash">stash (1)</a>
+<div class="container">
+	<div class="row db-main">
+		<div class="col-md-9 main-left">
+			<article class="article-list mb20">
+				<div class="user-info">
+					<a rel="nofollow" target="_blank" href="/users/27825408/">
+						<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
+					</a>
+					<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
+						依然范特西:
+					</a>
+				</div>
+				<div class="list-content mt20">
+					我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
+				</div>
+				<div class="list-status mt20 clearfix">
+					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
+					<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
+					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
+				</div>
+			</article>
+			<article class="article-list mb20">
+				<div class="user-info">
+					<a rel="nofollow" target="_blank" href="/users/27825408/">
+						<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
+					</a>
+					<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
+						依然范特西:
+					</a>
+				</div>
+				<div class="list-content mt20">
+					我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
+				</div>
+				<div class="list-status mt20 clearfix">
+					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
+					<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
+					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
+				</div>
+			</article>
+			<div class="page">
+				<ul class="pagination pagination-lg">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
 			</div>
 		</div>
-		
-		<div class="panel mb0" style="margin-bottom: 0px;">
-			<div class="panel-heading bs-callout bs-callout-danger">
-				<h3>关注我们</h3>
+		<div class="col-md-3 main-right">
+			<div class="panel">
+				<div class="panel-heading bs-callout bs-callout-danger"><h3 class="">热门标签</h3></div>
+				<div class="panel-body">
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=php">php (3)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=ubuntu">ubuntu (3)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=git">git (2)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=windows">windows (2)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=mysql">mysql (2)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=新特性">新特性 (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=触发器">触发器 (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=trigger">trigger (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=angularjs">angularjs (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=javascript">javascript (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=zend studio">zend studio (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=string">string (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=exception">exception (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=xss">xss (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=php7">php7 (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=java">java (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=reset">reset (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=apache">apache (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=水平分表">水平分表 (1)</a>
+					<a class="sidebar-tag" href="http://crcms.cn/tags/search?name=stash">stash (1)</a>
+				</div>
 			</div>
-			<div class="panel-body">
-				<img alt="" class="img-responsive" src="http://www.pujie.net/static/images/weixingzh.jpg">
+			
+			<div class="panel mb0" style="margin-bottom: 0px;">
+				<div class="panel-heading bs-callout bs-callout-danger">
+					<h3>关注我们</h3>
+				</div>
+				<div class="panel-body">
+					<img alt="" class="img-responsive" src="http://www.pujie.net/static/images/weixingzh.jpg">
+				</div>
 			</div>
 		</div>
 	</div>

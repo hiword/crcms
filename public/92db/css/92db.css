@@ -27,6 +27,18 @@ body
     color: #1b809e;
 }
 
+.broadcast {
+	height:30px;line-height:30px;background:#FFFFFF;
+}
+.broadcast a {
+	color:#999999;
+	text-decoration:none;
+}
+.broadcast a:hover
+{
+	color:#333333;
+	text-decoration:none;
+}
 
 .db-header .navbar 
 {
