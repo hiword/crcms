@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+@media (max-width: 768px) {
+	.main-left {display:none;}
+}
 .main-left
 {
 	background-attachment: scroll, fixed;
