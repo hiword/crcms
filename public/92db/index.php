@@ -103,7 +103,7 @@
 					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
 				</div>
 			</article>
-			<article class="article-list mb20">				<!-- 
+			<article class="article-list mb20">				
 				<div class="list-info clearfix">
 					<div class="user-info pull-left">
 						<a rel="nofollow" target="_blank" href="/users/27825408/">
@@ -121,13 +121,15 @@
 						<a href="###" class="ml10">查看全文</a>
 					</div>
 				</div>
+				<div class="row">
 				<div class="hidden-md hidden-lg col-xs-12 mt15">
 					<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>string</a>
 					<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>string</a>
 					<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>string</a>
 					<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>tags</a>
 				</div>
- -->
+				</div>
+<!-- 
 				<div class="list-info row clearfix">
 					<div class="user-info col-md-4 col-xs-6">
 						<a rel="nofollow" target="_blank" href="/users/27825408/">
@@ -152,9 +154,11 @@
 						<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>string</a>
 						<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>tags</a>
 					</div>
-				</div>
+				</div> -->
 				<div class="list-content mt20">
 					我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
+					
+					<img status="small" original-src="http://crcms.cn/image/original/Mi5qcGc" class="img-responsive mt10" src="http://crcms.cn/image/92db/Mi5qcGc=" small-src="http://crcms.cn/image/92db/Mi5qcGc=" />
 				</div>
 				<div class="list-status mt20 clearfix">
 					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
@@ -185,24 +189,6 @@
 					<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
 					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
 				</div> -->
-			</article>
-			<article class="article-list mb20">
-				<div class="user-info">
-					<a rel="nofollow" target="_blank" href="/users/27825408/">
-						<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
-					</a>
-					<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
-						依然范特西:
-					</a>
-				</div>
-				<div class="list-content mt20">
-					<img status="small" original-src="http://crcms.cn/image/original/Mi5qcGc" class="img-responsive" src="http://crcms.cn/image/92db/Mi5qcGc=" small-src="http://crcms.cn/image/92db/Mi5qcGc=" />
-				</div>
-				<div class="list-status mt20 clearfix">
-					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
-					<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
-					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
-				</div>
 			</article>
 			<!-- page -->
 			<div class="page mb20">
