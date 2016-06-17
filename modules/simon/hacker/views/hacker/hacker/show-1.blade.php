@@ -6,7 +6,7 @@
 		<div class="col-md-6">
 			<h2>SQL注入漏洞1</h2>
 			<div class="hacker-desc">
-				<p>要求点击下面链接，查询id为1的用户帐号密码并提交</p>
+				<p>要求链接文件，查询id为1的用户帐号密码并提交</p>
 				<p><a href="{{config('link.show_1')}}" target="_blank" class="hacker-a">点击此链接</a></p>
 				<p>结果以|分隔，如admin|123</p>
 			</div>

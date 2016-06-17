@@ -21,6 +21,7 @@ class SubjectStoreService extends Subject implements SubjectStoreInterface
 		$this->model->status = $data['status'];
 		$this->model->sort = $data['sort'];
 		$this->model->score = $data['score'];
+		$this->model->file = $data['file'];
 		$this->model->content = format_xss(Input::get('content'));
 		$this->builtModelStore();
 		$this->model->save();

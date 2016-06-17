@@ -20,6 +20,7 @@ class CreateSubjectsTable extends Migration
     		$table->string('title',120);
     		$table->text('content');
     		$table->string('answer',512);
+    		$table->string('file',255);
     		
     		$table->smallInteger('score',false,true)->default(0);//审核状态
     		

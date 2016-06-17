@@ -32,6 +32,13 @@
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
+			<label class=" Validform_label label-name">测试文件</label>
+			<input type="hidden" name="file" value="{{$model->file}}" />
+			<a href="###" class="upload-dialog">{{$model->file ? basename($model->file) : '上传PHP'}}</a>
+			<p class="help-block Validform_checktip"></p>
+		</div>
+		
+		<div class="form-group">
             <label class=" Validform_label label-name">答案</label>
 			<textarea class="form-control" type="text" name="answer" placeholder="">{{$model->answer}}</textarea>
 			<p class="help-block Validform_checktip"></p>
@@ -76,11 +83,11 @@
 	//single img upload
 	$('.upload-dialog').on('click',function(){
 		var $this = $(this);
-		uploaded({
+		uploaded('exec_upload',{
 			ok:function(){
-				var value = $('[name^="uploads[][src]"]').first().val();
-				$this.find('img').attr('src',value);
-				$('[name="document[thumbnail]"]').val($('[name^="uploads[][src]"]').first().attr('path'));
+				var value = $('[name^="uploads[][src]"]').first().attr('path');
+				$('[name="file"]').val(value);
+				$this.text(value.split("/")[value.split("/").length-1]);
 				return true;
 			}
 		});

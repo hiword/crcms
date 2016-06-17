@@ -21,6 +21,7 @@ class SubjectUpdateService extends Subject implements SubjectUpdateInterface
 		$this->data['status'] = $data['status'];
 		$this->data['sort'] = $data['sort'];
 		$this->data['score'] = $data['score'];
+		$this->data['file'] = $data['file'];
 		$this->data['content'] = format_xss(Input::get('content'));
 		$this->builtDataUpdate();
 		

@@ -10,5 +10,6 @@ abstract class SubjectForm extends AbsForm
 		'status'=>['required','integer'],
 		'score'=>['required','integer'],
 		'content'=>['required'],
+		'file'=>['required'],
 	];
 }

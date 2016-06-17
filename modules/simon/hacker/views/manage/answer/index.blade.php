@@ -16,7 +16,7 @@
 @endsection
 
 @section('table-header')
-<th>题目</th>
+<th>参与人</th>
 <th>分值</th>
 @endsection
 

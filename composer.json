@@ -29,6 +29,7 @@
         	"app/helper.php",
         	"modules/simon/log/src/helper.php",
         	"modules/simon/mail/src/helper.php",
+        	"modules/simon/hacker/src/helper.php",
         	"modules/simon/file/src/helper.php"
         ],
         "psr-4": {

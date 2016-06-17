@@ -89,4 +89,12 @@ class HackerController extends Controller
 		return $this->response(['app.success']);
 	}
 	
+	public function getStart($id) 
+	{
+		$subject = $this->subject->find($id);
+		if ($subject->file)
+		{
+			return require public_path('scripts'.$subject->file);
+		}
+	}
 }

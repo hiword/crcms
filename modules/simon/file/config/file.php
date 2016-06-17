@@ -27,5 +27,13 @@ return [
 			'check_extension'=>true,
 			'check_mime'=>true,
 			'rename'=>true,
+	],
+	'exec_upload'=>[
+		'filesize'=>size_byte('3MB'),
+		'extensions'=>['php'],
+		'check_extension'=>true,
+		'check_mime'=>true,
+		'rename'=>true,
+		'path'=>public_path('scripts'),
 	]
 ];

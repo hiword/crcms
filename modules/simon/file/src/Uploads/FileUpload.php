@@ -865,7 +865,7 @@ class FileUpload
 	 */
 	public function config(array $config)
 	{
-		$allowPrototype = ['filesize','extensions','checkExtension','checkMime','rename','hashDirLayer'];
+		$allowPrototype = ['filesize','extensions','checkExtension','checkMime','rename','hashDirLayer','path'];
 		
 		foreach ($config as $key=>$value)
 		{

@@ -8,6 +8,13 @@
 			<h2>{{$model->title}}({{$model->score}}分)</h2>
 			<div class="hacker-desc">
 				{!!$model->content!!}
+				@if($model->file)
+				<?php /*
+				<p>链接文件地址：<a href="{{url('hacker/start/'.$model->id)}}" target="_blank">点击此处</a></p>
+				*/?>
+				<!--  -->
+				<p>链接文件地址：<a href="{{script_url($model->file)}}" target="_blank" style="color:red;">点击此处</a></p>
+				@endif
 			</div>
 			<div class="hacker-form-box">
 				@if($user_subject)
@@ -16,7 +23,6 @@
 				<input type="hidden" name="_method" value="put" />
 				@else
 				<form class="hacker-form" action="{{url('hacker/store')}}" method="post">
-				
 				@endif
 					<input type="hidden" name="_hash" value="{{$model->_hash}}" />
 					<input type="hidden" name="subject_id" value="{{$model->id}}" />

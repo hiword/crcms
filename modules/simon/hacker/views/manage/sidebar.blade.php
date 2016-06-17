@@ -1,4 +1,7 @@
 @section('sidebar')
+<style>
+.upload-dialog {border-radius: 4px;display:block;border:1px solid #CCCCCC;padding:10px;font-size:22px;font-weight:bold;color:#333333;text-align:center;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;background:#FFFFFF;overflow-x:hidden;}
+</style>
 <h2 class="logo">Hacker</h2>
 <div class="sidebar">
 	<ul class="nav nav-pills nav-stacked">

@@ -15,6 +15,7 @@
 
 @section('table-header')
 <th>题目</th>
+<th>文件</th>
 <th>分值</th>
 <th>状态</th>
 @endsection
@@ -33,6 +34,7 @@
 				<a href="###" class="ml5 fs12">查看</a>
 			</div>
 		</td>
+		<td>{{$model->file}}</td>
 		<td>{{$model->score}}</td>
 		<td>{{$status[$model->status] or null}}</td>
 	</tr>
