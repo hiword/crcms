@@ -153,3 +153,9 @@ footer {
 	padding-bottom:10px;
 }
 
+
+@media (max-width:768px)
+{
+	.list-content {margin-top:0px;}
+	.list-info .other {text-align:left;}
+}
