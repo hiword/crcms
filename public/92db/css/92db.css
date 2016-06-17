@@ -156,8 +156,9 @@ footer {
 
 @media screen and (max-width:768px)
 {
-	.list-content {margin-top:0px;}
+	/*.list-content {margin-top:0px;}*/
 	.list-info .other {text-align:left;}
+	.list-info .user-info {margin-bottom:5px;}
 	.broadcast {
 		height:30px;line-height:30px;background:#FFFFFF;
 	}

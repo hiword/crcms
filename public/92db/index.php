@@ -157,8 +157,8 @@
 					</div>
 				</div> 
 				 -->
-				 <div class="list-info row ">
-					<div class="user-info col-md-4 col-xs-12">
+				 <div class="list-info row">
+					<div class="user-info col-md-4 col-xs-12 mb10">
 						<a rel="nofollow" target="_blank" href="/users/27825408/">
 							<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
 						</a>
@@ -173,7 +173,7 @@
 						<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>tags</a>
 					</div>
 				</div> 
-				<div class="list-content mt20">
+				<div class="list-content">
 					我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
 					<a href="###" class="ml10">查看全文</a>
 					<img status="small" original-src="http://crcms.cn/image/original/Mi5qcGc" class="img-responsive mt10" src="http://crcms.cn/image/92db/Mi5qcGc=" small-src="http://crcms.cn/image/92db/Mi5qcGc=" />
