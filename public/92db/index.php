@@ -196,7 +196,7 @@
 					</a>
 				</div>
 				<div class="list-content mt20">
-					<img status="small" original-src="http://crcms.cs/image/original/Mi5qcGc" class="img-responsive" src="http://crcms.cs/image/92db/Mi5qcGc=" small-src="http://crcms.cs/image/92db/Mi5qcGc=" />
+					<img status="small" original-src="http://crcms.cn/image/original/Mi5qcGc" class="img-responsive" src="http://crcms.cn/image/92db/Mi5qcGc=" small-src="http://crcms.cn/image/92db/Mi5qcGc=" />
 				</div>
 				<div class="list-status mt20 clearfix">
 					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
