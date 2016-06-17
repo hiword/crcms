@@ -25,7 +25,7 @@
 			<a href="###">欢乐多多，热烈庆祝本站顺利开通！</a>
 		</div>
 	</div>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default db-navbar">
 	  <div class="container"><!-- -fluid -->
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -43,18 +43,6 @@
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
 	        <li><a href="#">Link</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">One more separated link</a></li>
-	          </ul>
-	        </li>
 	      </ul>
 	      <!-- 
 	      <form class="navbar-form navbar-left" role="search">
@@ -85,24 +73,6 @@
 <div class="container">
 	<div class="row db-main">
 		<div class="col-md-9 main-left">
-			<article class="article-list mb20">
-				<div class="user-info">
-					<a rel="nofollow" target="_blank" href="/users/27825408/">
-						<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
-					</a>
-					<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
-						依然范特西:
-					</a>
-				</div>
-				<div class="list-content mt20">
-					我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
-				</div>
-				<div class="list-status mt20 clearfix">
-					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
-					<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
-					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
-				</div>
-			</article>
 			<article class="article-list mb20">	<!-- 			
 				<div class="list-info clearfix">
 					<div class="user-info pull-left">
