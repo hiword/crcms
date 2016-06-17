@@ -104,13 +104,20 @@
 				</div>
 			</article>
 			<article class="article-list mb20">
-				<div class="user-info">
-					<a rel="nofollow" target="_blank" href="/users/27825408/">
-						<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
-					</a>
-					<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
-						依然范特西:
-					</a>
+				<div class="list-info clearfix">
+					<div class="user-info pull-left">
+						<a rel="nofollow" target="_blank" href="/users/27825408/">
+							<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
+						</a>
+						<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
+							依然范特西:
+						</a>
+					</div>
+					<div class="pull-right">
+						<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>string</a>
+						<a href="###" class="tag ml5"><i class="glyphicon glyphicon-tag"></i>tags</a>
+						<a href="###" class="ml10">查看全文</a>
+					</div>
 				</div>
 				<div class="list-content mt20">
 					我老公一直对我好是有原因的。还记得刚结婚没多久，一天晚上起来喝水，在厨房的墙上看见一只蟑螂，我飞起就是一脚，结果蟑没踩中，把墙上的瓷砖踢碎了一块。从那以后老公对我更好了。 
@@ -121,6 +128,25 @@
 					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
 				</div>
 			</article>
+			<article class="article-list mb20">
+				<div class="user-info">
+					<a rel="nofollow" target="_blank" href="/users/27825408/">
+						<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
+					</a>
+					<a rel="nofollow" target="_blank" class="ml5" href="/users/27825408/">
+						依然范特西:
+					</a>
+				</div>
+				<div class="list-content mt20">
+					<img status="small" original-src="http://crcms.cs/image/original/Mi5qcGc" class="img-responsive" src="http://crcms.cs/image/92db/Mi5qcGc=" small-src="http://crcms.cs/image/92db/Mi5qcGc=" />
+				</div>
+				<div class="list-status mt20 clearfix">
+					<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
+					<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
+					<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
+				</div>
+			</article>
+			<!-- page -->
 			<div class="page mb20">
 				<ul class="pagination pagination-lg">
 				    <li>
@@ -193,6 +219,22 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+$(function(){
+	$('.list-content img').on('click',function(){
+		if($(this).attr('status') === 'small')
+		{
+			$(this).attr('src',$(this).attr('original-src'));
+			$(this).attr('status','big');
+		}
+		else
+		{
+			$(this).attr('src',$(this).attr('small-src'));
+			$(this).attr('status','small');
+		}
+	});
+});
+    </script>
 </body>
 </html>

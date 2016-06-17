@@ -3,6 +3,7 @@ body
 {
 	background:#F7F7F7;
 }
+a,a:hover,a:active,a:focus {text-decoration:none;}
 .bs-callout {
 	border:0px;
 	border-left-width:5px!important;
@@ -48,11 +49,16 @@ body
 	padding:20px;
 	background:#FFFFFF;
 }
-
+.main-left .list-info .tag
+{
+	color:#666666;
+}
 .main-left .list-content
 {
 	line-height:200%;
 }
+.main-left .list-content img{cursor:pointer;}
+
 .main-left .list-status i,.main-left .list-status a{
 	color:#b5b5b5;
 }
