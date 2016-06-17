@@ -154,8 +154,20 @@ footer {
 }
 
 
-@media (max-width:768px)
+@media screen and (max-width:768px)
 {
 	.list-content {margin-top:0px;}
 	.list-info .other {text-align:left;}
+	.broadcast {
+		height:30px;line-height:30px;background:#FFFFFF;
+	}
+	.broadcast a,.broadcast a:focus,.broadcast a:active {
+		color:#999999;
+		text-decoration:none;
+	}
+	.broadcast a:hover
+	{
+		color:#333333;
+		text-decoration:none;
+	}
 }
