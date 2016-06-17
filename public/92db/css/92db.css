@@ -31,7 +31,7 @@ a,a:hover,a:active,a:focus {text-decoration:none;}
 .broadcast {
 	height:30px;line-height:30px;background:#FFFFFF;
 }
-.broadcast a {
+.broadcast a,.broadcast a:focus,.broadcast a:active {
 	color:#999999;
 	text-decoration:none;
 }
@@ -49,10 +49,12 @@ a,a:hover,a:active,a:focus {text-decoration:none;}
 	padding:20px;
 	background:#FFFFFF;
 }
-.main-left .list-info .tag
+.main-left .list-info .tag,.main-left .list-info .tags a
 {
-	color:#666666;
+	color:#999999;
 }
+.main-left .list-info .user-info,.main-left .list-info .other {height:38px;line-height:38px;}
+.main-left .list-info .user-info img {width:35px;height:35px;}
 .main-left .list-content
 {
 	line-height:200%;
