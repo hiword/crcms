@@ -17,7 +17,9 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="{{url('/')}}">ZXSoft</a>
+	      <a class="navbar-brand" href="{{url('/')}}">
+	      	<img src="http://www.cnzxsoft.com/content/templates/default/images/new-logo.png" height="45" />
+	      </a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -34,7 +36,7 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 </div>
-<div class="container-fluid">
+<div class="container-fluid mt30">
 	<div class="row">
 		<div class="col-md-3">
 			<ul class="list-group subject-list">

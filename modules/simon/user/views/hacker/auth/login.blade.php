@@ -10,7 +10,7 @@
 	<div class="row entrance">
 		<div class="col-md-4 col-xs-1"></div>
 		<div class="col-md-4 col-xs-10">
-			<h2 class="mb25 mt10 text-center">用户登录</h2>
+			<h2 class="mb25 mt10 text-center"><img src="http://www.cnzxsoft.com/content/templates/default/images/new-logo.png" height="45" /></h2>
 			@include('layout.alert')
 			<form method="post" action="{{url('auth/login')}}">
 				{{csrf_field()}}
