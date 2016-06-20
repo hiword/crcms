@@ -20,7 +20,26 @@ class SubjectService extends Subject implements SubjectInterface
 		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
 	}
 	
-	public function paginateFront(array $appends = []) 
+	public function lists()
+	{
+		$models = $this->model->orderBy('id','desc')->get();
+		foreach ($models as $model)
+		{
+			if($model->hasOneUserSubject)
+			{
+				$model->answer_status_code = $model->hasOneUserSubject()->where('user_id',Auth::id())->value('status');
+				$model->answer_status = $model->answer_status_code==UserSubject::STATUS_SUCCESS ? 'ok' : 'remove';
+			}
+			else
+			{
+				$model->answer_status_code = 0;
+				$model->answer_status = '';
+			}
+		}
+		return $models;
+	}
+	
+	/* public function paginateFront(array $appends = []) 
 	{
 		$paginate = $this->model->orderBy('sort','desc')->orderBy('id','asc')->paginate(15);
 		$models = $paginate->items();
@@ -38,7 +57,7 @@ class SubjectService extends Subject implements SubjectInterface
 			}
 		}
 		return ['models'=>$models,'page'=>$paginate->appends($appends)->render()];
-	}
+	} */
 	
 	public function find($id) 
 	{

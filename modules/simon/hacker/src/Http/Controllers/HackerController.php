@@ -27,13 +27,14 @@ class HackerController extends Controller
 		
 		$this->subject = $SubjectInterface;
 		$this->userSubject = $UserSubjectInterface;
+		
+		$models = $this->subject->lists();
+		view()->share(['models'=>$models]);
 	}
 	
 	public function getIndex() 
 	{
-		$paginate = $this->subject->paginateFront();
-		
-		return $this->view('index',$paginate);
+		return $this->view('index');
 	}
 	
 	public function getShow($id) 
@@ -43,7 +44,7 @@ class HackerController extends Controller
 		//判断是否填写过答案
 		$userSubject = $this->userSubject->userAnswer($id);
 		
-		return $this->view('show',['model'=>$subject,'user_subject'=>$userSubject]);
+		return $this->view('show',['id'=>$id,'model'=>$subject,'user_subject'=>$userSubject]);
 	}
 	
 	/**

@@ -16,7 +16,8 @@ use App\Exceptions\AppException;
 //     return redirect('/b')->withErrors(['a'=>'a','b'=>'b'],'s')->withErrors(['c'=>'c','b'=>'d'],'k');
 // 	throw new AppException('abc');
 // });
-// Route::get('/','Simon\Document\DocumentController@getIndex');
+// Route::get('/','Simon\Hacker\Http\Controllers\HackerController@getIndex');
+Route::get('/','IndexController@getIndex');
 // Route::get('/b',function(){
 // 	return view('welcome');
 // });
