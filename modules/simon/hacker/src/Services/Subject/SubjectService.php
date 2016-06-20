@@ -5,6 +5,7 @@ use Simon\Hacker\Services\Subject\Interfaces\SubjectInterface;
 use Simon\Hacker\Models\Subject as SubjectModel;
 use App\Facades\Auth;
 use Simon\Hacker\Models\UserSubject;
+use Illuminate\Support\Facades\DB;
 class SubjectService extends Subject implements SubjectInterface
 {
 	
@@ -29,6 +30,7 @@ class SubjectService extends Subject implements SubjectInterface
 			{
 				$model->answer_status_code = $model->hasManyUserSubject()->where('user_id',Auth::id())->value('status');
 				$model->answer_status = $model->answer_status_code==UserSubject::STATUS_SUCCESS ? 'ok' : 'remove';
+// 				dd(DB::getQueryLOg());
 			}
 			else
 			{
@@ -36,7 +38,7 @@ class SubjectService extends Subject implements SubjectInterface
 				$model->answer_status = '';
 			}
 		}
-		dd($models);
+// 		dd($models);
 		return $models;
 	}
 	
