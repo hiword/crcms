@@ -35,7 +35,7 @@ class FileStoreService extends File implements FileStoreInterface
 		$this->model->port = $Request->getPort();
 		$this->model->scheme = $Request->getScheme();
 		$this->model->mark = (string)$Request->input('mark');
-		$this->model->domain = env('APP_URL');
+		$this->model->domain = env('APP_URL','local');
 		$this->model->full_domain = $Request->fullUrl();
 		$this->model->client_ip = ip_long($Request->ip());
 		$this->builtModelStore();
