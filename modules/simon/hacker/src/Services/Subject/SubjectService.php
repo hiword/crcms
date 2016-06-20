@@ -25,7 +25,7 @@ class SubjectService extends Subject implements SubjectInterface
 		$models = $this->model->orderBy('id','desc')->get();
 		foreach ($models as $model)
 		{
-			if($model->hasOneUserSubject)
+			if($model->hasManyUserSubject)
 			{
 				$model->answer_status_code = $model->hasManyUserSubject()->where('user_id',Auth::id())->value('status');
 				$model->answer_status = $model->answer_status_code==UserSubject::STATUS_SUCCESS ? 'ok' : 'remove';
