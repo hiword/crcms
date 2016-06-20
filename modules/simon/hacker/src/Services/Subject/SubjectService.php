@@ -27,7 +27,7 @@ class SubjectService extends Subject implements SubjectInterface
 		{
 			if($model->hasOneUserSubject)
 			{
-				$model->answer_status_code = $model->hasOneUserSubject()->where('user_id',Auth::id())->value('status');
+				$model->answer_status_code = $model->hasManyUserSubject()->where('user_id',Auth::id())->value('status');
 				$model->answer_status = $model->answer_status_code==UserSubject::STATUS_SUCCESS ? 'ok' : 'remove';
 			}
 			else
