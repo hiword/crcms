@@ -36,6 +36,7 @@ class SubjectService extends Subject implements SubjectInterface
 				$model->answer_status = '';
 			}
 		}
+		dd($models);
 		return $models;
 	}
 	
