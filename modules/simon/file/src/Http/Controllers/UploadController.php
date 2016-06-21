@@ -206,6 +206,11 @@ $result = json_encode($up->getFileInfo());
 	    return $this->view("upload",['message'=>$this->request->input('message'),'config'=>upload_config(),'session_id'=>session()->getId()]);
 	}
 	
+	public function getUploadSingle()
+	{
+		return $this->view("upload-single",['message'=>$this->request->input('message'),'config'=>upload_config(),'session_id'=>session()->getId()]);
+	}
+	
 	/**
 	 * 文件上传主方法，支持session临时条件改变
 	 * sessioin(

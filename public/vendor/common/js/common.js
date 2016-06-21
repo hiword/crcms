@@ -651,6 +651,31 @@ function uploaded(type,options)
 	
 }
 
+function uploaded_single(type)
+{
+	
+	if(!type)
+	{
+		type = 'image_upload';
+	}
+	
+	$.ajax({
+		url:'http://localhost/kill-box/public/index.php/upload/setting',
+		data:{'type':type},
+		type:'POST',
+		success:function(response)
+		{
+			$.get('http://localhost/kill-box/public/index.php/upload/upload-single',function(data){
+				$('body').before(data);
+			});
+		},
+		error:function()
+		{
+			alert('配置加载出错，无法上传!');
+		}
+	});
+}
+
 //var TAGS_SEARCH = (function($){
 //	return {
 //		
