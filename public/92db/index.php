@@ -35,14 +35,16 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">就爱逗B</a>
+	      <a class="navbar-brand" href="#">就爱逗比</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Link</a></li>
+	        
+	        <li class="active"><a href="#">最新 <span class="sr-only">(current)</span></a></li>
+	        <li><a href="#">图片 <span class="sr-only">(current)</span></a></li>
+	        <li><a href="#">文字</a></li>
 	      </ul>
 	      <!-- 
 	      <form class="navbar-form navbar-left" role="search">
@@ -51,7 +53,7 @@
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>
 	      </form> -->
-	      <ul class="nav navbar-nav navbar-right">
+	      <ul class="nav navbar-nav navbar-right db-user-box">
 	        <li><a href="#">登录</a></li>
 	        <li><a href="#">注册</a></li>
 	        <!-- 
