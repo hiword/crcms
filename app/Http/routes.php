@@ -17,7 +17,7 @@ use App\Exceptions\AppException;
 // 	throw new AppException('abc');
 // });
 // Route::get('/','Simon\Hacker\Http\Controllers\HackerController@getIndex');
-Route::get('/','IndexController@getIndex');
+Route::get('/',config('site.index'));
 // Route::get('/b',function(){
 // 	return view('welcome');
 // });
