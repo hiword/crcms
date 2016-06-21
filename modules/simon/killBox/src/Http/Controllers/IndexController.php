@@ -1,36 +1,18 @@
 <?php
-namespace Simon\Hacker\Http\Controllers;
+namespace Simon\KillBox\Http\Controllers;
 use App\Http\Controllers\Controller;
-use Simon\Hacker\Services\Subject\Interfaces\SubjectInterface;
-use Illuminate\Support\Facades\DB;
-use Simon\Hacker\Services\UserSubject\Interfaces\UserSubjectInterface;
-use Simon\Hacker\Forms\UserSubject\UserSubjectStoreForm;
-use App\Exceptions\AppException;
-use Simon\Hacker\Services\UserSubject\Interfaces\UserSubjectStoreInterface;
-use Simon\Hacker\Forms\UserSubject\UserSubjectUpdateForm;
-use Simon\Hacker\Services\UserSubject\Interfaces\UserSubjectUpdateInterface;
-class HackerController extends Controller
+class IndexController extends Controller
 {
-	protected $view = '';
 	
-	protected $subject = null;
-	
-	protected $userSubject = null;
-	
-	public function __construct(SubjectInterface $SubjectInterface,UserSubjectInterface $UserSubjectInterface)
+	public function __construct()
 	{
 		
 		parent::__construct();
 		
-		$this->middleware('Simon\User\Http\Middleware\Authenticate');
+// 		$this->middleware('Simon\User\Http\Middleware\Authenticate');
 		
-		$this->view = 'hacker::'.config('site.theme').'.hacker.';
-		
-		$this->subject = $SubjectInterface;
-		$this->userSubject = $UserSubjectInterface;
-		
-		$models = $this->subject->lists();
-		view()->share(['models'=>$models]);
+// 		$this->view = 'killBox::'.config('site.theme').'.index.';
+		$this->view = 'killBox::killBox.index.';
 	}
 	
 	public function getIndex() 

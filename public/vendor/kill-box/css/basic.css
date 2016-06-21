@@ -1,0 +1,116 @@
+@CHARSET "UTF-8";
+body {
+	font-family:Helvetica,Arial,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",STHeiti,"华文细黑",sans-serif;
+	background:#f3f4f5;
+}
+
+.killbox-background {
+	/* background:#3fa9f5;
+	
+	background:#428bca;*/
+	background:#337ab7; 
+}
+.killbox-color {
+	/* color:#3fa9f5!important;
+	
+	color:#428bca!important;*/
+	color:#337ab7!important; 
+}
+
+.box-1 {
+	background:#FFFFFF;
+	border:1px solid #dfe9ef;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+
+
+
+
+
+.killbox-header .killbox-nav {
+	border-radius:0px;
+	border:0px;
+	border-bottom:1px solid #dfe9ef;
+	background:#FFFFFF;
+}
+.navbar-brand {font-weight:500;font-family:Arial;/* padding-top:5px;padding-bottom:0px; */}
+.killbox-nav .nav-category {
+	font-weight:bold;	
+}
+.killbox-nav .nav-category a {
+	padding-top:20px;padding-bottom:20px;
+}
+.killbox-nav .navbar-nav li a {
+	
+}
+/* .killbox-nav .killbox-user li {
+	border-radius:15px;
+	padding:6px 15px;
+}
+.killbox-nav .killbox-user a {
+	color:#FFFFFF!important;
+	border:0px;
+	padding:0px;
+	display:inline-block;padding:0px 5px;
+} */
+
+.killbox-nav .navbar-nav li.active a,.killbox-nav .navbar-nav li.active a:focus,.killbox-nav .navbar-nav li.active a:hover {
+	/* background:#3fa9f5;
+	background:#337ab7; */
+	background:#428bca;
+	color:#FFFFFF;	
+}
+.killbox-nav .navbar-nav li a:hover {
+	background:#FFFFFF;
+}
+
+
+.upload .alert {font-size:16px;}
+
+.upload .btn {color:#FFFFFF;}
+
+.result {background:#FFFFFF;}
+.killbox-tabs {
+	border-bottom:1px solid #dfe9ef;
+}
+.killbox-tabs li.active a:hover,.killbox-tabs li.active a,.killbox-tabs li.active a:focus,.killbox-tabs li.active a:active{
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #dfe9ef #dfe9ef transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    /* color:#3fa9f5; */
+	color:#337ab7;
+}
+.killbox-tabs li a:hover {
+	/* color:#3fa9f5; */
+	color:#337ab7;
+	background:none;
+}
+.killbox-tabs li a{
+	border-radius:0px;
+	border-color:#dfe9ef;
+	border:0px;
+	padding-left:40px;padding-right:40px;
+	color:#555555;font-size:16px;
+}
+.killbox-tab-contents {border-top:0px;}
+.killbox-tab-contents .tab-pane {padding:20px 40px;}
+.killbox-tab-contents .table tr td,.killbox-tab-contents .table tr th{padding-top:12px;padding-bottom:12px;border:0px;}
+
+
+
+
+
+.footer {background:#414141;color: #aaa;
+    text-shadow: 0 -1px 0 #333333;}
+.footer a {
+	color: #EEEEEE;
+}
+.footer-block {border-left:20px solid #337ab7;padding:15px 0px;padding-left:15px;}
