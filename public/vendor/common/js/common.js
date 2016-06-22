@@ -651,7 +651,7 @@ function uploaded(type,options)
 	
 }
 
-function uploaded_single(type)
+function uploaded_single(selecter,type)
 {
 	
 	if(!type)
@@ -666,7 +666,7 @@ function uploaded_single(type)
 		success:function(response)
 		{
 			$.get('http://localhost/kill-box/public/index.php/upload/upload-single',function(data){
-				$('body').before(data);
+				$(selecter).append(data);
 			});
 		},
 		error:function()
