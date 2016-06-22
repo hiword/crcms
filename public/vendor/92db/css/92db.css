@@ -114,7 +114,7 @@ a,a:hover,a:active,a:focus {text-decoration:none;}
 
 .photoBox{display:inline-block;position:relative;}
 .photoBox img{display:block;}
-.photoBox .loadingBox{background:none;z-index:1;text-align:center;position:absolute;left:50%;top:50%;/*margin:-8px 0 0 -8px;*/display:none;}
+.photoBox .loadingBox{background:none;z-index:1;text-align:center;position:absolute;left:50%;top:50%;margin:-8px 0 0 -8px;display:none;}
 /* .photoBox .loading{background:url(images/loading_16.gif) no-repeat 0 0;width:16px;height:16px;display:inline-block;} */
 .photoBox .loading{background:url(../images/loading-1.gif) no-repeat 0 0;width:16px;height:16px;display:inline-block;}
 
