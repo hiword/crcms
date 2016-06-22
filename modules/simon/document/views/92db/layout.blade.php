@@ -74,8 +74,9 @@
 			<div class="panel">
 				<div class="panel-heading bs-callout bs-callout-danger"><h3 class="">热门标签</h3></div>
 				<div class="panel-body">
+					<?php /*{{url('tags/search')}}?name={{$tag->name}}*/?>
 					@tag('hot')
-					<a href="{{url('tags/search')}}?name={{$tag->name}}" class="sidebar-tag">{{$tag->name}} ({{$tag->count_num}})</a>
+					<a href="###" class="sidebar-tag">{{$tag->name}} ({{$tag->count_num}})</a>
 					@endtag
 				</div>
 			</div>
@@ -85,7 +86,7 @@
 					<h3>关注我们</h3>
 				</div>
 				<div class="panel-body">
-					<img alt="" class="img-responsive" src="http://www.pujie.net/static/images/weixingzh.jpg">
+					<img alt="" class="img-responsive" src="{{static_asset('vendor/92db/images/wx.jpg')}}">
 				</div>
 			</div>
 		</div>
