@@ -120,13 +120,21 @@ $(function(){
 		{
 			//loading show
 			$this.siblings('.loadingBox').show();
-			
+
+			var img=new Image();
+			img.src = $this.attr('original-src');
+
+			$(img).on('load',function(){
+				$this.siblings('.loadingBox').hide();
+				$this.attr('src',$this.attr('original-src'));
+			});
+			/*
 			$this.attr('src',$this.attr('original-src'));
 
 			//加载完成
 			$this.on('load',function(){
 				$this.siblings('.loadingBox').hide();
-			});
+			});*/
 			$this.attr('status','big');
 		}
 		else
