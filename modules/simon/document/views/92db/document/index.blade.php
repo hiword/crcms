@@ -20,10 +20,23 @@
 		</div>
 	</div> 
 	<div class="list-content">
-		{!!isset($document->hasOneDocumentData->content) ? nl2br(strip_tags($document->hasOneDocumentData->content)) : null!!}
-		<a href="{{url('show/'.$document->id)}}" class="ml10">查看全文</a>
+		<div>
+			{!!isset($document->hasOneDocumentData->content) ? nl2br(strip_tags($document->hasOneDocumentData->content)) : null!!}
+			<a href="{{url('show/'.$document->id)}}" class="ml10">查看全文</a>
+		</div>
 		@if($document->thumbnail)
-		<img status="small" original-src="{{img_url($document->thumbnail)}}" class="img-responsive mt10" src="{{img_url($document->thumbnail,'92db')}}" small-src="{{img_url($document->thumbnail,'92db')}}" />
+		<!-- 
+		<span class="loading">
+			<img status="small" original-src="{{img_url($document->thumbnail)}}" data-original="{{img_url($document->thumbnail)}}" class="lazy img-responsive mt10" src="{{img_url($document->thumbnail,'92db')}}" small-src="{{img_url($document->thumbnail,'92db')}}" />
+			<div class="loading-img">1fdsafdsa</div>
+		</span>
+		-->
+		<span class="photoBox">
+			<div class="loadingBox">
+				<span class="loading"></span>
+			</div>
+			<img status="small" original-src="{{img_url($document->thumbnail)}}" data-original="{{img_url($document->thumbnail)}}" class="loading-img lazy img-responsive mt10" src="{{img_url($document->thumbnail,'92db')}}" small-src="{{img_url($document->thumbnail,'92db')}}" />
+		</span><!--photoBox end-->
 		@endif
 	</div>
 	<div class="list-status mt20 clearfix">

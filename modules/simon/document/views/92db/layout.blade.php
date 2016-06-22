@@ -95,9 +95,9 @@
 <footer class="">
 	<div class="container">
 		<div class="copyright">
-			<p>CRCMS - 致力于打造全面化的开源CMS。</p>
+			<p>92doubi(就要逗比) - 让你开心每一天，是我们最大的心愿。</p>
 			<p>
-				版权所有，保留一切权利！ Copyright © 2013-2016 CRCMS-v2.1强力驱动 皖ICP备12004017号-2
+				版权所有，保留一切权利！ Copyright © 2016 CRCMS强力驱动 皖ICP备12004017号-2
 			</p>
 		</div>
 	</div>
@@ -108,18 +108,31 @@
 
 @section('script')
 @parent
+<!-- 
+<script src="{{static_asset('vendor/lazyload/lazyload.min.js')}}"></script>
+ -->
 <script>
 $(function(){
-	$('.list-content img').on('click',function(){
-		if($(this).attr('status') === 'small')
+	//$(".lazy").lazyload();
+	$('.loading-img').on('click',function(){
+		var $this = $(this);
+		if($this.attr('status') === 'small')
 		{
-			$(this).attr('src',$(this).attr('original-src'));
-			$(this).attr('status','big');
+			//loading show
+			$this.siblings('.loadingBox').show();
+			
+			$this.attr('src',$this.attr('original-src'));
+
+			//加载完成
+			$this.on('load',function(){
+				$this.siblings('.loadingBox').hide();
+			});
+			$this.attr('status','big');
 		}
 		else
 		{
-			$(this).attr('src',$(this).attr('small-src'));
-			$(this).attr('status','small');
+			$this.attr('src',$this.attr('small-src'));
+			$this.attr('status','small');
 		}
 	});
 });
