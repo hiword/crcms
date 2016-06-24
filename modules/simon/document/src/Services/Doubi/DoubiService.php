@@ -1,11 +1,12 @@
 <?php
-namespace Simon\Document\Services\Document;
+namespace Simon\Document\Services\Doubi;
 use Simon\Document\Models\Document as DocumentModel;
 use Simon\Document\Services\Document;
-use Simon\Document\Services\Document\Interfaces\DocumentInterface;
+use Simon\Document\Services\Doubi\Interfaces\DoubiInterface;
 // use Simon\Document\Models\Category;
 use Illuminate\Support\Facades\DB;
-class DocumentService extends Document implements DocumentInterface
+use Simon\Document\Models\Doubi as DoubiModel;
+class DoubiService extends Doubi implements DoubiInterface
 {
 	protected $categories = null;
 	
@@ -17,7 +18,7 @@ class DocumentService extends Document implements DocumentInterface
 	
 	public function paginate(array $appends = [])
 	{
-		$paginate = $this->model->orderBy(DocumentModel::CREATED_AT,'DESC')->paginate(15);
+		$paginate = $this->model->orderBy(DoubiModel::CREATED_AT,'DESC')->paginate(15);
 		return ['models'=>$paginate->items(),'page'=>$paginate->appends($appends)->render()];
 	}
 	

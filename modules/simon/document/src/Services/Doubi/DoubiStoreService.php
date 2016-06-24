@@ -1,20 +1,20 @@
 <?php
-namespace Simon\Document\Services\Document;
-use Simon\Document\Services\Document;
-use Simon\Document\Services\Document\Interfaces\DocumentStoreInterface;
+namespace Simon\Document\Services\Doubi;
+use Simon\Document\Services\Doubi;
+use Simon\Document\Services\Doubi\Interfaces\DoubiStoreInterface;
 use App\Services\Traits\StoreTrait;
-use Simon\Document\Models\DocumentData;
 use Illuminate\Support\Facades\Input;
-class DocumentStoreService extends Document implements DocumentStoreInterface
+use Simon\Document\Models\DoubiData;
+class DoubiStoreService extends Doubi implements DoubiStoreInterface
 {
 	use StoreTrait;
 	
 	protected $append = null;
 	
-	public function __construct(\Simon\Document\Models\Document $Document,DocumentData $DocumentData)
+	public function __construct(\Simon\Document\Models\Doubi $Doubi,DoubiData $DoubiData)
 	{
-		parent::__construct($Document);
-		$this->append = $DocumentData;
+		parent::__construct($Doubi);
+		$this->append = $DoubiData;
 	}
 	
 	/* 
@@ -27,18 +27,18 @@ class DocumentStoreService extends Document implements DocumentStoreInterface
 		// TODO Auto-generated method stub
 		
 		//document
-		$this->model->title = $data['title'];
+		$this->model->title = $data['seo_title'];
 		$this->model->status = $data['status'];
-		$this->model->thumbnail = $data['thumbnail'];
+		$this->model->picture = $data['picture'];
 		$this->builtModelStore();
 		$this->model->save();
 		
 		//append
 		$this->append->did = $this->model->id;
-		$this->append->content = format_xss(Input::get('document_data.content'));
+		$this->append->content = $append['content'];
 // 		$this->append->seo_title = $data['seo_title'];
 		$this->append->keyword = $append['seo_keywords'];
-		$this->append->intro = $append['seo_description'];
+		$this->append->intro = $append['seo_intro'];
 		$this->append->save();
 		
 		return $this->model;
