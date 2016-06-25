@@ -2,7 +2,7 @@
 @section('list-header')
 <h3>
 	文档列表
-	<a class="btn btn-sm btn-default" href="{{url('manage/document/create')}}">写文章</a>
+	<a class="btn btn-sm btn-default" href="{{url('manage/doubi/create')}}">写文章</a>
 </h3>
 @endsection
 
