@@ -25,7 +25,7 @@ class TagController extends Controller
 	{
 		$search = $this->service->assocSearch($this->data['name']);
 		//return $this->response(['app.success'],['models'=>$models]);
-		return view("tag::tag.search",$search);
+		return $this->view("search",$search);
 		
 	}
 	
