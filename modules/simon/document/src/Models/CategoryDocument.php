@@ -9,7 +9,7 @@ class CategoryDocument extends Model {
 	
 	protected $table = 'category_documents';
 	
-	protected $fillable = ['document_id','category_id'];
+	protected $fillable = ['document_id','category_id','type'];
 	
 	/**
 	 * 数据存储

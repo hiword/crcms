@@ -50,7 +50,7 @@ class Document extends Model
 	
 	public function belongsToManyCategory()
 	{
-		return $this->belongsToMany('Simon\Document\Models\Category','category_documents','document_id','category_id');
+		return $this->belongsToMany('Simon\Document\Models\Category','category_documents','document_id','category_id')->where('type',get_class($this));
 	}
 	
 	/**

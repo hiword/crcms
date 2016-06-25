@@ -99,6 +99,11 @@ class DocumentServiceProvider extends PackageServiceProvider
     	);
     	
     	$this->app->bind(
+    			'Simon\Document\Services\Document\Interfaces\DocumentInterface',
+    			'Simon\Document\Services\Document\DocumentService'
+    	);
+    	
+    	$this->app->bind(
     			'Simon\Document\Services\Document\Interfaces\DocumentStoreInterface',
     			'Simon\Document\Services\Document\DocumentStoreService'
     	);
@@ -113,15 +118,15 @@ class DocumentServiceProvider extends PackageServiceProvider
     			'Simon\Document\Services\Document\DocumentDestroyService'
     	);
     	
-    	$this->app->bind(
-    			'Simon\Document\Services\DocumentData\Interfaces\DocumentDataStoreInterface',
-    			'Simon\Document\Services\DocumentData\DocumentDataStoreService'
-    	);
+//     	$this->app->bind(
+//     			'Simon\Document\Services\DocumentData\Interfaces\DocumentDataStoreInterface',
+//     			'Simon\Document\Services\DocumentData\DocumentDataStoreService'
+//     	);
     	
-    	$this->app->bind(
-    			'Simon\Document\Services\DocumentData\Interfaces\DocumentDataUpdateInterface',
-    			'Simon\Document\Services\DocumentData\DocumentDataUpdateService'
-    	);
+//     	$this->app->bind(
+//     			'Simon\Document\Services\DocumentData\Interfaces\DocumentDataUpdateInterface',
+//     			'Simon\Document\Services\DocumentData\DocumentDataUpdateService'
+//     	);
     	
     	$this->app->bind(
     			'Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentStoreInterface',
@@ -133,15 +138,26 @@ class DocumentServiceProvider extends PackageServiceProvider
     			'Simon\Document\Services\CategoryDocument\CategoryDocumentUpdateService'
     	);
     	
+    	
     	$this->app->bind(
-    			'Simon\Document\Services\Document\Interfaces\DocumentInterface',
-    			'Simon\Document\Services\Document\DocumentService'
+    			'Simon\Document\Services\Doubi\Interfaces\DoubiInterface',
+    			'Simon\Document\Services\Doubi\DoubiService'
     	);
     	
     	$this->app->bind(
-    			'Simon\Document\Services\Interfaces\DocumentDataInterface',
-    			'Simon\Document\Services\DocumentData\DocumentDataService'
+    			'Simon\Document\Services\Doubi\Interfaces\DoubiStoreInterface',
+    			'Simon\Document\Services\Doubi\DoubiStoreService'
     	);
+    	
+    	$this->app->bind(
+    			'Simon\Document\Services\Doubi\Interfaces\DoubiUpdateInterface',
+    			'Simon\Document\Services\Doubi\DoubiUpdateService'
+    	);
+    	
+//     	$this->app->bind(
+//     			'Simon\Document\Services\Interfaces\DocumentDataInterface',
+//     			'Simon\Document\Services\DocumentData\DocumentDataService'
+//     	);
     }
     
     public function provides()

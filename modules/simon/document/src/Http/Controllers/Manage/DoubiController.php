@@ -11,6 +11,11 @@ use Simon\Document\Forms\Document\DocumentUpdateForm;
 use Simon\Document\Forms\CategoryDocument\CategoryDocumentUpdateForm;
 use Simon\Document\Services\Document\Interfaces\DocumentUpdateInterface;
 use Simon\Document\Services\CategoryDocument\Interfaces\CategoryDocumentUpdateInterface;
+use Simon\Document\Services\Doubi\Interfaces\DoubiInterface;
+use Simon\Document\Forms\Doubi\DoubiStoreForm;
+use Simon\Document\Services\Doubi\Interfaces\DoubiStoreInterface;
+use Simon\Document\Forms\Doubi\DoubiUpdateForm;
+use Simon\Document\Services\Doubi\Interfaces\DoubiUpdateInterface;
 // use Simon\Document\Fields\Document\Status;
 // use Simon\Document\Models\Category;
 // use Simon\Document\Models\Document;
@@ -23,9 +28,8 @@ class DoubiController extends Controller
 	
 // 	protected $appendService = null;
 	
-	public function __construct(DocumentInterface $Document,CategoryInterface $Category)
+	public function __construct(DoubiInterface $DoubiInterface,CategoryInterface $Category)
 	{
-		
 		parent::__construct();
 		
 		if (module_exists('system'))
@@ -33,13 +37,12 @@ class DoubiController extends Controller
 			$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		}
 		
+		$this->service = $DoubiInterface;
+		
 		view()->share([
 			'tree'=>$Category->tree(),
-			'status'=>$Category->status(),
+			'status'=>$this->service->status(),
 		]);
-		
-		$this->service = $Document;
-// 		$this->appendService = $DocumentData;
 	}
 	
 	public function getIndex() 
@@ -66,18 +69,18 @@ class DoubiController extends Controller
 		return $this->view('create',['uploading'=>$uploading]);
 	}
 	
-	public function postStore(DocumentStoreForm $DocumentStoreForm,CategoryDocumentStoreForm $CategoryDocumentStoreForm,DocumentStoreInterface $DocumentStoreInterface,CategoryDocumentStoreInterface $CategoryDocumentStoreInterface) 
+	public function postStore(DoubiStoreForm $DoubiStoreForm,CategoryDocumentStoreForm $CategoryDocumentStoreForm,DoubiStoreInterface $DoubiStoreInterface,CategoryDocumentStoreInterface $CategoryDocumentStoreInterface) 
 	{
 		//validator
-		$this->form->validator($DocumentStoreForm);
+		$this->form->validator($DoubiStoreForm);
 		
 		$this->form->validator($CategoryDocumentStoreForm);
 		
 		//store
-		$model = $DocumentStoreInterface->store($this->data['document'],$this->data['document_data']);
+		$model = $DoubiStoreInterface->store($this->data['document'],$this->data['document_data']);
 		
 		//category
-		$CategoryDocumentStoreInterface->store($model->id, $this->data['category_id']);
+		$CategoryDocumentStoreInterface->store($model->id, $this->data['category_id'],'Simon\Document\Models\Doubi');
 		
 // 		$this->model = $this->storeData(['title','status','thumbnail'],$this->model,$this->data['document']);
 // 		$this->storeData(['did','content','seo_title','seo_keywords','seo_description'],$DocumentData,array_merge($this->data['document_data'],['did'=>$this->model->id]));
@@ -88,19 +91,19 @@ class DoubiController extends Controller
 // 		//tags
 		if (module_exists('tag') && !empty($this->data['tags']))
 		{
-			event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$model->id,'Simon\Document\Models\Document'));
+			event(new \Simon\Tag\Events\TagOutside($this->data['tags'],$model->id,'Simon\Document\Models\Doubi'));
 		}
 		
 // 		//images
-		if (module_exists('file') && !empty($this->data['images']))
-		{
-			event(new \Simon\File\Events\ImageOutside($this->data['images'],$model->id,'Simon\Document\Models\Document'));
-		}
+// 		if (module_exists('file') && !empty($this->data['images']))
+// 		{
+// 			event(new \Simon\File\Events\ImageOutside($this->data['images'],$model->id,'Simon\Document\Models\Document'));
+// 		}
 		
 		//logs
 		$this->logs(['remark'=>'add document']);
 		
-		return $this->response(['app.success'],'manage/document/index');
+		return $this->response(['app.success'],'manage/doubi/index');
 	}
 	
 	public function getEdit($id,$hash)
@@ -125,24 +128,24 @@ class DoubiController extends Controller
 		$categories = $this->service->categoryIds($model);
 		
 		//images
-		$images = $this->service->images($model);
+// 		$images = $this->service->images($model);
 		
 		//tags
 		$tags = $this->service->tags($model);
 		
-		return $this->view("edit",['uploading'=>$uploading,'model'=>$model,'categories'=>$categories,'images'=>$images,'tags'=>$tags]);
+		return $this->view("edit",['uploading'=>$uploading,'model'=>$model,'categories'=>$categories,'tags'=>$tags]);
 	}
 	
-	public function putUpdate($id,DocumentUpdateForm $DocumentUpdateForm,CategoryDocumentUpdateForm $CategoryDocumentUpdateForm,CategoryDocumentUpdateInterface $CategoryDocumentUpdateInterface,DocumentUpdateInterface $DocumentUpdateInterface) 
+	public function putUpdate($id,DoubiUpdateForm $DoubiUpdateForm,CategoryDocumentUpdateForm $CategoryDocumentUpdateForm,CategoryDocumentUpdateInterface $CategoryDocumentUpdateInterface,DoubiUpdateInterface $DoubiUpdateInterface) 
 	{
 		
 		//validator
-		$this->form->validator($DocumentUpdateForm);
+		$this->form->validator($DoubiUpdateForm);
 		
 		$this->form->validator($CategoryDocumentUpdateForm);
 		
 		
-		$DocumentUpdateInterface->update($id, $this->data['document'], $this->data['document_data']);
+		$DoubiUpdateInterface->update($id, $this->data['document'], $this->data['document_data']);
 		
 // 		$this->validateHash($id);
 		
@@ -157,7 +160,7 @@ class DoubiController extends Controller
 // 		$DocumentData->updateData($id,array_merge($this->data['document_data']));
 		
 		//category-现在，全删除，全添加
-		$CategoryDocumentUpdateInterface->update($id, $this->data['category_id']);
+		$CategoryDocumentUpdateInterface->update($id, $this->data['category_id'],'Simon\Document\Models\Doubi');
 // 		$CategoryDocument->where('document_id',$id)->delete();
 // 		$CategoryDocument->storeData($this->data['category_id'],$id);
 		
@@ -168,20 +171,20 @@ class DoubiController extends Controller
 			$tags = empty($this->data['tags']) ? [] : $this->data['tags'];
 // 			if (!empty($this->data['tags']))
 // 			{
-				event(new \Simon\Tag\Events\TagOutside($tags,$id,'Simon\Document\Models\Document'));
+				event(new \Simon\Tag\Events\TagOutside($tags,$id,'Simon\Document\Models\Doubi'));
 // 			}	
 		}
 		
 		//images
-		if (module_exists('file') && !empty($this->data['images']))
-		{
-			event(new \Simon\File\Events\ImageOutside($this->data['images'],$id,'Simon\Document\Models\Document'));
-		}
+// 		if (module_exists('file') && !empty($this->data['images']))
+// 		{
+// 			event(new \Simon\File\Events\ImageOutside($this->data['images'],$id,'Simon\Document\Models\Document'));
+// 		}
 		
 		//logs
 		$this->logs(['remark'=>'update document']);
 		
-		return $this->response(['success'],'manage/document/index');
+		return $this->response(['success'],'manage/doubi/index');
 	}
 	
 	public function deleteDestroy()

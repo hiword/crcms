@@ -33,13 +33,13 @@ class DocumentController extends Controller
 			$this->middleware('Simon\System\Http\Middleware\Authenticate');
 		}
 		
+		$this->service = $Document;
+		
 		view()->share([
 			'tree'=>$Category->tree(),
-			'status'=>$Category->status(),
+			'status'=>$this->service->status(),
 		]);
 		
-		$this->service = $Document;
-// 		$this->appendService = $DocumentData;
 	}
 	
 	public function getIndex() 
@@ -77,7 +77,7 @@ class DocumentController extends Controller
 		$model = $DocumentStoreInterface->store($this->data['document'],$this->data['document_data']);
 		
 		//category
-		$CategoryDocumentStoreInterface->store($model->id, $this->data['category_id']);
+		$CategoryDocumentStoreInterface->store($model->id, $this->data['category_id'],'Simon\Document\Models\Document');
 		
 // 		$this->model = $this->storeData(['title','status','thumbnail'],$this->model,$this->data['document']);
 // 		$this->storeData(['did','content','seo_title','seo_keywords','seo_description'],$DocumentData,array_merge($this->data['document_data'],['did'=>$this->model->id]));
@@ -157,7 +157,7 @@ class DocumentController extends Controller
 // 		$DocumentData->updateData($id,array_merge($this->data['document_data']));
 		
 		//category-现在，全删除，全添加
-		$CategoryDocumentUpdateInterface->update($id, $this->data['category_id']);
+		$CategoryDocumentUpdateInterface->update($id, $this->data['category_id'],'Simon\Document\Models\Document');
 // 		$CategoryDocument->where('document_id',$id)->delete();
 // 		$CategoryDocument->storeData($this->data['category_id'],$id);
 		

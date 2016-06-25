@@ -14,6 +14,11 @@ class DocumentService extends Document implements DocumentInterface
 // 		parent::__construct($Document);
 // 		$this->categories = $Category;
 // 	}
+
+	public function status()
+	{
+		return DocumentModel::STATUS;
+	}
 	
 	public function paginate(array $appends = [])
 	{
@@ -27,7 +32,8 @@ class DocumentService extends Document implements DocumentInterface
 		{
 			$this->model = $this->model->join('category_documents',function($join) use ($cid){
 				$join->on('category_documents.document_id','=','documents.id')
-					  ->where('category_documents.category_id','=',$cid);
+					  ->where('category_documents.category_id','=',$cid)
+					->where('category_documents.type','=','Simon\Document\Models\Doubi');
 			});
 		}
 		
@@ -55,11 +61,12 @@ class DocumentService extends Document implements DocumentInterface
 	
 	public function categories(DocumentModel $Document)
 	{
-		return $Document->belongsToManyCategory;
+		return $Document->belongsToManyCategory();
 	}
 	
 	public function categoryIds(DocumentModel $Document)
 	{
+		//->where()
 		return $this->categories($Document)->lists('id')->toArray();
 	}
 	

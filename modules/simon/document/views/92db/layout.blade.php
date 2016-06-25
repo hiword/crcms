@@ -28,16 +28,17 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">就爱逗比</a>
+	      <a class="navbar-brand" href="{{url('/')}}" title="就爱逗比(92doubi)">就爱逗比</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        
-	        <li class="active"><a href="#">最新 <span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">图片 <span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">文字</a></li>
+	        <li class="{{Request::is('/') ? 'active' : null}}"><a href="{{url('/')}}">最新 <span class="sr-only">(current)</span></a></li>
+	        @category
+	        <li class="{{Request::is('d/'.$category->id) ? 'active' : null}}"><a href="{{route('doubi',['cid'=>$category->id])}}" title="{{$category->name}}">{{$category->name}} <span class="sr-only">(current)</span></a></li>
+	        @endcategory
 	      </ul>
 	      <!-- 
 	      <form class="navbar-form navbar-left" role="search">
@@ -76,7 +77,7 @@
 				<div class="panel-body">
 					<?php /*{{url('tags/search')}}?name={{$tag->name}}*/?>
 					@tag('hot')
-					<a href="###" class="sidebar-tag">{{$tag->name}} ({{$tag->count_num}})</a>
+					<a href="{{url('tags/search')}}?name={{$tag->name}}" class="sidebar-tag">{{$tag->name}} ({{$tag->count_num}})</a>
 					@endtag
 				</div>
 			</div>

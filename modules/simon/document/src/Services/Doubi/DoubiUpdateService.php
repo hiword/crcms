@@ -6,7 +6,7 @@ use App\Services\Traits\UpdateTrait;
 use Simon\Document\Models\Doubi as DoubiModel;
 use Illuminate\Support\Facades\Input;
 use Simon\Document\Models\DoubiData;
-class DocumentUpdateService extends Document implements DoubiUpdateInterface
+class DoubiUpdateService extends Doubi implements DoubiUpdateInterface
 {
 	use UpdateTrait;
 	
@@ -29,14 +29,15 @@ class DocumentUpdateService extends Document implements DoubiUpdateInterface
 		$this->data['seo_title'] = $data['seo_title'];
 		$this->data['picture'] = $data['picture'];
 		$this->data['status'] = $data['status'];
+		$this->data['sort'] = $data['sort'];
 		$this->builtDataUpdate();
 		$this->model->where('id',$id)->update($this->data);
 		
 		//
 		$this->append->where('did',$id)->update([
 			'content'=>$append['content'],
-			'keyword'=>$append['seo_keywords'],
-			'intro'=>$append['seo_intro'],
+			'seo_keyword'=>$append['seo_keyword'],
+			'seo_intro'=>$append['seo_intro'],
 		]);
 	}
 

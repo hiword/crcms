@@ -2,15 +2,15 @@
 
 
 @section('main-box')
-@document
+@document('doubi')
 <article class="article-list mb20">	
 	 <div class="list-info row">
 		<div class="user-info col-md-4 col-xs-12 mb10">
 			<a rel="nofollow"  href="###">
-				<img alt="满街｀都是狗" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
+				<img alt="" class="img-circle" width="35" src="http://pic.qiushibaike.com/system/avtnew/2782/27825408/medium/20160331225958.jpg">
 			</a>
 			<a rel="nofollow" class="ml5" href="###">
-				Admin:
+				92doubi
 			</a>
 		</div>
 		<div class="other col-md-8 col-xs-12 text-right">
@@ -21,10 +21,13 @@
 	</div> 
 	<div class="list-content">
 		<div>
-			{!!isset($document->hasOneDocumentData->content) ? nl2br(strip_tags($document->hasOneDocumentData->content)) : null!!}
-			<a href="{{url('show/'.$document->id)}}" class="ml10">查看全文</a>
+			@if(isset($document->hasOneDoubiData->content))
+			{!! nl2br($document->hasOneDoubiData->content) !!}
+			<span class="ml10"></span>
+			@endif	
+			<a href="{{route('doubi_detail',['did'=>$document->id])}}" title="{{$document->seo_title}}"  class="">查看全文</a>
 		</div>
-		@if($document->thumbnail)
+		@if($document->picture)
 		<!-- 
 		<span class="loading">
 			<img status="small" original-src="{{img_url($document->thumbnail)}}" data-original="{{img_url($document->thumbnail)}}" class="lazy img-responsive mt10" src="{{img_url($document->thumbnail,'92db')}}" small-src="{{img_url($document->thumbnail,'92db')}}" />
@@ -35,14 +38,14 @@
 			<div class="loadingBox">
 				<span class="loading"></span>
 			</div>
-			<img status="small" original-src="{{img_url($document->thumbnail)}}" data-original="{{img_url($document->thumbnail)}}" class="loading-img lazy img-responsive mt10" src="{{img_url($document->thumbnail,'92db')}}" small-src="{{img_url($document->thumbnail,'92db')}}" />
+			<img status="small" alt="{{$document->seo_title}}" original-src="{{img_url($document->picture)}}" data-original="{{img_url($document->picture)}}" class="loading-img lazy img-responsive mt10" src="{{img_url($document->picture,'92db')}}" small-src="{{img_url($document->picture,'92db')}}" />
 		</span><!--photoBox end-->
 		@endif
 	</div>
 	<div class="list-status mt20 clearfix">
-		<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i>5255</a>
-		<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i>3333</a>
-		<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i>3333</a>
+		<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i><?php echo mt_rand(200,3000)?></a>
+		<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i><?php echo mt_rand(200,3000)?></a>
+		<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i><?php echo mt_rand(50,150)?></a>
 	</div>
 </article>
 @enddocument

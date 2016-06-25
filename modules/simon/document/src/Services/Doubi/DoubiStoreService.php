@@ -27,7 +27,7 @@ class DoubiStoreService extends Doubi implements DoubiStoreInterface
 		// TODO Auto-generated method stub
 		
 		//document
-		$this->model->title = $data['seo_title'];
+		$this->model->seo_title = $data['seo_title'];
 		$this->model->status = $data['status'];
 		$this->model->picture = $data['picture'];
 		$this->builtModelStore();
@@ -37,8 +37,8 @@ class DoubiStoreService extends Doubi implements DoubiStoreInterface
 		$this->append->did = $this->model->id;
 		$this->append->content = $append['content'];
 // 		$this->append->seo_title = $data['seo_title'];
-		$this->append->keyword = $append['seo_keywords'];
-		$this->append->intro = $append['seo_intro'];
+		$this->append->seo_keyword = $append['seo_keyword'];
+		$this->append->seo_intro = $append['seo_intro'];
 		$this->append->save();
 		
 		return $this->model;

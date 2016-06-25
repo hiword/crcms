@@ -6,6 +6,7 @@ use Simon\Document\Services\Doubi\Interfaces\DoubiInterface;
 // use Simon\Document\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Simon\Document\Models\Doubi as DoubiModel;
+use Simon\Document\Services\Doubi;
 class DoubiService extends Doubi implements DoubiInterface
 {
 	protected $categories = null;
@@ -15,6 +16,11 @@ class DoubiService extends Doubi implements DoubiInterface
 // 		parent::__construct($Document);
 // 		$this->categories = $Category;
 // 	}
+
+	public function status()
+	{
+		return DoubiModel::STATUS;
+	}
 	
 	public function paginate(array $appends = [])
 	{
@@ -28,11 +34,12 @@ class DoubiService extends Doubi implements DoubiInterface
 		{
 			$this->model = $this->model->join('category_documents',function($join) use ($cid){
 				$join->on('category_documents.document_id','=','documents.id')
-					  ->where('category_documents.category_id','=',$cid);
+					  ->where('category_documents.category_id','=',$cid)
+					  ->where('category_documents.type','=','Simon\Document\Models\Doubi');
 			});
 		}
 		
-		$paginate = $this->model->where('documents.status',1)->orderBy('documents.'.DocumentModel::CREATED_AT,'DESC')->paginate(21);
+		$paginate = $this->model->where('doubis.status',1)->orderBy('doubis.'.DoubiModel::CREATED_AT,'DESC')->paginate(15);
 		
 		$items = $paginate->items();
 		foreach ($items as $item)
@@ -54,14 +61,14 @@ class DoubiService extends Doubi implements DoubiInterface
 		return $this->model->findOrFail($id);
 	}
 	
-	public function categories(DocumentModel $Document)
+	public function categories(DoubiModel $DoubiModel)
 	{
-		return $Document->belongsToManyCategory;
+		return $DoubiModel->belongsToManyCategory;
 	}
 	
-	public function categoryIds(DocumentModel $Document)
+	public function categoryIds(DoubiModel $DoubiModel)
 	{
-		return $this->categories($Document)->lists('id')->toArray();
+		return $this->categories($DoubiModel)->lists('id')->toArray();
 	}
 	
 	public function images(DocumentModel $Document) 
@@ -69,14 +76,14 @@ class DoubiService extends Doubi implements DoubiInterface
 		return $Document->morphManyImages;
 	}
 	
-	public function tags(DocumentModel $Document) 
+	public function tags(DoubiModel $DoubiModel) 
 	{
-		return $Document->morphToManyTag;
+		return $DoubiModel->morphToManyTag;
 	}
 	
-	public function count(DocumentModel $Document)
+	public function count(DoubiModel $DoubiModel)
 	{
-		return $Document->morphManyCount()->count();
+		return $DoubiModel->morphManyCount()->count();
 	}
 	
 	public function prev($id) 
