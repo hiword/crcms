@@ -8,7 +8,7 @@ abstract class DoubiForm extends AbsForm
 		'document.sort'=>['required','integer',],
 		'document.status'=>['required','integer',],
 			
-		'document_data.content'=>['required',],
+// 		'document_data.content'=>['required',],
 		'document_data.seo_keyword'=>['max:255',],
 		'document_data.seo_intro'=>['max:512',],
 	];
