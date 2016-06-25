@@ -25,16 +25,16 @@ class Document extends AbsBlade
 	public function resolve($type = 'document',$cid = 0)
 	{
 		// TODO Auto-generated method stub
-		return ($this->{$type})->paginateFront($cid,app('request')->all());
+		return $this->{$type}->paginateFront($cid,app('request')->all());
 	}
 	
 	public function next($type = 'document',$id) 
 	{
-		return ($this->{$type})->next($id);
+		return $this->{$type}->next($id);
 	}
 	
 	public function prev($type = 'document',$id)
 	{
-		return ($this->{$type})->prev($id);
+		return $this->{$type}->prev($id);
 	}
 }
