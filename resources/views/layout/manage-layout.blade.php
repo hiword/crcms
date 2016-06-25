@@ -27,6 +27,7 @@
 					<a href="#collapse-ul-1" data-parent="#accordion1" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">文档</a>
 					<ul  id="collapse-ul-1" class="collapse in">
 						<li><a href="{{url('manage/document/index')}}">文档列表</a></li>
+						<li><a href="{{url('manage/doubi/index')}}">92doubi列表</a></li>
 						<li><a href="{{url('manage/category/index')}}">文档分类</a></li>
 					</ul>
 				</li>

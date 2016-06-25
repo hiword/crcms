@@ -24,6 +24,8 @@
 		  	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		  	    }
 		  	});
+		  	
+		  	var APP_URL = '{{config('app.app_url')}}';
 		</script>
 	@show
 </body>
