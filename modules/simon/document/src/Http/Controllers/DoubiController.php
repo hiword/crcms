@@ -65,7 +65,7 @@ class DoubiController extends Controller
 	public function getIndex($cid = 0) 
 	{
 		
-		$paginate = $this->service->paginateFront($cid);
+// 		$paginate = $this->service->paginateFront($cid);
 		
 // 		if (!empty($cid) && is_numeric($cid))
 // 		{
@@ -90,7 +90,7 @@ class DoubiController extends Controller
 // 			}
 // 			return $items;
 // 		});
-		return $this->view("index",$paginate);
+		return $this->view("index",['cid'=>$cid]);
 		//$this->service->documentPage($cid,$Paginate,$Category)
 	}
 	

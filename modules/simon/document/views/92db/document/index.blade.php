@@ -2,7 +2,7 @@
 
 
 @section('main-box')
-@document('doubi')
+@document('doubi',$cid)
 <article class="article-list mb20">	
 	 <div class="list-info row">
 		<div class="user-info col-md-4 col-xs-12 mb10">

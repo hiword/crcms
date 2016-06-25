@@ -33,14 +33,14 @@ class DoubiService extends Doubi implements DoubiInterface
 		if ($cid) 
 		{
 			$this->model = $this->model->join('category_documents',function($join) use ($cid){
-				$join->on('category_documents.document_id','=','documents.id')
+				$join->on('category_documents.document_id','=','doubis.id')
 					  ->where('category_documents.category_id','=',$cid)
 					  ->where('category_documents.type','=','Simon\Document\Models\Doubi');
 			});
 		}
 		
 		$paginate = $this->model->where('doubis.status',1)->orderBy('doubis.'.DoubiModel::CREATED_AT,'DESC')->paginate(15);
-		
+
 		$items = $paginate->items();
 		foreach ($items as $item)
 		{
