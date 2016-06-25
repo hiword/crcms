@@ -621,7 +621,7 @@ function uploaded(type,options)
 	}
 	
 	$.ajax({
-		url:'http://localhost/3.1/public/index.php/upload/setting',
+		url:APP_URL + '/upload/setting',
 		data:{'type':type},
 		type:'POST',
 		success:function(response)
@@ -637,7 +637,7 @@ function uploaded(type,options)
 			
 			dialogOptions = $.extend(dialogOptions,options);
 			//'http://'+window.location.host+'/index.php/upload/upload'
-			$.get('http://localhost/3.1/public/index.php/upload/upload',function(data){
+			$.get(APP_URL + '/upload/upload',function(data){
 				dialogOptions.content = data;
 				dialog(dialogOptions).show();
 			});
@@ -651,7 +651,7 @@ function uploaded(type,options)
 	
 }
 
-function uploaded_single(selecter,type)
+function uploaded_single(selecter,btn,type)
 {
 	
 	if(!type)
@@ -660,12 +660,12 @@ function uploaded_single(selecter,type)
 	}
 	
 	$.ajax({
-		url:'http://localhost/kill-box/public/index.php/upload/setting',
+		url:APP_URL + '/upload/setting',
 		data:{'type':type},
 		type:'POST',
 		success:function(response)
 		{
-			$.get('http://localhost/kill-box/public/index.php/upload/upload-single',function(data){
+			$.get(APP_URL + '/upload/upload-single',{'btn':btn},function(data){
 				$(selecter).append(data);
 			});
 		},

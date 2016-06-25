@@ -35,5 +35,6 @@ return [
 		'check_mime'=>true,
 		'rename'=>true,
 		'path'=>public_path('scripts'),
+		'chunk_size'=>'1024kb',
 	]
 ];

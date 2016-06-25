@@ -208,7 +208,9 @@ $result = json_encode($up->getFileInfo());
 	
 	public function getUploadSingle()
 	{
-		return $this->view("upload-single",['message'=>$this->request->input('message'),'config'=>upload_config(),'session_id'=>session()->getId()]);
+		//上传upload的click id
+		$btn = isset($this->data['btn']) ? $this->data['btn'] : null;
+		return $this->view("upload-single",['btn'=>$btn,'message'=>$this->request->input('message'),'config'=>upload_config(),'session_id'=>session()->getId()]);
 	}
 	
 	/**

@@ -1,10 +1,16 @@
+@if(!$btn)
 <button class="btn btn-lg btn-primary" id="single-upload"><i class="glyphicon glyphicon-cloud-upload" style="margin-right: 5px"></i><span id="upload-show-text"></span></button>
+@endif
 <div class="upload-info text-center"></div>
 <div id="upload-value"></div>
 <script src="{{static_asset('vendor/jquery/jquery-2.1.3.min.js')}}"></script>
 <script src="{{static_asset('vendor/plupload/2.1.8/plupload.full.min.js')}}"></script>
 <script>
+@if($btn)
+var uploadBtnId = '{{$btn}}';
+@else
 var uploadBtnId = 'single-upload';
+@endif
 var uploadShowId = '#upload-show-text';
 var uploadInitShowText = '点击上传文件';
 
@@ -21,7 +27,7 @@ var uploader = new plupload.Uploader({
 	flash_swf_url : '{{"vendor/plupload/2.1.8/Moxie.swf"}}',
 	silverlight_xap_url : '{{"vendor/plupload/2.1.8/Moxie.xap"}}',
   	unique_names:true,
-	chunk_size: '{{$config["filesize"]}}',
+	chunk_size: '{{$config["chunk_size"] or "1024kb"}}',
 	multipart_params:MULTIPART_PARAMS,
 	filters : {
 		//根据不同类型设置
@@ -85,8 +91,15 @@ uploader.bind('UploadComplete',function(up,file){
 });
 
 uploader.bind('Error',function(up, err) {
-	response = $.parseJSON(err.response);
-	$('.upload-info').text("\nError #" + err.code + ": " + err.message+': '+response.app_message+' ('+response.app_code+')');
+	if(err.response)
+	{
+		response = $.parseJSON(err.response);
+		$('.upload-info').text("Error #" + err.code + ": " + err.message+': '+response.app_message+' ('+response.app_code+')');
+	}
+	else
+	{
+		$('.upload-info').text("Error #" + err.code + ": " + err.message);
+	}
 });
 
 uploader.init();
