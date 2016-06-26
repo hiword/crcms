@@ -124,7 +124,7 @@ class DocumentController extends Controller
 		
 		if (module_exists('count'))
 		{
-			event(new Count($model->id, 'Simon\Document\Models\Document'));
+			event(new Count($model->id, 'Simon\Document\Models\Document','view'));
 			$count = $this->service->count($model);
 		}
 	
