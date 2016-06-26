@@ -80,9 +80,9 @@ class DocumentService extends Document implements DocumentInterface
 		return $Document->morphToManyTag;
 	}
 	
-	public function count(DocumentModel $Document)
+	public function count(DocumentModel $Document,$type = 'view')
 	{
-		return $Document->morphManyCount()->count();
+		return $Document->morphManyCount($type)->count();
 	}
 	
 	public function prev($id) 

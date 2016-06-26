@@ -13,15 +13,16 @@ use Simon\Document\Services\Category\Interfaces\CategoryInterface;
 use Simon\Count\Events\Count;
 use Simon\User\Models\User;
 use App\Services\Interfaces\AuthInterface;
+use Simon\Document\Services\Doubi\Interfaces\DoubiInterface;
 class DoubiController extends Controller
 {
 	protected $categories = null;
 	
-	public function __construct(DocumentInterface $Document,CategoryInterface $CategoryInterface,AuthInterface $auth)
+	public function __construct(DoubiInterface $DoubiInterface,CategoryInterface $CategoryInterface,AuthInterface $auth)
 	{
 		parent::__construct();
 		
-		$this->service = $Document;
+		$this->service = $DoubiInterface;
 		$this->categories = $CategoryInterface;
 		
 		$this->view = 'document::'.config('site.theme').'.document.';
@@ -37,11 +38,6 @@ class DoubiController extends Controller
 		// 		exit();
 // 		$user = User::first();
 // 		$auth->store($user);
-	}
-	
-	public function getB()
-	{
-		return $this->response('b');
 	}
 	
 	public function getTest()
@@ -124,11 +120,14 @@ class DoubiController extends Controller
 		
 		if (module_exists('count'))
 		{
-			event(new Count($model->id, 'Simon\Document\Models\Document'));
-			$count = $this->service->count($model);
+// 			event(new Count($model->id, 'Simon\Document\Models\Doubi','view'));
+// 			$count = $this->service->count($model);
+			$count = 0;
+			$good = $this->service->count($model,'good');
+			$bad = $this->service->count($model,'bad');
 		}
 	
-		return $this->view("show",['model'=>$model,'lists'=>$lists,'categories'=>$categories,'tags'=>$tags,'count'=>$count]);
+		return $this->view("show",['model'=>$model,'good'=>$good,'bad'=>$bad,'lists'=>$lists,'categories'=>$categories,'tags'=>$tags,'count'=>$count]);
 	}
 	
 	public function postDocumentData(DocumentData $DocumentData)

@@ -75,9 +75,9 @@ class Document extends Model
 	 * 多态，images,多对多
 	 * @author simon
 	 */
-	public function morphManyCount()
+	public function morphManyCount($field)
 	{
-		return $this->morphMany('Simon\Count\Models\Count','counts','outside_type','outside_id');
+		return $this->morphMany('Simon\Count\Models\Count','counts','outside_type','outside_id')->where('outside_field',$field);
 	}
 	
 }

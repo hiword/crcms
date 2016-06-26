@@ -45,7 +45,8 @@ class DoubiService extends Doubi implements DoubiInterface
 		foreach ($items as $item)
 		{
 			$item->tags = $this->tags($item);
-			$item->count = $this->count($item);
+			$item->good = $this->count($item,'good');
+			$item->bad = $this->count($item,'bad');
 		}
 		
 		return ['models'=>$items,'page'=>$paginate->appends($appends)->render()];
@@ -81,9 +82,9 @@ class DoubiService extends Doubi implements DoubiInterface
 		return $DoubiModel->morphToManyTag;
 	}
 	
-	public function count(DoubiModel $DoubiModel)
+	public function count(DoubiModel $DoubiModel,$type = 'view')
 	{
-		return $DoubiModel->morphManyCount()->count();
+		return $DoubiModel->morphManyCount($type)->count();
 	}
 	
 	public function prev($id) 

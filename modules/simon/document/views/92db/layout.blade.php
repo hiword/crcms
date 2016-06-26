@@ -115,6 +115,17 @@
  -->
 <script>
 $(function(){
+
+	$('.gb-count').on('click',function(){
+		var $this = $(this);
+		var url = '{{url("count/count")}}'+'/'+$(this).attr('count-id')+'/'+'{{rawurlencode("Simon\Document\Models\Doubi")}}'+'/'+$(this).attr('type');
+		$.post(url,{_token:"{{csrf_token()}}"},function(data){
+			var num = parseInt($this.children('span').text());
+			$this.children('span').text(num+1);
+		});
+		return false;
+	});
+	
 	//$(".lazy").lazyload();
 	$('.loading-img').on('click',function(){
 		var $this = $(this);

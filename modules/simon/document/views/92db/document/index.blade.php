@@ -1,6 +1,4 @@
 @extends('document::92db.layout')
-
-
 @section('main-box')
 @document('doubi',$cid)
 <article class="article-list mb20">	
@@ -28,12 +26,12 @@
 			<a href="{{route('doubi_detail',['did'=>$document->id])}}" title="{{$document->seo_title}}"  class="">查看全文</a>
 		</div>
 		@if($document->picture)
-		<!-- 
+		<?php /*
 		<span class="loading">
 			<img status="small" original-src="{{img_url($document->thumbnail)}}" data-original="{{img_url($document->thumbnail)}}" class="lazy img-responsive mt10" src="{{img_url($document->thumbnail,'92db')}}" small-src="{{img_url($document->thumbnail,'92db')}}" />
 			<div class="loading-img">1fdsafdsa</div>
 		</span>
-		-->
+		*/?>
 		<span class="photoBox">
 			<div class="loadingBox">
 				<span class="loading"></span>
@@ -43,8 +41,8 @@
 		@endif
 	</div>
 	<div class="list-status mt20 clearfix">
-		<a href="###"><i class="glyphicon glyphicon-thumbs-up mr5"></i><?php echo mt_rand(200,3000)?></a>
-		<a href="###"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i><?php echo mt_rand(200,3000)?></a>
+		<a href="###" class="gb-count" type="good" count-id="{{$document->id}}"><i class="glyphicon glyphicon-thumbs-up mr5"></i><span class="show-good">{{$document->good or '0'}}</span></a>
+		<a href="###" class="gb-count" type="bad" count-id="{{$document->id}}"><i class="glyphicon glyphicon-thumbs-down ml10 mr5"></i><span class="show-bad">{{$document->bad or '0'}}</span></a>
 		<a href="###"><i class="glyphicon glyphicon-comment ml10 mr5"></i><?php echo mt_rand(50,150)?></a>
 	</div>
 </article>
