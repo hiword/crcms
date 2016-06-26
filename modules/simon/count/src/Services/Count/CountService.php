@@ -21,10 +21,10 @@ class CountService extends Count implements CountInterface
 		return ['models'=>$models,'page'=>$paginate->appends($appends)->render()];
 	}
 	
-	public function count($outsideId,$outsideType)
+	public function count($outsideId,$outsideType,$outsideField)
 	{
 		//这里先不作缓存
-		return $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->count();
+		return $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->where('outside_field',$outsideField)->count();
 	}
 	
 }

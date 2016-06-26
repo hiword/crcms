@@ -51,6 +51,7 @@ class CountStoreService extends Count implements CountStoreInterface
 		// TODO Auto-generated method stub
 		$this->model->outside_type = $data['outside_type'];
 		$this->model->outside_id = $data['outside_id'];
+		$this->model->outside_field = $data['outside_field'];
 		if ($Request)
 		{
 			$this->model->client_ip = ip_long($Request->ip());

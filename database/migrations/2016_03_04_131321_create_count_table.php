@@ -18,6 +18,7 @@ class CreateCountTable extends Migration
     		$table->increments('id');
     		 
     		$table->char('outside_type',60);
+    		$table->char('outside_field',30);
     		$table->unsignedInteger('outside_id')->default(0);
     		
     		$table->bigInteger('client_ip',false,true)->default(0);

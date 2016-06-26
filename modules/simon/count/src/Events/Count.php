@@ -24,10 +24,11 @@ class Count extends Event
      *
      * @return void
      */
-    public function __construct($outside_id,$outside_model)
+    public function __construct($outside_id,$outside_model,$outside_field)
     {
     	$this->outside['outside_id'] = $outside_id;
     	$this->outside['outside_type'] = $outside_model;
+    	$this->outside['outside_field'] = $outside_field;
     	$this->outside['client_ip'] = app('request')->ip();
     	$this->agent = app('Jenssegers\Agent\Agent');
     }
