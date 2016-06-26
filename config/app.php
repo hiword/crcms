@@ -199,7 +199,7 @@ return [
     	Simon\Hacker\Providers\HackerServiceProvider::class,
 
     	//killbox
-    	Simon\KillBox\Providers\KillBoxServiceProvider::class,
+//     	Simon\KillBox\Providers\KillBoxServiceProvider::class,
     ],
 
     /*
