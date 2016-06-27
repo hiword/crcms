@@ -3,6 +3,7 @@ namespace Simon\Count\Services\Count;
 use Simon\Count\Services\Count;
 use Simon\Count\Services\Count\Interfaces\CountInterface;
 use Simon\Count\Models\Count as CountModel;
+use Illuminate\Support\Facades\Cache;
 class CountService extends Count implements CountInterface
 {
 	
@@ -23,8 +24,19 @@ class CountService extends Count implements CountInterface
 	
 	public function count($outsideId,$outsideType,$outsideField)
 	{
-		//这里先不作缓存
-		return $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->where('outside_field',$outsideField)->count();
+		if(config('count.open_cache'))
+		{
+			$cacheCount = count_cache_get($outsideId, $outsideType, $outsideField);
+			if ($cacheCount)
+			{
+				return $cacheCount;
+			}
+		}
+		
+		$count = $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->where('outside_field',$outsideField)->count();
+		//write count file
+		count_cache_put($outsideId, $outsideType, $outsideField,$count);
+		return $count;
 	}
 	
 }

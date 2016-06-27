@@ -3,6 +3,7 @@ namespace Simon\Count\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Simon\Count\Services\Count\Interfaces\CountInterface;
 use Simon\Count\Events\Count;
+use Illuminate\Support\Facades\Cache;
 class CountController extends Controller 
 {
 
@@ -12,20 +13,39 @@ class CountController extends Controller
 		$this->service = $Count;
 	}
 	
-	public function getIndex()
-	{
-// 		event(new Count('54', 'Simon\Document\Models\Document'));
-	}
-	
 	public function getCount($outsideId,$outsideType,$outsideField)
 	{
-		$outsideType = rawurldecode($outsideType);
 		$count = $this->service->count($outsideId,$outsideType,$outsideField);
 		return $this->response(['app.success'],['count'=>$count]);
 	}
 	
-	public function postCount($outsideId,$outsideType,$outsideField)
+	public function postCount($outsideId,$outsideType,$outsideField,$filter = 1)
 	{
+		
+		//open filter count
+		if (intval($filter) === 1)
+		{
+			$filterName = count_cache_name($outsideId, $outsideType, $outsideField); 
+			
+			//check cookie
+			$cookie = $this->request->cookie($filterName);
+			if ($cookie)
+			{
+				return $this->response(['app.success'],['cache'=>1]);
+			}
+			
+			//check cache
+			$filterName = $filterName.'_checkIp';
+			$filterIps = Cache::get($filterName);
+			if (!empty($filterIps[$this->request->ip()]))
+			{
+				//write cookie
+				return $this->response(['app.success'])->cookie($filterName,1);
+			}
+		}
+		
+		
+		$outsideType = config("count.outside_type.{$outsideType}");
 		//this is not add cookie in the future need add
 		event(new Count($outsideId, $outsideType,$outsideField));
 		return $this->response(['app.success']);
