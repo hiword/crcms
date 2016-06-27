@@ -32,8 +32,8 @@
 		<span class="photoBox">
 			<div class="loadingBox">
 				<span class="loading"></span>
-			</div>
-			<img status="small" alt="{{$model->seo_title}}" original-src="{{img_url($model->picture)}}" data-original="{{img_url($model->picture)}}" class="loading-img lazy img-responsive mt10" src="{{img_url($model->picture,'92db')}}" small-src="{{img_url($model->picture,'92db')}}" />
+			</div><!-- loading-img lazy  -->
+			<img status="small" alt="{{$model->seo_title}}" original-src="{{img_url($model->picture)}}" data-original="{{img_url($model->picture)}}" class="img-responsive mt10" src="{{img_url($model->picture)}}" small-src="{{img_url($model->picture,'92db')}}" />
 		</span><!--photoBox end-->
 		@endif
 	</div>
