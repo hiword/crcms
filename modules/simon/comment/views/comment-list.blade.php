@@ -29,35 +29,30 @@ string;
 }
     
 $strings = '';
-function comment_tree($models) 
+function comment_tree($models,$strings = '') 
 {
-	static $strings;
-	if (empty($strings) )
-	{
-		$strings = '';
-	}
-	
+// 	static $strings;
+// 	if (empty($strings) )
+// 	{
+// 		$strings = '';
+// 	}
 	foreach ($models as $values)
 	{
-		$string = '';
-		if (isset($values['children']))
+		
+		if (!isset($values['children']))
 		{
-			$string .= comment_tree($values['children']);
+			$strings .= comment_tree_view($values,$strings).'</div></div>';
 		}
 		else
 		{
-			$string .= comment_tree_view($values);
+			$strings .= comment_tree($values['children'],$strings);
 		}
 	}
-	$string .= '</div>
-</div>';
-	$strings .= $string;
-	return $string;
+	
+	return $strings;
 }
 
-static $strings;
-print $strings;
-exit();
+
 // function comment_tree($models,$id = 0)
 // {
 // 	foreach ($models as $model)
@@ -75,7 +70,7 @@ exit();
 <style>
 
 </style>
-<div id="comments-list" class="comments-list"><?php  //comment_tree(array_tree_child($models,0,'reply_id'));?></div>
+<div id="comments-list" class="comments-list"><?php echo comment_tree(array_tree_child($models,0,'reply_id'));?></div>
 <script>
 
 </script>

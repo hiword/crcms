@@ -32,12 +32,18 @@
 @section('table-list')
 	@foreach($models as $model)
 	<tr>
+		<td>1</td>
 		@foreach($fields as $key=>$alias)
 		<td>
 			<?php /*
 			<input type="checkbox" name="{{$key}}" value="{{$model->$key}}" hash="{{create_hash($model->id)}}"/>
 			*/?>
+			@if(is_array($model->$key))
+			{{implode(',',$model->$key)}}
+			@else
 			{{$model->$key}}
+			@endif
+			
 		</td>
 		@endforeach
 		<?php /*

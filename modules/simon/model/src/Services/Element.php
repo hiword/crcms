@@ -99,6 +99,8 @@ abstract class Element extends Service
 		$assoce['other_field'] = $expression[2];
 		$assoce['other_value'] = $value;
 		$assoce['type_field'] = $expression[3];
+		$assoce['field_field'] = $expression[4];
+		$assoce['field'] = $field;
 		$this->assoces[] = $assoce;
 	}
 	
@@ -114,9 +116,10 @@ abstract class Element extends Service
 			foreach ($assoce['other_value'] as $v)
 			{
 				DB::table($assoce['table'])->insert([
-						$assoce['fork_field'] => $forkId,
-						$assoce['other_field'] => $v,
-						$assoce['type_field'] => $this->model->table_name,
+					$assoce['fork_field'] => $forkId,
+					$assoce['other_field'] => $v,
+					$assoce['type_field'] => $this->model->table_name,
+					$assoce['field_field'] => $assoce['field'],
 				]);
 			}
 		}

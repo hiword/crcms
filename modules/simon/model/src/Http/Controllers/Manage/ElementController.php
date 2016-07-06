@@ -209,12 +209,13 @@ class ElementController extends Controller
 				{
 // 					dd($mult);
 					//先查出中间表数据
-					$otherId = DB::table($mult['middle_table'])->where($mult['middle_fork_id'],$result->{$mult['main_fork_id']})->where($mult['middle_fork_type'],$mult['middle_fork_type_value'])->lists($mult['middle_other_id']);
+					$otherId = DB::table($mult['middle_table'])->where($mult['middle_fork_id'],$result->{$mult['main_fork_id']})->where($mult['middle_fork_type'],$mult['middle_fork_type_value'])->where($mult['middle_fork_field'],$mult['field'])->lists($mult['middle_other_id']);
 					//获取数据
-					$result->{$mult['field']} = collect(DB::table($mult['relation_table'])->select($mult['relation_other_id'],$mult['relation_show_name'])->whereIn($mult['relation_other_id'],$otherId)->get());
+					$result->{$mult['field']} = collect(DB::table($mult['relation_table'])->select($mult['relation_other_id'],$mult['relation_show_name'])->whereIn($mult['relation_other_id'],$otherId)->lists($mult['relation_show_name'],$mult['relation_other_id']));
 				}
 			}	
 		}
+		
 		return $this->view('index',['models'=>$results,'fields'=>$showAliasFields,'page'=>$link]);
 		
 		dd($result,DB::getQueryLog());

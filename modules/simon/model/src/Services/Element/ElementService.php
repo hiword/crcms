@@ -63,6 +63,7 @@ class ElementService extends Element implements ElementInterface
 						$expression['middle_other_id'] = $middle[0].'.'.explode(':',$middle[2])[0];
 						$expression['middle_fork_type'] = $middle[0].'.'.$middle[3];
 						$expression['middle_fork_type_value'] = $this->model->table_name;
+						$expression['middle_fork_field'] = $middle[0].'.'.$middle[4];
 						$expressions['relation'][$i] = $expression;
 							
 						$expressions['field'][$i] = ['select_field'=>$this->model->table_name.'.'.$item->name,'field'=>$item->name,'alias'=>$item->alias];
