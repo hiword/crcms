@@ -50,7 +50,7 @@ a,a:hover,a:active,a:focus {text-decoration:none;}
 		/* background-color:rgba(255, 255, 255, 0.9); */
 		background:#FFFFFF;
 	}
-.db-header .db-navbar li.active a {
+.db-header .db-navbar li.active a,.db-header .db-navbar li.active span {
 		background:#f57900;
 		background:#ce4844;
 		color:#FFFFFF;
