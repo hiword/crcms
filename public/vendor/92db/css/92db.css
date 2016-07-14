@@ -70,7 +70,7 @@ a,a:hover,a:active,a:focus {text-decoration:none;}
 	
 @media (max-width:768px)
 {
-	
+.navbar-brand img {height:30px;}
 }
 @media (min-width:768px) {
 
