@@ -5,9 +5,7 @@
 <link href="{{static_asset('vendor/92db/css/92db.css')}}" rel="stylesheet">
 @endsection
 
-@section('meta')
-<meta  />
-@endsection
+@yield('meta')
 
 @section('body')
 <div class="db-header">
@@ -28,7 +26,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="{{url('/')}}" title="就爱逗比(92doubi)">就爱逗比</a>
+	      <a class="navbar-brand" href="{{url('/')}}" title="就爱逗比(92doubi)"><img src="{{static_asset('vendor/92db/images/logo.png')}}" alt="" /></a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->

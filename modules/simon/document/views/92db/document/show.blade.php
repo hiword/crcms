@@ -1,4 +1,11 @@
 @extends('document::92db.layout')
+
+@section('meta')
+@parent
+<meta name="keywords" content="{{$model->seo_keyword}}" />
+<meta name="description" content="{{$model->seo_intro}}"/>
+@endsection
+
 @section('main-box')
 <article class="article-list mb20">	
 	 <div class="list-info row">

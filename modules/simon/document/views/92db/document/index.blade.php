@@ -1,4 +1,11 @@
 @extends('document::92db.layout')
+
+@section('meta')
+@parent
+<meta name="keywords" content="笑话,搞笑,搞笑图片,段子,搞笑段子,GIF图,冷笑话,经典笑话,笑话网,笑话大全,幽默笑话,爆笑笑话" />
+<meta name="description" content="就爱逗比网是一个聚集经典笑话、搞笑图片、搞笑gif图、搞笑段子等一切能让逗比友爆笑的经典网站。就爱逗比网，只属于你的逗比网站！"/>
+@endsection
+
 @section('main-box')
 @document('doubi',$cid)
 <article class="article-list mb20">	
