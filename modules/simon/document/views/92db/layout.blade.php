@@ -5,8 +5,6 @@
 <link href="{{static_asset('vendor/92db/css/92db.css')}}" rel="stylesheet">
 @endsection
 
-@yield('meta')
-
 @section('body')
 <div class="db-header">
 	<?php /*

@@ -92,7 +92,8 @@ a,a:hover,a:active,a:focus {text-decoration:none;}
 		color:#FFFFFF;
 	}
 
-	.navbar-brand {padding-top:25px;}
+	.navbar-brand {padding-top:0px;}
+	.navbar-brand img {height:50px;}
 }
 
 
