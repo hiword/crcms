@@ -6,6 +6,10 @@
 <meta name="description" content="就爱逗比网是一个聚集经典笑话、搞笑图片、搞笑gif图、搞笑段子等一切能让逗比友爆笑的经典网站。就爱逗比网，只属于你的逗比网站！"/>
 @endsection
 
+@section('title')
+就爱逗比网(92doubi)
+@endsection
+
 @section('main-box')
 @document('doubi',$cid)
 <article class="article-list mb20">	

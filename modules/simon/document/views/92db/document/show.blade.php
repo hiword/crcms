@@ -6,6 +6,10 @@
 <meta name="description" content="{{$model->seo_intro}}"/>
 @endsection
 
+@section('title')
+{{$model->seo_title}} - 就爱逗比网(92doubi)
+@endsection
+
 @section('main-box')
 <article class="article-list mb20">	
 	 <div class="list-info row">

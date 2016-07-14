@@ -24,7 +24,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="{{url('/')}}" title="就爱逗比(92doubi)"><img src="{{static_asset('vendor/92db/images/logo.png')}}" alt="" /></a>
+	      <a class="navbar-brand" href="{{url('/')}}" title="就爱逗比(92doubi)"><img src="{{static_asset('vendor/92db/images/logo.png')}}" alt="就爱逗比网(92doubi)" /></a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
