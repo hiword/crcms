@@ -143,6 +143,16 @@ abstract class Field
 		return $options;
 	}
 	
+	public function show($value)
+	{
+		return $value;
+	}
+	
+	public function filter($value)
+	{
+		return clean_xss($value);
+	}
+	
 	/**
 	 * 
 	 * @param mixed $value

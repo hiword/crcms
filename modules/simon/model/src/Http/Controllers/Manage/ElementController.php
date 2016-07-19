@@ -166,6 +166,8 @@ class ElementController extends Controller
 	public function getIndex(Request $Request) 
 	{
 		$main = array_shift($this->fieldsAndModels);
+		dd($main);
+		
 		$mainOptions = (new ElementService($main['model'], $main['field']))->selectListOptions();
 
 		$query= DB::table($mainOptions['table']);

@@ -85,10 +85,7 @@ class Text extends Field implements FieldInterface
 		empty($this->attributes['type']) && $this->attributes['type'] = 'text';
 	}
 
-	public function filter($value)
-	{
-		return clean_xss($value);
-	}
+
 	
 	
 }

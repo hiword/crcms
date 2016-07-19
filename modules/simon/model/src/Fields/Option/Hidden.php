@@ -84,11 +84,4 @@ class Hidden extends Field implements FieldInterface
 		//auto complete type
 		$this->attributes['type'] = 'hidden';
 	}
-
-	public function filter($value)
-	{
-		return clean_xss($value);
-	}
-	
-	
 }

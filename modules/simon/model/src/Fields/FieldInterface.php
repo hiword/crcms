@@ -15,4 +15,6 @@ interface FieldInterface
 	
 	public function filter($value);
 	
+	public function show($value,$primaryKey = 'id');
+	
 }
