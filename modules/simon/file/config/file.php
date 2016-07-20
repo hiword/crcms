@@ -4,7 +4,7 @@ return [
 			'filesize'=>size_byte('2MB'),
 			'extensions'=>['jpg','jpeg','gif','png','bmp'],
 			'checkExtension'=>true,
-			'checkMime'=>true,
+			'checkMime'=>false,
 			'rename'=>true,
 	],
 	'file_upload'=>[
