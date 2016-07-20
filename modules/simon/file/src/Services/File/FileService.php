@@ -25,8 +25,12 @@ class FileService extends File implements FileInterface
 			throw new FileUploadException($e->getMessage());
 		}
 		
-		$files[0]['img_src'] = img_src($files[0]['full_root']);
-		return $files[0];
+		if ($files)
+		{
+			$files[0]['img_src'] = img_src($files[0]['full_root']);
+			return $files[0];
+		}
+		return $files;
 	}
 	
 }

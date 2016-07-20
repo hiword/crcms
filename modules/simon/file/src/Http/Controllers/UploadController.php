@@ -227,7 +227,10 @@ $result = json_encode($up->getFileInfo());
 	{
 		$file = $this->service->uploading(new PlUpload(storage_path('app/uploads')));
 		
-		$model = $FileStoreInterface->store($file,$this->request);
+		if ($file)
+		{
+			$model = $FileStoreInterface->store($file,$this->request);
+		}
 		
 		return response()->json(array_merge(app_response('app.success'),['data'=>$file]));
 	}
