@@ -93,7 +93,7 @@
 <footer class="">
 	<div class="container">
 		<div class="copyright">
-			<p>92doubi(就要逗比) - 让你开心每一天，是我们最大的心愿。</p>
+			<p>92doubi(就爱逗比) - 让你开心每一天，是我们最大的心愿。</p>
 			<p>
 				版权所有，保留一切权利！ Copyright © 2016 CRCMS强力驱动 皖ICP备15025087号-3
 			</p>
