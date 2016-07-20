@@ -25,7 +25,7 @@
 		  	    }
 		  	});
 		  	
-		  	var APP_URL = '{{config('app.app_url')}}';
+		  	var APP_URL = '{{config('app.url')}}';
 		</script>
 	@show
 </body>
