@@ -11,7 +11,7 @@ html,body
 }
 
 a {
-	color:#5e5e5e;
+	color:#E5E5E5;
 }
 .hacker-a {
 	color:red;
@@ -56,6 +56,6 @@ div.hacker-desc {
 
 .subject-list {background:none;}
 .subject-list li,.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {background:none;border-radius:none;border:0px;padding-left:0px;border-bottom:1px solid #5e5e5e}
-.subject-list li a {color:#5E5E5E;}
+.subject-list li a {color:#E5E5E5;}
 .subject-list li a:hover,.subject-list li a:focus,.subject-list li a:active {text-decoration:none;}
 .subject-list li.active a {color:#339933}
