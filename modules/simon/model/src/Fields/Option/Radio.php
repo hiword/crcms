@@ -30,7 +30,7 @@ class Radio extends Field implements FieldInterface
 		return xss_clean($value);
 	}
 	
-	public function show($value)
+	public function show($value, $primaryKey = 'id')
 	{
 		//这里的SQL还是全部查询出来了，会影响效率
 		//应该先判断是否在key:value中，不存在，则匹配SQL，查询条件加上where key=$value的值单条

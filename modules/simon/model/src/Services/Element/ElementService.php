@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class ElementService extends Element implements ElementInterface
 {
 	
-	protected function getPrimaryKey()
+	public function getPrimaryKey()
 	{
 		return $this->fields->get($this->fields->search(function($item,$key){
 			return $item->is_primary !== 2;
@@ -118,6 +118,7 @@ class ElementService extends Element implements ElementInterface
 	{
 		//获取本数据表字段
 		$databaseFields = $fields->filter(function($item){
+// 			if ($item->type==='Multiselect')
 			if ($item->type==='Multiselect' && $item->setting->store_type==='table')
 			{
 				return false;
@@ -154,8 +155,114 @@ class ElementService extends Element implements ElementInterface
 		return ['table'=>$tableName,'primary'=>$primary,'field'=>$databaseFields,'mult_field'=>$databaseMultField];
 	}
 	
-	public function selectListOptions()
+	public function getFilterField($type)
 	{
+		return $this->fields->filter(function($item) use ($type){
+			return ((!empty($item->option) && in_array($type,$item->option,true)) || $item->is_primary !== 2);
+		});
+	}
+	
+	public function getFormatField(Collection $fields)
+	{
+		
+	}
+	
+	public function getFormatMultTableField(Collection $fields)
+	{
+		
+	}
+	
+	public function selectListOptions(array $data)
+	{
+		//获取允许的列表字段
+		$fields = $this->getFilterField('list');
+		
+		$primaryKey = $this->getPrimaryKey();
+		
+		$allowFields = $fields->pluck('name')->all();
+		
+		//过滤允许的数据
+		/* $data = array_map(function($value) use($allowFields){
+			return array_filter((array)$value,function($v,$k) use ($allowFields){
+				return in_array($k, $allowFields,true);
+			},ARRAY_FILTER_USE_BOTH);
+		}, $data);
+		 */
+		
+		$data = array_map(function($values) use($fields,$primaryKey){
+			
+			//过滤不允许的字段
+			$allowFields = $fields->pluck('name')->all();
+			$values = array_filter((array)$values,function($v,$k) use ($allowFields){
+				return in_array($k, $allowFields,true);
+			},ARRAY_FILTER_USE_BOTH);
+			
+			//添加剩余的字段，主要是外键表多选
+			$keys = array_keys($values);
+			$fields->each(function($field) use ($primaryKey,$keys,&$values){
+				if (isset($values[$field->name]))
+				{
+					$values[$field->name] = $field->instance->show($values[$field->name]);
+				}
+				else//这里肯定是外部表的多选
+				{
+					//show(主键值 ,主键字段)
+					
+					$b = $field->instance->show($values[$primaryKey],$primaryKey);
+					$values[$field->name] = $field->instance->show($values[$primaryKey],$primaryKey);
+				}
+			});
+			return $values;
+		}, $data);
+		return $data;
+// 		$fields->each(function($field) use ($data){
+// 			array_map(function($value) use ($field){
+// 				dd($value);
+// 			}, $data);
+// 		});
+		
+// 		foreach ($fields as $field)
+// 		{
+// 			foreach ($data as $values)
+// 			{
+// 				foreach ($)
+// 			}
+			
+			
+// 		}
+		
+		
+		$fields->each(function($item) use ($data){
+			return array_map(function($values) use ($item){
+				return array_filter($values,function($value,$key) use ($item){
+					dd($value,$key);
+				},ARRAY_FILTER_USE_BOTH);
+			}, $data);
+		});
+		
+		$allowFields = $fields->pluck('name')->all();
+		dd($fields);
+		$fields->pluck('name')->each(function($value) use ($fields,$data){
+			
+		});
+		
+		
+		
+		return $data;
+		
+		dd($data);
+		
+		$data = array_filter($data,function($value,$key) use ($allowFields){
+			dd($value);
+			return in_array($key, $allowFields,true);
+		},ARRAY_FILTER_USE_BOTH);
+		
+		dd($data);
+// 		foreach ($data as $key=>$value)
+// 		{
+// 			in_array($needle, $haystack)
+// 		}
+		
 		$fields = $this->fields->filter(function($item){
 			if(empty($item->option))
 			{
@@ -163,13 +270,28 @@ class ElementService extends Element implements ElementInterface
 			}
 			if (!in_array('list',$item->option,true))
 			{
-				return false;	
+				return false;
 			}
 			return true;
-		});
+		})->toArray();
+		dd($fields);
+		
+		
+		foreach ($data as $key=>$value)
+		{
+// 			$this->fields
+		}
+		
+		dd($data);
+		DB::table($this->model->table_name)->orderBy($this->getPrimaryKey(),'desc')->paginate();
+		
+		
+		
+		
+		
 		
 		$databaseFields= $this->formatField($fields);
-// 		dd($databaseFields);
+
 		$databaseMultFields = $this->formatMultField($fields);
 			
 		$format = [

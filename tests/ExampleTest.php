@@ -34,14 +34,20 @@ class ExampleTest extends TestCase
 //     	dd($b);
 //     }
     
-    public function testSelect()
-    {
-    	DB::connection()->enableQueryLog(); // 开启查询日志
-    	$model = app('Simon\Model\Models\Model');
-    	$model = $model->find(15);
-    	$field = app('Simon\Model\Models\Field')->find(29);
-    	$select = new Multiselect($field,$model);
-    	$b = $select->show([6,7],3);
-    	dd($b);
-    }
+//     public function testSelect()
+//     {
+//     	DB::connection()->enableQueryLog(); // 开启查询日志
+//     	$model = app('Simon\Model\Models\Model');
+//     	$model = $model->find(15);
+//     	$field = app('Simon\Model\Models\Field')->find(29);
+//     	$select = new Multiselect($field,$model);
+//     	$b = $select->show([6,7],3);
+//     	dd($b);
+//     }
+
+// 		public function testCount()
+// 		{
+	// 		$this->post('http://localhost/public/3.1/index.php/count/count/id/doubi/good')
+	// 		->see('Laravel 5');
+// 		}
 }

@@ -62,7 +62,7 @@ class Multiselect extends Field implements FieldInterface
 	 * @return array
 	 * @author simon
 	 */
-	protected function parseShowFieldStore(array $value)
+	protected function parseShowFieldStore($value)
 	{
 		$value = is_array($value) ? $value : explode(',', $value);
 		

@@ -143,7 +143,7 @@ abstract class Field
 		return $options;
 	}
 	
-	public function show($value)
+	public function show($value,$primaryKey = 'id')
 	{
 		return $value;
 	}

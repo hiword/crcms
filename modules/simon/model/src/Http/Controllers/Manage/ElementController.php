@@ -165,10 +165,54 @@ class ElementController extends Controller
 	
 	public function getIndex(Request $Request) 
 	{
+		$allData = [];
+		//获取主表
 		$main = array_shift($this->fieldsAndModels);
+		
+		
+// 		(new ElementService($main['model'], $main['field']))->selectListOptions();
+		
+		
+		$Service = new ElementService($main['model'], $main['field']);
+		
+		$mainPrimaryKey = $Service->getPrimaryKey();
+		
+		$data = DB::table($main['model']['table_name'])->orderBy($mainPrimaryKey,'desc')->paginate();
+
+		$data = $Service->selectListOptions($data->items());
+		
+// 		$allData[$main['model']['table_name']] = $data;
+		
+		//
+		$ids = array_map(function($values) use ($mainPrimaryKey){
+			return $values[$mainPrimaryKey];
+		}, $data);
+		
+		foreach ($this->fieldsAndModels as $item)
+		{
+			$Service = new ElementService($item['model'], $item['field']);
+			
+			$itemPrimaryKey = $Service->getPrimaryKey();
+			
+			$data = DB::table($item['model']['table_name'])->whereIn($Service->getPrimaryKey(),$ids)->get();
+			
+			$data = $Service->selectListOptions((array)$data);
+			
+			$allData[$item['model']['table_name']] = $data;
+		}
+		dd($allData);
+		
+// 		if($data->items())
+// 		{
+// 			foreach($dca)
+// 		}
+		$mainOptions = (new ElementService($main['model'], $main['field']))->selectListOptions();
+		dd($mainOptions);
+		//获取主表分页数据
+		
 		dd($main);
 		
-		$mainOptions = (new ElementService($main['model'], $main['field']))->selectListOptions();
+		
 
 		$query= DB::table($mainOptions['table']);
 		

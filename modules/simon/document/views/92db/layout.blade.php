@@ -114,7 +114,7 @@ $(function(){
 
 	$('.gb-count').on('click',function(){
 		var $this = $(this);
-		var url = '{{url("count/count")}}'+'/'+$(this).attr('count-id')+'/'+'{{rawurlencode("Simon\Document\Models\Doubi")}}'+'/'+$(this).attr('type');
+		var url = '{{url("count/count")}}'+'/'+$(this).attr('count-id')+'/'+'doubi'+'/'+$(this).attr('type');
 		$.post(url,{_token:"{{csrf_token()}}"},function(data){
 			var num = parseInt($this.children('span').text());
 			$this.children('span').text(num+1);
