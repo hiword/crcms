@@ -13,17 +13,18 @@ class CountController extends Controller
 		$this->service = $Count;
 	}
 	
-	public function getCount($outsideId,$outsideType,$outsideField)
-	{
-		$count = $this->service->count($outsideId,$outsideType,$outsideField);
-		return $this->response(['app.success'],['count'=>$count]);
-	}
+// 	public function getCount($outsideId,$outsideType,$outsideField)
+// 	{
+// 		$count = $this->service->count($outsideId,$outsideType,$outsideField);
+// 		return $this->response(['app.success'],['count'=>$count]);
+// 	}
 	
-	public function postCount($outsideId,$outsideType,$outsideField,$filter = 1)
+	public function getCount($outsideId,$type,$outsideField,$filter = 1)
 	{
-		
+		$type = config("count.{$type}");
+// 		dd($type);
 		//open filter count
-		if (intval($filter) === 1)
+		/* if (intval($filter) === 1)
 		{
 			$filterName = count_cache_name($outsideId, $outsideType, $outsideField); 
 			
@@ -42,12 +43,23 @@ class CountController extends Controller
 				//write cookie
 				return $this->response(['app.success'])->cookie($filterName,1);
 			}
-		}
+		} */
 		
 		
-		$outsideType = config("count.outside_type.{$outsideType}");
+// 		$outsideType = config("count.outside_type.{$outsideType}");
 		//this is not add cookie in the future need add
-		event(new Count($outsideId, $outsideType,$outsideField));
+		event(new Count($outsideId, $type['outside_type'],$outsideField));
+		
+		//
+		if ($type['open_get_cache'])
+		{
+			$this->service->setGetCache($outsideId,$type['outside_type'],$outsideField);
+		}
+		if ($type['open_post_cache'])
+		{
+			$this->service->setPostCache($outsideId,$type['outside_type'],$outsideField,$this->request);
+		}
+		return 123;
 		return $this->response(['app.success']);
 	}
 	

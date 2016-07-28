@@ -4,6 +4,8 @@ use Simon\Count\Services\Count;
 use Simon\Count\Services\Count\Interfaces\CountInterface;
 use Simon\Count\Models\Count as CountModel;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 class CountService extends Count implements CountInterface
 {
 	
@@ -20,6 +22,31 @@ class CountService extends Count implements CountInterface
 		}
 		
 		return ['models'=>$models,'page'=>$paginate->appends($appends)->render()];
+	}
+	
+	public function setGetCache($outsideId,$outsideType,$outsideField)
+	{
+		
+		//设置服务器端缓存
+		$cacheName = "{$outsideId}_{$outsideType}_{$outsideField}";
+		
+		if (Cache::has($cacheName))
+		{
+			$count = (int)Cache::get($cacheName)+1;
+		}
+		else
+		{
+			$count = $this->model->where('outside_id',$outsideId)->where('outside_type',$outsideType)->where('outside_field',$outsideField)->count();
+		}
+		
+		Cache::put($cacheName,$count,config('count.get_cache_time'));
+	}
+	
+	public function setPostCache($outsideId,$outsideType,$outsideField,Request $Request)
+	{
+		$cacheName = sha1("{$Request->ip()}_{$outsideId}_{$outsideType}_{$outsideField}");
+		Cache::put($cacheName,1,config('count.post_cache_time'));
+		Cookie::make($cacheName,1,config('count.post_cache_time'),'/');
 	}
 	
 	public function count($outsideId,$outsideType,$outsideField)
