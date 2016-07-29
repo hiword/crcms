@@ -49,6 +49,20 @@ class CountService extends Count implements CountInterface
 		Cookie::make($cacheName,1,config('count.post_cache_time'),'/');
 	}
 	
+	public function getPostCache($outsideId,$outsideType,$outsideField,Request $Request)
+	{
+		$cacheName = sha1("{$Request->ip()}_{$outsideId}_{$outsideType}_{$outsideField}");
+		if ($Request->cookie($cacheName)) 
+		{
+			return true;
+		}
+		if (Cache::has($cacheName)) 
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public function count($outsideId,$outsideType,$outsideField)
 	{
 		if(config('count.open_cache'))

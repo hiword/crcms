@@ -45,6 +45,12 @@ class CountController extends Controller
 			}
 		} */
 		
+		//开启POST缓存过滤
+		if($type['open_post_cache'] && $this->service->getPostCache($outsideId,$type['outside_type'],$outsideField,$this->request))
+		{
+			return $this->response(['app.success']);
+		}
+		
 		
 // 		$outsideType = config("count.outside_type.{$outsideType}");
 		//this is not add cookie in the future need add
