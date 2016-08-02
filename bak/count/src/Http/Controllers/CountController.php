@@ -4,7 +4,6 @@ use App\Http\Controllers\Controller;
 use Simon\Count\Services\Count\Interfaces\CountInterface;
 use Simon\Count\Events\Count;
 use Illuminate\Support\Facades\Cache;
-use CrCms\Exceptions\AppException;
 class CountController extends Controller 
 {
 
@@ -47,12 +46,10 @@ class CountController extends Controller
 		} */
 		
 		//开启POST缓存过滤
-		if($type['open_store_cache'] && $this->service->hasPostCache($outsideId,$type['outside_type'],$outsideField))
+		if($type['open_post_cache'] && $this->service->getPostCache($outsideId,$type['outside_type'],$outsideField,$this->request))
 		{
-			new AppException('Not');
+			return $this->response(['app.success']);
 		}
-		
-		
 		
 		
 // 		$outsideType = config("count.outside_type.{$outsideType}");

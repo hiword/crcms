@@ -9,55 +9,6 @@ use Illuminate\Support\Facades\Cookie;
 class CountService extends Count implements CountInterface
 {
 	
-	public function getCountType($type)
-	{
-		return config("count.{$type}");
-	}
-	
-	
-	public function store($outsideId,$outsideType,$outsideField)
-	{
-		event(new \Simon\Count\Events\Count($outsideId, $outsideType,$outsideField));
-	}
-	
-	public function hasStoreCache($outsideId,$outsideType,$outsideField)
-	{
-		$cacheName = $this->storeCacheName($outsideId, $outsideType, $outsideField);
-		if (request()->cookie($cacheName))
-		{
-			return true;
-		}
-		if (Cache::has($cacheName))
-		{
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * 设置存储后的cookie
-	 * @param numeric $outsideId
-	 * @param unknown $outsideType
-	 * @param unknown $outsideField
-	 * @author simon
-	 */
-	public function setStoreCache($outsideId,$outsideType,$outsideField)
-	{
-		$cacheName = $this->storeCacheName($outsideId, $outsideType, $outsideField);
-		Cache::put($cacheName,1,config('count.post_cache_time'));
-		Cookie::make($cacheName,1,config('count.post_cache_time'),'/');
-	}
-	
-	
-	protected function storeCacheName($outsideId,$outsideType,$outsideField)
-	{
-		$ip = request()->ip();
-		return sha1("{$ip}_{$outsideId}_{$outsideType}_{$outsideField}");;
-	}
-	
-	
-	
-	
 	public function paginate(array $appends = [])
 	{
 		$paginate = $this->model->orderBy(CountModel::CREATED_AT,'DESC')->paginate(15);
@@ -98,7 +49,19 @@ class CountService extends Count implements CountInterface
 		Cookie::make($cacheName,1,config('count.post_cache_time'),'/');
 	}
 	
-
+	public function getPostCache($outsideId,$outsideType,$outsideField,Request $Request)
+	{
+		$cacheName = sha1("{$Request->ip()}_{$outsideId}_{$outsideType}_{$outsideField}");
+		if ($Request->cookie($cacheName)) 
+		{
+			return true;
+		}
+		if (Cache::has($cacheName)) 
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	public function count($outsideId,$outsideType,$outsideField)
 	{

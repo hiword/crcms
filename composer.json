@@ -35,6 +35,8 @@
         ],
         "psr-4": {
             "App\\": "app/",
+            "CrCms":"crcms/modules",
+            "CrCms\\Exceptions":"crcms/exceptions",
 			"Simon\\Document\\" : "modules/simon/document/src",
 			"Simon\\Log\\" : "modules/simon/log/src",
 			"Simon\\File\\" : "modules/simon/file/src",
