@@ -108,7 +108,9 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'daily'),
+    'log' => env('APP_LOG', 'single'),
+
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -152,54 +154,24 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-//      App\Providers\AuthServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     	
+    	//其它模块加载
     	App\Providers\AuthServiceProvider::class,
     	Jenssegers\Agent\AgentServiceProvider::class,
     	Intervention\Image\ImageServiceProvider::class,
     	Mews\Purifier\PurifierServiceProvider::class,
     	Torann\GeoIP\GeoIPServiceProvider::class,
-    		
-    	//模块加载
-    	Simon\Document\Providers\DocumentServiceProvider::class,
+    	Germey\Geetest\GeetestServiceProvider::class,
+    	Mews\Captcha\CaptchaServiceProvider::class,
+    	Toplan\PhpSms\PhpSmsServiceProvider::class,
+    	Toplan\Sms\SmsManagerServiceProvider::class,
+    	
+    	//user模块加载
+    	User\Providers\UserServiceProvider::class,
 
-    	Simon\Log\Providers\EventServiceProvider::class,
-    	Simon\Log\Providers\LogServiceProvider::class,
-    		
-    	//file
-    	Simon\File\Providers\FileServiceProvider::class,
-    	Simon\File\Providers\EventServiceProvider::class,
-    		
-    	//tag
-    	Simon\Tag\Providers\TagServiceProvider::class,
-    	Simon\Tag\Providers\EventServiceProvider::class,
-    		
-    	//
-    	Simon\System\Providers\SystemServiceProvider::class,
-    	
-    	//
-		Simon\User\Providers\UserServiceProvider::class,
-    	
-    	//
-    	Simon\Mail\Providers\EventServiceProvider::class,
-    	Simon\Mail\Providers\MailServiceProvider::class,
-    		
-    	Simon\Model\Providers\ModelServiceProvider::class,
-    		
-    	//count
-    	Simon\Count\Providers\EventServiceProvider::class,
-    	Simon\Count\Providers\CountServiceProvider::class,
-    	
-    	//comments
-    	Simon\Comment\Providers\CommentServiceProvider::class,
-    		
-    	//hacker
-    	Simon\Hacker\Providers\HackerServiceProvider::class,
-
-    	//killbox
-//     	Simon\KillBox\Providers\KillBoxServiceProvider::class,
     ],
 
     /*
@@ -217,7 +189,7 @@ return [
 
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
-//      'Auth' => Illuminate\Support\Facades\Auth::class,
+        'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
@@ -246,11 +218,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-    	'Auth' => App\Facades\Auth::class,
-    	'Agent' =>Jenssegers\Agent\Facades\Agent::class,
-    	'Image' => Intervention\Image\Facades\Image::class,
-    	'Purifier' => Mews\Purifier\Facades\Purifier::class,
-    	'GeoIP' => Torann\GeoIP\GeoIPFacade::class,
+    	//	
+    	'Geetest' => Germey\Geetest\Geetest::class,
+    	'Captcha' => Mews\Captcha\Facades\Captcha::class,
+    	'PhpSms' => Toplan\PhpSms\Facades\Sms::class,
+    	'SmsManager' => Toplan\Sms\Facades\SmsManager::class,
     ],
 
 ];

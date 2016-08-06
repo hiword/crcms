@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-//     protected $namespace = 'App\Http\Controllers';
+    //protected $namespace = 'App\Http\Controllers';
     protected $namespace = null;
 
     /**
@@ -59,4 +59,6 @@ class RouteServiceProvider extends ServiceProvider
             require app_path('Http/routes.php');
         });
     }
+    
+
 }

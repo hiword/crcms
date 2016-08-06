@@ -1,6 +1,5 @@
 <?php
 
-use App\Exceptions\AppException;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,12 +11,6 @@ use App\Exceptions\AppException;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect('/b')->withErrors(['a'=>'a','b'=>'b'],'s')->withErrors(['c'=>'c','b'=>'d'],'k');
-// 	throw new AppException('abc');
-// });
-// Route::get('/','Simon\Hacker\Http\Controllers\HackerController@getIndex');
-Route::get('/',config('site.index'));
-// Route::get('/b',function(){
-// 	return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});

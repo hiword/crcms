@@ -10,10 +10,11 @@ use App\Services\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Forms\Form;
+use Germey\Geetest\CaptchaGeetest;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests,CaptchaGeetest;
     
     /**
      * 

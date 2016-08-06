@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Interfaces;
-use App\Models\Model;
+use Illuminate\Database\Eloquent\Model;
+
 interface AuthInterface
 {
 	

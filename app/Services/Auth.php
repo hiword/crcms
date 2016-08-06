@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 use App\Services\Interfaces\AuthInterface;
+use Illuminate\Database\Eloquent\Model;
 
 class Auth implements AuthInterface
 {
@@ -39,7 +40,7 @@ class Auth implements AuthInterface
 	 * @see \App\Services\Interfaces\AuthInterface::store()
 	 * @author simon
 	 */
-	public function store(\App\Models\Model $user)
+	public function store(Model $user)
 	{
 		// TODO Auto-generated method stub
 		session()->put($this->sessionKey,$user);

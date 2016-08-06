@@ -5,9 +5,13 @@ use Illuminate\Http\JsonResponse;
 class AppException extends \Exception
 {
 	
-	const  APP_CODE = 1003;
+// 	const  APP_CODE = 1003;
 	
-	const  HTTP_CODE = 403;
+// 	const  HTTP_CODE = 403;
+	
+	protected $appCode = 1003;
+	
+	protected $httpCode = 403;
 	
 	/**
 	 * 
@@ -21,10 +25,13 @@ class AppException extends \Exception
 	 * @param redirect Url || \Illuminate\Http\Response $response
 	 * @author simon
 	 */
-	public function __construct($message,$response = null)
+	public function __construct($message,$appCode = 1003,$httpCode = 403,$response = null)
 	{
 		$this->response = $response;
 		parent::__construct($message);
+		
+		$this->appCode = $appCode;
+		$this->httpCode = $httpCode;
 	}
 	
 	/**
@@ -72,7 +79,7 @@ class AppException extends \Exception
 	 */
 	protected function getJsonResponse()
 	{
-		return new JsonResponse(app_response($this->getMessage(),static::APP_CODE), static::HTTP_CODE);
+		return new JsonResponse(app_response($this->getMessage(),$this->appCode), $this->httpCode);
 	}
 	
 	/**
@@ -83,7 +90,7 @@ class AppException extends \Exception
 	 */
 	protected function getRedirectResponse()
 	{
-		$appResponseData = app_response($this->getMessage(),static::APP_CODE);
+		$appResponseData = app_response($this->getMessage(),$this->appCode);
 		return $this->getRedirect()->withInput()->with($appResponseData)->withErrors($appResponseData);
 	}
 }

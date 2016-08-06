@@ -1,0 +1,98 @@
+<?php
+namespace User\Services;
+use CrCms\Process\User\Interfaces\RegisterInterface;
+use App\Services\Service;
+use User\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Model;
+use CrCms\Process\User\Interfaces\RegisterLangInterface;
+class Register extends Service implements RegisterInterface,RegisterLangInterface
+{
+
+	public function __construct(User $user)
+	{
+		parent::__construct();
+		$this->model = $user;
+	}
+	
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\Process\User\Interfaces\Register::validateRegisterForm()
+	 * @author simon
+	 */
+	public function validateForm(array $data): bool
+	{
+		// TODO Auto-generated method stub
+		return $this->validator($data, [
+// 				'email'=>['required','email','unique:users'],
+				'name'=>['required','regex:/^[\w]{3,15}$/','unique:users'],
+				'password'=>['required','min:6','max:20'],
+		]);
+	}
+	
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\Process\User\Interfaces\Register::store()
+	 * @author simon
+	 */
+	public function store(array $data) 
+	{
+		// TODO Auto-generated method stub
+		$this->model->name = $data['name'];
+		$this->model->password = bcrypt($data['password']);
+// 		$this->model->email = $data['email'];
+		$this->model->register_ip = ip_long(request()->ip());
+		//$this->model->mail_status = \User\Models\User::MAIL_STATUS_NOT_VERIFY;
+		$this->model->save();
+	
+		return $this->model;
+	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\Process\User\Interfaces\Register::checkCode()
+	 * @author simon
+	 */
+	public function checkCode(string $code) : bool
+	{
+		// TODO Auto-generated method stub
+		return false;	
+	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\Process\User\Interfaces\Register::getUser()
+	 * @author simon
+	 */
+// 	public function getUser(string $username): array
+// 	{
+// 		// TODO Auto-generated method stub
+// 		$model = $this->model->where('name',$username)->first();
+// 		return $model ? $model->toArray() : []; 
+// 	}
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\Process\User\Interfaces\Register::getValidateRegisterMessage()
+	 * @author simon
+	 */
+// 	public function getValidateMessage(): string
+// 	{
+// 		// TODO Auto-generated method stub
+// 		return parent::getValidatorMessage();
+// 	}
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\Process\User\Interfaces\RegisterLangInterface::codeError()
+	 * @author simon
+	 */
+	public function codeError(): string
+	{
+		// TODO Auto-generated method stub
+		return trans('app.code_error');
+	}
+
+
+
+	
+}

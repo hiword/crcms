@@ -1,16 +1,19 @@
 {
     "name": "crcms",
-    "description": "Comprehensive open source CMS",
-    "keywords": ["crcms", "laravel" , "cms"],
+    "description": "The Laravel Framework.",
+    "keywords": ["crcms", "laravel","cms"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-		"jenssegers/agent" : "^2.3",
+        "jenssegers/agent" : "^2.3",
 		"intervention/image" : "^2.3",
     	"intervention/imagecache" : "^2.3",
-        "mews/purifier": "^2.0"
+        "mews/purifier": "^2.0",
+        "germey/geetest": "^1.0",
+        "mews/captcha": "^2.1",
+        "toplan/laravel-sms": "2.4.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -25,30 +28,14 @@
             "database"
         ],
         "files" : [ 
-        	"app/tool.php", 
-        	"app/helper.php",
-        	"modules/simon/log/src/helper.php",
-        	"modules/simon/mail/src/helper.php",
-        	"modules/simon/hacker/src/helper.php",
-        	"modules/simon/count/src/helper.php",
-        	"modules/simon/file/src/helper.php"
+        	"crcms/tool.php", 
+        	"app/helper.php"
         ],
         "psr-4": {
             "App\\": "app/",
-            "CrCms":"crcms/modules",
-            "CrCms\\Exceptions":"crcms/exceptions",
-			"Simon\\Document\\" : "modules/simon/document/src",
-			"Simon\\Log\\" : "modules/simon/log/src",
-			"Simon\\File\\" : "modules/simon/file/src",
-			"Simon\\Tag\\" : "modules/simon/tag/src",
-			"Simon\\User\\" : "modules/simon/user/src",
-			"Simon\\Mail\\" : "modules/simon/mail/src",
-			"Simon\\Model\\" : "modules/simon/model/src",
-			"Simon\\Count\\" : "modules/simon/count/src",
-			"Simon\\Comment\\" : "modules/simon/comment/src",
-			"Simon\\Hacker\\" : "modules/simon/hacker/src",
-			"Simon\\KillBox\\" : "modules/simon/killBox/src",
-			"Simon\\System\\" : "modules/simon/system/src"
+            "CrCms\\":"crcms/modules",
+            "CrCms\\Exceptions\\":"crcms/exceptions",
+            "User\\" : "modules/user/src"
         }
     },
     "autoload-dev": {
@@ -58,17 +45,17 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"
         ],
         "post-install-cmd": [
-            "php artisan clear-compiled",
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize"
         ],
         "post-update-cmd": [
-            "php artisan clear-compiled",
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ]
     },

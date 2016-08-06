@@ -55,9 +55,8 @@ return [
     |
     */
 
-    //'from' => ['address' => null, 'name' => null],
-	//'from' => ['address' => 'crcms@crcms.cn', 'name' => 'crcms'],
-	'from' => ['address' => env('MAIL_FROM_ADDRESS','mail@crcms.cn'), 'name' => env('MAIL_FROM_NAME','crcms')],
+    'from' => ['address' => null, 'name' => null],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

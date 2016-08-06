@@ -42,8 +42,8 @@ return array(
 	'default_location' => array (
 		"ip"           => "127.0.0.0",
 		"isoCode"      => "US",
-		"country"      => "localhost",
-		"city"         => "localhost",
+		"country"      => "United States",
+		"city"         => "New Haven",
 		"state"        => "CT",
 		"postal_code"  => "06510",
 		"lat"          => 41.31,

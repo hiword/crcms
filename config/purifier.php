@@ -17,14 +17,14 @@
  */
 
 return [
-
-    'encoding'  => 'UTF-8',
-    'finalize'  => true,
-    'cachePath' => storage_path('app/purifier'),
-    'settings'  => [
+    'encoding'      => 'UTF-8',
+    'finalize'      => true,
+    'cachePath'     => storage_path('app/purifier'),
+    'cacheFileMode' => 0755,
+    'settings'      => [
         'default' => [
             'HTML.Doctype'             => 'XHTML 1.0 Strict',
-            'HTML.Allowed'             => 'h1,h2,h3,h4,h5,h6,div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,pre,span[style],img[width|height|alt|src]',
+            'HTML.Allowed'             => 'div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
             'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
             'AutoFormat.AutoParagraph' => true,
             'AutoFormat.RemoveEmpty'   => true,

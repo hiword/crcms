@@ -31,7 +31,8 @@ return array(
     */
     
     'paths' => array(
-        storage_path('app/uploads'),
+        public_path('upload'),
+        public_path('images')
     ),
 
     /*
@@ -54,9 +55,6 @@ return array(
         'small' => 'Intervention\Image\Templates\Small',
         'medium' => 'Intervention\Image\Templates\Medium',
         'large' => 'Intervention\Image\Templates\Large',
-        'img_1' => 'Simon\File\Services\ImageTemplates\DocumentIndex',
-        'sidebar' => 'Simon\File\Services\ImageTemplates\DocumentThumb',
-        '92db' => 'Simon\Document\Services\ImageTemplates\Db',
     ),
 
     /*
@@ -68,6 +66,6 @@ return array(
     |
     */
    
-    'lifetime' =>143200,
+    'lifetime' => 43200,
 
 );
