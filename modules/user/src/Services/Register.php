@@ -2,17 +2,30 @@
 namespace User\Services;
 use App\Services\Service;
 use User\Models\User;
-use CrCms\User\Process\Interfaces\RegisterProcessInterface;
-use CrCms\User\Lang\Interfaces\RegisterLangInterface;
-use CrCms\ValidatorForm\Process\Interfaces\ValidatorFormProcessInterface;
-use CrCms\VerificationCode\Process\Interfaces\VerifyCodeProcessInterface;
-use CrCms\VerificationCode\Lang\Interfaces\VerifyCodeLangInterface;
-class Register extends Service implements RegisterProcessInterface,RegisterLangInterface,ValidatorFormProcessInterface,VerifyCodeProcessInterface,VerifyCodeLangInterface
+use CrCms\User\Interfaces\RegisterInterface;
+use CrCms\VerificationCode\Interfaces\VerifyCodeInterface;
+use CrCms\ValidatorForm\Interfaces\ValidatorFormInterface;
+use App\Services\Traits\StoreTrait;
+use User\Models\AuthLog;
+class Register extends Service implements RegisterInterface,VerifyCodeInterface,ValidatorFormInterface
 {
-	
-	public function __construct(User $user)
+
+    use StoreTrait;
+    
+    public function __construct(User $user)
 	{
 		parent::__construct($user);
+	}
+	
+
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeInterface::openCodeVerify()
+	 */
+	public function openCodeVerify(): bool
+	{
+	    // TODO Auto-generated method stub
+	    return true;
 	}
 	
 	/* 
@@ -25,9 +38,9 @@ class Register extends Service implements RegisterProcessInterface,RegisterLangI
 		// TODO Auto-generated method stub
 		$type = $this->getNameType($data['mixed']);
 		$data[$type] = $data['mixed'];
-		return $this->validator($data, [
-				'password'=>['required','min:6','max:20'],
+		return !$this->validator($data, [
 				$type=>$this->getNameTypeValidatorRule($type),
+		      'password'=>['required','min:6','max:20'],
 		]);
 	}
 	
@@ -38,16 +51,19 @@ class Register extends Service implements RegisterProcessInterface,RegisterLangI
 	 */
 	public function register(array $data)
 	{
-		dd($this->model);
 		// TODO Auto-generated method stub
 		$type = $this->getNameType($data['mixed']);
 		
-		$this->model->mobile= $data['mixed'];
+		$this->model->{$type}= $data['mixed'];
 		
 		$this->model->password = bcrypt($data['password']);
 		$this->model->register_ip = ip_long(request()->ip());
-		//$this->model->mail_status = \User\Models\User::MAIL_STATUS_NOT_VERIFY;
+	    $this->model->register_time = time();
+// 		$this->model->mail_status = \User\Models\User::MAIL_STATUS_NOT_VERIFY;
 		
+	    //默认字段添加
+	    $this->builtModelStore();
+	    
 		$this->model->save();
 		
 		return $this->model;
@@ -91,6 +107,12 @@ class Register extends Service implements RegisterProcessInterface,RegisterLangI
 		return $rule[$type];
 	}
 
+	public function openImageCodeVerify() : bool
+	{
+	    //这里还要判断，当天或时间，注册是否已成功两次
+// 	    AuthLog::where('ip',ip_long(app('request')->ip()))->get();
+	    return config('user.open_image_verify_code');
+	}
 
 
 

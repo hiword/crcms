@@ -1,10 +1,10 @@
 <?php
-namespace CrCms\User\Process;
-use CrCms\Process;
+namespace CrCms\User;
 use User\Services\Login as LoginService;
 use CrCms\Exceptions\AppException;
+use CrCms\CrCms;
 
-class Login extends Process
+class Login extends CrCms
 {
 	public function __construct(LoginService $login)
 	{

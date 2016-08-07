@@ -3,8 +3,8 @@ namespace User\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Exceptions\AppException;
-use CrCms\User\Process\Register;
-use CrCms\User\Process\Login;
+use CrCms\User\Register;
+use CrCms\User\Login;
 class AuthController extends Controller
 {
 
@@ -39,7 +39,6 @@ class AuthController extends Controller
 		} 
 		catch (\CrCms\Exceptions\AppException $e)
 		{
-			dd($e->getMessage());
 			throw new AppException($e->getMessage());
 		} finally {
 		}

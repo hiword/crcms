@@ -1,8 +1,8 @@
 <?php
-namespace CrCms\ValidatorForm\Process\Interfaces;
-use CrCms\ProcessInterface;
+namespace CrCms\ValidatorForm\Interfaces;
+use CrCms\CrCmsInterface;
 
-interface ValidatorFormProcessInterface extends ProcessInterface
+interface ValidatorFormInterface extends CrCmsInterface
 {
 	/**
 	 * 表单验证
@@ -18,4 +18,5 @@ interface ValidatorFormProcessInterface extends ProcessInterface
 	 * @author simon
 	 */
 	public function getValidateMessage() : string;
+	
 }

@@ -9,6 +9,12 @@ abstract class Service
 	
 	protected $validator = null;
 	
+	/**
+	 * 验证码开启状态
+	 * @var string
+	 */
+	protected $openVerifyCode = false;
+	
 	public function __construct(Model $model = null)
 	{
 		$this->model = $model;
@@ -39,32 +45,99 @@ abstract class Service
 	public function verifyImageCode(string $code): bool
 	{
 		// TODO Auto-generated method stub
-		return true;
 		return !$this->validator(['code'=>$code], [
 				'code' => ['required','captcha'],
 		]);
 	}
 	
-	/*
-	 * (non-PHPdoc)
-	 * @see \CrCms\VerificationCode\Lang\Interfaces\VerifyCodeLangInterface::codeError()
-	 * @author simon
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeInterface::langEmailCodeError()
 	 */
-	public function codeImageError(): string
+	public function langEmailCodeError(): string
 	{
-		// TODO Auto-generated method stub
-		return trans('app.code_error');
+	    // TODO Auto-generated method stub
+	    return trans('app.code_error');
 	}
 	
-	/*
-	 * (non-PHPdoc)
-	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeProcessInterface::verifyEmailCode()
-	 * @author simon
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeInterface::langImageCodeError()
 	 */
-	public function verifyEmailCode(string $code): bool
+	public function langImageCodeError(): string
 	{
-		// TODO Auto-generated method stub
+	    // TODO Auto-generated method stub
+	    return trans('app.code_error');
+	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeInterface::langMobileCodeError()
+	 */
+	public function langMobileCodeError(): string
+	{
+	    // TODO Auto-generated method stub
+	    return trans('app.code_error');
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Interfaces\VerifyCodeInterface::nameForEmailCode()
+	 */
+	public function nameForEmailCode(): string
+	{
+	    // TODO Auto-generated method stub
+	    return 'email_code';
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Interfaces\VerifyCodeInterface::nameForImageCode()
+	 */
+	public function nameForImageCode(): string
+	{
+	    // TODO Auto-generated method stub
+	    return 'code';
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Interfaces\VerifyCodeInterface::nameForMobileCode()
+	 */
+	public function nameForMobileCode(): string
+	{
+	    // TODO Auto-generated method stub
+	    return 'mobile_code';
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Interfaces\VerifyCodeInterface::openEmailCodeVerify()
+	 */
+	public function openEmailCodeVerify(): bool
+	{
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Interfaces\VerifyCodeInterface::openImageCodeVerify()
+	 */
+	public function openImageCodeVerify(): bool
+	{
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Interfaces\VerifyCodeInterface::openMobileCodeVerify()
+	 */
+	public function openMobileCodeVerify(): bool
+	{
+	    // TODO Auto-generated method stub
+	    return false;
 	}
 	
 	/*
@@ -72,13 +145,16 @@ abstract class Service
 	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeProcessInterface::verifyMobileCode()
 	 * @author simon
 	 */
-	public function verifyMobileCode(string $code): bool
+	public function verifyMobileCode(string $mobile,string $code): bool
 	{
 		// TODO Auto-generated method stub
 		//验证数据
-		$status = $this->validator($data, [
+		$status = $this->validator([
+		    'mobile'=>$mobile,
+		    'mobile_code'=>$code,
+		], [
 				'mobile'     => 'required|confirm_mobile_not_change',
-				'verifyCode' => 'required|verify_code|confirm_rule:mobile,mobile_required',
+				'mobile_code' => 'required|verify_code|confirm_rule:mobile,mobile_required',
 		]);
 	
 		if ($status)
@@ -90,25 +166,14 @@ abstract class Service
 		return $status;
 	}
 	
-	/*
-	 * (non-PHPdoc)
-	 * @see \CrCms\VerificationCode\Lang\Interfaces\VerifyCodeLangInterface::codeEmailError()
-	 * @author simon
+
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeInterface::verifyEmailCode()
 	 */
-	public function codeEmailError(): string
+	public function verifyEmailCode(string $code): bool
 	{
-		// TODO Auto-generated method stub
-	
-	}
-	
-	/*
-	 * (non-PHPdoc)
-	 * @see \CrCms\VerificationCode\Lang\Interfaces\VerifyCodeLangInterface::codeMobileError()
-	 * @author simon
-	 */
-	public function codeMobileError(): string
-	{
-		// TODO Auto-generated method stub
+	    // TODO Auto-generated method stub
 	
 	}
 	
