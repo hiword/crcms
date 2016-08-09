@@ -5,6 +5,7 @@ use App\User;
 use App\Exceptions\AppException;
 use CrCms\User\Register;
 use CrCms\User\Login;
+use User\Services\AuthLog;
 class AuthController extends Controller
 {
 
@@ -25,7 +26,7 @@ class AuthController extends Controller
 		return $this->view('register');
 	}
 	
-	public function postRegister(Register $Register)
+	public function postRegister(Register $Register,AuthLog $AuthLog)
 	{
 // 		$data = [
 // 				'code'=>'1234',
@@ -36,12 +37,15 @@ class AuthController extends Controller
 		
 		try {
 			$Register->bootstrap($this->data);
+		
+			auth_log($this->data);
 		} 
 		catch (\CrCms\Exceptions\AppException $e)
 		{
 			throw new AppException($e->getMessage());
 		} finally {
 		}
+
 		
 		
 	}

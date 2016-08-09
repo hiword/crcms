@@ -4,7 +4,7 @@ use App\Services\Service;
 use CrCms\Log\Interfaces\LogInterface;
 use User\Models\AuthLog as AuthLogModel;
 use App\Services\Traits\StoreTrait;
-class AuthLog extends Service implements LogInterface 
+class AuthLog extends Service implements \User\Services\Interfaces\LogInterface 
 {
     
     use StoreTrait;
@@ -13,12 +13,11 @@ class AuthLog extends Service implements LogInterface
     {
         parent::__construct($log);
     }
-    
     /**
      * {@inheritDoc}
-     * @see \CrCms\Log\Interfaces\LogInterface::log()
+     * @see \User\Services\Interfaces\LogInterface::log()
      */
-    public function log(array $data)
+    public function log(array $data,string $ip)
     {
         // TODO Auto-generated method stub
         $this->model->name = $data['mixed'];
@@ -29,5 +28,4 @@ class AuthLog extends Service implements LogInterface
         return $this->model;
     }
 
-    
 }

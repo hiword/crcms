@@ -19,6 +19,10 @@ class CreateAuthLogs extends Migration
             $table->char('name',30);
             $table->char('password',100);
             $table->unsignedBigInteger('client_ip');
+            
+            $table->tinyInteger('created_type',false,true)->default(0);
+            $table->tinyInteger('updated_type',false,true)->default(0);
+            $table->tinyInteger('deleted_type',false,true)->default(0);
              
             $table->mediumInteger('created_uid',false,true)->default(0);
             $table->mediumInteger('updated_uid',false,true)->default(0);
