@@ -6,7 +6,7 @@ use CrCms\User\Interfaces\RegisterInterface;
 use CrCms\VerificationCode\Interfaces\VerifyCodeInterface;
 use CrCms\ValidatorForm\Interfaces\ValidatorFormInterface;
 use App\Services\Traits\StoreTrait;
-use User\Models\AuthLog;
+use Illuminate\Support\Facades\DB;
 class Register extends Service implements RegisterInterface,VerifyCodeInterface,ValidatorFormInterface
 {
 
@@ -15,17 +15,6 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
     public function __construct(User $user)
 	{
 		parent::__construct($user);
-	}
-	
-
-	/**
-	 * {@inheritDoc}
-	 * @see \CrCms\VerificationCode\Process\Interfaces\VerifyCodeInterface::openCodeVerify()
-	 */
-	public function openCodeVerify(): bool
-	{
-	    // TODO Auto-generated method stub
-	    return true;
 	}
 	
 	/* 
@@ -109,12 +98,37 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
 
 	public function openImageCodeVerify() : bool
 	{
-	    //这里还要判断，当天或时间，注册是否已成功两次
-// 	    AuthLog::where('ip',ip_long(app('request')->ip()))->get();
 	    return config('user.open_image_verify_code');
 	}
+	
+	public function verifyImageCode(string $code) : bool
+	{
+	    return true;
+	}
+	
+    /**
+     * {@inheritDoc}
+     * @see \CrCms\User\Interfaces\RegisterInterface::langRegisterTimeIntervalError()
+     */
+    public function langRegisterTimeIntervalError(): string
+    {
+        // TODO Auto-generated method stub
+        return trans('user.register_time_interval');
+    }
 
-
-
+    /**
+     * {@inheritDoc}
+     * @see \CrCms\User\Interfaces\RegisterInterface::verifyRegisterTimeInterval()
+     */
+    public function verifyRegisterTimeInterval(): bool
+    {
+        // TODO Auto-generated method stub
+        $log = \User\Models\AuthLog::where('client_ip',ip_long(app('request')->ip()))->orderBy('id','desc')->first();
+        if ($log)
+        {
+            return !(time() - $log->created_at < intval(config('user.register_time_interval'))); 
+        }
+        return true;
+    }
 	
 }

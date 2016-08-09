@@ -42,6 +42,12 @@ class Register extends CrCms
 		{
 		    throw new AppException($this->service->getValidateMessage());
 		}
+		
+		//验证注册时间
+		if (!$this->service->verifyRegisterTimeInterval())
+		{
+		    throw new AppException($this->service->langRegisterTimeIntervalError());
+		}
 	
 		//数据存储
 		return $this->service->register($data);

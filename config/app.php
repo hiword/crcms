@@ -171,6 +171,7 @@ return [
     	
     	//user模块加载
     	User\Providers\UserServiceProvider::class,
+        User\Providers\EventServiceProvider::class,
 
     ],
 

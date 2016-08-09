@@ -12,4 +12,16 @@ interface RegisterInterface extends CrCmsInterface
      */
     public function register(array $data);
     
+    /**
+     * 验证注册的时间间隔
+     * @return bool
+     */
+    public function verifyRegisterTimeInterval() : bool;
+    
+    /**
+     * 不允许时间段注册的提示信息
+     * @return string
+     */
+    public function langRegisterTimeIntervalError() : string;
+    
 }
