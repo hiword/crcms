@@ -30,13 +30,15 @@
         "files" : [ 
         	"crcms/tool.php", 
         	"app/helper.php",
-        	"modules/user/helper.php"
+        	"modules/user/src/helper.php",
+        	"modules/mail/src/helper.php"
         ],
         "psr-4": {
             "App\\": "app/",
             "CrCms\\":"crcms/modules",
             "CrCms\\Exceptions\\":"crcms/exceptions",
-            "User\\" : "modules/user/src"
+            "User\\" : "modules/user/src",
+            "Mail\\" : "modules/mail/src"
         }
     },
     "autoload-dev": {

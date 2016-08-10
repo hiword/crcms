@@ -173,6 +173,10 @@ return [
     	User\Providers\UserServiceProvider::class,
         User\Providers\EventServiceProvider::class,
 
+    	//mail模块
+    	Mail\Providers\MailServiceProvider::class,
+    	Mail\Providers\EventServiceProvider::class,
+
     ],
 
     /*

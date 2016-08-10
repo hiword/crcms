@@ -6,6 +6,6 @@ abstract class Event
 {
     //
     
-    protected $data = [];
+    public $data = [];
     
 }

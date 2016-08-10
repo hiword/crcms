@@ -42,6 +42,6 @@ class AuthLogListener implements ShouldQueue
      */
     public function handle(Event $Event)
     {
-    	$this->log->log($Event->data,$Event->ip);
+    	$this->log->log($Event->data);
     }
 }

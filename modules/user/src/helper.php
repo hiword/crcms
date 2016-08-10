@@ -1,11 +1,9 @@
 <?php
-function userinfo($userId)
+use User\Events\AuthLogEvent;
+
+function auth_log(array $data)
 {
-	$user = \Simon\User\Models\User::where('id',$user)->find();
-	if (empty($user)) 
-	{
-		$user = new \stdClass();
-		$user->name = '游客';
-	}
-	return $user;
+	//如果在service中写，那么开启队列之后，每次的ip都会变成本机，所以此处需要加上
+	$data['client_ip'] = ip_long(app('request')->ip()); 
+    event(new AuthLogEvent($data));
 }

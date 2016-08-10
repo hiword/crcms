@@ -33,19 +33,27 @@ class AuthController extends Controller
 // 				'name'=>'abc3210',
 // 				'password'=>'setpassword',
 // 		];
-		//验证验证码
 		
 		try {
-			$Register->bootstrap($this->data);
-		
+			//开启注册
+			$user = $Register->bootstrap($this->data);
+			
+			//send mail
+			$user->email ? mailer('user::emails.register', $user->email,$user->toArray()) : null;
+			
+			//注册日志
 			auth_log($this->data);
 		} 
 		catch (\CrCms\Exceptions\AppException $e)
 		{
 			throw new AppException($e->getMessage());
-		} finally {
+		} 
+		finally { 
+			
 		}
 
+		
+		
 		
 		
 	}

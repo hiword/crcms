@@ -14,10 +14,9 @@ class AuthLogEvent extends Event
     
     public $ip = '';
     
-    public function __construct(array $data,string $ip)
+    public function __construct(array $data)
     {
         $this->data = $data;
-        $this->ip = $ip;
     }
     
 }
