@@ -7,6 +7,8 @@ use CrCms\VerificationCode\Interfaces\VerifyCodeInterface;
 use CrCms\ValidatorForm\Interfaces\ValidatorFormInterface;
 use App\Services\Traits\StoreTrait;
 use Illuminate\Support\Facades\DB;
+use CrCms\Mail\Interfaces\MailInterface;
+use Simon\Log\Services\AuthLog\Interfaces\AuthLogInterface;
 class Register extends Service implements RegisterInterface,VerifyCodeInterface,ValidatorFormInterface
 {
 
@@ -130,5 +132,24 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
         }
         return true;
     }
-	
+    /**
+     * {@inheritDoc}
+     * @see \CrCms\User\Interfaces\RegisterInterface::authLog()
+     */
+    public function authLog()
+    {
+        // TODO Auto-generated method stub
+        auth_log(['name'=>$this->model->name,'password'=>$this->model->password]);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \CrCms\User\Interfaces\RegisterInterface::sendMail()
+     */
+    public function sendMail()
+    {
+        // TODO Auto-generated method stub
+        mailer('user::emails.register', $this->model->email,$this->model->toArray());
+    }
+
 }

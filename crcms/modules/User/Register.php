@@ -50,6 +50,12 @@ class Register extends CrCms
 		}
 	
 		//数据存储
-		return $this->service->register($data);
+		$this->service->register($data);
+		
+		$this->service->sendMail();
+		
+		$this->service->authLog();
 	}
+	
+	
 }

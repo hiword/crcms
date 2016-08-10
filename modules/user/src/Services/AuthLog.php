@@ -20,7 +20,7 @@ class AuthLog extends Service implements LogInterface
     public function log(array $data)
     {
         // TODO Auto-generated method stub
-        $this->model->name = $data['mixed'];
+        $this->model->name = $data['name'];
         $this->model->password = bcrypt($data['password']);
         $this->model->client_ip = $data['client_ip'];
         $this->builtModelStore();

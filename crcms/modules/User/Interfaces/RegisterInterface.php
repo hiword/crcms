@@ -24,4 +24,14 @@ interface RegisterInterface extends CrCmsInterface
      */
     public function langRegisterTimeIntervalError() : string;
     
+    /**
+     * 发送邮件
+     */
+    public function sendMail();
+    
+    /**
+     * 记录邮件
+     */
+    public function authLog();
+    
 }
