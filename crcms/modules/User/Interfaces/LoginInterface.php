@@ -14,4 +14,9 @@ interface LoginInterface extends CrCmsInterface
      * @return string
      */
     public function langPasswordError() : string;
+    
+    /**
+     * 存储登录日志
+     */
+    public function storeAuthLog();
 }

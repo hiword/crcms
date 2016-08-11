@@ -32,6 +32,6 @@ interface RegisterInterface extends CrCmsInterface
     /**
      * 记录邮件
      */
-    public function authLog();
+    public function storeAuthLog();
     
 }

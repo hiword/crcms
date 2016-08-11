@@ -7,8 +7,7 @@ use CrCms\VerificationCode\Interfaces\VerifyCodeInterface;
 use CrCms\ValidatorForm\Interfaces\ValidatorFormInterface;
 use App\Services\Traits\StoreTrait;
 use Illuminate\Support\Facades\DB;
-use CrCms\Mail\Interfaces\MailInterface;
-use Simon\Log\Services\AuthLog\Interfaces\AuthLogInterface;
+use User\Models\AuthLog as AuthLogModel;
 class Register extends Service implements RegisterInterface,VerifyCodeInterface,ValidatorFormInterface
 {
 
@@ -125,7 +124,7 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
     public function verifyRegisterTimeInterval(): bool
     {
         // TODO Auto-generated method stub
-        $log = \User\Models\AuthLog::where('client_ip',ip_long(app('request')->ip()))->orderBy('id','desc')->first();
+        $log = AuthLogModel::where('client_ip',ip_long(app('request')->ip()))->orderBy('id','desc')->first();
         if ($log)
         {
             return !(time() - $log->created_at < intval(config('user.register_time_interval'))); 
@@ -136,10 +135,10 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
      * {@inheritDoc}
      * @see \CrCms\User\Interfaces\RegisterInterface::authLog()
      */
-    public function authLog()
+    public function storeAuthLog()
     {
         // TODO Auto-generated method stub
-        auth_log(['name'=>$this->model->name,'password'=>$this->model->password]);
+        auth_log(AuthLogModel::TYPE_REGSITER,['userid'=>$this->model->id,'name'=>$this->model->name]);
     }
 
     /**
@@ -149,7 +148,10 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
     public function sendMail()
     {
         // TODO Auto-generated method stub
-        mailer('user::emails.register', $this->model->email,$this->model->toArray());
+        if (module_exists('mail'))
+        {
+            mailer('user::emails.register', $this->model->email,$this->model->toArray());
+        }
     }
 
 }

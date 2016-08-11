@@ -31,6 +31,8 @@ class CreateAuthLogs extends Migration
             $table->unsignedInteger('created_at')->default(0);
             $table->unsignedInteger('updated_at')->default(0);
             $table->unsignedInteger('deleted_at')->default(0);
+            
+            $table->dropColumn('password');
         });
     }
 

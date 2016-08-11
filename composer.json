@@ -13,7 +13,9 @@
         "mews/purifier": "^2.0",
         "germey/geetest": "^1.0",
         "mews/captcha": "^2.1",
-        "toplan/laravel-sms": "2.4.*"
+        "toplan/laravel-sms": "2.4.*",
+        "doctrine/dbal": "^2.5",
+        "nwidart/db-exporter": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

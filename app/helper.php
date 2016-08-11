@@ -458,7 +458,7 @@ use Illuminate\Http\Response;
 			$modules = array_get($content, 'autoload.psr-4');
 		}
 		
-		return in_array("Simon\\{$module}\\", array_keys($modules),true);
+		return in_array("\\{$module}\\", array_keys($modules),true);
 	}
 	
 	function responding($status,$data = [],$url = null)
