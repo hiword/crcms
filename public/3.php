@@ -1,15 +1,38 @@
 <?php 
-setcookie('abc','123',86400,'/');
-?>
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>Document</title>
-</head>
-<body>
-fdsafsdafdsa
-	<script src=http://7x6.cc/6></script>
-	<script src=https://test.cs/test.js></script>
-</body>
-</html>
+echo 3;
+interface A {
+	
+	public function b() : Exception;
+	
+}
+
+class C implements A
+{
+	/* 
+	 * (non-PHPdoc)
+	 * @see A::b()
+	 * @author simon
+	 */
+	public function b(): Exception
+	{
+		// TODO Auto-generated method stub
+		$a = 1;
+		if ($a !== 1)
+		{echo 2;
+			return true;
+			
+		}
+		
+		throw new Exception('abc');
+	}
+
+	
+}
+try {
+	(new C())->b();
+} catch (Exception $e)
+{
+	echo $e->getMessage();
+}
+
+

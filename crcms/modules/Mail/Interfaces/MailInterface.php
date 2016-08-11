@@ -19,7 +19,7 @@ interface MailInterface extends CrCmsInterface
 	 * @param array $data
 	 * @author simon
 	 */
-	public function log(array $data);
+	public function mailLog(array $data);
 	
 	/**
 	 * 创建Mail验证码

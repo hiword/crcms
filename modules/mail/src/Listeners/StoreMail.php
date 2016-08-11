@@ -35,7 +35,7 @@ class StoreMail implements ShouldQueue
     {
     	$this->mail->log([
     			'email'=>$Event->email,
-    			'subject'=>$Event->subject,
+    			'subject'=>$Event->subject ?? '',
     			'template'=>$Event->template,
     			'data'=>$Event->data,
     	]);

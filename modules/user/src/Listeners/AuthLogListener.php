@@ -42,6 +42,13 @@ class AuthLogListener implements ShouldQueue
      */
     public function handle(Event $Event)
     {
-    	$this->log->log($Event->data);
+    	try {
+    		$this->log->log($Event->type,$Event->data);
+    	} catch (\Exception $e)
+    	{
+    		logger($e->getMessage());
+    		throw $e;
+    	}
+    	
     }
 }

@@ -37,12 +37,6 @@ class AuthController extends Controller
 		try {
 			//开启注册
 			$user = $Register->bootstrap($this->data);
-			
-			//send mail
-			$user->email ? mailer('user::emails.register', $user->email,$user->toArray()) : null;
-			
-			//注册日志
-			auth_log($this->data);
 		} 
 		catch (\CrCms\Exceptions\AppException $e)
 		{

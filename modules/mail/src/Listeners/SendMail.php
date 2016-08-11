@@ -33,6 +33,6 @@ class SendMail implements ShouldQueue
      */
     public function handle(Event $Event)
     {
-    	$this->mail->sendMail($Event->email, $Event->subject ?? null, $Event->template, $Event->data);
+    	$this->mail->sendMail($Event->email, $Event->subject ?? '', $Event->template, $Event->data);
     }
 }

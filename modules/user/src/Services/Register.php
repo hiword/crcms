@@ -8,7 +8,9 @@ use CrCms\ValidatorForm\Interfaces\ValidatorFormInterface;
 use App\Services\Traits\StoreTrait;
 use Illuminate\Support\Facades\DB;
 use User\Models\AuthLog as AuthLogModel;
-class Register extends Service implements RegisterInterface,VerifyCodeInterface,ValidatorFormInterface
+use User\Models\AuthLog;
+use CrCms\Exceptions\AppException;
+class Register implements RegisterInterface
 {
 
     use StoreTrait;
@@ -17,24 +19,98 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
 	{
 		parent::__construct($user);
 	}
-	
 	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\User\Interfaces\RegisterInterface::register()
+	 * @author simon
+	 */
+	public function register(array $data)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\User\Interfaces\RegisterInterface::sendMail()
+	 * @author simon
+	 */
+	public function sendMail()
+	{
+		// TODO Auto-generated method stub
+		return true;
+		// TODO Auto-generated method stub
+		if (module_exists('mail') && !empty($this->model->email))
+		{
+			mailer('user::emails.register', $this->model->email,$this->model->toArray());
+		}
+	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\User\Interfaces\RegisterInterface::storeLog()
+	 * @author simon
+	 */
+	public function storeLog()
+	{
+		// TODO Auto-generated method stub
+		auth_log(AuthLog::TYPE_REGSITER,['userid'=>$this->model->id,'name'=>$this->model->name]);
+	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\User\Interfaces\RegisterInterface::validateForm()
+	 * @author simon
+	 */
+	public function validateForm(array $data)
+	{
+		// TODO Auto-generated method stub
+		$log = AuthLog::where('client_ip',ip_long(app('request')->ip()))->orderBy('id','desc')->first();
+		if ($log)
+		{
+			if(time() - $log->created_at < intval(config('user.register_time_interval')))
+			{
+				throw new AppException(trans('user.register_time_interval'));
+			}
+			
+		}
+		return true;
+	}
+
+	/* 
+	 * (non-PHPdoc)
+	 * @see \CrCms\User\Interfaces\RegisterInterface::verifyRegisterTimeInterval()
+	 * @author simon
+	 */
+	public function verifyRegisterTimeInterval(): bool
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+	
+	
+	
+	/*
 	 * (non-PHPdoc)
 	 * @see \CrCms\ValidatorForm\Process\Interfaces\ValidatorFormProcessInterface::validateForm()
 	 * @author simon
 	 */
 	public function validateForm(array $data): bool
 	{
+		return true;
 		// TODO Auto-generated method stub
 		$type = $this->getNameType($data['mixed']);
 		$data[$type] = $data['mixed'];
 		return !$this->validator($data, [
 				$type=>$this->getNameTypeValidatorRule($type),
-		      'password'=>['required','min:6','max:20'],
+				'password'=>['required','min:6','max:20'],
 		]);
 	}
 	
-	/* 
+	/*
 	 * (non-PHPdoc)
 	 * @see \CrCms\User\Process\Interfaces\RegisterProcessInterface::register()
 	 * @author simon
@@ -43,22 +119,22 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
 	{
 		// TODO Auto-generated method stub
 		$type = $this->getNameType($data['mixed']);
-		
+	
 		$this->model->{$type}= $data['mixed'];
-		
+	
 		$this->model->password = bcrypt($data['password']);
 		$this->model->register_ip = ip_long(request()->ip());
-	    $this->model->register_time = time();
-// 		$this->model->mail_status = \User\Models\User::MAIL_STATUS_NOT_VERIFY;
-		
-	    //默认字段添加
-	    $this->builtModelStore();
-	    
+		$this->model->register_time = time();
+		// 		$this->model->mail_status = \User\Models\User::MAIL_STATUS_NOT_VERIFY;
+	
+		//默认字段添加
+		$this->builtModelStore();
+		 
 		$this->model->save();
-		
+	
 		return $this->model;
 	}
-
+	
 	/**
 	 * 获取表单名称填写的类别
 	 * @param string $name
@@ -96,62 +172,27 @@ class Register extends Service implements RegisterInterface,VerifyCodeInterface,
 		];
 		return $rule[$type];
 	}
-
+	
 	public function openImageCodeVerify() : bool
 	{
-	    return config('user.open_image_verify_code');
+		return config('user.open_image_verify_code');
 	}
 	
 	public function verifyImageCode(string $code) : bool
 	{
-	    return true;
+		return true;
 	}
 	
-    /**
-     * {@inheritDoc}
-     * @see \CrCms\User\Interfaces\RegisterInterface::langRegisterTimeIntervalError()
-     */
-    public function langRegisterTimeIntervalError(): string
-    {
-        // TODO Auto-generated method stub
-        return trans('user.register_time_interval');
-    }
+	/**
+	 * {@inheritDoc}
+	 * @see \CrCms\User\Interfaces\RegisterInterface::langRegisterTimeIntervalError()
+	 */
+	public function langRegisterTimeIntervalError(): string
+	{
+		// TODO Auto-generated method stub
+		return trans('user.register_time_interval');
+	}
+	
 
-    /**
-     * {@inheritDoc}
-     * @see \CrCms\User\Interfaces\RegisterInterface::verifyRegisterTimeInterval()
-     */
-    public function verifyRegisterTimeInterval(): bool
-    {
-        // TODO Auto-generated method stub
-        $log = AuthLogModel::where('client_ip',ip_long(app('request')->ip()))->orderBy('id','desc')->first();
-        if ($log)
-        {
-            return !(time() - $log->created_at < intval(config('user.register_time_interval'))); 
-        }
-        return true;
-    }
-    /**
-     * {@inheritDoc}
-     * @see \CrCms\User\Interfaces\RegisterInterface::authLog()
-     */
-    public function storeAuthLog()
-    {
-        // TODO Auto-generated method stub
-        auth_log(AuthLogModel::TYPE_REGSITER,['userid'=>$this->model->id,'name'=>$this->model->name]);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \CrCms\User\Interfaces\RegisterInterface::sendMail()
-     */
-    public function sendMail()
-    {
-        // TODO Auto-generated method stub
-        if (module_exists('mail'))
-        {
-            mailer('user::emails.register', $this->model->email,$this->model->toArray());
-        }
-    }
 
 }

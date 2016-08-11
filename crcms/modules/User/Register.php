@@ -20,28 +20,16 @@ class Register extends CrCms
 	public function bootstrap(array $data)
 	{
 		//图片验证码
-		if ($this->service->openImageCodeVerify() && !$this->service->verifyImageCode($data[$this->service->nameForImageCode()]))
-		{
-	        throw new AppException($this->service->langImageCodeError());
-		}
+		$this->verifyImageCode($data[$this->service->nameForImageCode()] ?? '');
 		
 		//mail验证码
-		if ($this->service->openEmailCodeVerify() && !$this->service->verifyEmailCode($this->service->nameForEmailCode()))
-		{
-		    throw new AppException($this->service->langEmailCodeError());
-		}
+		$this->verifyMailCode($data[$this->service->nameForEmailCode()] ?? '');
 		
 		//手机验证码
-		if ($this->service->openMobileCodeVerify() && !$this->service->verifyMobileCode($this->service->nameForMobileCode()))
-		{
-		    throw new AppException($this->service->langMobileCodeError());
-		}
+		$this->verifyMobileCode($data[$this->service->nameForMobileCode()] ?? '');
 	
 		//验证注册数据
-		if (!$this->service->validateForm($data))
-		{
-		    throw new AppException($this->service->getValidateMessage());
-		}
+		$this->validateForm($data);
 		
 		//验证注册时间
 		if (!$this->service->verifyRegisterTimeInterval())
@@ -52,9 +40,11 @@ class Register extends CrCms
 		//数据存储
 		$this->service->register($data);
 		
+		//发送邮件
 		$this->service->sendMail();
 		
-		$this->service->authLog();
+		//存储日志
+		$this->service->storeAuthLog();
 	}
 	
 	

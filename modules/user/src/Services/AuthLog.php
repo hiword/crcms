@@ -22,8 +22,8 @@ class AuthLog extends Service implements AuthLogInterface
         // TODO Auto-generated method stub
 
         $this->model->type = $type;
-        $this->model->name = $data['name'];
-        $this->model->userid = bcrypt($data['userid']);
+        $this->model->name = $data['name'] ?? '';
+        $this->model->userid = $data['userid'];
         $this->model->client_ip = $data['client_ip'];
         $this->builtModelStore();
         $this->model->save();

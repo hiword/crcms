@@ -16,10 +16,10 @@ class Mail extends Service implements MailInterface
 	
 	/* 
 	 * (non-PHPdoc)
-	 * @see \CrCms\Mail\Interfaces\MailInterface::log()
+	 * @see \CrCms\Mail\Interfaces\MailInterface::mailLog()
 	 * @author simon
 	 */
-	public function log(array $data)
+	public function mailLog(array $data)
 	{
 		// TODO Auto-generated method stub
 		$this->model->email = $data['email'];
@@ -48,7 +48,4 @@ class Mail extends Service implements MailInterface
 		return true;
 	}
 
-	
-	
-	
 }
