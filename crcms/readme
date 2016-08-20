@@ -1,8 +1,0 @@
-存放所有应用逻辑判断
-Logic 希望可以拆分，以应用其它框架
-只通过Controller来调用Logic
-Logic来调用Service
-Service来实现具体的应用，Service可以调用Model并且使用框架自己的东西\
-
-
-phpunit中只需要实现对Service test即可
