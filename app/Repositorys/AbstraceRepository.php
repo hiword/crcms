@@ -54,4 +54,9 @@ abstract class AbstraceRepository
     {
         return $this->model->select($columns)->where($field,$value)->orderBy($this->model->getKeyName(),'desc')->get();
     }
+
+    public function model()
+    {
+        return $this->model;
+    }
 }
