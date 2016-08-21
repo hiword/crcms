@@ -19,6 +19,7 @@ class Auth extends Controller
 
     public function postRegister(RegisterRequest $RegisterRequest,ImageVerifyCodeRealize $ImageVerifyCodeRealize,RegisterInterface $Register)
     {
+
         //RegisterRequest 数据验证
 
         //这里先不考虑Laravel接口注入
