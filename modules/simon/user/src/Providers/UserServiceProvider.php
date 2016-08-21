@@ -14,5 +14,9 @@ class UserServiceProvider extends ServiceProvider
 {
 
 
+    public function boot()
+    {
+    }
+
 
 }
