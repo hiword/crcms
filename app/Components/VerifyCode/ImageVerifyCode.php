@@ -9,7 +9,7 @@
 namespace App\Components\VerifyCode;
 use App\Components\VerifyCode\Interfaces;
 
-class ImageVerifyCode extends AbstractVerifyCode
+class ImageVerifyCode extends AbstractVerifyCod
 {
     /**
      * @return bool
