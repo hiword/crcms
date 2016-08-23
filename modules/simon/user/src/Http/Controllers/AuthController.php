@@ -10,6 +10,7 @@ use App\Components\VerifyCode\Interfaces\ImageVerifyCodeInterface;
 use App\Components\VerifyCode\Realizes\ImageVerifyCodeRealize;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
@@ -28,13 +29,26 @@ class Auth extends Controller
         $this->repository = $User;
     }
 
+    public function postLogin(LoginRequest $LoginRequest)
+    {
+        //verify
+
+
+
+    }
+
+    protected function openRegisterVerifyCode()
+    {
+
+    }
+
     public function postRegister(RegisterRequest $RegisterRequest,ImageVerifyCodeRealize $ImageVerifyCodeRealize,RegisterInterface $Register,SecretRepositoryInterface $Secret,MailCodeInterface $MailCode)
     {
 
         //RegisterRequest 数据验证包括验证码
 
         //这里先不考虑Laravel接口注入
-        $ImageVerifyCodeRealize->verifyCode();
+        //$ImageVerifyCodeRealize->verifyCode();
 
         //事物开始
 
