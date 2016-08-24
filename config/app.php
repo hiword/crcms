@@ -181,6 +181,7 @@ return [
 
         //user
         Simon\User\Providers\UserServiceProvider::class,
+        Simon\User\Providers\EventServiceProvider::class,
 
         //mail
         Simon\Mail\Providers\MailServiceProvider::class,
