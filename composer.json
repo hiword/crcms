@@ -20,6 +20,9 @@
             "database"
         ],
         "files" : [
+            "app/tool.php",
+            "app/helper.php",
+            "modules/simon/user/src/helper.php",
             "modules/simon/mail/src/helper.php"
         ],
         "psr-4": {

@@ -8,10 +8,14 @@
 namespace Simon\User\Providers;
 use App\Providers\PackageServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Simon\User\Repositorys\AuthLogRepository;
+use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
+use Simon\User\Services\AuthLogService;
+use Simon\User\Services\Interfaces\AuthLogInterface;
 use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
 use Simon\User\Services\Interfaces\UserMailCodeInterface;
@@ -48,9 +52,14 @@ class UserServiceProvider extends PackageServiceProvider
         parent::register();
 
         $this->app->bind(RegisterInterface::class,RegisterService::class);
+
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
+
         $this->app->bind(UserMailCodeRepositoryInterface::class,UserMailCodeRepository::class);
         $this->app->bind(UserMailCodeInterface::class,UserMailCodeService::class);
+
+        $this->app->bind(AuthLogRepositoryInterface::class,AuthLogRepository::class);
+        $this->app->bind(AuthLogInterface::class,AuthLogService::class);
     }
 
     /**

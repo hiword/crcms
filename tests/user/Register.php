@@ -49,7 +49,7 @@ class Register extends TestCase
         $register = app(\Simon\User\Services\RegisterService::class);
         $user = $register->register($data)->getUser();
 
-        return $user->id;
+        return $user;
     }
 
 
@@ -58,10 +58,10 @@ class Register extends TestCase
      * @depends testRegister
      * @param int $userId
      */
-    public function testMailCode(int $userId)
+    public function testMailCode(\Simon\User\Models\User $user)
     {
         $mailCode = app(\Simon\User\Services\UserMailCodeService::class);
-        $hash = $mailCode->generate($userId);
+        $hash = $mailCode->generate($user->id);
 
         return $hash;
 //dd($hash);
@@ -73,13 +73,54 @@ class Register extends TestCase
      * @depends testMailCode
      * @param string $hash
      */
-    public function testSendMail(int $userId,string $hash)
+    public function testSendMail(\Simon\User\Models\User $user,string $hash)
     {
-        $user = (new \Simon\User\Models\User())->find($userId);
-
         $mailer = new \Simon\User\Mails\RegisterMail($user,$hash);
 
         mailer($user->email,$mailer);
+    }
+
+    /**
+     * @return \Illuminate\Foundation\Application|mixed
+     */
+    public function testRequest()
+    {
+        return app(\Illuminate\Http\Request::class);
+    }
+
+    /**
+     * @depends testRegister
+     * @depends testRequest
+     * @param \Simon\User\Models\User $user
+     * @param \Illuminate\Http\Request $request
+     */
+    public function testAuthLog(\Simon\User\Models\User $user,\Illuminate\Http\Request $request)
+    {
+//        $auth = new \Simon\User\Services\AuthLogService(new \Simon\User\Repositorys\AuthLogRepository(new \Simon\User\Models\AuthLog()));
+
+//        $auth->log([
+//            'user_id'=>$user->id,
+//            'client_ip'=>$request->ip(),
+//            'browser'=>'Firefox',
+//            'name'=>$user->name
+//        ]);
+        auth_loger([
+            'user_id'=>$user->id,
+            'client_ip'=>$request->ip(),
+            'browser'=>'Firefox',
+            'name'=>$user->name
+        ]);
+    }
+
+    /**
+     * @depends testRegister
+     */
+    public function testAuthSession(\Simon\User\Models\User $user)
+    {
+
+        \Illuminate\Support\Facades\Auth::login($user);
+
+        $this->assertSessionHas('id',$user->id);
     }
 
     /**

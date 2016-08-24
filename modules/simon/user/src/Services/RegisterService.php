@@ -10,9 +10,12 @@ namespace Simon\User\Services;
 
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
+use Simon\User\Services\Traits\PasswordConfusionTrait;
 
-class RegisterService extends AuthService implements RegisterInterface
+class RegisterService implements RegisterInterface
 {
+
+    use PasswordConfusionTrait;
 
     protected $repository = null;
 

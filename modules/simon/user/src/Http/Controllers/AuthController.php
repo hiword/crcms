@@ -55,8 +55,13 @@ class AuthController extends Controller
         //mailCode
         $hash = $MailCode->generate($user->id);
 
+        //mail
         mailer($user->email,new RegisterMail($user,$hash));
 
+        //authlog
+
+
+        //session
         return 'success';
 
         //sendmail

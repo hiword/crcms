@@ -9,12 +9,29 @@
 namespace Simon\User\Services;
 
 
-abstract class AuthService
-{
+use Simon\User\Models\User;
+use Simon\User\Services\Interfaces\AuthInterface;
 
-    public function createConfusion(string $password, string $random) : string
+class AuthService implements AuthInterface
+{
+    public function login(User $user)
     {
-        // TODO: Implement createConfusion() method.
-        return $random.$random.$password;
+        // TODO: Implement login() method.
     }
+
+    public function logout()
+    {
+        // TODO: Implement logout() method.
+    }
+
+    public function id()
+    {
+        // TODO: Implement id() method.
+    }
+
+    public function user()
+    {
+        // TODO: Implement user() method.
+    }
+
 }

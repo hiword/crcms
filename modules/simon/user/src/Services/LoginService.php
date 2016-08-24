@@ -13,9 +13,12 @@ use Simon\User\Exceptions\PasswordErrorException;
 use Simon\User\Exceptions\UserNotExistsException;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Services\Interfaces\LoginInterface;
+use Simon\User\Services\Traits\PasswordConfusionTrait;
 
-class LoginService extends AuthService implements LoginInterface
+class LoginService implements LoginInterface
 {
+
+    use PasswordConfusionTrait;
 
     protected $repository = null;
 
