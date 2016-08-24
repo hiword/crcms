@@ -13,6 +13,12 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
 {
 
     /**
+     * 不允许写入的字段，默认解除禁止
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * 获取当前时间
      *
      * @return int
