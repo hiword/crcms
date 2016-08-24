@@ -32,12 +32,12 @@ class Register extends TestCase
      * @depends testData
      * @param array $data
      */
-    public function testValidate(array $data)
+    /*public function testValidate(array $data)
     {
         $register = app(\Simon\User\Http\Requests\RegisterRequest::class);
         $b = $register->getValidatorInstance();
         dd($b);
-    }
+    }*/
 
     /**
      * @depends testData
@@ -62,8 +62,24 @@ class Register extends TestCase
     {
         $mailCode = app(\Simon\User\Services\UserMailCodeService::class);
         $hash = $mailCode->generate($userId);
+
+        return $hash;
 //dd($hash);
         //$this->assertString($hash);
+    }
+
+    /**
+     * @depends testRegister
+     * @depends testMailCode
+     * @param string $hash
+     */
+    public function testSendMail(int $userId,string $hash)
+    {
+        $user = (new \Simon\User\Models\User())->find($userId);
+
+        $mailer = new \Simon\User\Mails\RegisterMail($user,$hash);
+
+        mailer($user->email,$mailer);
     }
 
     /**

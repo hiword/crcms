@@ -2,7 +2,7 @@
 
 namespace Simon\Mail\Listeners;
 
-use App\Events\MailLogEvent;
+use Simon\Mail\Events\MailLogEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Simon\Mail\Repositorys\Interfaces\MailRepositoryInterface;
@@ -16,6 +16,7 @@ class MailLogListener
      */
 
     protected $repository = null;
+
 
     public function __construct(MailRepositoryInterface $Mail)
     {
@@ -33,7 +34,7 @@ class MailLogListener
     {
         //
         $this->repository->create([
-            'email'=>$event->to,
+            'to'=>$event->to,
             'content'=>$event->content,
             'type'=>$event->type,
         ]);

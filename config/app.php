@@ -182,6 +182,10 @@ return [
         //user
         Simon\User\Providers\UserServiceProvider::class,
 
+        //mail
+        Simon\Mail\Providers\MailServiceProvider::class,
+        Simon\Mail\Providers\EventServiceProvider::class,
+
     ],
 
     /*

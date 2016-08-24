@@ -10,9 +10,15 @@ namespace Simon\Mail\Repositorys;
 
 
 use App\Repositorys\AbstraceRepository;
+use Simon\Mail\Models\Email;
 use Simon\Mail\Repositorys\Interfaces\MailRepositoryInterface;
 
 class MailRepository extends AbstraceRepository implements MailRepositoryInterface
 {
+
+    public function __construct(Email $Model)
+    {
+        parent::__construct($Model);
+    }
 
 }

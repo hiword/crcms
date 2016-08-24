@@ -28,6 +28,6 @@ interface MailInterface
      * @param string $content
      * @return mixed
      */
-    public function log(string $to,string $content);
+    public function log(string $to,string $content,string $type);
 
 }

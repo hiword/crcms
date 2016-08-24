@@ -13,7 +13,7 @@ use Simon\Mail\Events\MailLogEvent;
 use Simon\Mail\Repositorys\Interfaces\MailRepositoryInterface;
 use Simon\Mail\Services\Interfaces\MailInterface;
 
-class Mail implements MailInterface
+class MailService implements MailInterface
 {
 
     /**
@@ -34,9 +34,9 @@ class Mail implements MailInterface
      * @param null $model
      * @return mixed
      */
-    public function log(string $to, string $content)
+    public function log(string $to, string $content,string $type)
     {
-        event(new MailLogEvent($to,$content));
+        event(new MailLogEvent($to,$content,$type));
     }
 
 }

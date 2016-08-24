@@ -9,8 +9,8 @@ if (!function_exists('mailer'))
 {
     function mailer(string $to,\Illuminate\Mail\Mailable $Mail)
     {
-        $Mail = new \Simon\Mail\Services\Mail();
-        $Mail->send($to,$Mail);
-        $Mail->log($to,$Mail->build(),get_class($Mail));
+        $MailService = new \Simon\Mail\Services\MailService();
+        $MailService->send($to,$Mail);
+        $MailService->log($to,$Mail->getView(),get_class($Mail));
     }
 }

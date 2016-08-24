@@ -10,6 +10,7 @@ use App\Components\VerifyCode\Interfaces\ImageVerifyCodeInterface;
 use App\Components\VerifyCode\Realizes\ImageVerifyCodeRealize;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Simon\RegisterMail;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
@@ -54,6 +55,7 @@ class AuthController extends Controller
         //mailCode
         $hash = $MailCode->generate($user->id);
 
+        mailer($user->email,new RegisterMail($user,$hash));
 
         return 'success';
 
