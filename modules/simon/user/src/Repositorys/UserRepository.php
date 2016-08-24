@@ -10,6 +10,7 @@ namespace Simon\User\Repositorys;
 
 
 use App\Repositorys\AbstraceRepository;
+use Simon\User\Models\User;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 
 class UserRepository extends AbstraceRepository implements UserRepositoryInterface
@@ -29,6 +30,12 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
      * 邮件验证失败
      */
     const MAIL_STATUS_VERIFY_FAIL = 3;
+
+
+    public function __construct(User $User)
+    {
+        parent::__construct($User);
+    }
 
 
 }

@@ -8,10 +8,16 @@
 namespace Simon\User\Providers;
 use App\Providers\PackageServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
+use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
+use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
+use Simon\User\Services\Interfaces\UserMailCodeInterface;
+use Simon\User\Services\MailCodeService;
 use Simon\User\Services\RegisterService;
+use Simon\User\Services\UserMailCodeService;
 
 
 class UserServiceProvider extends PackageServiceProvider
@@ -43,6 +49,8 @@ class UserServiceProvider extends PackageServiceProvider
 
         $this->app->bind(RegisterInterface::class,RegisterService::class);
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
+        $this->app->bind(UserMailCodeRepositoryInterface::class,UserMailCodeRepository::class);
+        $this->app->bind(UserMailCodeInterface::class,UserMailCodeService::class);
     }
 
     /**

@@ -18,10 +18,10 @@ class RegisterRequest extends FormRequest implements VerifyCodeInterface
     //这里还要判断其它的，如：一小时内连续注册两次则关闭
 
 
-    public function authorize()
-    {
-        return true;
-    }
+//    public function authorize()
+//    {
+//        return true;
+//    }
 
     public function rules()
     {

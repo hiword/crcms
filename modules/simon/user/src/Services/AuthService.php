@@ -15,6 +15,6 @@ abstract class AuthService
     public function createConfusion(string $password, string $random) : string
     {
         // TODO: Implement createConfusion() method.
-        $random.$random.$password;
+        return $random.$random.$password;
     }
 }
