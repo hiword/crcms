@@ -104,24 +104,25 @@ class Register extends TestCase
 //            'browser'=>'Firefox',
 //            'name'=>$user->name
 //        ]);
-        auth_loger([
+        /*auth_loger([
             'user_id'=>$user->id,
             'client_ip'=>$request->ip(),
             'browser'=>'Firefox',
             'name'=>$user->name
-        ]);
+        ]);*/
+        auth_loger(\Simon\User\Repositorys\AuthLogRepository::TYPE_REGISTER,$user);
     }
 
     /**
      * @depends testRegister
      */
-    public function testAuthSession(\Simon\User\Models\User $user)
-    {
-
-        \Illuminate\Support\Facades\Auth::login($user);
-
-        $this->assertSessionHas('id',$user->id);
-    }
+//    public function testAuthSession(\Simon\User\Models\User $user)
+//    {
+//
+//        \Illuminate\Support\Facades\Auth::login($user);
+//
+//        $this->assertSessionHas('id',$user->id);
+//    }
 
     /**
      * @depends testData

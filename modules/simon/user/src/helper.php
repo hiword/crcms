@@ -6,7 +6,13 @@
  * Time: 22:10
  */
 
-function auth_loger(array $data)
+function auth_loger(int $type,\Simon\User\Models\User $user)
 {
-    app(\Simon\User\Services\AuthLogService::class)->log($data);
+    app(\Simon\User\Services\AuthLogService::class)->log([
+        'user_id'=>$user->id,
+        'client_ip'=>app('request')->ip(),
+        'browser'=>'Firefox',
+        'name'=>$user->name,
+        'type'=>$type,
+    ]);
 }
