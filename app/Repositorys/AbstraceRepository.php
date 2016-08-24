@@ -45,7 +45,7 @@ abstract class AbstraceRepository
         return $this->model->destory($id);
     }
 
-    public function find(int $id, array $columns = ['*'])
+    public function findById(int $id, array $columns = ['*'])
     {
         return $this->model->select($columns)->where($this->model->getKeyName(),$id)->firstOrFail();
     }
@@ -53,6 +53,37 @@ abstract class AbstraceRepository
     public function findBy(string $field,string $value,array $columns = ['*'])
     {
         return $this->model->select($columns)->where($field,$value)->orderBy($this->model->getKeyName(),'desc')->get();
+    }
+
+    public function findOneBy(string $field,string $value,array $columns = ['*'])
+    {
+        return $this->model->select($columns)->where($field,$value)->orderBy($this->model->getKeyName(),'desc')->first();
+    }
+
+    public function find(array $wheres,array $order = ['id','desc'],int $take = 0,int $skip = 0,array $columns = ['*'])
+    {
+        //多条件where
+        foreach ($wheres as $where)
+        {
+            $this->model = call_user_func_array([$this->model,'where'],$where);
+        }
+
+        //字段
+        $this->model->select($columns)->orderBy($order[0],$order[1]);
+
+        //limit
+        if ($take !== 0)
+        {
+            $this->model->skip($take);
+        }
+
+        //从第几条查起
+        if ($skip !== 0)
+        {
+            $this->model->skip($skip);
+        }
+
+        return $this->model->get();
     }
 
     public function model()

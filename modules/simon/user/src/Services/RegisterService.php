@@ -34,18 +34,19 @@ class RegisterService extends AuthService implements RegisterInterface
     /**
      * @return bool
      */
-    public function register(array $data) : bool
+    public function register(array $data) : RegisterInterface
     {
         // TODO: Implement register() method.
         $secretKey = str_random(10);
 
         $this->user = $this->repository->create([
             'name'=>$data['name'],
+            'email'=>$data['email'],
             'password'=>bcrypt($this->createConfusion($data['password'],$secretKey)),
             'secret_key'=>$secretKey,
         ]);
 
-        return true;
+        return $this;
     }
 
 

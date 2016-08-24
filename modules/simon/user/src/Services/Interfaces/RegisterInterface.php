@@ -20,6 +20,6 @@ interface RegisterInterface
      * 注册主体
      * @return bool
      */
-    public function register(array $data) : bool;
+    public function register(array $data) : RegisterInterface;
 
 }

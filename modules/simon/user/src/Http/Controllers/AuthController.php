@@ -20,7 +20,7 @@ use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
 
 
-class Auth extends Controller
+class AuthController extends Controller
 {
 
     protected $repository = null;
@@ -45,33 +45,18 @@ class Auth extends Controller
 
     }
 
-    protected function openRegisterVerifyCode()
+    public function postRegister(RegisterRequest $RegisterRequest,RegisterInterface $Register,SecretRepositoryInterface $Secret,MailCodeInterface $MailCode)
     {
-
-    }
-
-    public function postRegister(RegisterRequest $RegisterRequest,ImageVerifyCodeRealize $ImageVerifyCodeRealize,RegisterInterface $Register,SecretRepositoryInterface $Secret,MailCodeInterface $MailCode)
-    {
-
-        //RegisterRequest 数据验证包括验证码
-
-        //这里先不考虑Laravel接口注入
-        //$ImageVerifyCodeRealize->verifyCode();
-
-        //事物开始
-
-        //生成密码
-        //$Secret = $Secret->create(['secret_key'=>str_random()]);
 
         //Register
-        $Register->register(array_merge($data,['secret_id'=>$Secret->id]));
-
-        //事物结束
-
-        $user = $Register->getUser();
+        $user = $Register->register($this->input)->getUser();
 
         //mailCode
-        $MailCode->generate($user->id);
+        $hash = $MailCode->generate($user->id);
+
+
+        return 'success';
+
         //sendmail
 
         //mailer($user->email,RegisterMail extens Mailal);
