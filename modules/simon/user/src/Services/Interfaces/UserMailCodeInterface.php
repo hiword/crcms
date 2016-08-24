@@ -11,7 +11,7 @@ namespace Simon\User\Services\Interfaces;
 
 use Simon\User\Models\User;
 
-interface MailCodeInterface
+interface UserMailCodeInterface
 {
 
     public function generate(int $userId) : string;

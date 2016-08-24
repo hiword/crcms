@@ -11,7 +11,7 @@ namespace Simon\User\Repositorys\Interfaces;
 
 use App\Repositorys\RepositoryInterface;
 
-interface MailCodeRepositoryInterface extends RepositoryInterface
+interface UserMailCodeRepositoryInterface extends RepositoryInterface
 {
 
     public function findLatelyHash(string $hash);

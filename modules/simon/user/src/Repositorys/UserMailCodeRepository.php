@@ -10,10 +10,17 @@ namespace Simon\User\Repositorys;
 
 
 use App\Repositorys\AbstraceRepository;
-use Simon\User\Repositorys\Interfaces\MailCodeRepositoryInterface;
+use Simon\User\Models\UserMailCode;
+use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 
-class MailCodeRepository extends AbstraceRepository implements MailCodeRepositoryInterface
+class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeRepositoryInterface
 {
+
+    public function __construct(UserMailCode $Model)
+    {
+        parent::__construct($Model);
+    }
+
 
     /**
      * 验证成功

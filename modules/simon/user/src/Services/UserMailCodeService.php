@@ -11,14 +11,17 @@ namespace Simon\User\Services;
 
 use Simon\User\Models\User;
 use Simon\User\Repositorys\Interfaces\MailCodeRepositoryInterface;
+use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\MailCodeRepository;
+use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Services\Interfaces\MailCodeInterface;
+use Simon\User\Services\Interfaces\UserMailCodeInterface;
 
-class MailCodeService implements MailCodeInterface
+class UserMailCodeService implements UserMailCodeInterface
 {
     protected $repository = null;
 
-    public function __construct(MailCodeRepositoryInterface $MailCode)
+    public function __construct(UserMailCodeRepositoryInterface $MailCode)
     {
         $this->repository = $MailCode;
     }
@@ -41,7 +44,7 @@ class MailCodeService implements MailCodeInterface
             'user_id'=>$userId,
             'type'=>get_class($this->repository),
             'hash'=>$hash,
-            'status'=>MailCodeRepository::STATUS_NOT_VERIFY,
+            'status'=>UserMailCodeRepository::STATUS_NOT_VERIFY,
         ]);
 
         return $hash;
