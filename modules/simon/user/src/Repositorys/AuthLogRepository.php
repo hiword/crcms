@@ -16,6 +16,9 @@ use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
 class AuthLogRepository extends AbstraceRepository implements AuthLogRepositoryInterface
 {
 
+    const TYPE_REGISTER = 1;
+
+    const TYPE_LOGIN = 2;
 
     public function __construct(AuthLog $Model)
     {
