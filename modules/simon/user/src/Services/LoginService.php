@@ -9,10 +9,12 @@
 namespace Simon\User\Services;
 
 
+use Simon\User\Exceptions\PasswordErrorException;
+use Simon\User\Exceptions\UserNotExistsException;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Services\Interfaces\LoginInterface;
 
-class LoginService implements LoginInterface
+class LoginService extends AuthService implements LoginInterface
 {
 
     protected $repository = null;
@@ -45,13 +47,19 @@ class LoginService implements LoginInterface
         $this->user = $this->repository->findUser('name',$data['name']);
         if (empty($this->user))
         {
-            return false;
+            throw new UserNotExistsException('user is not exists');
         }
+
+        if ($this->comparePassword($data['password']))
+        {
+            throw new PasswordErrorException('password is error');
+        }
+
     }
 
-    protected function comparePassword($password)
+    protected function comparePassword($password) : bool;
     {
-
+        return Hash::check($this->createConfusion($password,$this->user->secret_key),$this->user->password);
     }
 
 

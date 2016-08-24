@@ -11,7 +11,7 @@ namespace Simon\User\Services;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
 
-class Register implements RegisterInterface
+class RegisterService extends AuthService implements RegisterInterface
 {
 
     protected $repository = null;
@@ -37,10 +37,12 @@ class Register implements RegisterInterface
     public function register(array $data) : bool
     {
         // TODO: Implement register() method.
+        $secretKey = str_random(10);
 
         $this->user = $this->repository->create([
             'name'=>$data['name'],
-            'password'=>bcrypt($data['password']),
+            'password'=>bcrypt($this->createConfusion($data['password'],$secretKey)),
+            'secret_key'=>$secretKey,
         ]);
 
         return true;

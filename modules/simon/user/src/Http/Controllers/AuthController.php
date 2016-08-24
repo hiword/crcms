@@ -15,6 +15,7 @@ use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserRepository;
+use Simon\User\Services\Interfaces\LoginInterface;
 use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
 
@@ -29,10 +30,17 @@ class Auth extends Controller
         $this->repository = $User;
     }
 
-    public function postLogin(LoginRequest $LoginRequest)
+    public function postLogin(LoginRequest $LoginRequest,LoginInterface $Login)
     {
         //verify
 
+
+        $Login->login();
+
+        $Login->getUser();
+
+        //session
+        //Auth::session
 
 
     }
@@ -53,7 +61,7 @@ class Auth extends Controller
         //事物开始
 
         //生成密码
-        $Secret = $Secret->create(['secret_key'=>str_random()]);
+        //$Secret = $Secret->create(['secret_key'=>str_random()]);
 
         //Register
         $Register->register(array_merge($data,['secret_id'=>$Secret->id]));
@@ -63,7 +71,7 @@ class Auth extends Controller
         $user = $Register->getUser();
 
         //mailCode
-        $MailCode->generate($user);
+        $MailCode->generate($user->id);
         //sendmail
 
         //mailer($user->email,RegisterMail extens Mailal);

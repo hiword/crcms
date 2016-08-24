@@ -14,7 +14,7 @@ use Simon\User\Repositorys\Interfaces\MailCodeRepositoryInterface;
 use Simon\User\Repositorys\MailCodeRepository;
 use Simon\User\Services\Interfaces\MailCodeInterface;
 
-class MailCode implements MailCodeInterface
+class MailCodeService implements MailCodeInterface
 {
     protected $repository = null;
 
@@ -27,7 +27,7 @@ class MailCode implements MailCodeInterface
      * @param User $user
      * @return string
      */
-    public function generate(User $User) : string
+    public function generate(int $userId) : string
     {
         // TODO: Implement generate() method.
         /**
@@ -35,10 +35,10 @@ class MailCode implements MailCodeInterface
          */
         // TODO: Implement generate() method.
 
-        $hash = sha1(serialize($User)).str_random(10);
+        $hash = sha1(str_random(10).time().$userId.str_random(10));
 
         $this->repository->create([
-            'userid'=>$User->id,
+            'user_id'=>$userId,
             'type'=>get_class($this->repository),
             'hash'=>$hash,
             'status'=>MailCodeRepository::STATUS_NOT_VERIFY,
@@ -52,7 +52,7 @@ class MailCode implements MailCodeInterface
      * @param string $code
      * @return bool
      */
-    public function verify(User $User,string $hash) : bool
+    public function verify(int $userId,string $hash) : bool
     {
         // TODO: Implement verify() method.
         $repository = $this->repository->findLatelyHash($hash);
@@ -68,7 +68,7 @@ class MailCode implements MailCodeInterface
         //if (time() - $repository->created_at->)
 
         //验证id是否一致
-        if ($repository->userid !== $User->id)
+        if ($repository->userid !== $userId)
         {
             //erro Exception
 

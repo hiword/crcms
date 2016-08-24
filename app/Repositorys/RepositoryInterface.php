@@ -23,4 +23,6 @@ interface RepositoryInterface
 
     public function findBy(string $field,string $value,array $columns = ['*']);
 
+    public function findOneBy(string $field,string $value,array $columns = ['*']);
+
 }

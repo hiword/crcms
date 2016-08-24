@@ -14,9 +14,9 @@ use Simon\User\Models\User;
 interface MailCodeInterface
 {
 
-    public function generate(User $User) : string;
+    public function generate(int $userId) : string;
 
 
-    public function verify(User $User,string $hash) : bool;
+    public function verify(int $userId,string $hash) : bool;
 
 }
