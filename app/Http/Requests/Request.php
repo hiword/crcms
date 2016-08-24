@@ -16,6 +16,21 @@ class Request extends FormRequest
 {
 
     /**
+     * 开放接口，只作phpunit使用
+     */
+    public function getValidatorInstance()
+    {
+        parent::getValidatorInstance();
+    }
+
+
+
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * 验证异常重写
      * @param Validator $validator
      * @throws ValidateException
