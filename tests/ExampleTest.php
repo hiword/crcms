@@ -11,9 +11,26 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+//    public function testBasicExample()
+//    {
+//        $this->visit('/')
+//             ->see('Laravel');
+//    }
+
+    public function addDataProvider()
     {
-        $this->visit('/')
-             ->see('Laravel');
+        return [
+            ['a','b']
+        ];
+
     }
+
+    /**
+     * @dataProvider addDataProvider
+     */
+    public function testData($a,$b)
+    {
+        dd($a,$b);
+    }
+
 }

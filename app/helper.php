@@ -460,7 +460,13 @@ use Illuminate\Http\Response;
 		
 		return in_array("Simon\\{$module}\\", array_keys($modules),true);
 	}
-	
+
+    /**
+     * @param $status
+     * @param array $data
+     * @param null $url
+     * @return $this|JsonResponse
+     */
 	function responding($status,$data = [],$url = null)
 	{
 		

@@ -13,7 +13,7 @@ interface LoginInterface
 {
 
 
-    public function login(array $data) : bool;
+    public function login(array $data) : LoginInterface;
 
 
     public function getUser();

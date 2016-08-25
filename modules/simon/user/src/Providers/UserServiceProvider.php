@@ -18,9 +18,11 @@ use Simon\User\Services\AuthLogService;
 use Simon\User\Services\Interfaces\AuthLogInterface;
 use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
+use Simon\User\Services\Interfaces\UserAuthInterface;
 use Simon\User\Services\Interfaces\UserMailCodeInterface;
 use Simon\User\Services\MailCodeService;
 use Simon\User\Services\RegisterService;
+use Simon\User\Services\UserAuthService;
 use Simon\User\Services\UserMailCodeService;
 
 
@@ -60,6 +62,11 @@ class UserServiceProvider extends PackageServiceProvider
 
         $this->app->bind(AuthLogRepositoryInterface::class,AuthLogRepository::class);
         $this->app->bind(AuthLogInterface::class,AuthLogService::class);
+
+        //UserAuth
+        $this->app->singleton([
+            UserAuthInterface::class=>'user'
+        ],UserAuthService::class);
     }
 
     /**

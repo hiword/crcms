@@ -7,8 +7,7 @@
  */
 
 namespace Simon\User\Services;
-
-
+use Illuminate\Support\Facades\Hash;
 use Simon\User\Exceptions\PasswordErrorException;
 use Simon\User\Exceptions\UserNotExistsException;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
@@ -27,7 +26,6 @@ class LoginService implements LoginInterface
     public function __construct(UserRepositoryInterface $UserRepository)
     {
         $this->repository = $UserRepository;
-
     }
 
 
@@ -37,32 +35,38 @@ class LoginService implements LoginInterface
     public function getUser()
     {
         // TODO: Implement getUser() method.
-
+        return $this->user;
     }
 
     /**
      * @param array $data
      * @return mixed
      */
-    public function login(array $data) : bool
+    public function login(array $data) : LoginInterface
     {
         // TODO: Implement login() method.
-        $this->user = $this->repository->findUser('name',$data['name']);
+        $this->user = $this->repository->findOneBy('name',$data['name']);
         if (empty($this->user))
         {
-            throw new UserNotExistsException('user is not exists');
+            throw new UserNotExistsException(trans('user::user.user_not_exists'));
         }
 
-        if ($this->comparePassword($data['password']))
+        if (!$this->comparePassword($data['password']))
         {
-            throw new PasswordErrorException('password is error');
+            throw new PasswordErrorException(trans('user::user.password_error'));
         }
 
+        return $this;
     }
 
-    protected function comparePassword($password) : bool;
+    /**
+     * @param $password
+     * @return bool
+     */
+    protected function comparePassword($password) : bool
     {
-        return Hash::check($this->createConfusion($password,$this->user->secret_key),$this->user->password);
+        $password = $this->createConfusion($password,$this->user->secret_key);
+        return Hash::check($password,$this->user->password);
     }
 
 

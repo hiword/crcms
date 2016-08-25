@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Simon\RegisterMail;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
+use Simon\User\Repositorys\AuthLogRepository;
 use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserRepository;
@@ -31,7 +32,11 @@ class AuthController extends Controller
         $this->repository = $User;
     }
 
-    public function postLogin(LoginRequest $LoginRequest,LoginInterface $Login)
+    /**
+     * @param LoginRequest $LoginRequest
+     * @param LoginInterface $Login
+     */
+    public function postLogin(LoginRequest $LoginRequest, LoginInterface $Login)
     {
         //verify
 
@@ -59,7 +64,7 @@ class AuthController extends Controller
         mailer($user->email,new RegisterMail($user,$hash));
 
         //authlog
-
+        auth_loger(AuthLogRepository::TYPE_REGISTER,$user);
 
         //session
         return 'success';

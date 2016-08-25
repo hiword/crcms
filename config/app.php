@@ -234,6 +234,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+        //自定义
+        'User'=>Simon\User\Facades\User::class,
+
     ],
 
 ];

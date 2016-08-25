@@ -20,6 +20,14 @@ class Controller extends BaseController
 
     protected $repository = null;
 
+    /**
+     *
+     * @var string
+     * @author simon
+     */
+    protected $view = '';
+
+
     public function __construct()
     {
         $this->request = app('request');
@@ -30,4 +38,25 @@ class Controller extends BaseController
     }
 
 
+    /**
+     * @param $view
+     * @param array $data
+     * @param array $mergeData
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    protected function view($view,array $data = [],array $mergeData = [])
+    {
+        return view($this->view.$view,$data,$mergeData);
+    }
+
+    /**
+     * @param $status
+     * @param array $data
+     * @param null $url
+     * @return $this|\Illuminate\Http\JsonResponse
+     */
+    protected function response($status,$data = [],$url = null)
+    {
+        return responding($status,$data,$url);
+    }
 }
