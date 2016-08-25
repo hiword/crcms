@@ -9,6 +9,7 @@
 namespace Simon\User\Services;
 
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
+use Simon\User\Repositorys\UserRepository;
 use Simon\User\Services\Interfaces\RegisterInterface;
 use Simon\User\Services\Traits\PasswordConfusionTrait;
 
@@ -47,6 +48,8 @@ class RegisterService implements RegisterInterface
             'email'=>$data['email'],
             'password'=>bcrypt($this->createConfusion($data['password'],$secretKey)),
             'secret_key'=>$secretKey,
+            'mail_status'=>UserRepository::MAIL_STATUS_NOT_VERIFY,
+            'mobile_status'=>UserRepository::MOBILE_STATUS_NOT_VERIFY,
         ]);
 
         return $this;

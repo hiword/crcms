@@ -16,6 +16,8 @@ use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 class UserController extends Controller
 {
 
+    protected $view = 'user::manage.user.';
+
     public function __construct(UserRepositoryInterface $repository)
     {
         parent::__construct();
@@ -25,28 +27,13 @@ class UserController extends Controller
     public function index()
     {
 
+        $models = $this->repository->paginate();
 
-        $data = $this->repository->all();
+        $mailStatus = $this->repository->mailStatus();
 
-        dd((new User())->where('id',38)->forceDelete());
+        $mobileStatus = $this->repository->mobileStatus();
 
-        exit();
-
-        $this->repository->delete($data->first()->id);
-
-        exit();
-
-        dd($data->first());
-
-
-
-        foreach ($data as $v)
-        {
-            var_dump($v->id);
-            $this->repository->delete($v->id);
-            break;
-            echo $v->created_at->format('Y-m-d H:i:s');
-        }
+        return $this->view('index',compact('models','mailStatus','mobileStatus'));
 
     }
 

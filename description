@@ -3,7 +3,7 @@ Controller 负责数据转换和调度
 Service 业务逻辑的处理和一些如注册，登录这种盒子型的组件
 为了某些Serivce同时调用的方便，也会使用一些快捷函数如mailer，这里其它也算是Serivce在Controller中可以使用
 
-Repository 数据仓库 ，负责和数据model层交互以及处理数据缓存的操作
+Repository 数据仓库 ，业务处理，负责和数据model层交互以及处理数据缓存的操作
 
 Model 负责和数据库交互
 

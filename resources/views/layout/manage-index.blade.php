@@ -33,7 +33,7 @@
 	@endforeach*/?>
 </table>
 <div>
-	<div class="page-container pull-left">{!!$page or null!!}</div>
+	<div class="page-container pull-left">@yield('paginate')</div>
 	<div class="election-operation pull-right">
 		<form class="form-inline">
 			<div class="form-group">
