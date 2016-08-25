@@ -18,6 +18,8 @@ class Controller extends BaseController
 
     protected $request = null;
 
+    protected $repository = null;
+
     public function __construct()
     {
         $this->request = app('request');
