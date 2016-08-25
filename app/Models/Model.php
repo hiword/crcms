@@ -19,6 +19,12 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
     protected $guarded = [];
 
     /**
+     * 软删除
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
      * 获取当前时间
      *
      * @return int
@@ -56,4 +62,6 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
     public function getDateFormat() {
         return 'U';
     }
+
+
 }
