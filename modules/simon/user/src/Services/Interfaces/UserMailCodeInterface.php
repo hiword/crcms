@@ -16,7 +16,7 @@ interface UserMailCodeInterface
 
     public function generate(int $userId) : string;
 
-
     public function verify(int $userId,string $hash) : bool;
 
+    public function updateStatus(string $hash,int $type);
 }

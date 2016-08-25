@@ -37,5 +37,19 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
         parent::__construct($User);
     }
 
+    /**
+     * 存储登录信息
+     * @param User $user
+     * @return User
+     */
+    public function storeLoginInfo(User $user) : User
+    {
+        // TODO: Implement storeLoginInfo() method.
+        $user->login_time = time();
+        $user->login_ip = ip_long(app('request')->ip());
+        $user->save();
+        return $user;
+    }
+
 
 }

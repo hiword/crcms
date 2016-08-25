@@ -8,18 +8,22 @@
 namespace Simon\User\Http\Controllers;
 use App\Components\VerifyCode\Interfaces\ImageVerifyCodeInterface;
 use App\Components\VerifyCode\Realizes\ImageVerifyCodeRealize;
+use App\Exceptions\ValidateException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Simon\Mail\Repositorys\MailRepository;
 use Simon\RegisterMail;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Repositorys\AuthLogRepository;
 use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
+use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
 use Simon\User\Services\Interfaces\LoginInterface;
 use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
+use Simon\User\Services\Interfaces\UserMailCodeInterface;
 
 
 class AuthController extends Controller
@@ -79,12 +83,25 @@ class AuthController extends Controller
         //日志
     }
 
-    public function getVerifyMailCode($userid,$hash,MailCodeInterface $MailCode)
+    public function getVerifyMailCode(UserMailCodeInterface $MailCode,$userId,$hash)
     {
-        $user = $this->repository->find($userid);
+        $user = $this->repository->find($userId);
 
         //verify
-        $status = $MailCode->verify($user,$hash) ? UserRepository::MAIL_STATUS_VERIFY : UserRepository::MAIL_STATUS_VERIFY_FAIL;
+        try {
+
+            $status = $MailCode->verify($user->id,$hash) ? UserRepository::MAIL_STATUS_VERIFY : UserRepository::MAIL_STATUS_VERIFY_FAIL;
+
+            $MailCode->updateStatus($hash,UserMailCodeRepository::STATUS_VERIFY_SUCCESS);
+
+//            $this->repository
+        }
+        catch (ValidateException $e)
+        {
+            //修改mail验证状态
+            $MailCode->updateStatus($hash,UserMailCodeRepository::STATUS_VERIFY_FAIL);
+        }
+
 
         //修改状态
         $this->repository->update($userid,['status'=>$status]);
