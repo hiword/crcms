@@ -52,8 +52,6 @@ class Register extends TestCase
         return $user;
     }
 
-
-
     /**
      * @depends testRegister
      * @param int $userId

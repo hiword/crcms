@@ -7,3 +7,10 @@
  */
 
 $router->post('auth/register','AuthController@postRegister');
+
+
+\Illuminate\Support\Facades\Route::group(['prefix'=>'manage'],function($router){
+
+    $router->resource('users','Manage\UserController');
+
+});

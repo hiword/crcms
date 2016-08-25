@@ -10,8 +10,11 @@ namespace Simon\User\Models;
 
 
 use App\Models\Model;
+use App\Models\Traits\SoftDeletes;
 
 class User extends Model
 {
+
+    use SoftDeletes;
 
 }
