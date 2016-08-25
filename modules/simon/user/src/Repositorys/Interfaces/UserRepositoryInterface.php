@@ -10,10 +10,11 @@ namespace Simon\User\Repositorys\Interfaces;
 
 
 use App\Repositorys\RepositoryInterface;
+use Simon\User\Models\User;
 
 interface UserRepositoryInterface extends RepositoryInterface
 {
 
-
+    public function storeLoginInfo(User $user) : User;
 
 }

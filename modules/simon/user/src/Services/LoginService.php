@@ -56,6 +56,9 @@ class LoginService implements LoginInterface
             throw new PasswordErrorException(trans('user::user.password_error'));
         }
 
+        //存储登录信息
+        $this->user = $this->repository->storeLoginInfo($this->user);
+
         return $this;
     }
 
