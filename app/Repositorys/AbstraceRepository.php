@@ -42,7 +42,7 @@ abstract class AbstraceRepository
 
     public function delete(int $id)
     {
-        return $this->model->destory($id);
+        return $this->model->destroy($id);
     }
 
     public function findById(int $id, array $columns = ['*'])
