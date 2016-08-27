@@ -46,8 +46,10 @@ class Register extends TestCase
     public function testRegister(array $data)
     {
         //$Register = new \Simon\User\Services\RegisterService(new \Simon\User\Repositorys\UserRepository(new \Simon\User\Models\User()));
-        $register = app(\Simon\User\Services\RegisterService::class);
-        $user = $register->register($data)->getUser();
+//        $register = app(\Simon\User\Services\RegisterService::class);
+        $Register = app(\Simon\User\Repositorys\UserRepository::class);
+        $request = app('request');
+        $user = $Register->register($data,ip_long($request->ip()));
 
         return $user;
     }
@@ -58,7 +60,8 @@ class Register extends TestCase
      */
     public function testMailCode(\Simon\User\Models\User $user)
     {
-        $mailCode = app(\Simon\User\Services\UserMailCodeService::class);
+//        $mailCode = app(\Simon\User\Services\UserMailCodeService::class);
+        $mailCode = app(\Simon\User\Repositorys\UserMailCodeRepository::class);
         $hash = $mailCode->generate($user->id);
 
         return $hash;
@@ -94,6 +97,8 @@ class Register extends TestCase
      */
     public function testAuthLog(\Simon\User\Models\User $user,\Illuminate\Http\Request $request)
     {
+        auth_logger(1,$user);
+
 //        $auth = new \Simon\User\Services\AuthLogService(new \Simon\User\Repositorys\AuthLogRepository(new \Simon\User\Models\AuthLog()));
 
 //        $auth->log([
@@ -108,7 +113,7 @@ class Register extends TestCase
             'browser'=>'Firefox',
             'name'=>$user->name
         ]);*/
-        auth_loger(\Simon\User\Repositorys\AuthLogRepository::TYPE_REGISTER,$user);
+//        auth_loger(\Simon\User\Repositorys\AuthLogRepository::TYPE_REGISTER,$user);
     }
 
     /**
