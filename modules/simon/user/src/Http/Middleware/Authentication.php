@@ -25,7 +25,7 @@ class Authentication
     {
         if (empty(User::user()))
         {
-            abort(403);
+            return redirect()->route('login');
         }
 
         return $next($request);

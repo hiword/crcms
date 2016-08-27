@@ -6,17 +6,17 @@
  * Time: 9:48
  */
 namespace Simon\User\Http\Controllers;
-use App\Components\VerifyCode\Interfaces\ImageVerifyCodeInterface;
-use App\Components\VerifyCode\Realizes\ImageVerifyCodeRealize;
-use App\Exceptions\ValidateException;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Simon\Kernel\Http\Controllers\Controller;
 use Simon\Mail\Repositorys\MailRepository;
 use Simon\RegisterMail;
+use Simon\User\Facades\User;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Repositorys\AuthLogRepository;
+use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
+use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
@@ -31,57 +31,68 @@ class AuthController extends Controller
 
     protected $repository = null;
 
+    protected $view = 'user::default.auth.';
+
     public function __construct(UserRepositoryInterface $User)
     {
+        parent::__construct();
         $this->repository = $User;
+    }
+
+    public function getLogin(LoginRequest $LoginRequest)
+    {
+        return $this->view('login');
+    }
+
+    public function getLogout()
+    {
+        User::logout();
+        return $this->redirectRoute('login');
     }
 
     /**
      * @param LoginRequest $LoginRequest
      * @param LoginInterface $Login
      */
-    public function postLogin(LoginRequest $LoginRequest, LoginInterface $Login)
+    public function postLogin(LoginRequest $LoginRequest)
     {
         //verify
+        $user = $this->repository->login($this->input,ip_long($this->request->ip()));
 
+        User::login($user);
 
-        $Login->login();
-
-        $Login->getUser();
-
-        //session
-        //Auth::session
-
-
+        return $this->redirectRoute('user');
     }
 
-    public function postRegister(RegisterRequest $RegisterRequest,RegisterInterface $Register,SecretRepositoryInterface $Secret,MailCodeInterface $MailCode)
+    public function getRegister()
+    {
+        return $this->view('register');
+    }
+
+    public function postRegister(RegisterRequest $RegisterRequest,UserMailCodeRepositoryInterface $UserMailCode,AuthLogRepositoryInterface $AuthLog)
     {
 
         //Register
-        $user = $Register->register($this->input)->getUser();
+//        $user = $Register->register($this->input)->getUser();
+        $user = $this->repository->register($this->input,ip_long($this->request->ip()));
+
 
         //mailCode
-        $hash = $MailCode->generate($user->id);
+        $hash = $UserMailCode->generate($user->id);
 
         //mail
-        mailer($user->email,new RegisterMail($user,$hash));
+        mailer($user->email,new \Simon\User\Mails\RegisterMail($user,$hash));
 
-        //authlog
-        auth_loger(AuthLogRepository::TYPE_REGISTER,$user);
+        //auth logger
+        auth_logger($AuthLog->typeRegister(),$user);
 
-        //session
-        return 'success';
+        //session login
+        User::login($user);
 
-        //sendmail
-
-        //mailer($user->email,RegisterMail extens Mailal);
-
-        //session
-
-
-        //日志
+        return $this->redirectRoute('user');
     }
+
+
 
     public function getVerifyMailCode(UserMailCodeInterface $MailCode,$userId,$hash)
     {

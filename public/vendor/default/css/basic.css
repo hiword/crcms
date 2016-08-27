@@ -1,0 +1,37 @@
+@charset "UTF-8";
+html,body {
+    background:#F7F7F7;
+}
+.white {
+    background:#FFFFFF;
+}
+.radius {
+    border-radius:6px;
+}
+
+.auth-box h2 {
+    border-bottom:1px solid #ECECEC;
+    padding-bottom:20px;
+}
+
+.footer {
+    color:#999999;
+}
+.footer .about-crcms a {
+    margin:0px 7px;
+}
+
+@media (min-width: 768px) {
+
+    .auth-box {
+        padding: 20px 40px;
+    }
+
+    .footer
+    {
+        margin-top:30px;
+        padding:35px 0px 20px;
+    }
+
+}
+

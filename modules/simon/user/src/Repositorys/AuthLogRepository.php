@@ -9,8 +9,9 @@
 namespace Simon\User\Repositorys;
 
 
-use App\Repositorys\AbstraceRepository;
+use Simon\Kernel\Repositorys\AbstraceRepository;
 use Simon\User\Models\AuthLog;
+use Simon\User\Models\User;
 use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
 
 class AuthLogRepository extends AbstraceRepository implements AuthLogRepositoryInterface
@@ -24,5 +25,33 @@ class AuthLogRepository extends AbstraceRepository implements AuthLogRepositoryI
     {
         parent::__construct($Model);
     }
+
+    public function typeRegister()
+    {
+        return static::TYPE_REGISTER;
+    }
+
+    public function typeLogin()
+    {
+        return static::TYPE_LOGIN;
+    }
+
+    public function type()
+    {
+
+    }
+
+    public function logByAuth(User $User,int $type, int $ip, string $browser = '')
+    {
+        // TODO: Implement logByAuth() method.
+        $this->create([
+            'user_id'=>$User->id,
+           'name'=>$User->name,
+            'type'=>$type,
+            'client_ip'=>$ip,
+            'browser'=>$browser,
+        ]);
+    }
+
 
 }

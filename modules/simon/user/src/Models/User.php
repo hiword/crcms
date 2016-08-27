@@ -9,8 +9,8 @@
 namespace Simon\User\Models;
 
 
-use App\Models\Model;
-use App\Models\Traits\SoftDeletes;
+use Simon\Kernel\Models\Model;
+use Simon\Kernel\Models\Traits\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
 class User extends Model
@@ -21,6 +21,26 @@ class User extends Model
     public function scopeName(Builder $query,string $name,string $operator = '=')
     {
         return $query->where('name',$operator,$name);
+    }
+
+    public function scopeEmail(Builder $query,string $email,string $operator = '=')
+    {
+        return $query->where('email',$operator,$email);
+    }
+
+    public function scopeMobile(Builder $query,string $mobile,string $operator = '=')
+    {
+        return $query->where('mobile',$mobile,$operator);
+    }
+
+    public function scopeMailStatus(Builder $query,int $status)
+    {
+        return $query->where('mail_status',$status);
+    }
+
+    public function scopeMobileStatus(Builder $query,int $status)
+    {
+        return $query->where('mobile_status',$status);
     }
 
 }

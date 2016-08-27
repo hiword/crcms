@@ -9,14 +9,48 @@
 namespace Simon\User\Http\Controllers;
 
 
-use App\Http\Controllers\Controller;
+
+use Simon\Kernel\Http\Controllers\Controller;
+use Simon\User\Facades\User;
+use Simon\User\Http\Requests\BasicInformationRequest;
+use Simon\User\Repositorys\Interfaces\UserInfoRepositoryInterface;
+use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 
 class UserController extends Controller
 {
 
+    protected $view = 'user::default.user.';
+
+    public function __construct(UserRepositoryInterface $UserRepository)
+    {
+        parent::__construct();
+        $this->repository = $UserRepository;
+    }
+
+
     public function getIndex()
     {
-        echo 1;
+        return $this->view('index');
+    }
+
+    public function postBasicInformation(BasicInformationRequest $BasicInformationRequest,UserInfoRepositoryInterface $UserInfo)
+    {
+        $userId = User::id();
+
+        $UserInfo->findById($userId)
+            ?
+            $UserInfo->update($this->input,$userId)
+            :
+            $UserInfo->create($this->input);
+
+        return $this->response(['kernel::app.success']);
+    }
+
+    public function getBasicInformation(UserInfoRepositoryInterface $UserInfoRepository)
+    {
+        $userInfo = $UserInfoRepository->findUserInfo(User::id());
+
+        return $this->view('basic-information',compact('userInfo'));
     }
 
 }

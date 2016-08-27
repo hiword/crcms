@@ -9,7 +9,7 @@
 namespace Simon\User\Http\Controllers\Manage;
 
 
-use App\Http\Controllers\Controller;
+use Simon\Kernel\Http\Controllers\Controller;
 use Simon\User\Models\User;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $models = $this->repository->paginate();
+        $models = $this->repository->allPaginateBySearch($this->input)->findAllPaginate();
 
         $mailStatus = $this->repository->mailStatus();
 
@@ -35,6 +35,16 @@ class UserController extends Controller
 
         return $this->view('index',compact('models','mailStatus','mobileStatus'));
 
+    }
+
+    public function destroy($id)
+    {
+        foreach (explode(',',$id) as $val)
+        {
+            $this->repository->delete($val);
+        }
+
+        return $this->response(['app.success']);
     }
 
 }

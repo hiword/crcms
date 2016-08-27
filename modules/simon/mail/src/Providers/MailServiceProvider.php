@@ -6,7 +6,7 @@
  * Time: 20:01
  */
 namespace Simon\Mail\Providers;
-use App\Providers\PackageServiceProvider;
+use Simon\Kernel\Providers\PackageServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Simon\Mail\Repositorys\Interfaces\MailRepositoryInterface;
 use Simon\Mail\Repositorys\MailRepository;

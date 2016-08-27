@@ -9,7 +9,7 @@
 namespace Simon\Mail\Repositorys;
 
 
-use App\Repositorys\AbstraceRepository;
+use Simon\Kernel\Repositorys\AbstraceRepository;
 use Simon\Mail\Models\Email;
 use Simon\Mail\Repositorys\Interfaces\MailRepositoryInterface;
 

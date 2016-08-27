@@ -9,7 +9,7 @@
 namespace Simon\User\Repositorys\Interfaces;
 
 
-use App\Repositorys\RepositoryInterface;
+use Simon\Kernel\Repositorys\RepositoryInterface;
 use Simon\User\Models\UserMailCode;
 
 interface UserMailCodeRepositoryInterface extends RepositoryInterface
@@ -19,4 +19,5 @@ interface UserMailCodeRepositoryInterface extends RepositoryInterface
 
     public function updateStatus(string $hash,int $type) : bool;
 
+    public function generate(int $userId) : string;
 }

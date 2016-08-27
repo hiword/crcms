@@ -1,6 +1,6 @@
 <?php
 namespace Simon\User\Exceptions;
-use App\Exceptions\AppException;
+use Simon\Kernel\Exceptions\AppException;
 class UserNotExistsException extends AppException
 {
 	const  APP_CODE = 1008;

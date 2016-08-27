@@ -6,5 +6,5 @@
  * Time: 14:16
  */
 return [
-    'theme'=>'default',
+    'theme'=>env('SITE_THEME','default'),
 ];

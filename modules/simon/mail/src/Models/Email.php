@@ -9,7 +9,7 @@
 namespace Simon\Mail\Models;
 
 
-use App\Models\Model;
+use Simon\Kernel\Models\Model;
 
 class Email extends Model
 {

@@ -2,11 +2,11 @@
 
 namespace Simon\User\Mails;
 
-use App\Services\Interfaces\MailViewInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Simon\Mail\Services\Interfaces\MailViewInterface;
 use Simon\User\Models\User;
 
 class RegisterMail extends Mailable implements MailViewInterface

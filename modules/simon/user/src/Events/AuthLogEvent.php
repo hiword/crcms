@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Simon\Mail\Repositorys\Interfaces\MailRepositoryInterface;
+use Simon\User\Models\User;
 
 class AuthLogEvent
 {
@@ -21,12 +22,19 @@ class AuthLogEvent
      */
 
 
-    public $data = [];
+    public $user = null;
 
-    public function __construct(array $data)
+    public $ip = 0;
+
+    public $browser = '';
+
+    public function __construct(User $User,int $type,int $ip,string $browser = '')
     {
         //
-        $this->data = $data;
+        $this->user = $User;
+        $this->ip = $ip;
+        $this->type = $type;
+        $this->browser;
     }
 
     /**

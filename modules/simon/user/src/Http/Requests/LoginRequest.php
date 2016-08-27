@@ -8,11 +8,12 @@
 
 namespace Simon\User\Http\Requests;
 
-use App\Services\Interfaces\VerifyCodeInterface;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
+use Simon\Kernel\Http\Requests\KernelRequest;
+use Simon\Kernel\Services\Interfaces\VerifyCodeInterface;
 
-class LoginRequest extends FormRequest implements VerifyCodeInterface
+class LoginRequest extends KernelRequest implements VerifyCodeInterface
 {
 
     //这里还要判断其它的，如：一小时内连续注册两次则关闭
@@ -25,8 +26,13 @@ class LoginRequest extends FormRequest implements VerifyCodeInterface
 
     public function rules()
     {
+        if($this->method() === 'GET')
+        {
+          return [];
+        }
+
         return [
-            'name'=>['required','regex:/^[\w]{3,15}$/'],
+            'name'=>['required','regex:/^[\w]{3,16}$/i'],
             'password'=>['required','max:16','min:6'],
         ];
     }
@@ -34,6 +40,7 @@ class LoginRequest extends FormRequest implements VerifyCodeInterface
     public function isOpenVerifyCode() : bool
     {
         // TODO: Implement isOpenVerifyCode() method.
+        return true;
     }
 
 

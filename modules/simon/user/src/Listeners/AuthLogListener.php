@@ -34,11 +34,6 @@ class AuthLogListener
     public function handle(AuthLogEvent $event)
     {
         //
-        $this->repository->create([
-            'user_id'=>$event->data['user_id'],
-            'client_ip'=>ip_long($event->data['client_ip']),
-            'browser'=>$event->data['browser'],
-            'name'=>$event->data['name'],
-        ]);
+        $this->repository->logByAuth($event->user,$event->type,$event->ip,$event->browser);
     }
 }

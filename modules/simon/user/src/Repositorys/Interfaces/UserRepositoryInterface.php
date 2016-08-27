@@ -9,12 +9,11 @@
 namespace Simon\User\Repositorys\Interfaces;
 
 
-use App\Repositorys\RepositoryInterface;
+use Simon\Kernel\Repositorys\RepositoryInterface;
 use Simon\User\Models\User;
 
 interface UserRepositoryInterface extends RepositoryInterface
 {
-
 
     public function mobileStatusVerify() : int;
 
@@ -38,6 +37,10 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function mailStatus() : array;
 
 
-    public function storeLoginInfo(User $user) : User;
+//    public function storeLoginInfo(User $user) : User;
+
+    public function register(array $data,int $ip) : User;
+
+    public function login(array $data,int $ip) : User;
 
 }

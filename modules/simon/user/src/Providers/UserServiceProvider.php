@@ -6,12 +6,14 @@
  * Time: 20:01
  */
 namespace Simon\User\Providers;
-use App\Providers\PackageServiceProvider;
+use Simon\Kernel\Providers\PackageServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Simon\User\Repositorys\AuthLogRepository;
 use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
+use Simon\User\Repositorys\Interfaces\UserInfoRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
+use Simon\User\Repositorys\UserInfoRepository;
 use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
 use Simon\User\Services\AuthLogService;
@@ -62,6 +64,8 @@ class UserServiceProvider extends PackageServiceProvider
 
         $this->app->bind(AuthLogRepositoryInterface::class,AuthLogRepository::class);
         $this->app->bind(AuthLogInterface::class,AuthLogService::class);
+
+        $this->app->bind(UserInfoRepositoryInterface::class,UserInfoRepository::class);
 
         //UserAuth
         $this->app->singleton([

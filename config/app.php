@@ -179,6 +179,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
+        //kernel
+        Simon\Kernel\Providers\KernelServiceProvider::class,
+
         //user
         Simon\User\Providers\UserServiceProvider::class,
         Simon\User\Providers\EventServiceProvider::class,
@@ -186,6 +189,10 @@ return [
         //mail
         Simon\Mail\Providers\MailServiceProvider::class,
         Simon\Mail\Providers\EventServiceProvider::class,
+
+
+
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -237,6 +244,8 @@ return [
 
         //自定义
         'User'=>Simon\User\Facades\User::class,
+
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

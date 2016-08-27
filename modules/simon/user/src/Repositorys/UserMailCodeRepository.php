@@ -9,7 +9,7 @@
 namespace Simon\User\Repositorys;
 
 
-use App\Repositorys\AbstraceRepository;
+use Simon\Kernel\Repositorys\AbstraceRepository;
 use Simon\User\Models\UserMailCode;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 
@@ -65,5 +65,27 @@ class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeR
 
         return true;
     }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function generate(int $userId) : string
+    {
+        // TODO: Implement generate() method.
+
+        $hash = sha1(str_random(10).time().$userId.str_random(10));
+
+        $this->create([
+            'user_id'=>$userId,
+            'type'=>'',
+//            'type'=>get_class($this->repository),
+            'hash'=>$hash,
+            'status'=>static::STATUS_NOT_VERIFY,
+        ]);
+
+        return $hash;
+    }
+
 
 }

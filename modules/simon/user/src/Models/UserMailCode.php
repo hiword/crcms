@@ -9,7 +9,7 @@
 namespace Simon\User\Models;
 
 
-use App\Models\Model;
+use Simon\Kernel\Models\Model;
 
 class UserMailCode extends Model
 {

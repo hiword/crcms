@@ -8,11 +8,20 @@
 
 @section('search-item')
 <div class="form-group">
-	<input type="text" name="title" placeholder="搜索标题" class="form-control input-sm" />
+	<input type="text" name="user" value="{{input('user')}}" placeholder="name or email or mobile" class="form-control input-sm" />
 </div>
 <div class="form-group">
-	<select name="status" class="form-control input-sm">
-		<option value="">状态</option>
+	<select name="mail_status" class="form-control input-sm">
+		<option value="">Mail status</option>
+		@foreach($mailStatus as $key=>$value)
+			<option value="{{$key}}" {{input('mail_status') !== '' && input('mail_status')==$key ? 'selected' : null}}>{{$value}}</option>
+		@endforeach
+	</select>
+	<select name="mobile_status" class="form-control input-sm">
+		<option value="">Mobile status</option>
+		@foreach($mobileStatus as $key=>$value)
+			<option value="{{$key}}" {{input('mobile_status') !== '' && input('mobile_status')==$key ? 'selected' : null}}>{{$value}}</option>
+		@endforeach
 	</select>
 </div>
 <button type="submit" class="btn btn-sm btn-default">Search</button>
@@ -30,7 +39,7 @@
 @section('table-list')
 	@foreach($models as $model)
 	<tr>
-		<td><input type="checkbox" name="id[]" value="{{$model->id}}" /></td>
+		<td><input type="checkbox"  v-model="checked2" name="id[]" value="{{$model->id}}" /></td>
 		<td>
 			<div>{{$model->name}}</div>
 			<div>
@@ -39,8 +48,8 @@
 				<a href="###" class="ml5 fs12">查看</a>
 			</div>
 		</td>
-		<td>{{$model->email}}[{{$model->mail_status}}]</td>
-		<td>{{$model->mobile}}[{{$model->mobil_status}}]</td>
+		<td>{{$model->email}}&nbsp;{{$model->email ? "({$model->mail_status})" : null}}</td>
+		<td>{{$model->mobile}}&nbsp;{{$model->mobile ? "({$model->mobile_status})" : null}}</td>
 		<td>{{$model->login_time ? format_date($model->login_time) : null}}</td>
 		<td>{{long_ip($model->login_ip)}}</td>
 		<td>{{$model->status}}</td>

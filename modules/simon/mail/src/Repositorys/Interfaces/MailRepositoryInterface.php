@@ -9,7 +9,7 @@
 namespace Simon\Mail\Repositorys\Interfaces;
 
 
-use App\Repositorys\RepositoryInterface;
+use Simon\Kernel\Repositorys\RepositoryInterface;
 
 interface MailRepositoryInterface extends RepositoryInterface
 {
