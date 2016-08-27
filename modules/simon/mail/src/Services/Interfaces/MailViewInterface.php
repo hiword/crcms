@@ -6,7 +6,7 @@
  * Time: 21:17
  */
 
-namespace App\Services\Interfaces;
+namespace Simon\Mail\Services\Interfaces;
 
 
 interface MailViewInterface
