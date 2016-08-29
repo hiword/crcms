@@ -9,12 +9,17 @@
 namespace Simon\User\Repositorys;
 
 
+use Illuminate\Pagination\Paginator;
+use Simon\Kernel\Exceptions\AppException;
+use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Repositorys\AbstraceRepository;
 use Simon\User\Models\UserMailCode;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 
 class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeRepositoryInterface
 {
+
+    protected $mailVerify = null;
 
     public function __construct(UserMailCode $Model)
     {
@@ -37,31 +42,31 @@ class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeR
      */
     const STATUS_VERIFY_FAIL = 3;
 
-    /**
-     * @param string $hash
-     * @return mixed
-     */
-    public function findLatelyHash(string $hash) : UserMailCode
+
+
+    public function statusVerifySuccess()
     {
-        // TODO: Implement findLatelyHash() method.
-        return $this->model->where('hash',$hash)->orderBy($this->model->getKeyName(),'desc')->firstOrFail();
+        return static::STATUS_VERIFY_SUCCESS;
     }
 
-    public function updateStatus(string $hash,int $status) : bool
+    public function statusVerifyFail()
+    {
+        return static::STATUS_VERIFY_FAIL;
+    }
+
+    public function statusVerifyNotVerify()
+    {
+        return static::STATUS_NOT_VERIFY;
+    }
+
+
+    public function updateStatus(int $status) : bool
     {
         // TODO: Implement updateStatus() method.
 
-        //修改此条未验证数据
-        $userMail = parent::findOneBy('hash',$hash);
-
-        if ($userMail->status !== static::STATUS_NOT_VERIFY)
-        {
-            return false;
-        }
-
         //未验证的情况下
-        $userMail->status = $status;
-        $userMail->save();
+        $this->mailVerify->status = $status;
+        $this->mailVerify->save();
 
         return true;
     }
@@ -87,5 +92,39 @@ class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeR
         return $hash;
     }
 
+    /**
+     * @param int $userId
+     * @param string $hash
+     * @return bool
+     * @throws ValidateException
+     */
+    public function verify(int $userId,string $hash) : bool
+    {
+        // TODO: Implement verify() method.
+        $this->mailVerify = $this->model->where('hash',$hash)->orderBy($this->model->getKeyName(),'desc')->firstOrFail();
+
+        //判断是否是未验证状态
+        if ($this->mailVerify->status !== static::STATUS_NOT_VERIFY)
+        {
+            //error，已验证过了
+            return false;
+//            throw new ValidateException(trans('user::user.mail_verify_verified'));
+        }
+
+        //验证user_id是否一致
+        if ($this->mailVerify->user_id !== $userId)
+        {
+            //error Exception
+            throw new AppException(trans('user::user.mail_verify_fail'));
+        }
+
+        //验证时间，
+        if (time() - $this->mailVerify->created_at->getTimestamp() > 24*3600)
+        {
+            throw new AppException(trans('user::user.mail_verify_timeout'));
+        }
+
+        return true;
+    }
 
 }

@@ -15,9 +15,38 @@ use Simon\User\Models\UserMailCode;
 interface UserMailCodeRepositoryInterface extends RepositoryInterface
 {
 
-    public function findLatelyHash(string $hash) : UserMailCode;
+    /**
+     * @return mixed
+     */
+    public function statusVerifySuccess();
 
-    public function updateStatus(string $hash,int $type) : bool;
+    /**
+     * @return mixed
+     */
+    public function statusVerifyFail();
 
+    /**
+     * @return mixed
+     */
+    public function statusVerifyNotVerify();
+
+    /**
+     * @param int $userId
+     * @return string
+     */
     public function generate(int $userId) : string;
+
+    /**
+     * @param int $userId
+     * @param string $hash
+     * @return bool
+     */
+    public function verify(int $userId,string $hash) : bool ;
+
+    /**
+     * @param int $status
+     * @return bool
+     */
+    public function updateStatus(int $status) : bool;
+
 }
