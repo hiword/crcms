@@ -46,21 +46,34 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
     ];
 
 
+    /**
+     *
+     */
     const MOBILE_STATUS_VERIFY = 1;
 
+    /**
+     *
+     */
     const MOBILE_STATUS_NOT_VERIFY = 0;
 
+    /**
+     *
+     */
     const MOBILE_STATUS_VERIFY_FAIL = 2;
 
+    /**
+     *
+     */
     const MOBILE_STATUS = [
         self::MOBILE_STATUS_VERIFY=>'已验证',
         self::MOBILE_STATUS_NOT_VERIFY=>'未验证',
         self::MOBILE_STATUS_VERIFY_FAIL=>'验证失败',
     ];
 
-
-
-
+    /**
+     * UserRepository constructor.
+     * @param User $User
+     */
     public function __construct(User $User)
     {
         parent::__construct($User);
@@ -155,6 +168,11 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
         return $random.$random.$password;
     }
 
+    public function generatePassword(string $password,string $secretKey) : string
+    {
+        return bcrypt($this->createPasswordConfusion($password,$secretKey));
+    }
+
     public function register(array $data, int $ip) : User
     {
         // TODO: Implement register() method.
@@ -163,7 +181,7 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
         return $this->create([
             'name'=>$data['name'],
             'email'=>$data['email'],
-            'password'=>bcrypt($this->createPasswordConfusion($data['password'],$secretKey)),
+            'password'=>$this->generatePassword($data['password'],$secretKey),
             'secret_key'=>$secretKey,
             'mail_status'=>static::MAIL_STATUS_NOT_VERIFY,
             'mobile_status'=>static::MOBILE_STATUS_NOT_VERIFY,
@@ -196,14 +214,30 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
         return $user;
     }
 
+    public function updateMailStatus(int $userId,int $status) : bool
+    {
+        $this->model->where('id',$userId)->update(['mail_status'=>$status]);
+
+        return true;
+    }
+
     /**
      * @param $password
      * @return bool
      */
-    protected function comparePassword($password,User $user) : bool
+    public function comparePassword(string $password,User $user) : bool
     {
         $password = $this->createPasswordConfusion($password,$user->secret_key);
         return Hash::check($password,$user->password);
     }
+
+    public function updatePassword(string $password,User $User) : User
+    {
+        // TODO: Implement updatePassword() method.
+        $User->password = $password;
+        $User->save();
+        return $User;
+    }
+
 
 }

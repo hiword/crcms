@@ -13,6 +13,7 @@ namespace Simon\User\Http\Controllers;
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\User\Facades\User;
 use Simon\User\Http\Requests\BasicInformationRequest;
+use Simon\User\Http\Requests\UpdatePasswordRequest;
 use Simon\User\Repositorys\Interfaces\UserInfoRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 
@@ -52,5 +53,23 @@ class UserController extends Controller
 
         return $this->view('basic-information',compact('userInfo'));
     }
+
+    public function getUpdatePassword()
+    {
+        return $this->view('update-password');
+    }
+
+    public function postUpdatePassword(UpdatePasswordRequest $UpdatePasswordRequest)
+    {
+
+        $this->repository->comparePassword($this->input['old_password'],User::user());
+
+        $password = $this->repository->generatePassword($this->input['password'],User::user()->secret_key);
+
+        $this->repository->updatePassword($password,User::user());
+
+        return $this->response(['kernel::app.success']);
+    }
+
 
 }

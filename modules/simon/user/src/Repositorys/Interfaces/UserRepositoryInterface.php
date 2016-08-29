@@ -43,4 +43,15 @@ interface UserRepositoryInterface extends RepositoryInterface
 
     public function login(array $data,int $ip) : User;
 
+
+    public function updateMailStatus(int $userId,int $status) : bool;
+
+
+    public function comparePassword(string $password,User $user) : bool;
+
+
+    public function updatePassword(string $password,User $User) : User;
+
+    public function generatePassword(string $password,string $secretKey) : string;
+
 }
