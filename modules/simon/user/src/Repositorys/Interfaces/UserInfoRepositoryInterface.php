@@ -15,6 +15,6 @@ use Simon\User\Models\UserInfo;
 interface UserInfoRepositoryInterface extends RepositoryInterface
 {
 
-    public function findUserInfo(int $id) : UserInfo;
+    public function findUserInfo(int $id);
 
 }

@@ -54,9 +54,14 @@ class UserInfoRepository extends AbstraceRepository implements UserInfoRepositor
 
     }
 
-    public function findUserInfo(int $id) : UserInfo
+    public function findUserInfo(int $id)
     {
         $userInfo = parent::findById($id);
+
+        if (empty($userInfo))
+        {
+            return $userInfo;
+        }
 
         if (strlen($userInfo->birthday_month) == 1)
         {
