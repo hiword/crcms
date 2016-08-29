@@ -26,4 +26,18 @@ abstract class KernelRequest extends FormRequest
         throw new ValidateException($Validator);
     }
 
+    public function rules()
+    {
+        if($this->method() === 'GET')
+        {
+            return [];
+        }
+
+        if (method_exists($this,'put_rules'))
+        {
+            return $this->put_rules();
+
+        }
+    }
+
 }
