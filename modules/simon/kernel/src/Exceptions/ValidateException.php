@@ -12,8 +12,8 @@ class ValidateException extends AppException
 	
 	public function __construct($validator,$response = null)
 	{
-		$this->validator = $validator;
-		$this->response = $response;
+        $this->validator = $validator;
+        $this->response = $response;
 	}
 	
 	/**
