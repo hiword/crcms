@@ -7,6 +7,8 @@
  */
 namespace Simon\User\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
+use Simon\Kernel\Exceptions\AppException;
+use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\Mail\Repositorys\MailRepository;
 use Simon\RegisterMail;
@@ -93,38 +95,26 @@ class AuthController extends Controller
     }
 
 
-
-    public function getVerifyMailCode(UserMailCodeInterface $MailCode,$userId,$hash)
+    public function getVerifyMailCode(UserMailCodeRepositoryInterface $MailCode,$userId,$hash)
     {
-        $user = $this->repository->find($userId);
-
-        //verify
         try {
+            if ($MailCode->verify($userId,$hash))
+            {
+                //修改mail验证状态
+                $MailCode->updateStatus($MailCode->statusVerifySuccess());
 
-            $status = $MailCode->verify($user->id,$hash) ? UserRepository::MAIL_STATUS_VERIFY : UserRepository::MAIL_STATUS_VERIFY_FAIL;
-
-            $MailCode->updateStatus($hash,UserMailCodeRepository::STATUS_VERIFY_SUCCESS);
-
-//            $this->repository
-        }
-        catch (ValidateException $e)
+                //修改用户验证状态
+                $this->repository->updateMailStatus($userId,$this->repository->mailStatusVerify());
+            }
+        } catch (AppException $e)
         {
             //修改mail验证状态
-            $MailCode->updateStatus($hash,UserMailCodeRepository::STATUS_VERIFY_FAIL);
+            $MailCode->updateStatus($MailCode->statusVerifyFail());
+
+            //throw
+            abort($e::HTTP_CODE,$e->getMessage());
         }
 
-
-        //修改状态
-        $this->repository->update($userid,['status'=>$status]);
-
-        if ($status === UserRepository::MAIL_STATUS_VERIFY)
-        {
-            //成功
-        }
-        else
-        {
-            //失败
-        }
-
+        return $this->redirectRoute('login');
     }
 }
