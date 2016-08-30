@@ -9,7 +9,6 @@
 namespace Simon\User\Http\Controllers;
 
 
-
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\User\Facades\User;
 use Simon\User\Http\Requests\BasicInformationRequest;

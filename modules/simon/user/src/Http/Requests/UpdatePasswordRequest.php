@@ -12,6 +12,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Simon\Kernel\Http\Requests\KernelRequest;
 use Simon\Kernel\Services\Interfaces\VerifyCodeInterface;
+use Simon\Kernel\Services\Visited;
 
 class UpdatePasswordRequest extends KernelRequest implements VerifyCodeInterface
 {
@@ -19,10 +20,6 @@ class UpdatePasswordRequest extends KernelRequest implements VerifyCodeInterface
     //这里还要判断其它的，如：一小时内连续注册两次则关闭
 
 
-//    public function authorize()
-//    {
-//        return true;
-//    }
 
     public function put_rules()
     {
@@ -35,9 +32,8 @@ class UpdatePasswordRequest extends KernelRequest implements VerifyCodeInterface
     public function isOpenVerifyCode() : bool
     {
         // TODO: Implement isOpenVerifyCode() method.
-
-
-        return true;
+        $visited = app(Visited::class)->get();
+        return time() - $visited['time'] < 60;
     }
 
 

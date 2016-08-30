@@ -12,12 +12,18 @@ namespace Simon\Kernel\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Simon\Kernel\Exceptions\ValidateException;
+use Simon\Kernel\Services\Visited;
 
 abstract class KernelRequest extends FormRequest
 {
 
     public function authorize()
     {
+        //
+        //增加访问次数记录
+        app(Visited::class)->put();
+
+
         return true;
     }
 
@@ -39,5 +45,7 @@ abstract class KernelRequest extends FormRequest
 
         }
     }
+
+
 
 }
