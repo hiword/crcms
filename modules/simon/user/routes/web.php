@@ -21,6 +21,9 @@ $router->get('/verify-mail/{userId}/{hash}','AuthController@getVerifyMailCode')
         ->where('userId','[1-9][\d]*')->name('verify-mail');
 
 
+$router->get('/auth/geetest','AuthController@getGeetest')->name('geetest');
+
+
 Route::group(['prefix'=>'user','middleware'=>[Simon\User\Http\Middleware\Authentication::class]],function($router){//,'middleware'=>['user']
 
     $router->get('/','UserController@getIndex')->name('user');

@@ -6,30 +6,27 @@
  * Time: 9:48
  */
 namespace Simon\User\Http\Controllers;
+use Germey\Geetest\CaptchaGeetest;
 use Illuminate\Support\Facades\Mail;
 use Simon\Kernel\Exceptions\AppException;
 use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\Mail\Repositorys\MailRepository;
-use Simon\RegisterMail;
 use Simon\User\Facades\User;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Repositorys\AuthLogRepository;
 use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
-use Simon\User\Repositorys\Interfaces\SecretRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
-use Simon\User\Services\Interfaces\LoginInterface;
-use Simon\User\Services\Interfaces\MailCodeInterface;
-use Simon\User\Services\Interfaces\RegisterInterface;
-use Simon\User\Services\Interfaces\UserMailCodeInterface;
 
 
 class AuthController extends Controller
 {
+
+    use CaptchaGeetest;
 
     protected $repository = null;
 
@@ -66,7 +63,7 @@ class AuthController extends Controller
         return $this->redirectRoute('user');
     }
 
-    public function getRegister()
+    public function getRegister(RegisterRequest $RegisterRequest)
     {
         return $this->view('register');
     }

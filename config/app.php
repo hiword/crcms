@@ -178,7 +178,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //Germey\Geetest\GeetestServiceProvider::class,
+
+//        Germey\Geetest\GeetestServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
         /* 以下是系统模块自己的服务提供器，最后添加，可能需要用到Laravel的注册提交器*/
         //kernel
@@ -244,7 +246,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
 
-        'Geetest' => Germey\Geetest\Geetest::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+//        'Geetest' => Germey\Geetest\Geetest::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
         //自定义

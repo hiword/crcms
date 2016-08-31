@@ -13,6 +13,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Services\Visited;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
 abstract class KernelRequest extends FormRequest
 {
@@ -21,16 +22,32 @@ abstract class KernelRequest extends FormRequest
     {
         //
         //增加访问次数记录
-        app(Visited::class)->put();
+        if ($this->method() !== 'GET') app(Visited::class)->put();
+
 
 
         return true;
     }
 
-    protected function failedValidation(Validator $Validator)
-    {
-        throw new ValidateException($Validator);
-    }
+//    protected function getValidatorInstance()
+//    {
+//        if ($this->method() === 'GET')
+//        {
+//            return NULL;
+//        }
+//
+//        $factory = $this->container->make(ValidationFactory::class);
+//
+//
+//
+//        if (method_exists($this, 'validator')) {
+//            return $this->container->call([$this, 'validator'], compact('factory'));
+//        }
+//
+//        return $factory->make(
+//            $this->validationData(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
+//        );
+//    }
 
     public function rules()
     {
