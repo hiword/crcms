@@ -9,7 +9,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-$router->get('/register','AuthController@getRegister')->name('register');
+$router->get('/register/{id?}','AuthController@getRegister')->name('register');
 $router->post('/register','AuthController@postRegister')->name('register');
 
 $router->get('/login','AuthController@getLogin')->name('login');

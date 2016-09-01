@@ -65,6 +65,20 @@ class AuthController extends Controller
 
     public function getRegister(RegisterRequest $RegisterRequest)
     {
+
+        dd(
+            $this->request->path(),
+            $this->request->url(),$this->request->fullUrl(),$this->request->route(),
+            $this->request->root(),
+
+            $this->request->route()->getName(),
+            $this->request->route()->getAction(),
+            $this->request->route()->getUri(),
+            $this->request->route()->getPrefix(),
+            $this->request->route()->parameters(),
+            $this->request->route()->getActionName()
+        );
+
         return $this->view('register');
     }
 

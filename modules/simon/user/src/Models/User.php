@@ -9,6 +9,7 @@
 namespace Simon\User\Models;
 
 
+use Simon\Acl\Models\Permission;
 use Simon\Kernel\Models\Model;
 use Simon\Kernel\Models\Traits\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,6 +42,12 @@ class User extends Model
     public function scopeMobileStatus(Builder $query,int $status)
     {
         return $query->where('mobile_status',$status);
+    }
+
+
+    public function hasBelongsToManyPermission()
+    {
+        return $this->belongsToMany(Permission::class,'user_permissions','user_id','permission_id');
     }
 
 }

@@ -194,6 +194,9 @@ return [
         Simon\Mail\Providers\MailServiceProvider::class,
         Simon\Mail\Providers\EventServiceProvider::class,
 
+        //acl
+        Simon\Acl\Providers\AclServiceProvider::class,
+
 
 
         Barryvdh\Debugbar\ServiceProvider::class,

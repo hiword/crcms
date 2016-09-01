@@ -21,3 +21,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(Simon\Acl\Models\Test::class,function(Faker\Generator $faker){
+    return [
+        'title'=>$faker->sentence,
+        'content'=>$faker->paragraph,
+        'release_time'=>$faker->date('Y-m-d'),
+    ];
+});
