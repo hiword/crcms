@@ -9,6 +9,7 @@
 namespace Simon\User\Models;
 
 
+use Simon\Acl\Models\AclRole;
 use Simon\Acl\Models\Permission;
 use Simon\Kernel\Models\Model;
 use Simon\Kernel\Models\Traits\SoftDeletes;
@@ -48,6 +49,11 @@ class User extends Model
     public function hasBelongsToManyPermission()
     {
         return $this->belongsToMany(Permission::class,'user_permissions','user_id','permission_id');
+    }
+
+    public function hasBelongsToManyAclRole()
+    {
+        return $this->belongsToMany(AclRole::class,'acl_user_roles','user_id','role_id');
     }
 
 }

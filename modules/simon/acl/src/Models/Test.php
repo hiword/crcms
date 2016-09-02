@@ -18,16 +18,16 @@ class Test extends Model
 //    protected $timestamps = false;
 
 
-    public function hasBelongsToManyRole(string $type = '')
+    public function hasBelongsToManyRole()
     {
-        $query = $this->belongsToMany(AclRole::class,'acl_data_roles','data_id','role_id');
+        return $this->belongsToMany(AclRole::class,'acl_data_roles','data_id','role_id')
+                    ->where('acl_data_roles.type',self::class);
+    }
 
-        if ($type)
-        {
-            $query = $query->where('acl_data_roles.type',$type);
-        }
-
-        return $query;
+    public function hasBelongsToManyOther()
+    {
+        return $this->belongsToMany(AclOther::class,'acl_data_others','data_id','other_id')
+                        ->where('acl_data_others.type',self::class);
     }
 
     public function hasOneUser()

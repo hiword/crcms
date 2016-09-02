@@ -25,7 +25,7 @@ class AclRole extends Model
 
     public function hasBelongsToManyPermission()
     {
-        return $this->belongsToMany(Permission::class,'acl_role_permissions','role_id','permission_id')->detach();
+        return $this->belongsToMany(Permission::class,'acl_role_permissions','role_id','permission_id');
     }
 
 }
