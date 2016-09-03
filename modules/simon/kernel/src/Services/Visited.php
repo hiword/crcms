@@ -10,8 +10,9 @@ namespace Simon\Kernel\Services;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Http\Request;
+use Simon\Kernel\Services\Interfaces\VisitedInterface;
 
-class Visited
+class Visited implements VisitedInterface
 {
 
     protected $cache = null;
