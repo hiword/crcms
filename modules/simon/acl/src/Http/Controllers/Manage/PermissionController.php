@@ -10,25 +10,32 @@ namespace Simon\Acl\Http\Controllers\Manage;
 
 
 use Simon\Acl\Http\Requests\PermissionRequest;
+use Simon\Acl\Repositorys\Interfaces\AuthorizeRepositoryInterface;
 use Simon\Acl\Repositorys\Interfaces\PermissionRepositoryInterface;
 use Simon\Kernel\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {
 
-    protected $view = 'acl::default.permission.';
+    protected $view = 'acl::manage.permission.';
 
-    public function __construct(PermissionRepositoryInterface $repository)
+    public function __construct(PermissionRepositoryInterface $repository,AuthorizeRepositoryInterface $authorize)
     {
         parent::__construct();
         $this->repository = $repository;
+
+
+        $status = $this->repository->status();
+        $openApp = $authorize->findOpenAll();
+
+        view()->share(compact('status','openApp'));
     }
 
     public function index()
     {
         $models = $this->repository->allPaginateBySearch([])->findAllPaginate();
-        $status = $this->repository->status();
-        return $this->view('index',compact('models','status'));
+
+        return $this->view('index',compact('models'));
     }
 
     public function create()
