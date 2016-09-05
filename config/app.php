@@ -182,6 +182,8 @@ return [
 //        Germey\Geetest\GeetestServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
 
+
+
         /* 以下是系统模块自己的服务提供器，最后添加，可能需要用到Laravel的注册提交器*/
         //kernel
         Simon\Kernel\Providers\KernelServiceProvider::class,
@@ -194,9 +196,9 @@ return [
         Simon\Mail\Providers\MailServiceProvider::class,
         Simon\Mail\Providers\EventServiceProvider::class,
 
+
         //acl
         Simon\Acl\Providers\AclServiceProvider::class,
-
 
 
         Barryvdh\Debugbar\ServiceProvider::class,
