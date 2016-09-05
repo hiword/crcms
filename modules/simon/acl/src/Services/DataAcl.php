@@ -18,27 +18,6 @@ class DataAcl implements Acl
 
     protected $model = null;
 
-
-
-    protected $roles = null;
-
-    protected $rolePermissions = null;
-
-    protected $others = null;
-
-    protected $otherPermissions = null;
-
-
-    protected $user = null;
-
-    protected $userPermissions = null;
-
-    protected $userRoles = null;
-
-
-    protected $permission = '';
-
-
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -46,79 +25,78 @@ class DataAcl implements Acl
 
     public function getUser()
     {
-        $this->user = $this->model->hasOneUser ?? null;
-        return $this->user;
+        return $this->model->hasOneUser ?? null;
     }
 
     public function getUserPermission()
     {
-        $this->userPermissions = $this->user->hasBelongsToManyPermission()->get();
-        return $this->userPermissions;
+        return $this->model->hasOneUser->hasBelongsToManyPermission()->get();
     }
 
     public function getUserRole()
     {
-        $this->userRoles = $this->user->hasBelongsToManyAclRole()->get();
+        return $this->model->hasOneUser->hasBelongsToManyAclRole()->get();
     }
 
     public function getOther()
     {
 
-        $this->others = $this->model->hasBelongsToManyOther($this->type)->get();
+        $others = $this->model->hasBelongsToManyOther($this->type)->get();
 
         //未设置则设置默认组
-        if ($this->others->isEmpty())
+        if ($others->isEmpty())
         {
-            $this->others = collect(config('acl.acl_other'));
+            $others = collect(config('acl.acl_other'));
         }
 
-        return $this->others;
+        return $others;
     }
 
     public function getOtherPermission()
     {
-        $this->otherPermissions = collect();
 
-        foreach ($this->others as $other)
+        $otherPermissions = collect();
+
+        foreach ($this->getOther() as $other)
         {
             $permission = $other->hasBelongsToManyPermission()->pluck('node','id');
 
             if (!$permission->isEmpty())
             {
-                $this->otherPermissions->put($other->id,$permission);
+                $otherPermissions->put($other->id,$permission);
             }
         }
 
-        return otherPermissions;
+        return $otherPermissions;
     }
 
     public function getRole() : Collection
     {
-        $this->roles = $this->model->hasBelongsToManyRole($this->type)->get();
+        $roles = $this->model->hasBelongsToManyRole($this->type)->get();
 
         //未设置则设置默认组
-        if ($this->roles->isEmpty())
+        if ($roles->isEmpty())
         {
-            $this->roles = collect(config('acl.acl_role'));
+            $roles = collect(config('acl.acl_role'));
         }
 
-        return $this->roles;
+        return $roles;
     }
 
     public function getRolePermission()
     {
-        $this->rolePermissions = collect();
+        $rolePermissions = collect();
 
-        foreach ($this->roles as $role)
+        foreach ($this->getRole() as $role)
         {
             $permission = $role->hasBelongsToManyPermission()->pluck('node','id');
 
             if (!$permission->isEmpty())
             {
-                $this->rolePermissions->put($role->id,$permission);
+                $rolePermissions->put($role->id,$permission);
             }
         }
 
-        return $this->rolePermissions;
+        return $rolePermissions;
     }
 }
