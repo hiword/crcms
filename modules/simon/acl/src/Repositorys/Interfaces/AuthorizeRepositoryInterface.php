@@ -22,5 +22,7 @@ interface AuthorizeRepositoryInterface extends RepositoryInterface
 
     public function statusClose() : int;
 
+    public function findOpenAll();
+
 
 }
