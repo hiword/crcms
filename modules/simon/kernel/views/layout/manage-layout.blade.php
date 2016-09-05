@@ -1,5 +1,6 @@
-@extends('layout.layout')
+@extends('kernel::layout.layout')
 @section('style')
+@parent
 <link rel="stylesheet" href="{{static_asset('vendor/manage/css/css.css')}}" />
 <link rel="stylesheet" href="{{static_asset('vendor/artdialog/6.0.2/css/ui-dialog.css')}}" />
 @endsection
@@ -51,10 +52,10 @@
 	</div>
 	<div class="main-right">
 		<div class="container-fluid">
-			@include('layout.alert')
 			<div class="list-header">
 				@yield('list-header')
 			</div>
+			@include('kernel::layout.alert')
 			@yield('main')
 		</div>
 	</div>
