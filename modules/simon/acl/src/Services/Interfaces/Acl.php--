@@ -12,4 +12,14 @@ namespace Simon\Acl\Services\Interfaces;
 interface Acl
 {
 
+    public function getUser();
+
+    public function getUserPermission();
+//
+//    public function getUserRole();
+
+
+
+
+
 }

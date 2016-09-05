@@ -12,11 +12,31 @@ namespace Simon\Acl\Http\Controllers\Manage;
 use Illuminate\Support\Facades\DB;
 use Simon\Acl\Models\AclRole;
 use Simon\Acl\Models\Test;
+use Simon\Acl\Services\DataAcl;
+use Simon\Acl\Services\JudgeAcl;
+use Simon\Acl\Services\UserAcl;
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\User\Models\User;
 
 class TestController extends Controller
 {
+
+    public function create()
+    {
+        $user = User::find(4);//模拟自己登陆
+
+        $models = Test::take(4)->get();
+
+        foreach ($models as $model)
+        {
+            if (!(new JudgeAcl('R',new DataAcl($model),new UserAcl($user)))->judge())
+            {
+                continue;
+            }
+
+            echo $model->id,'<br />';
+        }
+    }
 
     public function index()
     {
@@ -135,6 +155,13 @@ class TestController extends Controller
                         }
                     }
                 }
+                /*
+                 * 如果不是同一用户，
+                 * 如果数据组为null,可以先判断 此发布用户的组和当前用户是不是同一组
+                 * 如果不为null ，那么则是以数据组为先
+                 *
+                 */
+
                 else //没有相同组，则判断此条数据的other权限
                 {
                     foreach ($model->hasBelongsToManyOther('test')->get() as $other)
