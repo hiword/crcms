@@ -33,6 +33,9 @@ Route::group(['prefix'=>'user','middleware'=>[Simon\User\Http\Middleware\Authent
 
     $router->get('/update-password','UserController@getUpdatePassword')->name('update-password');
     $router->post('/update-password','UserController@postUpdatePassword')->name('update-password');
+
+    $router->get('/verify-email','UserController@getVerifyEmail')->name('verify-email');
+    $router->post('/verify-email','UserController@postVerifyEmail')->name('verify-email');
 });
 
 //user manage

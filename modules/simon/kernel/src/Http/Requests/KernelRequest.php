@@ -56,7 +56,7 @@ abstract class KernelRequest extends FormRequest
 
         if ($visited)
         {
-            return time() - $visited['time'] < 60;
+            return time() - $visited['time'] < 20;
         }
 
         return false;

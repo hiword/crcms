@@ -38,7 +38,7 @@ class KernelServiceProvider extends PackageServiceProvider
         parent::register();
 
         $this->app->singleton([VisitedInterface::class=>'visited'],function($app){
-           return new Visited($app['request']->fingerprint(),$app['cache']->store());
+           return new Visited($app['request']->ip(),$app['cache']->store());
         });
     }
 

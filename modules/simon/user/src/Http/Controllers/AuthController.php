@@ -71,20 +71,22 @@ class AuthController extends Controller
     public function getRegister(RegisterRequest $RegisterRequest)
     {
 
-        dd(
-            $this->request->path(),
-            $this->request->url(),$this->request->fullUrl(),$this->request->route(),
-            $this->request->root(),
+//        dd(
+//            $this->request->path(),
+//            $this->request->url(),$this->request->fullUrl(),$this->request->route(),
+//            $this->request->root(),
+//
+//            $this->request->route()->getName(),
+//            $this->request->route()->getAction(),
+//            $this->request->route()->getUri(),
+//            $this->request->route()->getPrefix(),
+//            $this->request->route()->parameters(),
+//            $this->request->route()->getActionName()
+//        );
 
-            $this->request->route()->getName(),
-            $this->request->route()->getAction(),
-            $this->request->route()->getUri(),
-            $this->request->route()->getPrefix(),
-            $this->request->route()->parameters(),
-            $this->request->route()->getActionName()
-        );
+        $openVerify = $RegisterRequest->isOpenVerifyCode();
 
-        return $this->view('register');
+        return $this->view('register',compact('openVerify'));
     }
 
     public function postRegister(RegisterRequest $RegisterRequest,UserMailCodeRepositoryInterface $UserMailCode,AuthLogRepositoryInterface $AuthLog)

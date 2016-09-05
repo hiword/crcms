@@ -70,5 +70,14 @@ class UserController extends Controller
         return $this->response(['kernel::app.success']);
     }
 
+    public function getVerifyEmail()
+    {
+        return $this->view('verify-email');
+    }
+
+    public function postVerifyEmail()
+    {
+        
+    }
 
 }
