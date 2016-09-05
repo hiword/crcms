@@ -12,7 +12,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Simon\Kernel\Http\Requests\KernelRequest;
 use Simon\Kernel\Services\Interfaces\VerifyCodeInterface;
-use Simon\Kernel\Services\Visited;
 
 class RegisterRequest extends KernelRequest implements VerifyCodeInterface
 {
@@ -29,7 +28,7 @@ class RegisterRequest extends KernelRequest implements VerifyCodeInterface
 //        return true;
 //    }
 
-    public function put_rules()
+    public function rules()
     {
         return [
             'name'=>['required','regex:/^[\w]{3,16}$/i','unique:users'],
@@ -38,12 +37,7 @@ class RegisterRequest extends KernelRequest implements VerifyCodeInterface
         ];
     }
 
-    public function isOpenVerifyCode() : bool
-    {
-        // TODO: Implement isOpenVerifyCode() method.
-        $visite = app(Visited::class)->get();
-        dd($visite);
-    }
+
 
 
 }

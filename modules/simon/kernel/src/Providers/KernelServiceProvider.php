@@ -9,6 +9,7 @@ namespace Simon\Kernel\Providers;
 use Simon\Kernel\Providers\PackageServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Simon\Kernel\Services\Interfaces\VisitedInterface;
+use Simon\Kernel\Services\Visited;
 
 
 class KernelServiceProvider extends PackageServiceProvider

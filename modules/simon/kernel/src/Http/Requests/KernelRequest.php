@@ -12,8 +12,8 @@ namespace Simon\Kernel\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Simon\Kernel\Exceptions\ValidateException;
-use Simon\Kernel\Services\Visited;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Simon\Kernel\Facades\Visited;
 
 abstract class KernelRequest extends FormRequest
 {
@@ -22,47 +22,44 @@ abstract class KernelRequest extends FormRequest
     {
         //
         //增加访问次数记录
-        if ($this->method() !== 'GET') app(Visited::class)->put();
+//        if ($this->method() !== 'GET') app(Visited::class)->put();
 
 
 
         return true;
     }
 
-//    protected function getValidatorInstance()
-//    {
-//        if ($this->method() === 'GET')
-//        {
-//            return NULL;
-//        }
-//
-//        $factory = $this->container->make(ValidationFactory::class);
-//
-//
-//
-//        if (method_exists($this, 'validator')) {
-//            return $this->container->call([$this, 'validator'], compact('factory'));
-//        }
-//
-//        return $factory->make(
-//            $this->validationData(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
-//        );
-//    }
-
-    public function rules()
+    public function validate()
     {
-        if($this->method() === 'GET')
+        if ($this->method() === 'GET')
         {
-            return [];
+            return ;
         }
 
-        if (method_exists($this,'put_rules'))
-        {
-            return $this->put_rules();
-
-        }
+        parent::validate();
     }
 
+    /**
+     *
+     * @param Validator $validator
+     * @throws ValidateException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidateException($validator);
+    }
 
+    public function isOpenVerifyCode() : bool
+    {
+        // TODO: Implement isOpenVerifyCode() method.
+        $visited = Visited::get();
+
+        if ($visited)
+        {
+            return time() - $visited['time'] < 60;
+        }
+
+        return false;
+    }
 
 }

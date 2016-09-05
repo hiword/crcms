@@ -26,22 +26,11 @@ class LoginRequest extends KernelRequest implements VerifyCodeInterface
 
     public function rules()
     {
-        if($this->method() === 'GET')
-        {
-          return [];
-        }
-
         return [
             'name'=>['required','regex:/^[\w]{3,16}$/i'],
             'password'=>['required','max:16','min:6'],
+            'verify_code'=>$this->isOpenVerifyCode() ? ['required','captcha'] : [],
         ];
     }
-
-    public function isOpenVerifyCode() : bool
-    {
-        // TODO: Implement isOpenVerifyCode() method.
-        return true;
-    }
-
 
 }

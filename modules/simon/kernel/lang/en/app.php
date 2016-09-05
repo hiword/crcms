@@ -8,4 +8,6 @@ return [
     'token_expired'=>'token is expired',
     'illegal_error'=>'Illegal operation',
     'param_loss'=>'Parameter loss',
+    'error_code'=>'Error code',
+    'error_information'=>'Error Information',
 ];

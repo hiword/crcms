@@ -27,6 +27,8 @@
                         <input type="password" class="form-control input-lg" value="{{old('name')}}" name="password" placeholder="password">
                     </div>
 
+                    @include('kernel::layout.verify-code',['openVerify'=>$openVerify])
+
                     <div class="form-group mt30">
                         <button type="submit" class="btn btn-lg btn-success btn-block">登录</button>
                     </div>

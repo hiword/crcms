@@ -10,6 +10,7 @@ use Germey\Geetest\CaptchaGeetest;
 use Illuminate\Support\Facades\Mail;
 use Simon\Kernel\Exceptions\AppException;
 use Simon\Kernel\Exceptions\ValidateException;
+use Simon\Kernel\Facades\Visited;
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\Mail\Repositorys\MailRepository;
 use Simon\User\Facades\User;
@@ -38,15 +39,17 @@ class AuthController extends Controller
         $this->repository = $User;
     }
 
-    public function getLogin(LoginRequest $LoginRequest)
-    {
-        return $this->view('login');
-    }
-
     public function getLogout()
     {
         User::logout();
         return $this->redirectRoute('login');
+    }
+
+    public function getLogin(LoginRequest $LoginRequest)
+    {
+        $openVerify = $LoginRequest->isOpenVerifyCode();
+
+        return $this->view('login',compact('openVerify'));
     }
 
     /**
@@ -55,6 +58,8 @@ class AuthController extends Controller
      */
     public function postLogin(LoginRequest $LoginRequest)
     {
+        Visited::put();
+
         //verify
         $user = $this->repository->login($this->input,ip_long($this->request->ip()));
 
