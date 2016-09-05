@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Simon\Acl\Models\Permission;
+use Simon\Kernel\Exceptions\AppException;
+use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Http\Requests\KernelRequest;
 
 class PermissionRequest extends KernelRequest
@@ -20,13 +22,17 @@ class PermissionRequest extends KernelRequest
 
     public function validator($factory)
     {
+        if ($this->method() === 'GET')
+        {
+            return ;
+        }
 
         $rules = [
             'name'=>['required','min:1','max:50'],
+            'node'=>['required','max:150'],
+            'app_id'=>['required','integer'],
             'status'=>['required','integer'],
             'remark'=>['max:255'],
-            'app_id'=>['integer'],
-            'node'=>['required','max:150'],
         ];
 
         $validator = $factory->make($this->validationData(),$rules);
@@ -48,9 +54,7 @@ class PermissionRequest extends KernelRequest
 
         if($node)
         {
-            throw new ValidationException($validator, $this->response(
-                ['node'=>trans('acl::acl.node_not_exists')]
-            ));
+            throw new AppException(trans('acl::acl.node_not_exists'));
         }
 
         return $validator;
