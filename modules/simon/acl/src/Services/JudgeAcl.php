@@ -10,42 +10,86 @@ namespace Simon\Acl\Services;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Simon\Acl\Services\Interfaces\Acl;
 use Simon\User\Models\User;
 
 class JudgeAcl
 {
 
-    protected $acl = null;
+    protected $dataAcl = null;
 
-    protected $user = null;
+    protected $userAcl = null;
 
     protected $permission = '';
 
-    public function __construct(string $permission,Acl $acl,User $user)
+    public function __construct(string $permission,Acl $dataAcl,Acl $userAcl)
     {
         $this->permission = $permission;
-        $this->acl = $acl;
-        $this->user = $user;
+        $this->dataAcl = $dataAcl;
+        $this->userAcl = $userAcl;
     }
 
-    public function a()
+    public function judge()
     {
         //如果发布人和登录人相同
-        if ($this->acl->getUser()->id === $this->user->id)
+        if ($this->dataAcl->getUser()->id === $this->userAcl->getUser()->id)
         {
-            //如果发布人没有权限，则使用默认
-
-            //判断发布人的权限（也是登录人的权限）
-            if (in_array($this->permission,$selfPermission,true))
+            if ($this->judgeUserPermission())
             {
-                continue;
-            }
-            else
-            {
-                //delete
+                return true;
             }
         }
+
+        //获取组权限
+        if ($this->judgeRolePermission())
+        {
+            return true;
+        }
+
+        //其它权限
+        if ($this->judgeOtherPermission())
+        {
+            return true;
+        }
+
+        return false;
     }
 
+    /**
+     * 判断用户权限
+     * @return bool
+     */
+    protected function judgeUserPermission() : bool
+    {
+        $search = $this->userAcl->getUserPermission()->search(function($item){
+            return $item->node === $this->permission;
+        });
+        return $search !== false;
+    }
+
+    /**
+     * 判断角色权限
+     * @return bool
+     */
+    protected function judgeRolePermission() : bool
+    {
+
+        $roles = $this->dataAcl->getRole()->intersect($this->userAcl->getRole());
+
+        if ($roles->isEmpty())
+        {
+            return false;
+        }
+
+        return $this->dataAcl->getRolePermission($roles)->search(function($item){
+            return $item->node === $this->permission;
+        }) !== false;
+
+    }
+
+    protected function judgeOtherPermission() : bool
+    {
+        return $this->dataAcl->getOtherPermission()->search(function($item){
+            return $item->node === $this->permission;
+        }) !== false;
+    }
 }
