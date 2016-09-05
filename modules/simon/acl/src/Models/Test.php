@@ -9,6 +9,7 @@
 namespace Simon\Acl\Models;
 
 
+use Simon\Acl\Models\Acl\DataTrait;
 use Simon\Kernel\Models\Model;
 use Simon\User\Models\User;
 
@@ -17,22 +18,7 @@ class Test extends Model
 
 //    protected $timestamps = false;
 
+    use DataTrait;
 
-    public function hasBelongsToManyRole()
-    {
-        return $this->belongsToMany(AclRole::class,'acl_data_roles','data_id','role_id')
-                    ->where('acl_data_roles.type',self::class);
-    }
-
-    public function hasBelongsToManyOther()
-    {
-        return $this->belongsToMany(AclOther::class,'acl_data_others','data_id','other_id')
-                        ->where('acl_data_others.type',self::class);
-    }
-
-    public function hasOneUser()
-    {
-        return $this->hasOne(User::class,'id','user_id');
-    }
 
 }

@@ -9,6 +9,7 @@
 namespace Simon\User\Models;
 
 
+use Simon\Acl\Models\Acl\UserTrait;
 use Simon\Acl\Models\AclRole;
 use Simon\Acl\Models\Permission;
 use Simon\Kernel\Models\Model;
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 class User extends Model
 {
 
-    use SoftDeletes;
+    use SoftDeletes,UserTrait;
 
     public function scopeName(Builder $query,string $name,string $operator = '=')
     {
@@ -43,17 +44,6 @@ class User extends Model
     public function scopeMobileStatus(Builder $query,int $status)
     {
         return $query->where('mobile_status',$status);
-    }
-
-
-    public function hasBelongsToManyPermission()
-    {
-        return $this->belongsToMany(Permission::class,'user_permissions','user_id','permission_id');
-    }
-
-    public function hasBelongsToManyAclRole()
-    {
-        return $this->belongsToMany(AclRole::class,'acl_user_roles','user_id','role_id');
     }
 
 }
