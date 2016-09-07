@@ -14,7 +14,9 @@ use Simon\User\Facades\User;
 use Simon\User\Http\Requests\BasicInformationRequest;
 use Simon\User\Http\Requests\UpdatePasswordRequest;
 use Simon\User\Repositorys\Interfaces\UserInfoRepositoryInterface;
+use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
+use Simon\User\Mails\VerifyUserMail;
 
 class UserController extends Controller
 {
@@ -75,9 +77,18 @@ class UserController extends Controller
         return $this->view('verify-email');
     }
 
-    public function postVerifyEmail()
+    public function postSendMail(UserMailCodeRepositoryInterface $userMailCode)
     {
-        
+        $userMailCode->generate(User::user()->id,VerifyUserMail::class);
+
+        mailer(User::user()->email,new VerifyUserMail());
+
+        return $this->response(['kernel::app.success']);
+    }
+
+    public function postVerifyEmail(UserMailCodeRepositoryInterface $userMailCode,$userId,$hash)
+    {
+        $userMailCode->verify($userId,$hash);
     }
 
 }

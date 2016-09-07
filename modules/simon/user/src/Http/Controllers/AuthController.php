@@ -16,6 +16,7 @@ use Simon\Mail\Repositorys\MailRepository;
 use Simon\User\Facades\User;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
+use Simon\User\Mails\RegisterMail;
 use Simon\User\Repositorys\AuthLogRepository;
 use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
@@ -98,10 +99,10 @@ class AuthController extends Controller
 
 
         //mailCode
-        $hash = $UserMailCode->generate($user->id);
+        $hash = $UserMailCode->generate($user->id,RegisterMail::class);
 
         //mail
-        mailer($user->email,new \Simon\User\Mails\RegisterMail($user,$hash));
+        mailer($user->email,new RegisterMail($user,$hash));
 
         //auth logger
         auth_logger($AuthLog->typeRegister(),$user);
@@ -124,8 +125,7 @@ class AuthController extends Controller
                 //修改用户验证状态
                 $this->repository->updateMailStatus($userId,$this->repository->mailStatusVerify());
             }
-        } catch (AppException $e)
-        {
+        } catch (AppException $e) {
             //修改mail验证状态
             $MailCode->updateStatus($MailCode->statusVerifyFail());
 

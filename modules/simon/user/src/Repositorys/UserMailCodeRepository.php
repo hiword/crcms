@@ -75,16 +75,15 @@ class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeR
      * @param User $user
      * @return string
      */
-    public function generate(int $userId) : string
+    public function generate(int $userId,string $type) : string
     {
         // TODO: Implement generate() method.
 
-        $hash = sha1(str_random(10).time().$userId.str_random(10));
+        $hash = sha1(uniqid().str_random(10).time().$userId.str_random(10));
 
         $this->create([
             'user_id'=>$userId,
-            'type'=>'',
-//            'type'=>get_class($this->repository),
+            'type'=>$type,
             'hash'=>$hash,
             'status'=>static::STATUS_NOT_VERIFY,
         ]);
