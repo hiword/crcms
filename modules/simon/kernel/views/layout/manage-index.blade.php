@@ -1,4 +1,4 @@
-@extends('layout.manage-layout')
+@extends('kernel::layout.manage-layout')
 @section('main')
 <div class="clearfix mb10">
 	<div class="search pull-left">
