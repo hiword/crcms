@@ -16,15 +16,18 @@ class VerifyUserMail extends Mailable implements MailViewInterface
 
     public $user = null;
 
+    public $hash = '';
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user,string $hash)
     {
         //
         $this->user = $user;
+        $this->hash = $hash;
     }
 
     /**

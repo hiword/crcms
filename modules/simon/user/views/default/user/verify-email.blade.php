@@ -32,7 +32,7 @@
             <div class="auth-box white radius">
                 <h2 class="mb30">验证E-Mail</h2>
                 @include('kernel::layout.alert')
-                <form action="{{route('verify-email')}}" method="post">
+                <form action="{{route('verify-send-email')}}" method="post">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label>E-Mail</label>

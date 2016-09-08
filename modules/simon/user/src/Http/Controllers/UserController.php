@@ -79,16 +79,33 @@ class UserController extends Controller
 
     public function postSendMail(UserMailCodeRepositoryInterface $userMailCode)
     {
-        $userMailCode->generate(User::user()->id,VerifyUserMail::class);
+        $hash = $userMailCode->generate(User::user()->id,VerifyUserMail::class);
 
-        mailer(User::user()->email,new VerifyUserMail());
+        mailer(User::user()->email,new VerifyUserMail(User::user(),$hash));
 
         return $this->response(['kernel::app.success']);
     }
 
-    public function postVerifyEmail(UserMailCodeRepositoryInterface $userMailCode,$userId,$hash)
+    public function getCheckVerifyEmail(UserMailCodeRepositoryInterface $userMailCode,$userId,$hash)
     {
-        $userMailCode->verify($userId,$hash);
+        try {
+            if ($userMailCode->verify($userId,$hash))
+            {
+                //修改mail验证状态
+                $userMailCode->updateStatus($userMailCode->statusVerifySuccess());
+
+                //修改用户验证状态
+                $this->repository->updateMailStatus($userId,$this->repository->mailStatusVerify());
+            }
+        } catch (AppException $e) {
+            //修改mail验证状态
+            $userMailCode->updateStatus($userMailCode->statusVerifyFail());
+
+            //throw
+            abort($e::HTTP_CODE,$e->getMessage());
+        }
+
+        return $this->redirectRoute('user');
     }
 
 }
