@@ -1,6 +1,6 @@
 @extends('kernel::layout.manage-layout')
 @section('sidebar')
-    <h2 class="logo">Abc</h2>
+    <h2 class="logo">Acl</h2>
     <div class="sidebar">
         <ul class="nav nav-pills nav-stacked">
             <li id="accordion-acl" class="active">
