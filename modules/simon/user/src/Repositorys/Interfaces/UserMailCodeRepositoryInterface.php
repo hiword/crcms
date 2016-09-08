@@ -34,7 +34,7 @@ interface UserMailCodeRepositoryInterface extends RepositoryInterface
      * @param int $userId
      * @return string
      */
-    public function generate(int $userId) : string;
+    public function generate(int $userId,string $type) : string;
 
     /**
      * @param int $userId

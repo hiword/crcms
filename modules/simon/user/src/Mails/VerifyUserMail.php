@@ -10,25 +10,21 @@ use Simon\Mail\Services\Interfaces\MailViewInterface;
 use Simon\Mail\Services\Traits\MailView;
 use Simon\User\Models\User;
 
-class RegisterMail extends Mailable implements MailViewInterface
+class VerifyUserMail extends Mailable implements MailViewInterface
 {
     use Queueable, SerializesModels,MailView;
+
+    public $user = null;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-
-    public $user = null;
-
-    public $hash = '';
-
-    public function __construct(User $User,string $hash)
+    public function __construct(User $user)
     {
         //
-        $this->user = $User;
-        $this->hash = $hash;
+        $this->user = $user;
     }
 
     /**
@@ -38,7 +34,6 @@ class RegisterMail extends Mailable implements MailViewInterface
      */
     public function build()
     {
-        return $this->view('user::emails.register');
+        return $this->view('user::emails.verify');
     }
-
 }
