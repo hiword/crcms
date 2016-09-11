@@ -10,6 +10,7 @@ namespace Simon\User\Repositorys\Interfaces;
 
 
 use Simon\Kernel\Repositorys\RepositoryInterface;
+use Simon\User\Models\User;
 use Simon\User\Models\UserMailCode;
 
 interface UserMailCodeRepositoryInterface extends RepositoryInterface
@@ -37,16 +38,22 @@ interface UserMailCodeRepositoryInterface extends RepositoryInterface
     public function generate(int $userId,string $type) : string;
 
     /**
-     * @param int $userId
+     * @param User $user
      * @param string $hash
      * @return bool
      */
-    public function verify(int $userId,string $hash) : bool ;
+//    public function verify(User $user,string $hash) : bool ;
+
+    /**
+     * @param string $hash
+     * @return UserMailCode
+     */
+    public function findByHash(string $hash) : UserMailCode;
 
     /**
      * @param int $status
      * @return bool
      */
-    public function updateStatus(int $status) : bool;
+//    public function updateStatus(int $status) : bool;
 
 }

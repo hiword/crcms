@@ -23,6 +23,7 @@ use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
+use Simon\User\Services\Interfaces\UserMailVerifyInterface;
 
 
 class AuthController extends Controller
@@ -114,25 +115,17 @@ class AuthController extends Controller
     }
 
 
-    public function getVerifyMailCode(UserMailCodeRepositoryInterface $MailCode,$userId,$hash)
+    public function getVerifyMailCode(UserMailVerifyInterface $userMailVerify,UserMailCodeRepositoryInterface $MailCode,$userId,$hash)
     {
-        try {
-            if ($MailCode->verify($userId,$hash))
-            {
-                //修改mail验证状态
-                $MailCode->updateStatus($MailCode->statusVerifySuccess());
 
-                //修改用户验证状态
-                $this->repository->updateMailStatus($userId,$this->repository->mailStatusVerify());
-            }
-        } catch (AppException $e) {
-            //修改mail验证状态
-            $MailCode->updateStatus($MailCode->statusVerifyFail());
+        $mailCode = $MailCode->findByHash($hash);
+        $user = $this->repository->findById($userId);
 
-            //throw
-            abort($e::HTTP_CODE,$e->getMessage());
-        }
+        $userMailVerify->verify($user, $mailCode);
 
-        return $this->redirectRoute('login');
+//        return $this->response(['kernel::app.success']);
+
+
+        return $this->redirectRoute('user');
     }
 }

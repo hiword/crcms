@@ -22,10 +22,12 @@ use Simon\User\Services\Interfaces\MailCodeInterface;
 use Simon\User\Services\Interfaces\RegisterInterface;
 use Simon\User\Services\Interfaces\UserAuthInterface;
 use Simon\User\Services\Interfaces\UserMailCodeInterface;
+use Simon\User\Services\Interfaces\UserMailVerifyInterface;
 use Simon\User\Services\MailCodeService;
 use Simon\User\Services\RegisterService;
 use Simon\User\Services\UserAuthService;
 use Simon\User\Services\UserMailCodeService;
+use Simon\User\Services\UserMailVerify;
 
 
 class UserServiceProvider extends PackageServiceProvider
@@ -66,6 +68,8 @@ class UserServiceProvider extends PackageServiceProvider
         $this->app->bind(AuthLogInterface::class,AuthLogService::class);
 
         $this->app->bind(UserInfoRepositoryInterface::class,UserInfoRepository::class);
+
+        $this->app->bind(UserMailVerifyInterface::class,UserMailVerify::class);
 
         //UserAuth
         $this->app->singleton([

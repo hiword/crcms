@@ -51,6 +51,7 @@ abstract class KernelRequest extends FormRequest
 
     public function isOpenVerifyCode() : bool
     {
+        return false;
         // TODO: Implement isOpenVerifyCode() method.
         $visited = Visited::get();
 

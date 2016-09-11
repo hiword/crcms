@@ -59,17 +59,21 @@ class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeR
         return static::STATUS_NOT_VERIFY;
     }
 
-
-    public function updateStatus(int $status) : bool
+    public function findByHash(string $hash) : UserMailCode
     {
-        // TODO: Implement updateStatus() method.
-
-        //未验证的情况下
-        $this->mailVerify->status = $status;
-        $this->mailVerify->save();
-
-        return true;
+        return $this->model->where('hash',$hash)->orderBy('id','desc')->firstOrFail();
     }
+
+//    protected function updateStatus(int $status) : bool
+//    {
+//        // TODO: Implement updateStatus() method.
+//
+//        //未验证的情况下
+//        $this->mailVerify->status = $status;
+//        $this->mailVerify->save();
+//
+//        return true;
+//    }
 
     /**
      * @param User $user
@@ -97,33 +101,76 @@ class UserMailCodeRepository extends AbstraceRepository implements UserMailCodeR
      * @return bool
      * @throws ValidateException
      */
-    public function verify(int $userId,string $hash) : bool
-    {
-        // TODO: Implement verify() method.
-        $this->mailVerify = $this->model->where('hash',$hash)->orderBy($this->model->getKeyName(),'desc')->firstOrFail();
+//    public function verify(User $user,string $hash) : bool
+//    {
 
-        //判断是否是未验证状态
-        if ($this->mailVerify->status !== static::STATUS_NOT_VERIFY)
-        {
-            //error，已验证过了
-            return false;
-//            throw new ValidateException(trans('user::user.mail_verify_verified'));
-        }
-
-        //验证user_id是否一致
-        if ($this->mailVerify->user_id !== $userId)
-        {
-            //error Exception
-            throw new AppException(trans('user::user.mail_verify_fail'));
-        }
-
-        //验证时间，
-        if (time() - $this->mailVerify->created_at->getTimestamp() > 24*3600)
-        {
-            throw new AppException(trans('user::user.mail_verify_timeout'));
-        }
-
-        return true;
-    }
+//        $this->mailVerify = $this->model->where('hash',$hash)->orderBy($this->model->getKeyName(),'desc')->firstOrFail();
+//        //判断是否是未验证状态
+//        if ($this->mailVerify->status !== static::STATUS_NOT_VERIFY)
+//        {
+//            return true;
+////            throw new ValidateException(trans('user::user.mail_verify_verified'));
+//        }
+//
+//        //验证user_id是否一致
+//        if ($this->mailVerify->user_id !== $user->id)
+//        {
+//            //error Exception
+//
+//            $this->updateStatus($this->statusVerifyFail());
+//
+//            throw new AppException(trans('user::user.mail_verify_fail'));
+//        }
+//
+//        //验证时间，
+//        if (time() - $this->mailVerify->created_at->getTimestamp() > 24*3600)
+//        {
+//            $this->updateStatus($this->statusVerifyFail());
+//
+//            throw new AppException(trans('user::user.mail_verify_timeout'));
+//        }
+//
+//
+//        //验证mailCode
+//        $user->mail_status =
+//
+//        try {
+//            if ($MailCode->verify($userId,$hash))
+//            {
+//                //修改mail验证状态
+//                $MailCode->updateStatus($MailCode->statusVerifySuccess());
+//
+//                //修改用户验证状态
+//                $this->repository->updateMailStatus($userId,$this->repository->mailStatusVerify());
+//            }
+//        } catch (AppException $e) {
+//            //修改mail验证状态
+//            $MailCode->updateStatus($MailCode->statusVerifyFail());
+//
+//            //throw
+//            abort($e::HTTP_CODE,$e->getMessage());
+//        }
+//
+//
+//        // TODO: Implement verify() method.
+//        $this->
+//
+//
+//
+//        //验证user_id是否一致
+//        if ($this->mailVerify->user_id !== $userId)
+//        {
+//            //error Exception
+//            throw new AppException(trans('user::user.mail_verify_fail'));
+//        }
+//
+//        //验证时间，
+//        if (time() - $this->mailVerify->created_at->getTimestamp() > 24*3600)
+//        {
+//            throw new AppException(trans('user::user.mail_verify_timeout'));
+//        }
+//
+//        return true;
+//    }
 
 }
