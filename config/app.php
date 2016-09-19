@@ -200,6 +200,7 @@ return [
         //acl
         Simon\Acl\Providers\AclServiceProvider::class,
 
+        Simon\Discuss\Providers\DiscussServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
 

@@ -128,4 +128,5 @@ class AuthController extends Controller
 
         return $this->redirectRoute('user');
     }
+
 }

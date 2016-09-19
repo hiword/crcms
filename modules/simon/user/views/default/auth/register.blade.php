@@ -30,17 +30,7 @@
                         <input type="password" class="form-control input-lg" name="password" value="{{old('password')}}">
                     </div>
 
-                    <div class="form-group">
-                        <label>Verify Code</label>
-                        <div class="row">
-                            <div class="col-md-7">
-                                <input type="text" name="verify_code" class="form-control input-lg"  placeholder="" />
-                            </div>
-                            <div class="col-md-5 text-right">
-                                <span id="verify-code"><img src="{{captcha_src()}}" onclick="this.src = this.src+'?'+Math.random()"></span>
-                            </div>
-                        </div>
-                    </div>
+                    @include('kernel::layout.verify-code',['openVerify'=>$openVerify])
 
                     <div class="form-group mt30">
                         <button type="submit" class="btn-lg btn btn-success btn-block">Register</button>

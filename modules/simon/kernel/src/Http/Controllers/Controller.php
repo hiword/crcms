@@ -83,9 +83,9 @@ class Controller extends BaseController
         return $redirect ? redirect($redirect) : redirect()->back();
     }
 
-    protected function redirectRoute($route = null)
+    protected function redirectRoute($route = null,array $params = [])
     {
-        $redirect = $this->input['_redirect'] ?? route($route) ?? null;
+        $redirect = $this->input['_redirect'] ?? route($route,$params) ?? null;
         return $redirect ? redirect($redirect) : redirect()->back();
     }
 }

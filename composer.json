@@ -33,6 +33,7 @@
             "Simon\\User\\": "modules/simon/user/src/",
             "Simon\\Kernel\\": "modules/simon/kernel/src/",
             "Simon\\Acl\\": "modules/simon/acl/src/",
+            "Simon\\Discuss\\": "modules/simon/discuss/src/",
             "Simon\\Mail\\": "modules/simon/mail/src/"
         }
     },

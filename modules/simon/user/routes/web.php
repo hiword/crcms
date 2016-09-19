@@ -15,6 +15,8 @@ $router->post('/register','AuthController@postRegister')->name('register');
 $router->get('/login','AuthController@getLogin')->name('login');
 $router->post('/login','AuthController@postLogin')->name('login');
 
+$router->get('/logout','AuthController@getLogout')->name('logout');
+
 $router->post('/forget-password','AuthController@postForgetPassword')->name('forget_password');
 
 $router->get('/verify-mail/{userId}/{hash}','AuthController@getVerifyMailCode')
@@ -31,11 +33,11 @@ Route::group(['prefix'=>'user','middleware'=>[Simon\User\Http\Middleware\Authent
     $router->get('/basic-information','UserController@getBasicInformation')->name('basic_information');
     $router->post('/basic-information','UserController@postBasicInformation')->name('basic_information');
 
-    $router->get('/update-password','UserController@getUpdatePassword')->name('update-password');
-    $router->post('/update-password','UserController@postUpdatePassword')->name('update-password');
+    $router->get('/update-password','UserController@getUpdatePassword')->name('update_password');
+    $router->post('/update-password','UserController@postUpdatePassword')->name('update_password');
 
-    $router->get('/verify-email','UserController@getVerifyEmail')->name('verify-email');
-    $router->post('/verify-send-email','UserController@postSendMail')->name('verify-send-email');
+    $router->get('/verify-email','UserController@getVerifyEmail')->name('verify_email');
+    $router->post('/verify-send-email','UserController@postSendMail')->name('verify_send_email');
     $router->get('/verify-check-email/{userId}/{hash}','UserController@getCheckVerifyEmail')
         ->where('userId','[1-9][\d]*')
         ->name('verify-check-email');
