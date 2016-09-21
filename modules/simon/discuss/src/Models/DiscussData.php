@@ -14,6 +14,22 @@ use Simon\Kernel\Models\Model;
 class DiscussData extends Model
 {
 
+    protected $table = 'discuss_datas';
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    protected $primaryKey = 'did';
 
 }

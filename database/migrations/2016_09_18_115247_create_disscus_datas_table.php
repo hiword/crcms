@@ -13,9 +13,10 @@ class CreateDisscusDatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('discuss_data', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::create('discuss_datas', function (Blueprint $table) {
+            $table->unsignedInteger('did');
+            $table->text('content');
+            $table->primary('did');
         });
     }
 

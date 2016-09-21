@@ -61,6 +61,18 @@ html,body {
     padding-bottom:20px;
 }
 
+.discuss {
+    border-radius: 0px;
+}
+.discuss-content .title
+{
+    font-size: 16px;
+}
+.discuss-content .intro
+{
+    color: #999999;
+}
+
 .footer {
     color:#999999;
 }

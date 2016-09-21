@@ -26,19 +26,14 @@ class Discuss extends TestCase
      */
     public function testStore()
     {
-        $this->post('/discuss',[
+        $response = $this->call('POST','/discuss',[
+            '_token'=>csrf_token(),
             'title'=>str_random(10),
             'content'=>str_random(30),
         ]);
+
+        dd($response->status(),$response->getContent());
     }
 
-    /**
-     * @depends testLogin
-     * @param \Simon\User\Models\User $user
-     */
-    public function testAuthLog(\Simon\User\Models\User $user)
-    {
-        auth_logger(2,$user);
-    }
 
 }
