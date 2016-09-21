@@ -11,6 +11,7 @@ namespace Simon\Kernel\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Simon\Filter\Facades\Input;
 
 class Controller extends BaseController
 {
@@ -43,7 +44,7 @@ class Controller extends BaseController
     {
         $this->request = app('request');
 
-        $this->input = $this->request->all();
+        $this->input = Input::get();//$this->request->all();
 
         DB::enableQueryLog();
     }

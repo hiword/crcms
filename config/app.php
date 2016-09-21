@@ -181,6 +181,7 @@ return [
 
 //        Germey\Geetest\GeetestServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
+        Simon\Filter\FilterServiceProvider::class,
 
 
 
@@ -255,6 +256,7 @@ return [
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
 //        'Geetest' => Germey\Geetest\Geetest::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Input'=>Simon\Filter\Facades\Input::class,
 
         //自定义
         'User'=>Simon\User\Facades\User::class,
