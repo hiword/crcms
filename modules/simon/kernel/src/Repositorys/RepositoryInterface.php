@@ -27,7 +27,7 @@ interface RepositoryInterface
      * @param array $data
      * @return RepositoryInterface
      */
-    public function allPaginateBySearch(array $data) : RepositoryInterface;
+//    public function allPaginateBySearch(array $data) : RepositoryInterface;
 
     /**
      * @param array $data
