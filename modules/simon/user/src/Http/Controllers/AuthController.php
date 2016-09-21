@@ -8,6 +8,8 @@
 namespace Simon\User\Http\Controllers;
 use Germey\Geetest\CaptchaGeetest;
 use Illuminate\Support\Facades\Mail;
+use Simon\Filter\Drives\XssFilter;
+use Simon\Filter\Facades\Input;
 use Simon\Kernel\Exceptions\AppException;
 use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Facades\Visited;
@@ -49,6 +51,17 @@ class AuthController extends Controller
 
     public function getLogin(LoginRequest $LoginRequest)
     {
+//        Input::bind(new XssFilter());
+
+//        dd(Input::instance($this->input)->filter(new XssFilter())->all());
+//
+//        dd(Input::except('abc')) ;
+//
+//
+//
+//
+//        exit();
+
         $openVerify = $LoginRequest->isOpenVerifyCode();
 
         return $this->view('login',compact('openVerify'));
