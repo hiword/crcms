@@ -45,8 +45,6 @@ class DiscussController extends Controller
     {
         $model = $this->repository->findById($id);
 
-        if (empty($model)) abort(404);
-
         return $this->view('show',compact('model'));
     }
 
