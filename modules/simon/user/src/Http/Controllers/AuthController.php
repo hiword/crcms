@@ -15,6 +15,7 @@ use Simon\Kernel\Exceptions\ValidateException;
 use Simon\Kernel\Facades\Visited;
 use Simon\Kernel\Http\Controllers\Controller;
 use Simon\Mail\Repositorys\MailRepository;
+use Simon\Safe\Container;
 use Simon\User\Facades\User;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
@@ -63,6 +64,8 @@ class AuthController extends Controller
 //        exit();
 
         $openVerify = $LoginRequest->isOpenVerifyCode();
+        $result = (new Container())->notify();
+        dd($result);
 
         return $this->view('login',compact('openVerify'));
     }

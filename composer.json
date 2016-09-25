@@ -13,7 +13,8 @@
         "jenssegers/agent" : "^2.3",
         "intervention/image" : "^2.3",
         "intervention/imagecache" : "^2.3",
-        "mews/purifier": "^2.0"
+        "mews/purifier": "^2.0",
+        "simon/safe": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

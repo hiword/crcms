@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "43ed545a90cc28d0679e96b906f17832",
-    "content-hash": "d7416614552ff241aae9019b7f0cfda6",
+    "hash": "84e9f33eae1da35748f3aaccdce7d2aa",
+    "content-hash": "34d15fe7390e73ed679494ef514c3bce",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1649,6 +1649,42 @@
                 "uuid"
             ],
             "time": "2016-08-02 18:39:32"
+        },
+        {
+            "name": "simon/safe",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hiword/safe.git",
+                "reference": "3cb51694994e419786d2d51acb9cfc60a8b000ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hiword/safe/zipball/3cb51694994e419786d2d51acb9cfc60a8b000ae",
+                "reference": "3cb51694994e419786d2d51acb9cfc60a8b000ae",
+                "shasum": ""
+            },
+            "require": {
+                "mews/captcha": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simon\\Safe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "simon",
+                    "email": "28737164@qq.com"
+                }
+            ],
+            "description": "laravel crcms safe",
+            "time": "2016-09-23 23:01:15"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3896,12 +3932,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hiword/filter.git",
-                "reference": "0e8239f8a85e28b040ab2965f47d4afbe6de9bbc"
+                "reference": "a8505bca30a4eee8792f65d6f612df69f8574ce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hiword/filter/zipball/0e8239f8a85e28b040ab2965f47d4afbe6de9bbc",
-                "reference": "0e8239f8a85e28b040ab2965f47d4afbe6de9bbc",
+                "url": "https://api.github.com/repos/hiword/filter/zipball/a8505bca30a4eee8792f65d6f612df69f8574ce6",
+                "reference": "a8505bca30a4eee8792f65d6f612df69f8574ce6",
                 "shasum": ""
             },
             "require": {
@@ -3929,7 +3965,7 @@
                 "laravel",
                 "php"
             ],
-            "time": "2016-09-21 10:51:22"
+            "time": "2016-09-22 01:54:55"
         },
         {
             "name": "symfony/css-selector",
@@ -4143,6 +4179,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "simon/safe": 20,
         "simon/filter": 20
     },
     "prefer-stable": false,
