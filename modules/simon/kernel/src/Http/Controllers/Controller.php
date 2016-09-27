@@ -44,7 +44,8 @@ class Controller extends BaseController
     {
         $this->request = app('request');
 
-        $this->input = Input::get();//$this->request->all();
+//        $this->input = Input::get();//$this->request->all();
+        $this->input = $this->request->all();;//$this->request->all();
 
         DB::enableQueryLog();
     }

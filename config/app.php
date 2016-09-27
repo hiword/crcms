@@ -182,6 +182,7 @@ return [
 //        Germey\Geetest\GeetestServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Simon\Filter\FilterServiceProvider::class,
+        Simon\Safe\SafeServiceProvider::class,
 
 
 

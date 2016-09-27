@@ -14,6 +14,7 @@ use Simon\Kernel\Repositorys\AbstraceRepository;
 use Illuminate\Support\Facades\DB;
 use Simon\Kernel\Repositorys\RepositoryInterface;
 use Simon\Safe\Container;
+use Simon\Safe\Listeners\VerifyCode;
 use Simon\User\Exceptions\PasswordErrorException;
 use Simon\User\Exceptions\UserNotExistsException;
 use Simon\User\Models\User;
@@ -199,13 +200,12 @@ class UserRepository extends AbstraceRepository implements UserRepositoryInterfa
 
         if (empty($user))
         {
-            (new Container())->attach(new \Simon\Safe\Listeners\VerifyCode());
-
+            safe()->attach(new VerifyCode());
             throw new UserNotExistsException(trans('user::user.user_not_exists'));
         }
 
         if (!$this->comparePassword($data['password'],$user))
-        {
+        {safe()->attach(new VerifyCode());
             throw new PasswordErrorException(trans('user::user.password_error'));
         }
 
